@@ -1,356 +1,738 @@
 "Close" = "Close";
-"app_name" = "Prank Chat";
-"Home_Tab" = "Home";
-"Rate_Tab" = "Rate";
-"Orders_Tab" = "Orders";
-"Profile_Tab" = "Profile";
-"Popular_Publication_Tab" = "Popular";
-"Actual_Publication_Tab" = "Actual";
-"MyFeed_Publication_Tab" = "My feed";
-"Publication_Tab_Filter_Day" = "Per day";
-"Publication_Tab_Filter_Week" = "Per week";
-"Publication_Tab_Filter_Month" = "Per month";
-"Publication_Tab_Filter_Quarter" = "Per quarter";
-"Publication_Tab_Filter_HalfYear" = "Per half year";
+
+/*Fuzzy*/
+"Home" = "Home";
+
+/*Fuzzy*/
+"Orders" = "Orders";
+
+/*Fuzzy*/
+"Profile" = "Profile";
+
+/*Fuzzy*/
+"PerDay" = "Per day";
+
+/*Fuzzy*/
+"PerWeek" = "Per week";
+
+/*Fuzzy*/
+"PerMonth" = "Per month";
+
+/*Fuzzy*/
+"PerQuarter" = "Per quarter";
+
+/*Fuzzy*/
+"PerHalfYear" = "Per half year";
 "Cancel" = "Cancel";
-"Search_View_Search_Placeholder" = "Search";
 "Share" = "Share";
-"Error_Unexpected_Server" = "The unexpected error occurred on the server. We have received information about it and working actively to resolve it.";
-"Error_Unexpected_Not_Found" = "Requested entity not found.";
-"Error_Unexpected_Network" = "Unexpected error occurred on request. Please, try again.";
-"LoginView_Email_Placeholder" = "Enter e-mail";
-"LoginView_Password_Placeholder" = "Enter password";
-"LoginView_ForgotPassword_Title" = "Forgot password?";
-"LoginView_ForgotPassword_Button" = "Restore";
-"LoginView_Continue_Button" = "Continue";
-"LoginView_CreateAccount_Button" = "Don't have an account? Create a new one.";
-"LoginView_Login_Title" = "Log in";
-"LoginView_AltLogin_Title" = "Enter social networks:";
-"RegistrationView_Title" = "Registration";
-"RegistrationView_Email_Placeholder" = "Enter e-mail";
-"RegistrationView_RegisteredYet_Label" = "Already registered?";
-"RegistrationView_Login_Button" = "Log in";
-"RegistrationView_Login_Placeholder" = "Enter nickname";
-"RegistrationView_Name_Placeholder" = "Enter your name";
-"RegistrationView_Birthday_Placeholder" = "Enter birthday";
-"RegistrationView_Password_Placeholder" = "Enter password";
-"RegistrationView_PasswordRepeat_Placeholder" = "Enter password again";
-"RegistrationView_GenderSelect_Title" = "Select sex:";
-"RegistrationView_Male_Button" = "Male";
-"RegistrationView_Female_Button" = "Female";
-"RegistrationView_Register_Button" = "Register";
-"RegistrationView_StepTwo_Title" = "Step 2";
-"RegistrationView_StepThree_Title" = "Step 3";
-"RegistrationView_Congrats_Title" = "Congratulations!";
-"RegistrationView_Confirmation_Label" = "Verification text.";
-"RegistrationView_GoToFeed_Button" = "Go to feed";
-"Password_Recovery_View_Title" = "Password recovery";
-"Password_Recovery_View_Email_Placeholder" = "Enter e-mail";
-"Password_Recovery_View_Recovery_Button" = "Restore";
-"Password_Recovery_View_Attention" = "Attention!";
-"Password_Recovery_View_Finish_Text" = "An email was sent to the mail with a link to reset the password.";
-"ProfileView_Menu_Favourites" = "Featured Videos";
-"ProfileView_Menu_TaskSubscriptions" = "Custom Subscriptions";
-"ProfileView_Menu_Faq" = "FAQ";
-"ProfileView_Menu_Support" = "References / reviews";
-"ProfileView_Menu_Settings" = "Settings";
-"ProfileView_Menu_LogOut" = "Sign out";
-"ProfileView_Refill" = "Replenish";
-"ProfileView_Withdrawal" = "Withdraw";
-"ProfileView_Orders_Subtitle" = "orders";
-"ProfileView_Completed_Subtitle" = "performed";
-"ProfileView_Subscribers_Subtitle" = "subscribers";
-"ProfileView_Subscriptions_Subtitle" = "subscriptions";
-"ProfileView_MyOrders_Tab" = "I ordered";
-"ProfileView_CompletedOrders_Tab" = "I execute";
-"Order_View_Time_Text" = "Order Time:";
-"Order_View_Price_Text" = "Order price:";
-"Order_View_Day" = "Day";
-"Order_View_Hour" = "Hours";
-"Order_View_Minute" = "Minutes";
-"Order_View_Details" = "More details";
-"Order_View_New_Task" = "New order";
-"Order_View_My_Task" = "My orders";
-"OrdersView_Filter_AllTasks" = "All orders";
-"OrdersView_Filter_NewTasks" = "New orders";
-"OrdersView_Filter_CurrentTasks" = "Order Executed";
-"OrdersView_Filter_MyTasks" = "My orders";
-"RateView_Filter_AllTasks" = "All orders in dispute";
-"RateView_Filter_MyTasks" = "My orders in dispute";
-"RateView_Filter_NewTasks" = "New Dispute Orders";
-"RateView_Title_Label" = "Rating";
-"OrdersView_Title_Label" = "Orders";
-"RateView_Vote_Button" = "Estimate";
-"CreateOrderView_Title" = "Create Order";
-"CreateOrderView_Name_Placeholder" = "Order Name";
-"CreateOrderView_Description_Placeholder" = "Order Description";
-"CreateOrderView_Price_Placeholder" = "10 000 ₽";
-"CreateOrderView_CompleteDate_Placeholder" = "Date of execution";
-"CreateOrderView_HideExecutor_Button" = "Hide artist";
-"CreateOrderView_Create_Button" = "Create order";
-"NotificationView_Title" = "Notifications";
-"OrderDetailsView_Price_Text" = "Order price:";
-"OrderDetailsView_Time_Text" = "Order Time:";
-"OrderDetailsView_Take_Order_Button" = "Take an order";
-"OrderDetailsView_Subscribe_Button" = "Subscribe";
-"OrderDetailsView_Unsubscribe_Button" = "Unsubscribe";
-"OrderDetailsView_Download_Text" = "Upload video:";
-"OrderDetailsView_Execute_Button" = "Run";
-"OrderDetailsView_Cancel_Button" = "Cancel";
-"OrderDetailsView_Took_The_Order_Text" = "Executor:";
-"OrderDetailsView_Yes_Button" = "Yes";
-"OrderDetailsView_No_Button" = "No";
-"OrderDetailsView_Accept_Button" = "To accept";
-"OrderDetailsView_Argue_Button" = "In dispute";
-"OrderDetailsView_Corresponds_To_Video_Text" = "Does the video order match?";
-"CreateOrderView_PriceTitle_Placeholder" = "Price";
-"OrderDetailsView_Title" = "Order";
-"CashboxView_Title" = "Cashbox";
-"CashboxView_Fillup_Tab" = "Replenishment";
-"CashboxView_Withdrawal_Tab" = "Withdrawal";
-"CashboxView_Fillup_Button" = "Replenish";
-"CashboxView_FillupMethodSelect_Title" = "Choose a method to replenish:";
-"CashboxView_WithdrawalAvailable_Title" = "Available for removal including payment service commission:";
-"CashboxView_Withdrawal_Button" = "Take off";
-"CashboxView_WithdrawalMethodSelect_Title" = "Select a method to remove:";
-"CashboxView_Price_Placeholder" = "1 000 000 ₽";
-"CommentView_Title" = "Comments";
-"Publication_Item_Complain" = "Complain ...";
-"Publication_Item_Copy_Link" = "Copy link";
-"Publication_Item_Subscribe_To_Author" = "Subscribe to the author";
-"ShareDialog_Title" = "Share this";
-"ShareDialog_CopyLink_Label" = "Cop. the link";
-"ShareDialog_ShareInstagram_Label" = "On Instagram";
-"ShareDialog_LinkShareTitle" = "Share link";
-"OrderStatus_New" = "Moderation";
-"OrderStatus_Rejected" = "Canceled by moderator";
-"OrderStatus_Cancelled" = "Canceled";
-"OrderStatus_Active" = "New";
-"OrderStatus_InWork" = "In work";
-"OrderStatus_InArbitration" = "In dispute";
-"OrderStatus_ProcessCloseArbitration" = "Closing a dispute";
-"OrderStatus_ClosedAfterArbitrationCustomerWin" = "Dispute won";
-"OrderStatus_ClosedAfterArbitrationExecutorWin" = "Dispute lost";
-"OrderStatus_Finished" = "Accomplished";
+
+/*Fuzzy*/
+"ErrorUnexpectedServer" = "The unexpected error occurred on the server. We have received information about it and working actively to resolve it.";
+
+/*Fuzzy*/
+"ErrorUnexpectedNetwork" = "Unexpected error occurred on request. Please, try again.";
+
+/*Fuzzy*/
+"Continue" = "Continue";
+
+/*Fuzzy*/
+"StepTwo" = "Step 2";
+
+/*Fuzzy*/
+"StepThree" = "Step 3";
+
+/*Fuzzy*/
+"GoToFeed" = "Go to the feed";
+
+/*Fuzzy*/
+"PasswordRecovery" = "Password recovery";
+
+/*Fuzzy*/
+"SignOut" = "Sign out";
+
+/*Fuzzy*/
+"Replenish" = "Replenish";
+
+/*Fuzzy*/
+"OrderTime" = "Order Time:";
+
+/*Fuzzy*/
+"OrderPrice" = "Order price:";
+
+/*Fuzzy*/
+"Day" = "Day";
+
+/*Fuzzy*/
+"Hour" = "Hours";
+
+/*Fuzzy*/
+"Minute" = "Minutes";
+
+/*Fuzzy*/
+"MoreDetails" = "More details";
+
+/*Fuzzy*/
+"MyOrders" = "My orders";
+
+/*Fuzzy*/
+"AllOrders" = "All orders";
+
+/*Fuzzy*/
+"NewOrders" = "New orders";
+
+/*Fuzzy*/
+"OrderExecuted" = "Order Executed";
+
+/*Fuzzy*/
+"AllOrdersInDispute" = "All orders in dispute";
+
+/*Fuzzy*/
+"MyOrdersInDispute" = "My orders in dispute";
+
+/*Fuzzy*/
+"NewDisputeOrders" = "New Dispute Orders";
+
+/*Fuzzy*/
+"CreateOrder" = "Create Order";
+
+/*Fuzzy*/
+"Notifications" = "Notifications";
+
+/*Fuzzy*/
+"TakeAnOrder" = "Take an order";
+
+/*Fuzzy*/
+"Subscribe" = "Subscribe";
+
+/*Fuzzy*/
+"Unsubscribe" = "Unsubscribe";
+
+/*Fuzzy*/
+"UploadVideo" = "Upload video:";
+
+/*Fuzzy*/
+"Run" = "Run";
+
+/*Fuzzy*/
+"Executor" = "Executor:";
+
+/*Fuzzy*/
+"Yes" = "Yes";
+
+/*Fuzzy*/
+"No" = "No";
+
+/*Fuzzy*/
+"ToAccept" = "To accept";
+
+/*Fuzzy*/
+"InDispute" = "In dispute";
+
+/*Fuzzy*/
+"Price" = "Price";
+
+/*Fuzzy*/
+"Order" = "Order";
+
+/*Fuzzy*/
+"Cashbox" = "Cashbox";
+
+/*Fuzzy*/
+"Replenishment" = "Replenishment";
+
+/*Fuzzy*/
+"Withdrawal" = "Withdrawal";
+
+/*Fuzzy*/
+"AvailableForRemoval" = "Available for removal including payment service commission:";
+
+/*Fuzzy*/
+"Comments" = "Comments";
+
+/*Fuzzy*/
+"Complain" = "Complain ...";
+
+/*Fuzzy*/
+"CopyLink" = "Copy link";
+
+/*Fuzzy*/
+"SubscribeToAuthor" = "Subscribe to the author";
+
+/*Fuzzy*/
+"ShareLink" = "Share link";
+
+/*Fuzzy*/
+"Moderation" = "Moderation";
+
+/*Fuzzy*/
+"CanceledByModerator" = "Canceled by moderator";
+
+/*Fuzzy*/
+"Canceled" = "Canceled";
+
+/*Fuzzy*/
+"New" = "New";
+
+/*Fuzzy*/
+"InWork" = "In work";
+
+/*Fuzzy*/
+"ClosingDispute" = "Closing a dispute";
+
+/*Fuzzy*/
+"DisputeWon" = "Dispute won";
+
+/*Fuzzy*/
+"DisputeLost" = "Dispute lost";
+
+/*Fuzzy*/
+"Accomplished" = "Accomplished";
 "Ok" = "OK";
 "Attention" = "Attention!";
-"OrderDetailsView_TakeOrderTitle" = "Take an order";
-"OrderDetailsView_TakeOrderQuestion" = "To accept the order, you must pay a Deposit as a guarantee of its implementation \n20% of the cost for simple orders\n40% for secret orders";
 
 /*Fuzzy*/
-"Seconds_Short" = "s.";
+"TakeOrderQuestion" = "To accept the order, you must pay a Deposit as a guarantee of its implementation \n20 % of the cost for simple orders\n40 % for secret orders";
 
 /*Fuzzy*/
-"Minutes_Short" = "m.";
+"SecondsShort" = "s.";
 
 /*Fuzzy*/
-"Hours_Short" = "h.";
+"MinutesShort" = "m.";
 
 /*Fuzzy*/
-"Days_Short" = "d.";
+"HoursShort" = "h.";
 
 /*Fuzzy*/
-"Weeks_Short" = "w.";
+"DaysShort" = "d.";
 
 /*Fuzzy*/
-"Count_Thousand" = "k";
+"WeeksShort" = "w.";
 
 /*Fuzzy*/
-"Count_Millions" = "m";
+"CountThousand" = "k";
+
+/*Fuzzy*/
+"CountMillions" = "m";
 
 /*Fuzzy*/
 "Currency" = "₽";
 
 /*Fuzzy*/
-"Count_View" = "view";
+"View" = "view";
 
 /*Fuzzy*/
-"Count_Views" = "views";
+"Views" = "views";
 
 /*Fuzzy*/
-"Count_Of_Viewing" = "of viewing";
-"Year_Short" = "y.";
-"OrderStatus_MyOrder" = "My";
-"OrderDetails_View_Cancel_Title" = "Are you sure you want to cancel the order?";
-"ProfileUpdateView_Email_Placeholder" = "Email";
-"ProfileUpdateView_Login_Placeholder" = "Login";
+"OfViewing" = "of viewing";
 
 /*Fuzzy*/
-"ProfileUpdateView_Name_Placeholder" = "Name";
-"ProfileUpdateView_Birthday_Placeholder" = "Birth day";
-"ProfileUpdateView_Button_Save" = "Save";
-"ProfileUpdateView_GenderSelect_Title" = "Your gender";
+"YearShort" = "y.";
 
 /*Fuzzy*/
-"ProfileUpdateView_Title" = "Profile editing";
-"ProfileUpdateView_ChangePassword" = "Change password";
-"TakePhoto" = "Take a picture";
-"PickPhoto" = "Choose from gallery";
-"ProfileUpdateView_Description_Placeholder" = "About Me";
-"ProfileUpdateView_PhotoChange_Title" = "Change profile photo";
+"WantToCancelOrder" = "Are you sure you want to cancel the order?";
+
+/*Fuzzy*/
+"Email" = "Email";
+
+/*Fuzzy*/
+"Login" = "Login";
+
+/*Fuzzy*/
+"Name" = "Name";
+
+/*Fuzzy*/
+"Birthday" = "Birth day";
+
+/*Fuzzy*/
+"ProfileEditing" = "Profile editing";
+
+/*Fuzzy*/
+"TakePicture" = "Take a picture";
+
+/*Fuzzy*/
+"ChooseFromGallery" = "Choose from gallery";
 "Select" = "Select";
-"CreateOrderView_Choose_Time_Period" = "Select the validity period of the order.";
-"OrderStatus_WaitFinish" = "Pending";
-"OrderDetailsView_LoadVideo" = "Upload video";
-"NotificationStatus_Viewed" = "Viewed";
-"NotificationStatus_NotViewed" = "Not viewed";
-"Validation_Field_Title" = "Headline";
-"Validation_Field_Description" = "Description";
-"Validation_Field_Price" = "Price";
-"Validation_Field_OrderPeriod" = "Period";
-"Validation_Field_Cost" = "Cost";
-"Validation_Field_Login" = "Login";
-"Validation_Field_Name" = "Name";
-"Validation_Field_Birthday" = "Birthday";
-"Validation_Field_Gender" = "Floor";
-"Validation_Field_Email" = "E-mail";
-"Validation_Field_Password" = "Password";
-"Validation_Field_PasswordRepeat" = "Password replay";
-"Validation_Error_Empty" = "{0} cannot be empty.";
-"Validation_Error_GreaterThanRequired" = "{0} cannot be greater than {1}.";
-"Validation_Error_LowerThanRequired" = "{0} cannot be less than {1}.";
-"Validation_Error_NotMatch" = "{0} does not match {1}.";
-"Validation_Error_CanNotMatch" = "{0} cannot be equal to {1}.";
-"Validation_Error_Invalid" = "{0} has the wrong format.";
-"Demo" = "Demo";
-"com.crashlytics.android.build_id" = "e9e6beb9c4284289ac68b9ab76a9ee56";
-"FinishPasswordRecoveryView_GoToFeed_Button" = "Go to feed";
-"FinishPasswordRecoveryView_GoToLogin_Button" = "Login to account";
-"com_vk_sdk_AppId" = "7343996";
-"Count_Days" = "Days";
-"Count_Hours" = "Hours";
-"Count_Minutes" = "Minutes";
-"LinkCopied" = "Link copied";
-"ComplainSuccessful" = "Sent to moderator";
-"Competitions_Voting" = "Voting";
-"Competitions_New" = "New";
-"Competitions_Finished" = "Summary";
-"Competitions_Voting_Term" = "Until the end of voting:";
-"Competitions_Finished_Term" = "Competition period:";
-"Competitions_See" = "Watch";
-"Competitions_More" = "More details";
-"Competitions_Participate" = "Participate";
-"Competitions_Prize_Pool" = "Tournament prize pool:";
-"Competitions_New_Term" = "Before the start of voting:";
-"Competition_Load_Video" = "Upload video";
-"Competition_Rules" = "Competition Rules";
-"Competition_Results" = "results";
-"WithdrawalView_FirstName_Placeholder" = "Name";
-"WithdrawalView_LastName_Placeholder" = "Surname";
-"WithdrawalView_CardNumber_Placeholder" = "Card number";
-"WithdrawalView_AttachFile_Button" = "Attach file";
-"WithdrawalView_Revoke_Button" = "Withdraw";
-"Login_Without_Registration" = "Sign in without registration";
-"Competition_Prize_Pool_Rating" = "Rating";
-"Competition_Prize_Pool_Participant" = "Party book";
-"Competition_Prize_Pool" = "Prize pool";
-"Competitions_Tab" = "Contests";
-"WithdrawalView_Empty_Card_Error" = "Card cannot be empty.";
-"WithdrawalView_Cancel_Withdrawal_Error" = "Cannot cancel transaction to withdraw funds.";
-"WithdrawalView_Delete_Card_Text" = "Delete card";
-"Delete" = "Delete";
-"WithdrawalView_Delete_Card_Question" = "Are you sure you want to delete this card?";
-"WithdrawalView_Verify_User_Text" = "In order to withdraw funds from your account, you need to confirm your identity by attaching a selfie with a passport in expanded form.";
-"WithdrawalView_Attach_File" = "Attach file";
-"WithdrawalView_Pendng_Verify_User_Text" = "Your request is being processed, the waiting time can be up to 24 hours";
-"WithdrawalView_Card_Number" = "Card number";
-"WithdrawalView_Surname" = "Surname";
-"WithdrawalView_Name" = "Name";
-"WithdrawalView_Cost" = "Amount";
-"WithdrawalView_Pending_Withdrawal_Text" = "Your request for withdrawal of funds is currently being processed.";
-"WithdrawalView_Create_Date" = "date of creation";
-"WithdrawalView_Status_Text" = "Status";
-"WithdrawalView_Pending" = "Pending";
-"WithdrawalView_Withdraw_Text" = "Withdraw";
-"Competiton_Prize_Pool_Place" = "A place";
-"Orders_In_Dispute" = "In dispute";
-"OnBoarding_Go_To_Main" = "Go to feed";
-"OnBoarding_First_Title" = "watch and enjoy";
-"OnBoarding_Second_Title" = "Create your first order";
-"OnBoarding_Third_Title" = "Earn money by completing orders";
-"OnBoarding_Fourth_Title" = "Take part in free contests";
-"OnBoarding_Fifth_Title" = "Do it funny and to the music!";
-"OnBoarding_First_Description" = "The authors of PrankChat only publish exclusive, funniest and craziest videos! watch and enjoy";
-"OnBoarding_Second_Description" = "Post the task, cost and deadline by which other users will make a video for you. Get your dream movie!";
-"OnBoarding_Third_Description" = "Monetize your love of creativity! Shoot videos for other users and earn real money on it";
-"OnBoarding_Fourth_Description" = "Take part in creative contests! Make the best video and win a decent cash prize! And we won’t take a dime from you";
-"OnBoarding_Fifth_Description" = "Publish your video and become famous";
-"Complaint_Spam" = "This is spam";
-"Complaint_Naked_Content" = "Pornography and nudity";
-"Complaint_Hostile_Utterances" = "Insulting or bullying";
-"Complaint_Dangerous_Organizations" = "Violence or dangerous organizations";
-"Complaint_Rights_Violation" = "Copyright infringement";
-"Complaint_Cheating" = "Cheating or cheating";
-"Complaint_Complete_Message" = "Thank you for letting us know.";
-"Complaint_Other" = "Other";
-"Complaint_Wrong_Name" = "Uses someone else's name";
-"Complaint_Unacceptable_Content" = "Inappropriate Content";
-"Complaint_Unacceptable_Information_In_Profile" = "Inappropriate profile information";
-"Order_Add" = "Create";
-"Order_Create_Message" = "Are you sure you want to create an order?";
-"Processing_Video" = "Processing takes a few minutes";
-"Profile_Your_Email_Not_Actual" = "Your mail is not confirmed";
-"Profile_Email_Confirmation_Sent" = "A confirmation email has been sent to your mail";
-"Profile_Resend_Confirmation" = "resend";
-"OrderDetailsView_Video_Uploaded" = "The customer has 24 hours to pay";
-"Cashbox_Commision_Warning" = "Please note that operator fees will be added to the recharge amount";
-"Registration_Confirm_Adult" = "I confirm that I am 18 years old";
-"Registration_Agree_With" = "I agree with";
-"Registration_Terms_And_Rules" = "terms and conditions";
-"Validation_Field_Adult_Check" = "Age";
-"Validation_Field_Privacy_Check" = "Terms & Conditions";
-"Registration_Checkmark_Not_Confirmed" = "Confirm age and agree to the rules";
-"Not_Confirmed" = "{0} not verified";
-"Competition_Prize" = "Prize";
-"Competition_Votes" = "Vote";
-"Create_Order_Hour" = "hour";
-"Create_Orders_Hours_Plural" = "hours";
-"Create_Orders_Hours_Singular" = "hours";
-"Walkthrouth_Competitions_Description" = "Take part in contests with cash prizes! Read the terms and conditions and post your video soon. Winners will be selected by general vote and will instantly receive prize money in their account. Do not forget to call your friends to vote, they will increase your chances of winning!\n\nThe competition consists of three stages:\n1) At the initial stage, the participants send their videos to the competition;\n2) Voting. PrankChat users vote for their favorite video;\n3) Results. After summing up the accounts of participants whose videos won prizes, the money won is transferred.\n\nApple Inc. is not a sponsor of the competitions.";
-"Walkthrouth_CreateOrder_Description" = "Post your assignment, according to which other users will make a video for you. Describe the task in as much detail as possible, set the deadline and the amount of remuneration to get the perfect movie.";
-"Walkthrouth_Orders_Description" = "You can take any order from the “New” category and upload the finished video according to the assignment. To accept the order, pay 20% of its value as a guarantee that you will not abandon its execution. When the customer checks your video and approves it, wait for payment to your account. If the customer forgot to approve the order, the money will be sent to you automatically after 24 hours. 20% of the order value is the commission PrankChat.\n\nIf the customer did not like your video, he can send the task to the \"dispute\". Independent users will decide within 24 hours whether the completed video matches the order. If the number of positive votes exceeds the number of negative, then wait for your well-deserved bonus. In the opposite situation, the reward will be returned to the customer.";
-"Walkthrouth_Profile_Description" = "In the profile, the user can track the amount of money in the current account, as well as all his tasks: published, executable and completed.";
-"Walkthrouth_Competitions_Title" = "Contests";
-"Walkthrouth_CreateOrder_Title" = "Create Orders";
-"Walkthrouth_Orders_Title" = "Order feed";
-"Walkthrouth_Profile_Title" = "Profile";
-"No_Intentet_Connection" = "No internet connection";
-"Video_Failed_To_Upload" = "Failed to upload video";
-"Bytes_Presentation" = "bytes";
-"Kilobytes_Presentation" = "KB";
-"Megabytes_Presentation" = "MB";
-"Gigabytes_Presentation" = "GB";
-"Terabytes_Presentation" = "TB";
-"Subscription_Title_Template" = "Subscriptions {0}";
-"Subscribers_Title_Template" = "Subscribers {0}";
-"Search_Videos" = "Videos";
-"Search_Peoples" = "Peoples";
-"Application_New_Version_Ready" = "An important update came out, it seems time to install it.";
 
 /*Fuzzy*/
-"Download_Update" = "Download update";
-"Email_Already_Exists" = "Current email already exists";
+"SelectValidityPeriod" = "Select the validity period of the order.";
+
+/*Fuzzy*/
+"Pending" = "Pending";
+
+/*Fuzzy*/
+"Headline" = "Headline";
+
+/*Fuzzy*/
+"Description" = "Description";
+
+/*Fuzzy*/
+"Period" = "Period";
+
+/*Fuzzy*/
+"Cost" = "Cost";
+
+/*Fuzzy*/
+"Floor" = "Floor";
+
+/*Fuzzy*/
+"Password" = "Password";
+
+/*Fuzzy*/
+"PasswordRepeat" = "Password repeat";
+
+/*Fuzzy*/
+"CannotBeEmpty" = "{0} cannot be empty.";
+
+/*Fuzzy*/
+"ValidationErrorGreaterThanRequired" = "{0} cannot be greater than {1}.";
+
+/*Fuzzy*/
+"ValidationErrorLowerThanRequired" = "{0} cannot be less than {1}.";
+
+/*Fuzzy*/
+"ValidationErrorNotMatch" = "{0} does not match {1}.";
+
+/*Fuzzy*/
+"ValidationErrorCanNotMatch" = "{0} cannot be equal to {1}.";
+
+/*Fuzzy*/
+"ValidationErrorInvalid" = "{0} has the wrong format.";
+
+/*Fuzzy*/
+"Days" = "Days";
+
+/*Fuzzy*/
+"Hours" = "Hours";
+
+/*Fuzzy*/
+"Minutes" = "Minutes";
+"LinkCopied" = "Link copied";
+
+/*Fuzzy*/
+"Voting" = "Voting";
+
+/*Fuzzy*/
+"Summary" = "Summary";
+
+/*Fuzzy*/
+"UntilEndVoting" = "Until the end of voting:";
+
+/*Fuzzy*/
+"CompetitionPeriod" = "Competition period:";
+
+/*Fuzzy*/
+"Watch" = "Watch";
+
+/*Fuzzy*/
+"Participate" = "Participate";
+
+/*Fuzzy*/
+"TournamentPrizePool" = "Tournament prize pool:";
+
+/*Fuzzy*/
+"BeforeStartVoting" = "Before the start of voting:";
+
+/*Fuzzy*/
+"CompetitionRules" = "Competition Rules";
+
+/*Fuzzy*/
+"Results" = "results";
+
+/*Fuzzy*/
+"Contests" = "Contests";
+
+/*Fuzzy*/
+"EmptyCardError" = "Card cannot be empty.";
+
+/*Fuzzy*/
+"CancelWithdrawalError" = "Cannot cancel transaction to withdraw funds.";
+
+/*Fuzzy*/
+"DeleteCard" = "Delete card";
+"Delete" = "Delete";
+
+/*Fuzzy*/
+"DeleteCardQuestion" = "Are you sure you want to delete this card?";
+
+/*Fuzzy*/
+"OnBoardingFirstTitle" = "watch and enjoy";
+
+/*Fuzzy*/
+"OnBoardingSecondTitle" = "Create your first order";
+
+/*Fuzzy*/
+"OnBoardingThirdTitle" = "Earn money by completing orders";
+
+/*Fuzzy*/
+"OnBoardingFourthTitle" = "Take part in free contests";
+
+/*Fuzzy*/
+"OnBoardingFifthTitle" = "Do it funny and to the music!";
+
+/*Fuzzy*/
+"OnBoardingFirstDescription" = "The authors of OnPlay only publish exclusive, funniest and craziest videos! watch and enjoy";
+
+/*Fuzzy*/
+"OnBoardingSecondDescription" = "Post the task, cost and deadline by which other users will make a video for you. Get your dream movie!";
+
+/*Fuzzy*/
+"OnBoardingThirdDescription" = "Monetize your love of creativity! Shoot videos for other users and earn real money on it";
+
+/*Fuzzy*/
+"OnBoardingFourthDescription" = "Take part in creative contests! Make the best video and win a decent cash prize! And we won’t take a dime from you";
+
+/*Fuzzy*/
+"OnBoardingFifthDescription" = "Publish your video and become famous";
+
+/*Fuzzy*/
+"ThisIsSpam" = "This is spam";
+
+/*Fuzzy*/
+"PornographyAndNudity" = "Pornography and nudity";
+
+/*Fuzzy*/
+"InsultingOrBullying" = "Insulting or bullying";
+
+/*Fuzzy*/
+"ViolenceOrDangerousOrganizations" = "Violence or dangerous organizations";
+
+/*Fuzzy*/
+"CopyrighInfringement" = "Copyright infringement";
+
+/*Fuzzy*/
+"FraudOrDeception" = "Fraud or deception";
+
+/*Fuzzy*/
+"ThankYouForLettingUsKnow" = "Thank you for letting us know.";
+
+/*Fuzzy*/
+"Other" = "Other";
+
+/*Fuzzy*/
+"UsesSomeoneElseName" = "Uses someone else's name";
+
+/*Fuzzy*/
+"InappropriateContent" = "Inappropriate Content";
+
+/*Fuzzy*/
+"InappropriateProfileInformation" = "Inappropriate profile information";
+
+/*Fuzzy*/
+"Create" = "Create";
+
+/*Fuzzy*/
+"OrderCreateMessage" = "Are you sure you want to create an order?";
+
+/*Fuzzy*/
+"ProcessingVideo" = "Processing takes a few minutes";
+
+/*Fuzzy*/
+"ProfileYourEmailNotActual" = "Your mail is not confirmed";
+
+/*Fuzzy*/
+"ProfileEmailConfirmationSent" = "A confirmation email has been sent to your mail";
+
+/*Fuzzy*/
+"TwentyFourHoursToPay" = "The customer has 24 hours to pay";
+
+/*Fuzzy*/
+"NotVerified" = "{0} not verified";
+
+/*Fuzzy*/
+"WalkthrouthCompetitionsDescription" = "Take part in contests with cash prizes! Read the terms and conditions and post your video soon. Winners will be selected by general vote and will instantly receive prize money in their account. Do not forget to call your friends to vote, they will increase your chances of winning!\n\nThe competition consists of three stages:\n1) At the initial stage, the participants send their videos to the competition;\n2) Voting. OnPlay users vote for their favorite video;\n3) Results. After summing up the accounts of participants whose videos won prizes, the money won is transferred.\n\nApple Inc. is not a sponsor of the competitions.";
+
+/*Fuzzy*/
+"WalkthrouthCreateOrderDescription" = "Post your assignment, according to which other users will make a video for you. Describe the task in as much detail as possible, set the deadline and the amount of remuneration to get the perfect movie.";
+
+/*Fuzzy*/
+"WalkthrouthOrdersDescription" = "You can take any order from the “New” category and upload the finished video according to the assignment. To accept the order, pay 20% of its value as a guarantee that you will not abandon its execution. When the customer checks your video and approves it, wait for payment to your account. If the customer forgot to approve the order, the money will be sent to you automatically after 24 hours. 20 % of the order value is the commission OnPlay.\n\nIf the customer did not like your video, he can send the task to the \"dispute\". Independent users will decide within 24 hours whether the completed video matches the order. If the number of positive votes exceeds the number of negative, then wait for your well-deserved bonus. In the opposite situation, the reward will be returned to the customer.";
+
+/*Fuzzy*/
+"WalkthrouthProfileDescription" = "In the profile, the user can track the amount of money in the current account, as well as all his tasks: published, executable and completed.";
+
+/*Fuzzy*/
+"CreateOrders" = "Create Orders";
+
+/*Fuzzy*/
+"OrderFeed" = "Order feed";
+
+/*Fuzzy*/
+"NoIntentetConnection" = "No internet connection";
+
+/*Fuzzy*/
+"VideoFailedToUpload" = "Failed to upload video";
+
+/*Fuzzy*/
+"Bytes" = "bytes";
+
+/*Fuzzy*/
+"Kb" = "KB";
+
+/*Fuzzy*/
+"Mb" = "MB";
+
+/*Fuzzy*/
+"Gb" = "GB";
+
+/*Fuzzy*/
+"Tb" = "TB";
+
+/*Fuzzy*/
+"SubscriptionTemplate" = "Subscriptions {0}";
+
+/*Fuzzy*/
+"SubscribersTemplate" = "Subscribers {0}";
+
+/*Fuzzy*/
+"EmailAlreadyExists" = "Current email already exists";
+
+/*Fuzzy*/
+"SecretOrder" = "Secret order";
+
+/*Fuzzy*/
+"WalkthrouthCreateOrderSecretDescription" = "Secret orders allow you to hide the task text from other users until they take it to work!\n\nTaking such a task the user will have to complete it or lose the Deposit!";
+
+/*Fuzzy*/
+"Download" = "Download";
+
+/*Fuzzy*/
+"PayForParticipation" = "Pay for participation";
+
+/*Fuzzy*/
+"CompetionRulesTemplate" = "To take part in the competition, you need to pay {0} ₽";
+"Pay" = "Pay";
+
+/*Fuzzy*/
+"ErrorSomethingWentWrongMessage" = "Oops, something went wrong :(";
+
+/*Fuzzy*/
+"WithdrawalYoomoneyDescription" = "Funds are withdrawn through the Yoomoney wallet.";
+
+/*Fuzzy*/
+"Yoomoney" = "Yoomoney";
+
+/*Fuzzy*/
+"BlockUser" = "Block user";
+
+/*Fuzzy*/
+"BlockedUser" = "User {0} is blocked";
+
+/*Fuzzy*/
+"appName" = "OnPlay";
+"Rate" = "Rate";
+"Popular" = "Popular";
+"Actual" = "Actual";
+"MyFeed" = "My Feed";
+
+/*Fuzzy*/
+"Search" = "Search";
+"EnterEmail" = "Enter e-mail";
+
+/*Fuzzy*/
+"EnterPassword" = "Enter password";
+"ForgotPassword" = "Forgot password?";
+
+/*Fuzzy*/
+"Restore" = "Restore";
+"CreateNewOneAccount" = "Don't have an account? Create a new one.";
+
+/*Fuzzy*/
+"EnterSocialNetworks" = "Enter social networks:";
+"Registration" = "Registration";
+"AlreadyRegistered" = "Already registered?";
+
+/*Fuzzy*/
+"LoginIn" = "Log in";
+
+/*Fuzzy*/
+"EnterNickname" = "Enter nickname";
+
+/*Fuzzy*/
+"EnterYourName" = "Enter your name";
+
+/*Fuzzy*/
+"EnterBirthday" = "Enter birthday";
+"EnterPasswordAgain" = "Enter password again";
+
+/*Fuzzy*/
+"SelectSex" = "Select sex:";
+
+/*Fuzzy*/
+"Male" = "Male";
+
+/*Fuzzy*/
+"Female" = "Female";
+"Register" = "Register";
+
+/*Fuzzy*/
+"Congratulations" = "Congratulations!";
+
+/*Fuzzy*/
+"PasswordRecoveryOnMail" = "An email was sent to the mail with a link to reset the password.";
+"FeaturedVideos" = "Featured Videos";
+"CustomSubscriptions" = "Custom Subscriptions";
+
+/*Fuzzy*/
+"Faq" = "FAQ";
+"ReferencesOrReviews" = "References/reviews";
+"Settings" = "Settings";
+
+/*Fuzzy*/
+"Withdraw" = "Withdrawal";
+"Performed" = "performed";
+
+/*Fuzzy*/
+"Subscribers" = "subscribers";
+"Subscriptions" = "subscriptions";
+"Ordered" = "I ordered";
+
+/*Fuzzy*/
+"Execute" = "I execute";
+"NewOrder" = "New order";
+
+/*Fuzzy*/
+"Rating" = "Rating";
+"Estimate" = "Estimate";
+"OrderName" = "Order Name";
+"OrderDescription" = "Order Description";
+"TenThousand" = "10 000 ₽";
+"DateOfExecution" = "Date of execution";
+"HideArtist" = "Hide artist";
+
+/*Fuzzy*/
+"OrderMatch" = "Does the video order match?";
+
+/*Fuzzy*/
+"MethodToReplenish" = "Choose a method to replenish:";
+
+/*Fuzzy*/
+"TakeOff" = "Take off";
+
+/*Fuzzy*/
+"SelectMethodToWithdrawal" = "Select a method to withdrawal:";
+
+/*Fuzzy*/
+"Million" = "1 000 000 ₽";
+"ShareThis" = "Share this";
+
+/*Fuzzy*/
+"OnInstagram" = "On Instagram";
+
+/*Fuzzy*/
+"Save" = "Save";
+
+/*Fuzzy*/
+"YourGender" = "Your gender";
+
+/*Fuzzy*/
+"ChangePassword" = "Change password";
+"AboutMe" = "About me";
+
+/*Fuzzy*/
+"ChangeProfilePhoto" = "Change profile photo";
+
+/*Fuzzy*/
+"Viewed" = "Viewed";
+
+/*Fuzzy*/
+"NotViewed" = "Not viewed";
+"LoginToAccount" = "Log in";
+"ComVkSdkAppId" = "7343996";
+
+/*Fuzzy*/
+"SentToModerator" = "Sent to moderator";
+"Surname" = "Surname";
+"CardNumber" = "Card number";
+"AttachFile" = "Attach file";
+
+/*Fuzzy*/
+"Participant" = "Participant";
+"PrizePool" = "Prize pool";
+
+/*Fuzzy*/
+"PendingVerifyUser" = "Your request is being processed, the waiting time can be up to 24 hours";
+"Amount" = "Amount";
+"PendingWithdrawal" = "Your request for withdrawal of funds is currently being processed.";
+
+/*Fuzzy*/
+"DateOfCreation" = "date of creation";
+"Status" = "Status";
+"Place" = "A place";
+"Resend" = "resend";
+"CommisionWarning" = "Please note that operator fees will be added to the recharge amount";
+"ConfirmAdult" = "I confirm that I am 18 years old";
+"AgreeWith" = "I agree with";
+"TermsAndRules" = "Terms &amp; Conditions";
+"Age" = "Age";
+"TermsAndConditions" = "terms and conditions";
+
+/*Fuzzy*/
+"Prize" = "Prize";
+"Vote" = "Vote";
+
+/*Fuzzy*/
+"Videos" = "Videos";
+"Peoples" = "Peoples";
+"ApplicationNewVersionReady" = "An important update came out, it seems time to install it.";
+"DownloadUpdate" = "Download update";
 
 /*Creditcard save*/
-"WithdrawalView_Passport" = "Passport";
-"Create_Order_Secret_order" = "Secret order";
+"Passport" = "Passport";
+"MiddleName" = "Middle name";
+"Location" = "Location";
+"Nationality" = "Nationality";
 
 /*Fuzzy*/
-"Walkthrouth_CreateOrder_Secret_Description" = "Secret orders allow you to hide the task text from other users until they take it to work!\n\nTaking such a task the user will have to complete it or lose the Deposit!";
-"Publication_Item_Download" = "Download";
-"Competition_Pay_For_Join" = "Pay for participation";
-"Competion_Rules_Template" = "To take part in the competition, you need to pay {0} ₽";
-"Pay" = "Pay";
-"Error_Something_Went_Wrong_Message" = "Oops, something went wrong :(";
-"WithdrawalView_MiddleName" = "Middle name";
-"WithdrawalView_Location" = "Location";
-"WithdrawalView_Nationality" = "Nationality";
-"Withdrawal_Yoomoney_Description" = "Funds are withdrawn through the Yoomoney wallet.";
-"Withdrawal_Yoomoney" = "Yoomoney";
-"Withdrawal_Enter_Wallet_Number" = "Enter Yoomoney wallet number";
-"Create_Order_Privacy_Message" = "By completing the creation of the order, I confirm the registration with the terms of the public offer, user agreement and privacy policy";
-"Create_Order_Privacy_Link" = "terms of the public offer, user agreement and privacy policy";
+"EnterWalletNumber" = "Enter Yoomoney wallet number";
 
 /*Fuzzy*/
-"Block_User" = "Block user";
-"Blocked_User" = "User {0} is blocked";
+"CreateOrderPrivacyMessage" = "By completing the creation of the order, I confirm the registration with the terms of the public offer, user agreement and privacy policy";
+"CreateOrderPrivacyLink" = "terms of the public offer, user agreement and privacy policy";
+
+/*Fuzzy*/
+"Orderss" = "orders";
+"CreatingOrder" = "Create order";
+
+/*Fuzzy*/
+"Sex" = "Sex";
+"Revoke" = "Revoke";
+
+/*Fuzzy*/
+"NeedToConfirmYourIdentity" = "In order to withdraw funds from your account, you need to confirm your identity by attaching a selfie with a passport in expanded form.";
+"InTheDispute" = "In dispute";
+"ConfirmAgeAndAgreeRules" = "Confirm age and agree to the rules";
+"OneHour" = "hour";
+"LoginWithoutRegistration" = "Sign in without registration";
+
+/*Fuzzy*/
+"CreateContest" = "Create a competition";
+
+/*Fuzzy*/
+"ParticipationFee" = "Participation fee";
+
+/*Fuzzy*/
+"PercentageContributionPrizePool" = "% of the contribution to the prize pool";
+
+/*Fuzzy*/
+"SecretContest" = "Secret contest";
+
+/*Fuzzy*/
+"CollectionBidsFrom" = "Collection of bids from";
+
+/*Fuzzy*/
+"CollectionBidsFor" = "Collection of bids for";
+
+/*Fuzzy*/
+"VotingFrom" = "Voting from";
+
+/*Fuzzy*/
+"VotingFor" = "Voting for";
+
+/*Fuzzy*/
+"Percent" = "%";
+"IncorrectEmailOrPasswordException" = "The entered Email or password is incorrect. Try to reset your password or check the spelling of your mail.";
+"PerYear" = "PerYear";
+
+/*Fuzzy*/
+"AllTime" = "Per all time";

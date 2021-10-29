@@ -13,6 +13,5 @@
     <BindableWebView
         android:id="@+id/webView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:MvxBind="WebViewUrlContent Url"/>
+        android:layout_height="match_parent"/>
 </LinearLayout>

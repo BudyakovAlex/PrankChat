@@ -75,7 +75,7 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Notifications
             }
 
             var pushNotificationData = HandleNotificationPayload(userInfo);
-            NotificationManager.Instance.TryNavigateToView(pushNotificationData?.OrderId);
+            NotificationHandler.Instance.TryNavigateToView(pushNotificationData?.OrderId);
         }
 
         public PushNotification HandleNotificationPayload(NSDictionary userInfo)
@@ -90,14 +90,14 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Notifications
 
             if (!(userInfo["aps"] is NSDictionary apsDictionary))
             {
-                return NotificationManager.Instance.GenerateNotificationData(key?.ToString(), value?.ToString(), string.Empty, string.Empty);
+                return NotificationHandler.Instance.GenerateNotificationData(key?.ToString(), value?.ToString(), string.Empty, string.Empty);
             }
 
             var alertDictionary = apsDictionary["alert"] as NSDictionary;
             alertDictionary.TryGetValue(new NSString("title"), out var title);
             alertDictionary.TryGetValue(new NSString("body"), out var body);
 
-            return NotificationManager.Instance.GenerateNotificationData(key?.ToString(), value?.ToString(), title?.ToString(), body?.ToString());
+            return NotificationHandler.Instance.GenerateNotificationData(key?.ToString(), value?.ToString(), title?.ToString(), body?.ToString());
         }
 
         private User ExtractUserSession()

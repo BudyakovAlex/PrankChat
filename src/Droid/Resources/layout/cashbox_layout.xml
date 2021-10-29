@@ -7,8 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <include
-        android:id="@+id/action_bar"
-        layout="@layout/action_bar_title"
+        layout="@layout/action_bar_back_and_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <com.google.android.material.tabs.TabLayout
@@ -17,9 +16,9 @@
         android:layout_height="42dp"
         style="@style/Theme.PrankChat.Publication.TabLayout">
         <com.google.android.material.tabs.TabItem
-            android:text="@string/CashboxView_Fillup_Tab" />
+            android:text="@string/Replenishment" />
         <com.google.android.material.tabs.TabItem
-            android:text="@string/CashboxView_Withdrawal_Tab" />
+            android:text="@string/Withdrawal" />
     </com.google.android.material.tabs.TabLayout>
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/cashbox_pager"

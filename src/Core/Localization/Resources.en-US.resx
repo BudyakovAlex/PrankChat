@@ -120,404 +120,259 @@
   <data name="Close" xml:space="preserve">
     <value>Close</value>
   </data>
-  <data name="app_name" xml:space="preserve">
-    <value>Prank Chat</value>
-  </data>
-  <data name="Home_Tab" xml:space="preserve">
+  <data name="Home" xml:space="preserve">
     <value>Home</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="Rate_Tab" xml:space="preserve">
-    <value>Rate</value>
-  </data>
-  <data name="Orders_Tab" xml:space="preserve">
+  <data name="Orders" xml:space="preserve">
     <value>Orders</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="Profile_Tab" xml:space="preserve">
+  <data name="Profile" xml:space="preserve">
     <value>Profile</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="Popular_Publication_Tab" xml:space="preserve">
-    <value>Popular</value>
-  </data>
-  <data name="Actual_Publication_Tab" xml:space="preserve">
-    <value>Actual</value>
-  </data>
-  <data name="MyFeed_Publication_Tab" xml:space="preserve">
-    <value>My feed</value>
-  </data>
-  <data name="Publication_Tab_Filter_Day" xml:space="preserve">
+  <data name="PerDay" xml:space="preserve">
     <value>Per day</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="Publication_Tab_Filter_Week" xml:space="preserve">
+  <data name="PerWeek" xml:space="preserve">
     <value>Per week</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="Publication_Tab_Filter_Month" xml:space="preserve">
+  <data name="PerMonth" xml:space="preserve">
     <value>Per month</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="Publication_Tab_Filter_Quarter" xml:space="preserve">
+  <data name="PerQuarter" xml:space="preserve">
     <value>Per quarter</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="Publication_Tab_Filter_HalfYear" xml:space="preserve">
+  <data name="PerHalfYear" xml:space="preserve">
     <value>Per half year</value>
+    <comment>Fuzzy</comment>
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
-  <data name="Search_View_Search_Placeholder" xml:space="preserve">
-    <value>Search</value>
-  </data>
   <data name="Share" xml:space="preserve">
     <value>Share</value>
   </data>
-  <data name="Error_Unexpected_Server" xml:space="preserve">
+  <data name="ErrorUnexpectedServer" xml:space="preserve">
     <value>The unexpected error occurred on the server. We have received information about it and working actively to resolve it.</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="Error_Unexpected_Not_Found" xml:space="preserve">
-    <value>Requested entity not found.</value>
-  </data>
-  <data name="Error_Unexpected_Network" xml:space="preserve">
+  <data name="ErrorUnexpectedNetwork" xml:space="preserve">
     <value>Unexpected error occurred on request. Please, try again.</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="LoginView_Email_Placeholder" xml:space="preserve">
-    <value>Enter e-mail</value>
-  </data>
-  <data name="LoginView_Password_Placeholder" xml:space="preserve">
-    <value>Enter password</value>
-  </data>
-  <data name="LoginView_ForgotPassword_Title" xml:space="preserve">
-    <value>Forgot password?</value>
-  </data>
-  <data name="LoginView_ForgotPassword_Button" xml:space="preserve">
-    <value>Restore</value>
-  </data>
-  <data name="LoginView_Continue_Button" xml:space="preserve">
+  <data name="Continue" xml:space="preserve">
     <value>Continue</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="LoginView_CreateAccount_Button" xml:space="preserve">
-    <value>Don&apos;t have an account? Create a new one.</value>
-  </data>
-  <data name="LoginView_Login_Title" xml:space="preserve">
-    <value>Log in</value>
-  </data>
-  <data name="LoginView_AltLogin_Title" xml:space="preserve">
-    <value>Enter social networks:</value>
-  </data>
-  <data name="RegistrationView_Title" xml:space="preserve">
-    <value>Registration</value>
-  </data>
-  <data name="RegistrationView_Email_Placeholder" xml:space="preserve">
-    <value>Enter e-mail</value>
-  </data>
-  <data name="RegistrationView_RegisteredYet_Label" xml:space="preserve">
-    <value>Already registered?</value>
-  </data>
-  <data name="RegistrationView_Login_Button" xml:space="preserve">
-    <value>Log in</value>
-  </data>
-  <data name="RegistrationView_Login_Placeholder" xml:space="preserve">
-    <value>Enter nickname</value>
-  </data>
-  <data name="RegistrationView_Name_Placeholder" xml:space="preserve">
-    <value>Enter your name</value>
-  </data>
-  <data name="RegistrationView_Birthday_Placeholder" xml:space="preserve">
-    <value>Enter birthday</value>
-  </data>
-  <data name="RegistrationView_Password_Placeholder" xml:space="preserve">
-    <value>Enter password</value>
-  </data>
-  <data name="RegistrationView_PasswordRepeat_Placeholder" xml:space="preserve">
-    <value>Enter password again</value>
-  </data>
-  <data name="RegistrationView_GenderSelect_Title" xml:space="preserve">
-    <value>Select sex:</value>
-  </data>
-  <data name="RegistrationView_Male_Button" xml:space="preserve">
-    <value>Male</value>
-  </data>
-  <data name="RegistrationView_Female_Button" xml:space="preserve">
-    <value>Female</value>
-  </data>
-  <data name="RegistrationView_Register_Button" xml:space="preserve">
-    <value>Register</value>
-  </data>
-  <data name="RegistrationView_StepTwo_Title" xml:space="preserve">
+  <data name="StepTwo" xml:space="preserve">
     <value>Step 2</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="RegistrationView_StepThree_Title" xml:space="preserve">
+  <data name="StepThree" xml:space="preserve">
     <value>Step 3</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="RegistrationView_Congrats_Title" xml:space="preserve">
-    <value>Congratulations!</value>
+  <data name="GoToFeed" xml:space="preserve">
+    <value>Go to the feed</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="RegistrationView_Confirmation_Label" xml:space="preserve">
-    <value>Verification text.</value>
-  </data>
-  <data name="RegistrationView_GoToFeed_Button" xml:space="preserve">
-    <value>Go to feed</value>
-  </data>
-  <data name="Password_Recovery_View_Title" xml:space="preserve">
+  <data name="PasswordRecovery" xml:space="preserve">
     <value>Password recovery</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="Password_Recovery_View_Email_Placeholder" xml:space="preserve">
-    <value>Enter e-mail</value>
-  </data>
-  <data name="Password_Recovery_View_Recovery_Button" xml:space="preserve">
-    <value>Restore</value>
-  </data>
-  <data name="Password_Recovery_View_Attention" xml:space="preserve">
-    <value>Attention!</value>
-  </data>
-  <data name="Password_Recovery_View_Finish_Text" xml:space="preserve">
-    <value>An email was sent to the mail with a link to reset the password.</value>
-  </data>
-  <data name="ProfileView_Menu_Favourites" xml:space="preserve">
-    <value>Featured Videos</value>
-  </data>
-  <data name="ProfileView_Menu_TaskSubscriptions" xml:space="preserve">
-    <value>Custom Subscriptions</value>
-  </data>
-  <data name="ProfileView_Menu_Faq" xml:space="preserve">
-    <value>FAQ</value>
-  </data>
-  <data name="ProfileView_Menu_Support" xml:space="preserve">
-    <value>References / reviews</value>
-  </data>
-  <data name="ProfileView_Menu_Settings" xml:space="preserve">
-    <value>Settings</value>
-  </data>
-  <data name="ProfileView_Menu_LogOut" xml:space="preserve">
+  <data name="SignOut" xml:space="preserve">
     <value>Sign out</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="ProfileView_Refill" xml:space="preserve">
+  <data name="Replenish" xml:space="preserve">
     <value>Replenish</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="ProfileView_Withdrawal" xml:space="preserve">
-    <value>Withdraw</value>
-  </data>
-  <data name="ProfileView_Orders_Subtitle" xml:space="preserve">
-    <value>orders</value>
-  </data>
-  <data name="ProfileView_Completed_Subtitle" xml:space="preserve">
-    <value>performed</value>
-  </data>
-  <data name="ProfileView_Subscribers_Subtitle" xml:space="preserve">
-    <value>subscribers</value>
-  </data>
-  <data name="ProfileView_Subscriptions_Subtitle" xml:space="preserve">
-    <value>subscriptions</value>
-  </data>
-  <data name="ProfileView_MyOrders_Tab" xml:space="preserve">
-    <value>I ordered</value>
-  </data>
-  <data name="ProfileView_CompletedOrders_Tab" xml:space="preserve">
-    <value>I execute</value>
-  </data>
-  <data name="Order_View_Time_Text" xml:space="preserve">
+  <data name="OrderTime" xml:space="preserve">
     <value>Order Time:</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="Order_View_Price_Text" xml:space="preserve">
+  <data name="OrderPrice" xml:space="preserve">
     <value>Order price:</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="Order_View_Day" xml:space="preserve">
+  <data name="Day" xml:space="preserve">
     <value>Day</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="Order_View_Hour" xml:space="preserve">
+  <data name="Hour" xml:space="preserve">
     <value>Hours</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="Order_View_Minute" xml:space="preserve">
+  <data name="Minute" xml:space="preserve">
     <value>Minutes</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="Order_View_Details" xml:space="preserve">
+  <data name="MoreDetails" xml:space="preserve">
     <value>More details</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="Order_View_New_Task" xml:space="preserve">
-    <value>New order</value>
-  </data>
-  <data name="Order_View_My_Task" xml:space="preserve">
+  <data name="MyOrders" xml:space="preserve">
     <value>My orders</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="OrdersView_Filter_AllTasks" xml:space="preserve">
+  <data name="AllOrders" xml:space="preserve">
     <value>All orders</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="OrdersView_Filter_NewTasks" xml:space="preserve">
+  <data name="NewOrders" xml:space="preserve">
     <value>New orders</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="OrdersView_Filter_CurrentTasks" xml:space="preserve">
+  <data name="OrderExecuted" xml:space="preserve">
     <value>Order Executed</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="OrdersView_Filter_MyTasks" xml:space="preserve">
-    <value>My orders</value>
-  </data>
-  <data name="RateView_Filter_AllTasks" xml:space="preserve">
+  <data name="AllOrdersInDispute" xml:space="preserve">
     <value>All orders in dispute</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="RateView_Filter_MyTasks" xml:space="preserve">
+  <data name="MyOrdersInDispute" xml:space="preserve">
     <value>My orders in dispute</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="RateView_Filter_NewTasks" xml:space="preserve">
+  <data name="NewDisputeOrders" xml:space="preserve">
     <value>New Dispute Orders</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="RateView_Title_Label" xml:space="preserve">
-    <value>Rating</value>
-  </data>
-  <data name="OrdersView_Title_Label" xml:space="preserve">
-    <value>Orders</value>
-  </data>
-  <data name="RateView_Vote_Button" xml:space="preserve">
-    <value>Estimate</value>
-  </data>
-  <data name="CreateOrderView_Title" xml:space="preserve">
+  <data name="CreateOrder" xml:space="preserve">
     <value>Create Order</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="CreateOrderView_Name_Placeholder" xml:space="preserve">
-    <value>Order Name</value>
-  </data>
-  <data name="CreateOrderView_Description_Placeholder" xml:space="preserve">
-    <value>Order Description</value>
-  </data>
-  <data name="CreateOrderView_Price_Placeholder" xml:space="preserve">
-    <value>10 000 ₽</value>
-  </data>
-  <data name="CreateOrderView_CompleteDate_Placeholder" xml:space="preserve">
-    <value>Date of execution</value>
-  </data>
-  <data name="CreateOrderView_HideExecutor_Button" xml:space="preserve">
-    <value>Hide artist</value>
-  </data>
-  <data name="CreateOrderView_Create_Button" xml:space="preserve">
-    <value>Create order</value>
-  </data>
-  <data name="NotificationView_Title" xml:space="preserve">
+  <data name="Notifications" xml:space="preserve">
     <value>Notifications</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="OrderDetailsView_Price_Text" xml:space="preserve">
-    <value>Order price:</value>
-  </data>
-  <data name="OrderDetailsView_Time_Text" xml:space="preserve">
-    <value>Order Time:</value>
-  </data>
-  <data name="OrderDetailsView_Take_Order_Button" xml:space="preserve">
+  <data name="TakeAnOrder" xml:space="preserve">
     <value>Take an order</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="OrderDetailsView_Subscribe_Button" xml:space="preserve">
+  <data name="Subscribe" xml:space="preserve">
     <value>Subscribe</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="OrderDetailsView_Unsubscribe_Button" xml:space="preserve">
+  <data name="Unsubscribe" xml:space="preserve">
     <value>Unsubscribe</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="OrderDetailsView_Download_Text" xml:space="preserve">
+  <data name="UploadVideo" xml:space="preserve">
     <value>Upload video:</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="OrderDetailsView_Execute_Button" xml:space="preserve">
+  <data name="Run" xml:space="preserve">
     <value>Run</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="OrderDetailsView_Cancel_Button" xml:space="preserve">
-    <value>Cancel</value>
-  </data>
-  <data name="OrderDetailsView_Took_The_Order_Text" xml:space="preserve">
+  <data name="Executor" xml:space="preserve">
     <value>Executor:</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="OrderDetailsView_Yes_Button" xml:space="preserve">
+  <data name="Yes" xml:space="preserve">
     <value>Yes</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="OrderDetailsView_No_Button" xml:space="preserve">
+  <data name="No" xml:space="preserve">
     <value>No</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="OrderDetailsView_Accept_Button" xml:space="preserve">
+  <data name="ToAccept" xml:space="preserve">
     <value>To accept</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="OrderDetailsView_Argue_Button" xml:space="preserve">
+  <data name="InDispute" xml:space="preserve">
     <value>In dispute</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="OrderDetailsView_Corresponds_To_Video_Text" xml:space="preserve">
-    <value>Does the video order match?</value>
-  </data>
-  <data name="CreateOrderView_PriceTitle_Placeholder" xml:space="preserve">
+  <data name="Price" xml:space="preserve">
     <value>Price</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="OrderDetailsView_Title" xml:space="preserve">
+  <data name="Order" xml:space="preserve">
     <value>Order</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="CashboxView_Title" xml:space="preserve">
+  <data name="Cashbox" xml:space="preserve">
     <value>Cashbox</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="CashboxView_Fillup_Tab" xml:space="preserve">
+  <data name="Replenishment" xml:space="preserve">
     <value>Replenishment</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="CashboxView_Withdrawal_Tab" xml:space="preserve">
+  <data name="Withdrawal" xml:space="preserve">
     <value>Withdrawal</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="CashboxView_Fillup_Button" xml:space="preserve">
-    <value>Replenish</value>
-  </data>
-  <data name="CashboxView_FillupMethodSelect_Title" xml:space="preserve">
-    <value>Choose a method to replenish:</value>
-  </data>
-  <data name="CashboxView_WithdrawalAvailable_Title" xml:space="preserve">
+  <data name="AvailableForRemoval" xml:space="preserve">
     <value>Available for removal including payment service commission:</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="CashboxView_Withdrawal_Button" xml:space="preserve">
-    <value>Take off</value>
-  </data>
-  <data name="CashboxView_WithdrawalMethodSelect_Title" xml:space="preserve">
-    <value>Select a method to remove:</value>
-  </data>
-  <data name="CashboxView_Price_Placeholder" xml:space="preserve">
-    <value>1 000 000 ₽</value>
-  </data>
-  <data name="CommentView_Title" xml:space="preserve">
+  <data name="Comments" xml:space="preserve">
     <value>Comments</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="Publication_Item_Complain" xml:space="preserve">
+  <data name="Complain" xml:space="preserve">
     <value>Complain ...</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="Publication_Item_Copy_Link" xml:space="preserve">
+  <data name="CopyLink" xml:space="preserve">
     <value>Copy link</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="Publication_Item_Subscribe_To_Author" xml:space="preserve">
+  <data name="SubscribeToAuthor" xml:space="preserve">
     <value>Subscribe to the author</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="ShareDialog_Title" xml:space="preserve">
-    <value>Share this</value>
-  </data>
-  <data name="ShareDialog_CopyLink_Label" xml:space="preserve">
-    <value>Cop. the link</value>
-  </data>
-  <data name="ShareDialog_ShareInstagram_Label" xml:space="preserve">
-    <value>On Instagram</value>
-  </data>
-  <data name="ShareDialog_LinkShareTitle" xml:space="preserve">
+  <data name="ShareLink" xml:space="preserve">
     <value>Share link</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="OrderStatus_New" xml:space="preserve">
+  <data name="Moderation" xml:space="preserve">
     <value>Moderation</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="OrderStatus_Rejected" xml:space="preserve">
+  <data name="CanceledByModerator" xml:space="preserve">
     <value>Canceled by moderator</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="OrderStatus_Cancelled" xml:space="preserve">
+  <data name="Canceled" xml:space="preserve">
     <value>Canceled</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="OrderStatus_Active" xml:space="preserve">
+  <data name="New" xml:space="preserve">
     <value>New</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="OrderStatus_InWork" xml:space="preserve">
+  <data name="InWork" xml:space="preserve">
     <value>In work</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="OrderStatus_InArbitration" xml:space="preserve">
-    <value>In dispute</value>
-  </data>
-  <data name="OrderStatus_ProcessCloseArbitration" xml:space="preserve">
+  <data name="ClosingDispute" xml:space="preserve">
     <value>Closing a dispute</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="OrderStatus_ClosedAfterArbitrationCustomerWin" xml:space="preserve">
+  <data name="DisputeWon" xml:space="preserve">
     <value>Dispute won</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="OrderStatus_ClosedAfterArbitrationExecutorWin" xml:space="preserve">
+  <data name="DisputeLost" xml:space="preserve">
     <value>Dispute lost</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="OrderStatus_Finished" xml:space="preserve">
+  <data name="Accomplished" xml:space="preserve">
     <value>Accomplished</value>
+    <comment>Fuzzy</comment>
   </data>
   <data name="Ok" xml:space="preserve">
     <value>OK</value>
@@ -525,39 +380,37 @@
   <data name="Attention" xml:space="preserve">
     <value>Attention!</value>
   </data>
-  <data name="OrderDetailsView_TakeOrderTitle" xml:space="preserve">
-    <value>Take an order</value>
-  </data>
-  <data name="OrderDetailsView_TakeOrderQuestion" xml:space="preserve">
+  <data name="TakeOrderQuestion" xml:space="preserve">
     <value>To accept the order, you must pay a Deposit as a guarantee of its implementation 
-20% of the cost for simple orders
-40% for secret orders</value>
+20 % of the cost for simple orders
+40 % for secret orders</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="Seconds_Short" xml:space="preserve">
+  <data name="SecondsShort" xml:space="preserve">
     <value>s.</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="Minutes_Short" xml:space="preserve">
+  <data name="MinutesShort" xml:space="preserve">
     <value>m.</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="Hours_Short" xml:space="preserve">
+  <data name="HoursShort" xml:space="preserve">
     <value>h.</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="Days_Short" xml:space="preserve">
+  <data name="DaysShort" xml:space="preserve">
     <value>d.</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="Weeks_Short" xml:space="preserve">
+  <data name="WeeksShort" xml:space="preserve">
     <value>w.</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="Count_Thousand" xml:space="preserve">
+  <data name="CountThousand" xml:space="preserve">
     <value>k</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="Count_Millions" xml:space="preserve">
+  <data name="CountMillions" xml:space="preserve">
     <value>m</value>
     <comment>Fuzzy</comment>
   </data>
@@ -565,552 +418,815 @@
     <value>₽</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="Count_View" xml:space="preserve">
+  <data name="View" xml:space="preserve">
     <value>view</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="Count_Views" xml:space="preserve">
+  <data name="Views" xml:space="preserve">
     <value>views</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="Count_Of_Viewing" xml:space="preserve">
+  <data name="OfViewing" xml:space="preserve">
     <value>of viewing</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="Year_Short" xml:space="preserve">
+  <data name="YearShort" xml:space="preserve">
     <value>y.</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="OrderStatus_MyOrder" xml:space="preserve">
-    <value>My</value>
-  </data>
-  <data name="OrderDetails_View_Cancel_Title" xml:space="preserve">
+  <data name="WantToCancelOrder" xml:space="preserve">
     <value>Are you sure you want to cancel the order?</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="ProfileUpdateView_Email_Placeholder" xml:space="preserve">
+  <data name="Email" xml:space="preserve">
     <value>Email</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="ProfileUpdateView_Login_Placeholder" xml:space="preserve">
+  <data name="Login" xml:space="preserve">
     <value>Login</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="ProfileUpdateView_Name_Placeholder" xml:space="preserve">
+  <data name="Name" xml:space="preserve">
     <value>Name</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="ProfileUpdateView_Birthday_Placeholder" xml:space="preserve">
+  <data name="Birthday" xml:space="preserve">
     <value>Birth day</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="ProfileUpdateView_Button_Save" xml:space="preserve">
-    <value>Save</value>
-  </data>
-  <data name="ProfileUpdateView_GenderSelect_Title" xml:space="preserve">
-    <value>Your gender</value>
-  </data>
-  <data name="ProfileUpdateView_Title" xml:space="preserve">
+  <data name="ProfileEditing" xml:space="preserve">
     <value>Profile editing</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="ProfileUpdateView_ChangePassword" xml:space="preserve">
-    <value>Change password</value>
-  </data>
-  <data name="TakePhoto" xml:space="preserve">
+  <data name="TakePicture" xml:space="preserve">
     <value>Take a picture</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="PickPhoto" xml:space="preserve">
+  <data name="ChooseFromGallery" xml:space="preserve">
     <value>Choose from gallery</value>
-  </data>
-  <data name="ProfileUpdateView_Description_Placeholder" xml:space="preserve">
-    <value>About Me</value>
-  </data>
-  <data name="ProfileUpdateView_PhotoChange_Title" xml:space="preserve">
-    <value>Change profile photo</value>
+    <comment>Fuzzy</comment>
   </data>
   <data name="Select" xml:space="preserve">
     <value>Select</value>
   </data>
-  <data name="CreateOrderView_Choose_Time_Period" xml:space="preserve">
+  <data name="SelectValidityPeriod" xml:space="preserve">
     <value>Select the validity period of the order.</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="OrderStatus_WaitFinish" xml:space="preserve">
+  <data name="Pending" xml:space="preserve">
     <value>Pending</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="OrderDetailsView_LoadVideo" xml:space="preserve">
-    <value>Upload video</value>
-  </data>
-  <data name="NotificationStatus_Viewed" xml:space="preserve">
-    <value>Viewed</value>
-  </data>
-  <data name="NotificationStatus_NotViewed" xml:space="preserve">
-    <value>Not viewed</value>
-  </data>
-  <data name="Validation_Field_Title" xml:space="preserve">
+  <data name="Headline" xml:space="preserve">
     <value>Headline</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="Validation_Field_Description" xml:space="preserve">
+  <data name="Description" xml:space="preserve">
     <value>Description</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="Validation_Field_Price" xml:space="preserve">
-    <value>Price</value>
-  </data>
-  <data name="Validation_Field_OrderPeriod" xml:space="preserve">
+  <data name="Period" xml:space="preserve">
     <value>Period</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="Validation_Field_Cost" xml:space="preserve">
+  <data name="Cost" xml:space="preserve">
     <value>Cost</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="Validation_Field_Login" xml:space="preserve">
-    <value>Login</value>
-  </data>
-  <data name="Validation_Field_Name" xml:space="preserve">
-    <value>Name</value>
-  </data>
-  <data name="Validation_Field_Birthday" xml:space="preserve">
-    <value>Birthday</value>
-  </data>
-  <data name="Validation_Field_Gender" xml:space="preserve">
+  <data name="Floor" xml:space="preserve">
     <value>Floor</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="Validation_Field_Email" xml:space="preserve">
-    <value>E-mail</value>
-  </data>
-  <data name="Validation_Field_Password" xml:space="preserve">
+  <data name="Password" xml:space="preserve">
     <value>Password</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="Validation_Field_PasswordRepeat" xml:space="preserve">
-    <value>Password replay</value>
+  <data name="PasswordRepeat" xml:space="preserve">
+    <value>Password repeat</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="Validation_Error_Empty" xml:space="preserve">
+  <data name="CannotBeEmpty" xml:space="preserve">
     <value>{0} cannot be empty.</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="Validation_Error_GreaterThanRequired" xml:space="preserve">
+  <data name="ValidationErrorGreaterThanRequired" xml:space="preserve">
     <value>{0} cannot be greater than {1}.</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="Validation_Error_LowerThanRequired" xml:space="preserve">
+  <data name="ValidationErrorLowerThanRequired" xml:space="preserve">
     <value>{0} cannot be less than {1}.</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="Validation_Error_NotMatch" xml:space="preserve">
+  <data name="ValidationErrorNotMatch" xml:space="preserve">
     <value>{0} does not match {1}.</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="Validation_Error_CanNotMatch" xml:space="preserve">
+  <data name="ValidationErrorCanNotMatch" xml:space="preserve">
     <value>{0} cannot be equal to {1}.</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="Validation_Error_Invalid" xml:space="preserve">
+  <data name="ValidationErrorInvalid" xml:space="preserve">
     <value>{0} has the wrong format.</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="Demo" xml:space="preserve">
-    <value>Demo</value>
-  </data>
-  <data name="com.crashlytics.android.build_id" xml:space="preserve">
-    <value>e9e6beb9c4284289ac68b9ab76a9ee56</value>
-  </data>
-  <data name="FinishPasswordRecoveryView_GoToFeed_Button" xml:space="preserve">
-    <value>Go to feed</value>
-  </data>
-  <data name="FinishPasswordRecoveryView_GoToLogin_Button" xml:space="preserve">
-    <value>Login to account</value>
-  </data>
-  <data name="com_vk_sdk_AppId" xml:space="preserve">
-    <value>7343996</value>
-  </data>
-  <data name="Count_Days" xml:space="preserve">
+  <data name="Days" xml:space="preserve">
     <value>Days</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="Count_Hours" xml:space="preserve">
+  <data name="Hours" xml:space="preserve">
     <value>Hours</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="Count_Minutes" xml:space="preserve">
+  <data name="Minutes" xml:space="preserve">
     <value>Minutes</value>
+    <comment>Fuzzy</comment>
   </data>
   <data name="LinkCopied" xml:space="preserve">
     <value>Link copied</value>
   </data>
-  <data name="ComplainSuccessful" xml:space="preserve">
-    <value>Sent to moderator</value>
-  </data>
-  <data name="Competitions_Voting" xml:space="preserve">
+  <data name="Voting" xml:space="preserve">
     <value>Voting</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="Competitions_New" xml:space="preserve">
-    <value>New</value>
-  </data>
-  <data name="Competitions_Finished" xml:space="preserve">
+  <data name="Summary" xml:space="preserve">
     <value>Summary</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="Competitions_Voting_Term" xml:space="preserve">
+  <data name="UntilEndVoting" xml:space="preserve">
     <value>Until the end of voting:</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="Competitions_Finished_Term" xml:space="preserve">
+  <data name="CompetitionPeriod" xml:space="preserve">
     <value>Competition period:</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="Competitions_See" xml:space="preserve">
+  <data name="Watch" xml:space="preserve">
     <value>Watch</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="Competitions_More" xml:space="preserve">
-    <value>More details</value>
-  </data>
-  <data name="Competitions_Participate" xml:space="preserve">
+  <data name="Participate" xml:space="preserve">
     <value>Participate</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="Competitions_Prize_Pool" xml:space="preserve">
+  <data name="TournamentPrizePool" xml:space="preserve">
     <value>Tournament prize pool:</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="Competitions_New_Term" xml:space="preserve">
+  <data name="BeforeStartVoting" xml:space="preserve">
     <value>Before the start of voting:</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="Competition_Load_Video" xml:space="preserve">
-    <value>Upload video</value>
-  </data>
-  <data name="Competition_Rules" xml:space="preserve">
+  <data name="CompetitionRules" xml:space="preserve">
     <value>Competition Rules</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="Competition_Results" xml:space="preserve">
+  <data name="Results" xml:space="preserve">
     <value>results</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="WithdrawalView_FirstName_Placeholder" xml:space="preserve">
-    <value>Name</value>
-  </data>
-  <data name="WithdrawalView_LastName_Placeholder" xml:space="preserve">
-    <value>Surname</value>
-  </data>
-  <data name="WithdrawalView_CardNumber_Placeholder" xml:space="preserve">
-    <value>Card number</value>
-  </data>
-  <data name="WithdrawalView_AttachFile_Button" xml:space="preserve">
-    <value>Attach file</value>
-  </data>
-  <data name="WithdrawalView_Revoke_Button" xml:space="preserve">
-    <value>Withdraw</value>
-  </data>
-  <data name="Login_Without_Registration" xml:space="preserve">
-    <value>Sign in without registration</value>
-  </data>
-  <data name="Competition_Prize_Pool_Rating" xml:space="preserve">
-    <value>Rating</value>
-  </data>
-  <data name="Competition_Prize_Pool_Participant" xml:space="preserve">
-    <value>Party book</value>
-  </data>
-  <data name="Competition_Prize_Pool" xml:space="preserve">
-    <value>Prize pool</value>
-  </data>
-  <data name="Competitions_Tab" xml:space="preserve">
+  <data name="Contests" xml:space="preserve">
     <value>Contests</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="WithdrawalView_Empty_Card_Error" xml:space="preserve">
+  <data name="EmptyCardError" xml:space="preserve">
     <value>Card cannot be empty.</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="WithdrawalView_Cancel_Withdrawal_Error" xml:space="preserve">
+  <data name="CancelWithdrawalError" xml:space="preserve">
     <value>Cannot cancel transaction to withdraw funds.</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="WithdrawalView_Delete_Card_Text" xml:space="preserve">
+  <data name="DeleteCard" xml:space="preserve">
     <value>Delete card</value>
+    <comment>Fuzzy</comment>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
   </data>
-  <data name="WithdrawalView_Delete_Card_Question" xml:space="preserve">
+  <data name="DeleteCardQuestion" xml:space="preserve">
     <value>Are you sure you want to delete this card?</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="WithdrawalView_Verify_User_Text" xml:space="preserve">
-    <value>In order to withdraw funds from your account, you need to confirm your identity by attaching a selfie with a passport in expanded form.</value>
-  </data>
-  <data name="WithdrawalView_Attach_File" xml:space="preserve">
-    <value>Attach file</value>
-  </data>
-  <data name="WithdrawalView_Pendng_Verify_User_Text" xml:space="preserve">
-    <value>Your request is being processed, the waiting time can be up to 24 hours</value>
-  </data>
-  <data name="WithdrawalView_Card_Number" xml:space="preserve">
-    <value>Card number</value>
-  </data>
-  <data name="WithdrawalView_Surname" xml:space="preserve">
-    <value>Surname</value>
-  </data>
-  <data name="WithdrawalView_Name" xml:space="preserve">
-    <value>Name</value>
-  </data>
-  <data name="WithdrawalView_Cost" xml:space="preserve">
-    <value>Amount</value>
-  </data>
-  <data name="WithdrawalView_Pending_Withdrawal_Text" xml:space="preserve">
-    <value>Your request for withdrawal of funds is currently being processed.</value>
-  </data>
-  <data name="WithdrawalView_Create_Date" xml:space="preserve">
-    <value>date of creation</value>
-  </data>
-  <data name="WithdrawalView_Status_Text" xml:space="preserve">
-    <value>Status</value>
-  </data>
-  <data name="WithdrawalView_Pending" xml:space="preserve">
-    <value>Pending</value>
-  </data>
-  <data name="WithdrawalView_Withdraw_Text" xml:space="preserve">
-    <value>Withdraw</value>
-  </data>
-  <data name="Competiton_Prize_Pool_Place" xml:space="preserve">
-    <value>A place</value>
-  </data>
-  <data name="Orders_In_Dispute" xml:space="preserve">
-    <value>In dispute</value>
-  </data>
-  <data name="OnBoarding_Go_To_Main" xml:space="preserve">
-    <value>Go to feed</value>
-  </data>
-  <data name="OnBoarding_First_Title" xml:space="preserve">
+  <data name="OnBoardingFirstTitle" xml:space="preserve">
     <value>watch and enjoy</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="OnBoarding_Second_Title" xml:space="preserve">
+  <data name="OnBoardingSecondTitle" xml:space="preserve">
     <value>Create your first order</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="OnBoarding_Third_Title" xml:space="preserve">
+  <data name="OnBoardingThirdTitle" xml:space="preserve">
     <value>Earn money by completing orders</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="OnBoarding_Fourth_Title" xml:space="preserve">
+  <data name="OnBoardingFourthTitle" xml:space="preserve">
     <value>Take part in free contests</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="OnBoarding_Fifth_Title" xml:space="preserve">
+  <data name="OnBoardingFifthTitle" xml:space="preserve">
     <value>Do it funny and to the music!</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="OnBoarding_First_Description" xml:space="preserve">
-    <value>The authors of PrankChat only publish exclusive, funniest and craziest videos! watch and enjoy</value>
+  <data name="OnBoardingFirstDescription" xml:space="preserve">
+    <value>The authors of OnPlay only publish exclusive, funniest and craziest videos! watch and enjoy</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="OnBoarding_Second_Description" xml:space="preserve">
+  <data name="OnBoardingSecondDescription" xml:space="preserve">
     <value>Post the task, cost and deadline by which other users will make a video for you. Get your dream movie!</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="OnBoarding_Third_Description" xml:space="preserve">
+  <data name="OnBoardingThirdDescription" xml:space="preserve">
     <value>Monetize your love of creativity! Shoot videos for other users and earn real money on it</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="OnBoarding_Fourth_Description" xml:space="preserve">
+  <data name="OnBoardingFourthDescription" xml:space="preserve">
     <value>Take part in creative contests! Make the best video and win a decent cash prize! And we won’t take a dime from you</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="OnBoarding_Fifth_Description" xml:space="preserve">
+  <data name="OnBoardingFifthDescription" xml:space="preserve">
     <value>Publish your video and become famous</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="Complaint_Spam" xml:space="preserve">
+  <data name="ThisIsSpam" xml:space="preserve">
     <value>This is spam</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="Complaint_Naked_Content" xml:space="preserve">
+  <data name="PornographyAndNudity" xml:space="preserve">
     <value>Pornography and nudity</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="Complaint_Hostile_Utterances" xml:space="preserve">
+  <data name="InsultingOrBullying" xml:space="preserve">
     <value>Insulting or bullying</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="Complaint_Dangerous_Organizations" xml:space="preserve">
+  <data name="ViolenceOrDangerousOrganizations" xml:space="preserve">
     <value>Violence or dangerous organizations</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="Complaint_Rights_Violation" xml:space="preserve">
+  <data name="CopyrighInfringement" xml:space="preserve">
     <value>Copyright infringement</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="Complaint_Cheating" xml:space="preserve">
-    <value>Cheating or cheating</value>
+  <data name="FraudOrDeception" xml:space="preserve">
+    <value>Fraud or deception</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="Complaint_Complete_Message" xml:space="preserve">
+  <data name="ThankYouForLettingUsKnow" xml:space="preserve">
     <value>Thank you for letting us know.</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="Complaint_Other" xml:space="preserve">
+  <data name="Other" xml:space="preserve">
     <value>Other</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="Complaint_Wrong_Name" xml:space="preserve">
+  <data name="UsesSomeoneElseName" xml:space="preserve">
     <value>Uses someone else&apos;s name</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="Complaint_Unacceptable_Content" xml:space="preserve">
+  <data name="InappropriateContent" xml:space="preserve">
     <value>Inappropriate Content</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="Complaint_Unacceptable_Information_In_Profile" xml:space="preserve">
+  <data name="InappropriateProfileInformation" xml:space="preserve">
     <value>Inappropriate profile information</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="Order_Add" xml:space="preserve">
+  <data name="Create" xml:space="preserve">
     <value>Create</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="Order_Create_Message" xml:space="preserve">
+  <data name="OrderCreateMessage" xml:space="preserve">
     <value>Are you sure you want to create an order?</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="Processing_Video" xml:space="preserve">
+  <data name="ProcessingVideo" xml:space="preserve">
     <value>Processing takes a few minutes</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="Profile_Your_Email_Not_Actual" xml:space="preserve">
+  <data name="ProfileYourEmailNotActual" xml:space="preserve">
     <value>Your mail is not confirmed</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="Profile_Email_Confirmation_Sent" xml:space="preserve">
+  <data name="ProfileEmailConfirmationSent" xml:space="preserve">
     <value>A confirmation email has been sent to your mail</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="Profile_Resend_Confirmation" xml:space="preserve">
-    <value>resend</value>
-  </data>
-  <data name="OrderDetailsView_Video_Uploaded" xml:space="preserve">
+  <data name="TwentyFourHoursToPay" xml:space="preserve">
     <value>The customer has 24 hours to pay</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="Cashbox_Commision_Warning" xml:space="preserve">
-    <value>Please note that operator fees will be added to the recharge amount</value>
-  </data>
-  <data name="Registration_Confirm_Adult" xml:space="preserve">
-    <value>I confirm that I am 18 years old</value>
-  </data>
-  <data name="Registration_Agree_With" xml:space="preserve">
-    <value>I agree with</value>
-  </data>
-  <data name="Registration_Terms_And_Rules" xml:space="preserve">
-    <value>terms and conditions</value>
-  </data>
-  <data name="Validation_Field_Adult_Check" xml:space="preserve">
-    <value>Age</value>
-  </data>
-  <data name="Validation_Field_Privacy_Check" xml:space="preserve">
-    <value>Terms &amp; Conditions</value>
-  </data>
-  <data name="Registration_Checkmark_Not_Confirmed" xml:space="preserve">
-    <value>Confirm age and agree to the rules</value>
-  </data>
-  <data name="Not_Confirmed" xml:space="preserve">
+  <data name="NotVerified" xml:space="preserve">
     <value>{0} not verified</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="Competition_Prize" xml:space="preserve">
-    <value>Prize</value>
-  </data>
-  <data name="Competition_Votes" xml:space="preserve">
-    <value>Vote</value>
-  </data>
-  <data name="Create_Order_Hour" xml:space="preserve">
-    <value>hour</value>
-  </data>
-  <data name="Create_Orders_Hours_Plural" xml:space="preserve">
-    <value>hours</value>
-  </data>
-  <data name="Create_Orders_Hours_Singular" xml:space="preserve">
-    <value>hours</value>
-  </data>
-  <data name="Walkthrouth_Competitions_Description" xml:space="preserve">
+  <data name="WalkthrouthCompetitionsDescription" xml:space="preserve">
     <value>Take part in contests with cash prizes! Read the terms and conditions and post your video soon. Winners will be selected by general vote and will instantly receive prize money in their account. Do not forget to call your friends to vote, they will increase your chances of winning!
 
 The competition consists of three stages:
 1) At the initial stage, the participants send their videos to the competition;
-2) Voting. PrankChat users vote for their favorite video;
+2) Voting. OnPlay users vote for their favorite video;
 3) Results. After summing up the accounts of participants whose videos won prizes, the money won is transferred.
 
 Apple Inc. is not a sponsor of the competitions.</value>
-  </data>
-  <data name="Walkthrouth_CreateOrder_Description" xml:space="preserve">
-    <value>Post your assignment, according to which other users will make a video for you. Describe the task in as much detail as possible, set the deadline and the amount of remuneration to get the perfect movie.</value>
-  </data>
-  <data name="Walkthrouth_Orders_Description" xml:space="preserve">
-    <value>You can take any order from the “New” category and upload the finished video according to the assignment. To accept the order, pay 20% of its value as a guarantee that you will not abandon its execution. When the customer checks your video and approves it, wait for payment to your account. If the customer forgot to approve the order, the money will be sent to you automatically after 24 hours. 20% of the order value is the commission PrankChat.
-
-If the customer did not like your video, he can send the task to the &quot;dispute&quot;. Independent users will decide within 24 hours whether the completed video matches the order. If the number of positive votes exceeds the number of negative, then wait for your well-deserved bonus. In the opposite situation, the reward will be returned to the customer.</value>
-  </data>
-  <data name="Walkthrouth_Profile_Description" xml:space="preserve">
-    <value>In the profile, the user can track the amount of money in the current account, as well as all his tasks: published, executable and completed.</value>
-  </data>
-  <data name="Walkthrouth_Competitions_Title" xml:space="preserve">
-    <value>Contests</value>
-  </data>
-  <data name="Walkthrouth_CreateOrder_Title" xml:space="preserve">
-    <value>Create Orders</value>
-  </data>
-  <data name="Walkthrouth_Orders_Title" xml:space="preserve">
-    <value>Order feed</value>
-  </data>
-  <data name="Walkthrouth_Profile_Title" xml:space="preserve">
-    <value>Profile</value>
-  </data>
-  <data name="No_Intentet_Connection" xml:space="preserve">
-    <value>No internet connection</value>
-  </data>
-  <data name="Video_Failed_To_Upload" xml:space="preserve">
-    <value>Failed to upload video</value>
-  </data>
-  <data name="Bytes_Presentation" xml:space="preserve">
-    <value>bytes</value>
-  </data>
-  <data name="Kilobytes_Presentation" xml:space="preserve">
-    <value>KB</value>
-  </data>
-  <data name="Megabytes_Presentation" xml:space="preserve">
-    <value>MB</value>
-  </data>
-  <data name="Gigabytes_Presentation" xml:space="preserve">
-    <value>GB</value>
-  </data>
-  <data name="Terabytes_Presentation" xml:space="preserve">
-    <value>TB</value>
-  </data>
-  <data name="Subscription_Title_Template" xml:space="preserve">
-    <value>Subscriptions {0}</value>
-  </data>
-  <data name="Subscribers_Title_Template" xml:space="preserve">
-    <value>Subscribers {0}</value>
-  </data>
-  <data name="Search_Videos" xml:space="preserve">
-    <value>Videos</value>
-  </data>
-  <data name="Search_Peoples" xml:space="preserve">
-    <value>Peoples</value>
-  </data>
-  <data name="Application_New_Version_Ready" xml:space="preserve">
-    <value>An important update came out, it seems time to install it.</value>
-  </data>
-  <data name="Download_Update" xml:space="preserve">
-    <value>Download update</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="Email_Already_Exists" xml:space="preserve">
+  <data name="WalkthrouthCreateOrderDescription" xml:space="preserve">
+    <value>Post your assignment, according to which other users will make a video for you. Describe the task in as much detail as possible, set the deadline and the amount of remuneration to get the perfect movie.</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="WalkthrouthOrdersDescription" xml:space="preserve">
+    <value>You can take any order from the “New” category and upload the finished video according to the assignment. To accept the order, pay 20% of its value as a guarantee that you will not abandon its execution. When the customer checks your video and approves it, wait for payment to your account. If the customer forgot to approve the order, the money will be sent to you automatically after 24 hours. 20 % of the order value is the commission OnPlay.
+
+If the customer did not like your video, he can send the task to the &quot;dispute&quot;. Independent users will decide within 24 hours whether the completed video matches the order. If the number of positive votes exceeds the number of negative, then wait for your well-deserved bonus. In the opposite situation, the reward will be returned to the customer.</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="WalkthrouthProfileDescription" xml:space="preserve">
+    <value>In the profile, the user can track the amount of money in the current account, as well as all his tasks: published, executable and completed.</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="CreateOrders" xml:space="preserve">
+    <value>Create Orders</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="OrderFeed" xml:space="preserve">
+    <value>Order feed</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="NoIntentetConnection" xml:space="preserve">
+    <value>No internet connection</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="VideoFailedToUpload" xml:space="preserve">
+    <value>Failed to upload video</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="Bytes" xml:space="preserve">
+    <value>bytes</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="Kb" xml:space="preserve">
+    <value>KB</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="Mb" xml:space="preserve">
+    <value>MB</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="Gb" xml:space="preserve">
+    <value>GB</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="Tb" xml:space="preserve">
+    <value>TB</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="SubscriptionTemplate" xml:space="preserve">
+    <value>Subscriptions {0}</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="SubscribersTemplate" xml:space="preserve">
+    <value>Subscribers {0}</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="EmailAlreadyExists" xml:space="preserve">
     <value>Current email already exists</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="WithdrawalView_Passport" xml:space="preserve">
-    <value>Passport</value>
-    <comment>Creditcard save</comment>
-  </data>
-  <data name="Create_Order_Secret_order" xml:space="preserve">
+  <data name="SecretOrder" xml:space="preserve">
     <value>Secret order</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="Walkthrouth_CreateOrder_Secret_Description" xml:space="preserve">
+  <data name="WalkthrouthCreateOrderSecretDescription" xml:space="preserve">
     <value>Secret orders allow you to hide the task text from other users until they take it to work!
 
 Taking such a task the user will have to complete it or lose the Deposit!</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="Publication_Item_Download" xml:space="preserve">
+  <data name="Download" xml:space="preserve">
     <value>Download</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="Competition_Pay_For_Join" xml:space="preserve">
+  <data name="PayForParticipation" xml:space="preserve">
     <value>Pay for participation</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="Competion_Rules_Template" xml:space="preserve">
+  <data name="CompetionRulesTemplate" xml:space="preserve">
     <value>To take part in the competition, you need to pay {0} ₽</value>
+    <comment>Fuzzy</comment>
   </data>
   <data name="Pay" xml:space="preserve">
     <value>Pay</value>
   </data>
-  <data name="Error_Something_Went_Wrong_Message" xml:space="preserve">
+  <data name="ErrorSomethingWentWrongMessage" xml:space="preserve">
     <value>Oops, something went wrong :(</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="WithdrawalView_MiddleName" xml:space="preserve">
-    <value>Middle name</value>
-  </data>
-  <data name="WithdrawalView_Location" xml:space="preserve">
-    <value>Location</value>
-  </data>
-  <data name="WithdrawalView_Nationality" xml:space="preserve">
-    <value>Nationality</value>
-  </data>
-  <data name="Withdrawal_Yoomoney_Description" xml:space="preserve">
+  <data name="WithdrawalYoomoneyDescription" xml:space="preserve">
     <value>Funds are withdrawn through the Yoomoney wallet.</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="Withdrawal_Yoomoney" xml:space="preserve">
+  <data name="Yoomoney" xml:space="preserve">
     <value>Yoomoney</value>
+    <comment>Fuzzy</comment>
   </data>
-  <data name="Withdrawal_Enter_Wallet_Number" xml:space="preserve">
-    <value>Enter Yoomoney wallet number</value>
-  </data>
-  <data name="Create_Order_Privacy_Message" xml:space="preserve">
-    <value>By completing the creation of the order, I confirm the registration with the terms of the public offer, user agreement and privacy policy</value>
-  </data>
-  <data name="Create_Order_Privacy_Link" xml:space="preserve">
-    <value>terms of the public offer, user agreement and privacy policy</value>
-  </data>
-  <data name="Block_User" xml:space="preserve">
+  <data name="BlockUser" xml:space="preserve">
     <value>Block user</value>
     <comment>Fuzzy</comment>
   </data>
-  <data name="Blocked_User" xml:space="preserve">
+  <data name="BlockedUser" xml:space="preserve">
     <value>User {0} is blocked</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="appName" xml:space="preserve">
+    <value>OnPlay</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="Rate" xml:space="preserve">
+    <value>Rate</value>
+  </data>
+  <data name="Popular" xml:space="preserve">
+    <value>Popular</value>
+  </data>
+  <data name="Actual" xml:space="preserve">
+    <value>Actual</value>
+  </data>
+  <data name="MyFeed" xml:space="preserve">
+    <value>My Feed</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Search</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="EnterEmail" xml:space="preserve">
+    <value>Enter e-mail</value>
+  </data>
+  <data name="EnterPassword" xml:space="preserve">
+    <value>Enter password</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="ForgotPassword" xml:space="preserve">
+    <value>Forgot password?</value>
+  </data>
+  <data name="Restore" xml:space="preserve">
+    <value>Restore</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="CreateNewOneAccount" xml:space="preserve">
+    <value>Don&apos;t have an account? Create a new one.</value>
+  </data>
+  <data name="EnterSocialNetworks" xml:space="preserve">
+    <value>Enter social networks:</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="Registration" xml:space="preserve">
+    <value>Registration</value>
+  </data>
+  <data name="AlreadyRegistered" xml:space="preserve">
+    <value>Already registered?</value>
+  </data>
+  <data name="LoginIn" xml:space="preserve">
+    <value>Log in</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="EnterNickname" xml:space="preserve">
+    <value>Enter nickname</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="EnterYourName" xml:space="preserve">
+    <value>Enter your name</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="EnterBirthday" xml:space="preserve">
+    <value>Enter birthday</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="EnterPasswordAgain" xml:space="preserve">
+    <value>Enter password again</value>
+  </data>
+  <data name="SelectSex" xml:space="preserve">
+    <value>Select sex:</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="Male" xml:space="preserve">
+    <value>Male</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="Female" xml:space="preserve">
+    <value>Female</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="Congratulations" xml:space="preserve">
+    <value>Congratulations!</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="PasswordRecoveryOnMail" xml:space="preserve">
+    <value>An email was sent to the mail with a link to reset the password.</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="FeaturedVideos" xml:space="preserve">
+    <value>Featured Videos</value>
+  </data>
+  <data name="CustomSubscriptions" xml:space="preserve">
+    <value>Custom Subscriptions</value>
+  </data>
+  <data name="Faq" xml:space="preserve">
+    <value>FAQ</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="ReferencesOrReviews" xml:space="preserve">
+    <value>References/reviews</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="Withdraw" xml:space="preserve">
+    <value>Withdrawal</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="Performed" xml:space="preserve">
+    <value>performed</value>
+  </data>
+  <data name="Subscribers" xml:space="preserve">
+    <value>subscribers</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="Subscriptions" xml:space="preserve">
+    <value>subscriptions</value>
+  </data>
+  <data name="Ordered" xml:space="preserve">
+    <value>I ordered</value>
+  </data>
+  <data name="Execute" xml:space="preserve">
+    <value>I execute</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="NewOrder" xml:space="preserve">
+    <value>New order</value>
+  </data>
+  <data name="Rating" xml:space="preserve">
+    <value>Rating</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="Estimate" xml:space="preserve">
+    <value>Estimate</value>
+  </data>
+  <data name="OrderName" xml:space="preserve">
+    <value>Order Name</value>
+  </data>
+  <data name="OrderDescription" xml:space="preserve">
+    <value>Order Description</value>
+  </data>
+  <data name="TenThousand" xml:space="preserve">
+    <value>10 000 ₽</value>
+  </data>
+  <data name="DateOfExecution" xml:space="preserve">
+    <value>Date of execution</value>
+  </data>
+  <data name="HideArtist" xml:space="preserve">
+    <value>Hide artist</value>
+  </data>
+  <data name="OrderMatch" xml:space="preserve">
+    <value>Does the video order match?</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="MethodToReplenish" xml:space="preserve">
+    <value>Choose a method to replenish:</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="TakeOff" xml:space="preserve">
+    <value>Take off</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="SelectMethodToWithdrawal" xml:space="preserve">
+    <value>Select a method to withdrawal:</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="Million" xml:space="preserve">
+    <value>1 000 000 ₽</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="ShareThis" xml:space="preserve">
+    <value>Share this</value>
+  </data>
+  <data name="OnInstagram" xml:space="preserve">
+    <value>On Instagram</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="YourGender" xml:space="preserve">
+    <value>Your gender</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>Change password</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="AboutMe" xml:space="preserve">
+    <value>About me</value>
+  </data>
+  <data name="ChangeProfilePhoto" xml:space="preserve">
+    <value>Change profile photo</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="Viewed" xml:space="preserve">
+    <value>Viewed</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="NotViewed" xml:space="preserve">
+    <value>Not viewed</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="LoginToAccount" xml:space="preserve">
+    <value>Log in</value>
+  </data>
+  <data name="ComVkSdkAppId" xml:space="preserve">
+    <value>7343996</value>
+  </data>
+  <data name="SentToModerator" xml:space="preserve">
+    <value>Sent to moderator</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="Surname" xml:space="preserve">
+    <value>Surname</value>
+  </data>
+  <data name="CardNumber" xml:space="preserve">
+    <value>Card number</value>
+  </data>
+  <data name="AttachFile" xml:space="preserve">
+    <value>Attach file</value>
+  </data>
+  <data name="Participant" xml:space="preserve">
+    <value>Participant</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="PrizePool" xml:space="preserve">
+    <value>Prize pool</value>
+  </data>
+  <data name="PendingVerifyUser" xml:space="preserve">
+    <value>Your request is being processed, the waiting time can be up to 24 hours</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="Amount" xml:space="preserve">
+    <value>Amount</value>
+  </data>
+  <data name="PendingWithdrawal" xml:space="preserve">
+    <value>Your request for withdrawal of funds is currently being processed.</value>
+  </data>
+  <data name="DateOfCreation" xml:space="preserve">
+    <value>date of creation</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Place" xml:space="preserve">
+    <value>A place</value>
+  </data>
+  <data name="Resend" xml:space="preserve">
+    <value>resend</value>
+  </data>
+  <data name="CommisionWarning" xml:space="preserve">
+    <value>Please note that operator fees will be added to the recharge amount</value>
+  </data>
+  <data name="ConfirmAdult" xml:space="preserve">
+    <value>I confirm that I am 18 years old</value>
+  </data>
+  <data name="AgreeWith" xml:space="preserve">
+    <value>I agree with</value>
+  </data>
+  <data name="TermsAndRules" xml:space="preserve">
+    <value>Terms &amp;amp; Conditions</value>
+  </data>
+  <data name="Age" xml:space="preserve">
+    <value>Age</value>
+  </data>
+  <data name="TermsAndConditions" xml:space="preserve">
+    <value>terms and conditions</value>
+  </data>
+  <data name="Prize" xml:space="preserve">
+    <value>Prize</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="Vote" xml:space="preserve">
+    <value>Vote</value>
+  </data>
+  <data name="Videos" xml:space="preserve">
+    <value>Videos</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="Peoples" xml:space="preserve">
+    <value>Peoples</value>
+  </data>
+  <data name="ApplicationNewVersionReady" xml:space="preserve">
+    <value>An important update came out, it seems time to install it.</value>
+  </data>
+  <data name="DownloadUpdate" xml:space="preserve">
+    <value>Download update</value>
+  </data>
+  <data name="Passport" xml:space="preserve">
+    <value>Passport</value>
+    <comment>Creditcard save</comment>
+  </data>
+  <data name="MiddleName" xml:space="preserve">
+    <value>Middle name</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>Location</value>
+  </data>
+  <data name="Nationality" xml:space="preserve">
+    <value>Nationality</value>
+  </data>
+  <data name="EnterWalletNumber" xml:space="preserve">
+    <value>Enter Yoomoney wallet number</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="CreateOrderPrivacyMessage" xml:space="preserve">
+    <value>By completing the creation of the order, I confirm the registration with the terms of the public offer, user agreement and privacy policy</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="CreateOrderPrivacyLink" xml:space="preserve">
+    <value>terms of the public offer, user agreement and privacy policy</value>
+  </data>
+  <data name="Orderss" xml:space="preserve">
+    <value>orders</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="CreatingOrder" xml:space="preserve">
+    <value>Create order</value>
+  </data>
+  <data name="Sex" xml:space="preserve">
+    <value>Sex</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="Revoke" xml:space="preserve">
+    <value>Revoke</value>
+  </data>
+  <data name="NeedToConfirmYourIdentity" xml:space="preserve">
+    <value>In order to withdraw funds from your account, you need to confirm your identity by attaching a selfie with a passport in expanded form.</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="InTheDispute" xml:space="preserve">
+    <value>In dispute</value>
+  </data>
+  <data name="ConfirmAgeAndAgreeRules" xml:space="preserve">
+    <value>Confirm age and agree to the rules</value>
+  </data>
+  <data name="OneHour" xml:space="preserve">
+    <value>hour</value>
+  </data>
+  <data name="LoginWithoutRegistration" xml:space="preserve">
+    <value>Sign in without registration</value>
+  </data>
+  <data name="CreateContest" xml:space="preserve">
+    <value>Create a competition</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="ParticipationFee" xml:space="preserve">
+    <value>Participation fee</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="PercentageContributionPrizePool" xml:space="preserve">
+    <value>% of the contribution to the prize pool</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="SecretContest" xml:space="preserve">
+    <value>Secret contest</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="CollectionBidsFrom" xml:space="preserve">
+    <value>Collection of bids from</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="CollectionBidsFor" xml:space="preserve">
+    <value>Collection of bids for</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="VotingFrom" xml:space="preserve">
+    <value>Voting from</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="VotingFor" xml:space="preserve">
+    <value>Voting for</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="Percent" xml:space="preserve">
+    <value>%</value>
+    <comment>Fuzzy</comment>
+  </data>
+  <data name="IncorrectEmailOrPasswordException" xml:space="preserve">
+    <value>The entered Email or password is incorrect. Try to reset your password or check the spelling of your mail.</value>
+  </data>
+  <data name="PerYear" xml:space="preserve">
+    <value>PerYear</value>
+  </data>
+  <data name="AllTime" xml:space="preserve">
+    <value>Per all time</value>
+    <comment>Fuzzy</comment>
   </data>
 </root>

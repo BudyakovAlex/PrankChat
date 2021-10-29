@@ -13,7 +13,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 using PrankChat.Mobile.Core.Services.ErrorHandling.Messages;
-using PrankChat.Mobile.Core.Services.Dialogs;
+using PrankChat.Mobile.Core.Plugins.UserInteraction;
+using PrankChat.Mobile.Core.Ioc;
 
 namespace PrankChat.Mobile.Core.Services.ErrorHandling
 {
@@ -22,16 +23,16 @@ namespace PrankChat.Mobile.Core.Services.ErrorHandling
         private const int ZeroSkipDelay = 0;
 
         private readonly SemaphoreSlim _semaphore = new SemaphoreSlim(1, 1);
-        private readonly IDialogService _dialogService;
         private readonly IMvxLogProvider _logProvider;
         private bool _isSuspended;
 
+        // This need for normal initialize ErrorHandleService on start application, because IUserInteraction on this time not register.
+        private IUserInteraction UserInteraction => CompositionRoot.Container.Resolve<IUserInteraction>();
+
         public ErrorHandleService(
             IMvxMessenger messenger,
-            IDialogService dialogService,
             IMvxLogProvider logProvider)
         {
-            _dialogService = dialogService;
             _logProvider = logProvider;
 
             messenger.Subscribe<ServerErrorMessage>(OnServerErrorEvent, MvxReference.Strong);
@@ -42,21 +43,21 @@ namespace PrankChat.Mobile.Core.Services.ErrorHandling
             switch (exception)
             {
                 case NetworkException networkException when !string.IsNullOrWhiteSpace(networkException.Message):
-                    DisplayMessage(() => _dialogService.ShowToast(networkException.Message, ToastType.Negative));
+                    DisplayMessage(() => UserInteraction.ShowToast(networkException.Message, ToastType.Negative));
                     break;
 
                 case ValidationException validationException:
                     var loacalizedMessage = GetValidationErrorLocalizedMessage(validationException);
-                    DisplayMessage(() => _dialogService.ShowToast(loacalizedMessage, ToastType.Negative));
+                    DisplayMessage(() => UserInteraction.ShowToast(loacalizedMessage, ToastType.Negative));
                     break;
 
                 case BaseUserVisibleException userException when !string.IsNullOrWhiteSpace(userException.Message):
-                    DisplayMessage(() => _dialogService.ShowToast(userException.Message, ToastType.Negative));
+                    DisplayMessage(() => UserInteraction.ShowToast(userException.Message, ToastType.Negative));
                     break;
 
                 case Exception ex:
-                    var message = string.IsNullOrWhiteSpace(ex.Message) ? Resources.Error_Unexpected_Network : ex.Message;
-                    DisplayMessage(() => _dialogService.ShowToast(message, ToastType.Negative));
+                    var message = string.IsNullOrWhiteSpace(ex.Message) ? Resources.ErrorUnexpectedNetwork : ex.Message;
+                    DisplayMessage(() => UserInteraction.ShowToast(message, ToastType.Negative));
                     Crashes.TrackError(exception);
                     break;
             }
@@ -87,18 +88,18 @@ namespace PrankChat.Mobile.Core.Services.ErrorHandling
             switch (exception)
             {
                 case NetworkException networkException:
-                    DisplayMessage(async () => await _dialogService.ShowAlertAsync(Resources.Error_Unexpected_Server));
+                    DisplayMessage(async () => await UserInteraction.ShowAlertAsync(Resources.ErrorUnexpectedServer));
                     return;
 
                 case ProblemDetailsException problemDetails:
                     if (string.IsNullOrWhiteSpace(problemDetails.Message) &&
                         string.IsNullOrWhiteSpace(problemDetails.Title))
                     {
-                        DisplayMessage(() => _dialogService.ShowToast(Resources.Error_Unexpected_Network, ToastType.Negative));
+                        DisplayMessage(() => UserInteraction.ShowToast(Resources.ErrorUnexpectedNetwork, ToastType.Negative));
                         return;
                     }
 
-                    DisplayMessage(() => _dialogService.ShowToast(problemDetails.Message ?? problemDetails.Title, ToastType.Negative));
+                    DisplayMessage(() => UserInteraction.ShowToast(problemDetails.Message ?? problemDetails.Title, ToastType.Negative));
                     break;
 
                 case NullReferenceException nullReference:
@@ -110,49 +111,30 @@ namespace PrankChat.Mobile.Core.Services.ErrorHandling
                     break;
 
                 case Exception ex when ex.InnerException != null:
-                    var message = ex.InnerException.Message ?? Resources.Error_Unexpected_Server;
-                    DisplayMessage(() => _dialogService.ShowToast(message, ToastType.Negative));
+                    var message = ex.InnerException.Message ?? Resources.ErrorUnexpectedServer;
+                    DisplayMessage(() => UserInteraction.ShowToast(message, ToastType.Negative));
                     break;
 
                 case Exception ex when ex.GetType() != typeof(NullReferenceException):
-                    var errorMessage = !string.IsNullOrEmpty(ex.Message) ? ex.Message : Resources.Error_Unexpected_Server;
-                    DisplayMessage(async () => await _dialogService.ShowAlertAsync(errorMessage));
+                    var errorMessage = !string.IsNullOrEmpty(ex.Message) ? ex.Message : Resources.ErrorUnexpectedServer;
+                    DisplayMessage(async () => await UserInteraction.ShowAlertAsync(errorMessage));
                     break;
             }
         }
 
-        private string GetValidationErrorLocalizedMessage(ValidationException exception)
+        private string GetValidationErrorLocalizedMessage(ValidationException exception) => exception.ErrorType switch
         {
-            switch (exception.ErrorType)
-            {
-                case ValidationErrorType.Empty:
-                    return string.Format(Resources.Validation_Error_Empty, exception.LocalizedFieldName);
+            ValidationErrorType.Empty => string.Format(Resources.CannotBeEmpty, exception.LocalizedFieldName),
+            ValidationErrorType.CanNotMatch => string.Format(Resources.ValidationErrorCanNotMatch, exception.LocalizedFieldName, exception.RelativeValue),
+            ValidationErrorType.GreaterThanRequired => string.Format(Resources.ValidationErrorGreaterThanRequired, exception.LocalizedFieldName, exception.RelativeValue),
+            ValidationErrorType.LowerThanRequired => string.Format(Resources.ValidationErrorLowerThanRequired, exception.LocalizedFieldName, exception.RelativeValue),
+            ValidationErrorType.NotMatch => string.Format(Resources.ValidationErrorNotMatch, exception.LocalizedFieldName, exception.RelativeValue),
+            ValidationErrorType.Invalid => string.Format(Resources.ValidationErrorInvalid, exception.LocalizedFieldName),
+            ValidationErrorType.NotConfirmed => string.Format(Resources.NotVerified, exception.LocalizedFieldName),
+            ValidationErrorType.Undefined => exception.Message,
+            _ => string.Empty,
+        };
 
-                case ValidationErrorType.CanNotMatch:
-                    return string.Format(Resources.Validation_Error_CanNotMatch, exception.LocalizedFieldName, exception.RelativeValue);
-
-                case ValidationErrorType.GreaterThanRequired:
-                    return string.Format(Resources.Validation_Error_GreaterThanRequired, exception.LocalizedFieldName, exception.RelativeValue);
-
-                case ValidationErrorType.LowerThanRequired:
-                    return string.Format(Resources.Validation_Error_LowerThanRequired, exception.LocalizedFieldName, exception.RelativeValue);
-
-                case ValidationErrorType.NotMatch:
-                    return string.Format(Resources.Validation_Error_NotMatch, exception.LocalizedFieldName, exception.RelativeValue);
-
-                case ValidationErrorType.Invalid:
-                    return string.Format(Resources.Validation_Error_Invalid, exception.LocalizedFieldName);
-
-                case ValidationErrorType.NotConfirmed:
-                    return string.Format(Resources.Not_Confirmed, exception.LocalizedFieldName);
-
-                case ValidationErrorType.Undefined:
-                    return exception.Message;
-
-                default:
-                    return string.Empty;
-            }
-        }
 
         private void DisplayMessage(Func<Task> messageAction)
         {

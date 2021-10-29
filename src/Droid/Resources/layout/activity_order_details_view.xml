@@ -12,11 +12,11 @@
 		android:layout_height="wrap_content" />
 
 	<mvvmcross.droidx.MvxSwipeRefreshLayout
+        android:id="@+id/order_swipe_refresh_layout"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:layout_below="@+id/action_bar"
-		android:background="@color/applicationWhite"
-		app:MvxBind="Refreshing IsBusy, Mode = OneWay; RefreshCommand LoadOrderDetailsCommand">
+		android:background="@color/applicationWhite">
 
 		<ScrollView
 			android:layout_width="match_parent"
@@ -34,27 +34,26 @@
 					android:layout_width="85dp"
 					android:layout_height="85dp"
 					android:layout_gravity="center_horizontal"
-					android:layout_marginTop="16dp"
-					app:MvxBind="ImagePath CustomerSectionViewModel.ProfilePhotoUrl, Mode = OneWay; PlaceholderText CustomerSectionViewModel.ProfileShortName, Mode = OneWay; Click CustomerSectionViewModel.OpenCustomerProfileCommand" />
+					android:layout_marginTop="16dp"/>
 
 				<TextView
+                    android:id="@+id/profile_name_text_view"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:layout_marginTop="8dp"
 					android:gravity="center_horizontal"
 					android:textColor="@color/applicationBlack"
-					android:textSize="14dp"
-					app:MvxBind="Text CustomerSectionViewModel.ProfileName"/>
+					android:textSize="14dp"/>
 
 				<TextView
+                    android:id="@+id/order_title_text_view"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:layout_marginTop="26dp"
 					android:gravity="center"
 					android:textColor="@color/applicationBlack"
 					android:textSize="14dp"
-					android:textStyle="bold"
-					app:MvxBind="Text OrderTitle"/>
+					android:textStyle="bold"/>
 
 				<LinearLayout
 					android:layout_width="match_parent"
@@ -62,19 +61,18 @@
 					android:orientation="horizontal"
 					android:layout_marginTop="16dp">
 					<View
+                        android:id="@+id/order_description_view"
 						android:layout_width="3dp"
 						android:layout_height="match_parent"
 						android:background="@color/accent"
-						android:layout_marginRight="16dp"
-						app:MvxBind="Visibility Visibility(IsHiddenOrder)"/>
+						android:layout_marginRight="16dp"/>
 					<TextView
-                        android:id="@+id/order_descroption_text_view"
+                        android:id="@+id/order_description_text_view"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
 						android:gravity="left|center_vertical"
 						android:textColor="@color/applicationBlack"
-						android:textSize="14dp"
-						app:MvxBind="Text OrderDescription"/>
+						android:textSize="14dp"/>
 				</LinearLayout>
 
 				<TextView
@@ -84,34 +82,34 @@
 					android:gravity="center_horizontal"
 					android:textColor="@color/inactive"
 					android:textSize="12dp"
-					android:text="@string/OrderDetailsView_Price_Text" />
+					android:text="@string/OrderPrice" />
 
 				<TextView
+                    android:id="@+id/price_value_text_view"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:layout_marginTop="16dp"
 					android:gravity="center_horizontal"
 					android:textColor="@color/inactive"
-					android:textSize="26dp"
-					app:MvxBind="Text PriceValue"/>
+					android:textSize="26dp"/>
 
 				<TextView
+                    android:id="@+id/order_details_view_time_text_view"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:layout_marginTop="26dp"
 					android:gravity="center_horizontal"
 					android:textColor="@color/inactive"
 					android:textSize="12dp"
-					android:text="@string/OrderDetailsView_Time_Text"
-					app:MvxBind="Visibility Visibility(IsTimeAvailable)"/>
+					android:text="@string/OrderTime"/>
 
 				<LinearLayout
+                    android:id="@+id/linear_layout_time_days_value"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:layout_marginTop="16dp"
 					android:gravity="center_horizontal"
-					android:orientation="horizontal"
-					app:MvxBind="Visibility Visibility(IsTimeAvailable)">
+					android:orientation="horizontal">
 
 					<LinearLayout
 						android:layout_width="wrap_content"
@@ -124,8 +122,7 @@
 							android:layout_height="wrap_content"
 							android:layout_gravity="center_horizontal"
 							android:textColor="@color/inactive"
-							android:textSize="26dp"
-							app:MvxBind="Text TimeDaysValue"/>
+							android:textSize="26dp"/>
 
 						<TextView
 							android:layout_width="wrap_content"
@@ -135,7 +132,7 @@
 							android:layout_marginRight="5dp"
 							android:textColor="@color/inactive"
 							android:textSize="12dp"
-							android:text="@string/Order_View_Day"/>
+							android:text="@string/Day"/>
 
 					</LinearLayout>
 
@@ -160,8 +157,7 @@
 							android:layout_height="wrap_content"
 							android:layout_gravity="center_horizontal"
 							android:textColor="@color/inactive"
-							android:textSize="26dp"
-							app:MvxBind="Text TimeHourValue"/>
+							android:textSize="26dp"/>
 
 						<TextView
 							android:layout_width="wrap_content"
@@ -171,7 +167,7 @@
 							android:layout_marginRight="5dp"
 							android:textColor="@color/inactive"
 							android:textSize="12dp"
-							android:text="@string/Order_View_Hour"/>
+							android:text="@string/Hour"/>
 
 					</LinearLayout>
 
@@ -196,8 +192,7 @@
 							android:layout_height="wrap_content"
 							android:layout_gravity="center_horizontal"
 							android:textColor="@color/inactive"
-							android:textSize="26dp"
-							app:MvxBind="Text TimeMinutesValue"/>
+							android:textSize="26dp"/>
 
 						<TextView
 							android:layout_width="wrap_content"
@@ -208,43 +203,43 @@
 							android:textColor="@color/inactive"
 							android:textSize="12dp"
 							android:textAlignment="center"
-							android:text="@string/Order_View_Minute"/>
+							android:text="@string/Minute"/>
 
 					</LinearLayout>
 				</LinearLayout>
 
 				<com.google.android.material.button.MaterialButton
+                    android:id="@+id/take_order_button"
 					style="@style/Theme.PrankChat.Button.Accent"
 					android:layout_width="wrap_content"
 					android:layout_height="36dp"
 					android:layout_gravity="center_horizontal"
 					android:layout_marginTop="26dp"
-					android:text="@string/OrderDetailsView_Take_Order_Button"
-					app:MvxBind="Click TakeOrderCommand; Visibility Visibility(IsTakeOrderAvailable)" />
+					android:text="@string/TakeAnOrder"/>
 
 				<com.google.android.material.button.MaterialButton
+                    android:id="@+id/subscribe_material_button"
 					style="@style/Theme.PrankChat.Button.Accent"
 					android:layout_width="wrap_content"
 					android:layout_height="36dp"
 					android:layout_gravity="center_horizontal"
 					android:layout_marginTop="26dp"
-					android:text="@string/OrderDetailsView_Subscribe_Button"
-					app:MvxBind="Click SubscribeOrderCommand; Visibility Visibility(IsSubscribeAvailable)" />
+					android:text="@string/Subscribe"/>
 
 				<com.google.android.material.button.MaterialButton
+                    android:id="@+id/unsubscribe_button"
 					style="@style/Theme.PrankChat.Button.Accent"
 					android:layout_width="wrap_content"
 					android:layout_height="36dp"
 					android:layout_gravity="center_horizontal"
 					android:layout_marginTop="26dp"
-					android:text="@string/OrderDetailsView_Unsubscribe_Button"
-					app:MvxBind="Click UnsubscribeOrderCommand; Visibility Visibility(IsUnsubscribeAvailable)" />
+					android:text="@string/Unsubscribe"/>
 				<LinearLayout
+                    android:id="@+id/video_load_linear_layout"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:layout_marginTop="26dp"
-					android:orientation="vertical"
-					app:MvxBind="Visibility Visibility(VideoSectionViewModel.IsVideoLoadAvailable)">
+					android:orientation="vertical">
 
 					<TextView
 						android:layout_width="match_parent"
@@ -252,37 +247,37 @@
 						android:gravity="center_horizontal"
 						android:textColor="@color/inactive"
 						android:textSize="12dp"
-						android:text="@string/OrderDetailsView_Download_Text"/>
+						android:text="@string/UploadVideo"/>
 
 					<com.google.android.material.button.MaterialButton
+                        android:id="@+id/load_video_material_button"
 						style="@style/Theme.PrankChat.Button.Accent"
 						android:layout_width="wrap_content"
 						android:layout_height="36dp"
 						android:layout_gravity="center_horizontal"
 						android:layout_marginTop="14.5dp"
-						android:text="@string/OrderDetailsView_LoadVideo"
-						app:MvxBind="Click VideoSectionViewModel.LoadVideoCommand" />
+						android:text="@string/UploadVideo"/>
 				</LinearLayout>
 
 				<com.google.android.material.button.MaterialButton
+                    android:id="@+id/execute_button"
 					style="@style/Theme.PrankChat.Button.Accent"
 					android:layout_width="wrap_content"
 					android:layout_height="36dp"
 					android:layout_gravity="center_horizontal"
 					android:layout_marginTop="26dp"
-					android:text="@string/OrderDetailsView_Execute_Button"
-					app:MvxBind="Click ExecuteOrderCommand; Visibility Visibility(IsExecuteOrderAvailable)" />
+					android:text="@string/Run"/>
 
 				<com.google.android.material.button.MaterialButton
+                    android:id="@+id/cancel_order_details_button"
 					style="@style/Theme.PrankChat.Button"
 					android:layout_width="wrap_content"
 					android:layout_height="36dp"
 					android:layout_gravity="center_horizontal"
 					android:layout_marginTop="26dp"
 					android:background="@drawable/border_accent"
-					android:text="@string/OrderDetailsView_Cancel_Button"
-					android:textColor="@color/accent"
-					app:MvxBind="Click CancelOrderCommand; Visibility Visibility(IsCancelOrderAvailable)" />
+					android:text="@string/Cancel"
+					android:textColor="@color/accent"/>
 				<RelativeLayout
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
@@ -290,36 +285,33 @@
 					android:layout_marginBottom="26dp">
 
 					<View
-						android:id="@+id/separator"
+						android:id="@+id/order_details_separator_view"
 						android:layout_width="match_parent"
 						android:layout_height="1dp"
 						android:layout_alignParentTop="true"
-						android:background="@color/border"
-						app:MvxBind="Visibility Visibility(ExecutorSectionViewModel.IsExecutorAvailable)" />
+						android:background="@color/border"/>
 
 					<TextView
-						android:id="@+id/take_the_order_text"
+						android:id="@+id/take_the_order_text_view"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
-						android:layout_below="@+id/separator"
+						android:layout_below="@+id/order_details_separator_view"
 						android:layout_marginTop="16dp"
 						android:gravity="center_horizontal"
 						android:textColor="@color/inactive"
 						android:textSize="12dp"
-						android:text="@string/OrderDetailsView_Took_The_Order_Text"
-						app:MvxBind="Visibility Visibility(ExecutorSectionViewModel.IsExecutorAvailable)"/>
+						android:text="@string/Executor"/>
 
 					<CircleCachedImageView
-						android:id="@+id/executor_photo"
+						android:id="@+id/executor_photo_image_view"
 						android:layout_width="42dp"
 						android:layout_height="42dp"
 						android:layout_below="@+id/take_the_order_text"
 						android:layout_alignParentLeft="true"
-						android:layout_marginTop="15dp"
-						app:MvxBind="ImagePath ExecutorSectionViewModel.ExecutorPhotoUrl; PlaceholderText ExecutorSectionViewModel.ExecutorShortName; Visibility Visibility(ExecutorSectionViewModel.IsExecutorAvailable);  Click ExecutorSectionViewModel.OpenExecutorProfileCommand" />
+						android:layout_marginTop="15dp"/>
 
 					<TextView
-						android:id="@+id/executor_name"
+						android:id="@+id/executor_name_text_view"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
 						android:layout_below="@+id/take_the_order_text"
@@ -327,11 +319,10 @@
 						android:layout_marginTop="21dp"
 						android:layout_toRightOf="@+id/executor_photo"
 						android:textColor="@color/applicationBlack"
-						android:textSize="14dp"
-						app:MvxBind="Text ExecutorSectionViewModel.ExecutorName; Visibility Visibility(ExecutorSectionViewModel.IsExecutorAvailable)"/>
+						android:textSize="14dp"/>
 
 					<TextView
-						android:id="@+id/take_the_order_date"
+						android:id="@+id/take_the_order_date_text_view"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
 						android:layout_below="@+id/executor_name"
@@ -339,24 +330,22 @@
 						android:layout_marginTop="10dp"
 						android:layout_toRightOf="@+id/executor_photo"
 						android:textColor="@color/description"
-						android:textSize="12dp"
-						app:MvxBind="Text StartOrderDate; Visibility Visibility(ExecutorSectionViewModel.IsExecutorAvailable)"/>
+						android:textSize="12dp"/>
 
 					<androidx.cardview.widget.CardView
+                        android:id="@+id/full_video_card_view"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
 						android:layout_below="@+id/executor_photo"
 						android:layout_marginTop="25dp"
-						app:MvxBind="Click VideoSectionViewModel.ShowFullVideoCommand; Visibility Visibility(VideoSectionViewModel.IsVideoAvailable);"
 						app:cardCornerRadius="5dp">
 
 						<FFImageLoading.Cross.MvxCachedImageView
-							android:id="@+id/completed_video"
+							android:id="@+id/completed_video_image_view"
 							android:layout_width="match_parent"
 							android:layout_height="204dp"
 							android:scaleType="fitCenter"
-							android:background="@color/applicationBlack"
-							app:MvxBind="ImagePath VideoSectionViewModel.VideoPlaceholderUrl" />
+							android:background="@color/applicationBlack"/>
 
 						<ImageView
 							android:layout_width="wrap_content"
@@ -368,13 +357,12 @@
 					</androidx.cardview.widget.CardView>
 
 					<androidx.constraintlayout.widget.ConstraintLayout
-						android:id="@+id/processing_view"
+						android:id="@+id/processing_view_constraintLayout"
 						android:layout_width="match_parent"
 						android:layout_height="204dp"
 						android:layout_below="@+id/executor_photo"
 						android:layout_marginTop="25dp"
-						android:background="@drawable/border_accent_load_video"
-						app:MvxBind="Visibility Visibility(VideoSectionViewModel.IsVideoProcessing)">
+						android:background="@drawable/border_accent_load_video">
 
 						<ProgressBar
 							style="?android:attr/progressBarStyle"
@@ -394,7 +382,7 @@
 							android:layout_marginBottom="49dp"
 							android:gravity="center"
 							android:maxLines="3"
-							android:text="@string/Processing_Video"
+							android:text="@string/ProcessingVideo"
 							android:textColor="@android:color/white"
 							android:textSize="17dp"
 							app:layout_constraintBottom_toBottomOf="parent"
@@ -403,11 +391,11 @@
 					</androidx.constraintlayout.widget.ConstraintLayout>
 				</RelativeLayout>
 				<androidx.percentlayout.widget.PercentRelativeLayout
+                    android:id="@+id/video_percent_relative_layout"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:layout_marginTop="26dp"
-					android:layout_marginBottom="26dp"
-					app:MvxBind="Visibility Visibility(VideoSectionViewModel.IsDecideVideoAvailable);">
+					android:layout_marginBottom="26dp">
 
 					<TextView
 						android:id="@+id/corresponds_title_text_view"
@@ -415,7 +403,7 @@
 						android:layout_height="wrap_content"
 						android:layout_alignParentTop="true"
 						android:layout_centerHorizontal="true"
-						android:text="@string/OrderDetailsView_Corresponds_To_Video_Text"
+						android:text="@string/OrderMatch"
 						android:textColor="@color/applicationBlack"
 						android:textSize="14dp"/>
 
@@ -428,7 +416,6 @@
 						android:layout_marginTop="26dp"
 						android:layout_marginRight="10dp"
 						android:layout_toLeftOf="@+id/space"
-						app:MvxBind="Click YesCommand; ArbitrationValue SelectedArbitration; Text YesText"
 						app:layout_widthPercent="40%"
 						app:selected_drawable="@drawable/ic_thumbs_up"
 						app:type_arbitration="positive"
@@ -449,22 +436,22 @@
 						android:layout_marginLeft="10dp"
 						android:layout_marginTop="26dp"
 						android:layout_toRightOf="@+id/space"
-						app:MvxBind="Click NoCommand; ArbitrationValue SelectedArbitration; Text NoText"
 						app:layout_widthPercent="40%"
 						app:selected_drawable="@drawable/ic_thumbs_down"
 						app:type_arbitration="negative"
 						app:unselected_drawable="@drawable/ic_accent_thumbs_down" />
 				</androidx.percentlayout.widget.PercentRelativeLayout>
 				<com.google.android.material.button.MaterialButton
+                    android:id="@+id/accept_button"
 					style="@style/Theme.PrankChat.Button.Accent"
 					android:layout_width="wrap_content"
 					android:layout_height="36dp"
 					android:layout_gravity="center_horizontal"
 					android:layout_marginTop="26dp"
-					android:text="@string/OrderDetailsView_Accept_Button"
-					app:MvxBind="Click AcceptOrderCommand; Visibility Visibility(VideoSectionViewModel.IsDecisionVideoAvailable)" />
+					android:text="@string/ToAccept"/>
 
 				<com.google.android.material.button.MaterialButton
+                    android:id="@+id/arque_order_button"
 					style="@style/Theme.PrankChat.Button"
 					android:layout_width="wrap_content"
 					android:layout_height="36dp"
@@ -472,19 +459,18 @@
 					android:layout_marginTop="10dp"
 					android:layout_marginBottom="24dp"
 					android:background="@null"
-					android:text="@string/OrderDetailsView_Argue_Button"
-					android:textColor="@color/accent"
-					app:MvxBind="Click ArqueOrderCommand; Visibility Visibility(VideoSectionViewModel.IsDecisionVideoAvailable)" />
+					android:text="@string/InDispute"
+					android:textColor="@color/accent"/>
 			</LinearLayout>
 		</ScrollView>
 	</mvvmcross.droidx.MvxSwipeRefreshLayout>
 
 	<FrameLayout
+        android:id="@+id/animation_frame_layout"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:layout_below="@id/action_bar"
-		android:background="@color/applicationTransparent"
-		app:MvxBind="Visibility Visibility(VideoSectionViewModel.IsBusy)">
+		android:background="@color/applicationTransparent">
 
 		<com.airbnb.lottie.LottieAnimationView
 			android:id="@+id/animation_view"

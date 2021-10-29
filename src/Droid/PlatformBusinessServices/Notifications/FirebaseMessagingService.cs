@@ -16,7 +16,7 @@ using System;
 using System.Diagnostics;
 using Xamarin.Essentials;
 using Constants = PrankChat.Mobile.Core.Common;
-using NotificationManager = PrankChat.Mobile.Core.Services.Notifications.NotificationManager;
+using NotificationHandler = PrankChat.Mobile.Core.Services.Notifications.NotificationHandler;
 
 namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications
 {
@@ -71,7 +71,7 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications
 
                 var title = message.GetNotification().Title;
                 var body = message.GetNotification().Body;
-                var pushNotificationData = NotificationManager.Instance.GenerateNotificationData(key, value, title, body);
+                var pushNotificationData = NotificationHandler.Instance.GenerateNotificationData(key, value, title, body);
                 NotificationWrapper.Instance.ScheduleLocalNotification(pushNotificationData);
 
                 if (Mvx.IoCProvider.TryResolve<IMvxMessenger>(out var mvxMessenger))

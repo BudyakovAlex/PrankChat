@@ -45,5 +45,9 @@ namespace PrankChat.Mobile.Core.Ioc
         void CallbackWhenRegistered<TObject>(Action action) where TObject : class;
 
         void CallbackWhenRegistered<TObject>(Action<TObject> action) where TObject : class;
+
+        TType ConstructAndRegisterSingleton<TInterface, TType>()
+            where TInterface : class
+            where TType : class, TInterface;
     }
 }

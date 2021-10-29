@@ -4,7 +4,7 @@ using Android.Util;
 using AndroidX.RecyclerView.Widget;
 using MvvmCross.Commands;
 using MvvmCross.DroidX.RecyclerView;
-using PrankChat.Mobile.Droid.Presentation.Listeners;
+using PrankChat.Mobile.Droid.Listeners;
 using System;
 
 namespace PrankChat.Mobile.Droid.Controls

@@ -5,8 +5,8 @@
     android:id="@+id/container_toolbar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@android:color/transparent"
-    app:elevation="25dp">
+    android:background="@drawable/shadow"
+    android:translationZ="5dp">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -16,7 +16,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@drawable/gradient_action_bar_background"
+            android:background="@color/applicationWhite"
             app:contentInsetLeft="0dp"
             app:contentInsetStartWithNavigation="0dp">
 

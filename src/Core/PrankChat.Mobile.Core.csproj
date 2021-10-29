@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
@@ -57,42 +57,16 @@
     <Folder Include="Managers\Orders\" />
     <Folder Include="Managers\Payment\" />
     <Folder Include="Managers\Competitions\" />
-    <Folder Include="Presentation\Navigation\" />
     <Folder Include="Data\Enums\" />
-    <Folder Include="Presentation\ViewModels\Search\" />
-    <Folder Include="Presentation\ViewModels\Publication\Items\" />
-    <Folder Include="Presentation\ViewModels\PasswordRecovery\" />
-    <Folder Include="Presentation\ViewModels\Order\Items\" />
-    <Folder Include="Presentation\ViewModels\Search\Items\" />
-    <Folder Include="Presentation\ViewModels\Notification\" />
-    <Folder Include="Presentation\ViewModels\Notification\Items\" />
-    <Folder Include="Presentation\ViewModels\Comment\" />
-    <Folder Include="Presentation\ViewModels\Comment\Items\" />
-    <Folder Include="Presentation\ViewModels\Profile\" />
-    <Folder Include="Presentation\ViewModels\Profile\Cashbox\" />
-    <Folder Include="Presentation\ViewModels\Dialogs\" />
     <Folder Include="Exceptions\Network\" />
-    <Folder Include="Presentation\ViewModels\Video\" />
     <Folder Include="Data\Models\Shared\" />
-    <Folder Include="Providers\" />
-    <Folder Include="Presentation\ViewModels\Walthroughs\" />
-    <Folder Include="Presentation\ViewModels\Subscriptions\" />
-    <Folder Include="Presentation\ViewModels\Order\Sections\" />
-    <Folder Include="Presentation\ViewModels\Order\Sections\Abstract\" />
     <Folder Include="Data\Enums\FilterTypes\" />
     <Folder Include="Providers\UserSession\" />
     <Folder Include="Managers\Navigation\" />
     <Folder Include="Ioc\" />
-    <Folder Include="Presentation\ViewModels\Abstract\" />
-    <Folder Include="Presentation\ViewModels\Profile\Abstract\" />
-    <Folder Include="Presentation\ViewModels\Common\" />
-    <Folder Include="Presentation\ViewModels\Subscriptions\Items\" />
-    <Folder Include="Presentation\ViewModels\Common\Abstract\" />
     <Folder Include="Data\Models\Configurations\" />
     <Folder Include="Providers\Configuration\" />
-    <Folder Include="Plugins\" />
     <Folder Include="Plugins\Video\" />
-    <Folder Include="Presentation\ViewModels\Order\Items\Abstract\" />
     <Folder Include="Providers\Platform\" />
     <Folder Include="Data\Models\User\" />
     <Folder Include="Data\Dtos\Users\" />

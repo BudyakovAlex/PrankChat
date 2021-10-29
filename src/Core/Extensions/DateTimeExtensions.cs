@@ -20,27 +20,27 @@ namespace PrankChat.Mobile.Core.Extensions
                 if (count >= DaysInWeek)
                 {
                     count /= DaysInWeek;
-                    afterCount = Resources.Weeks_Short;
+                    afterCount = Resources.WeeksShort;
                 }
                 else
                 {
-                    afterCount = Resources.Days_Short;
+                    afterCount = Resources.DaysShort;
                 }
             }
             else if (date.Hours != 0)
             {
                 count = date.Hours;
-                afterCount = Resources.Hours_Short;
+                afterCount = Resources.HoursShort;
             }
             else if (date.Minutes != 0)
             {
                 count = date.Minutes;
-                afterCount = Resources.Minutes_Short;
+                afterCount = Resources.MinutesShort;
             }
             else
             {
                 count = date.Seconds;
-                afterCount = Resources.Seconds_Short;
+                afterCount = Resources.SecondsShort;
             }
 
             return $"{Math.Max(count, 0)}{afterCount}";
@@ -54,7 +54,7 @@ namespace PrankChat.Mobile.Core.Extensions
         public static string ToTimeAgoPublicationString(this DateTime dateTime)
         {
             if ((DateTime.UtcNow - dateTime).Days > DaysInWeek)
-                return $"{dateTime.ToString(Constants.Formats.DateMoreSevenDays, CultureInfo.CurrentCulture)} {Resources.Year_Short}";
+                return $"{dateTime.ToString(Constants.Formats.DateMoreSevenDays, CultureInfo.CurrentCulture)} {Resources.YearShort}";
             else
                 return dateTime.ToString(Constants.Formats.DateLessSevenDays, CultureInfo.CurrentCulture);
         }

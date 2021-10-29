@@ -18,7 +18,7 @@
         android:layout_below="@+id/action_bar"
         android:layout_marginTop="20dp"
         android:gravity="center_horizontal"
-        android:text="@string/LoginView_Login_Title"
+        android:text="@string/LoginIn"
         android:textColor="@android:color/white"
         android:textSize="20dp" />
 
@@ -35,7 +35,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="36dp"
         android:layout_marginRight="16dp"
-        android:hint="@string/LoginView_Email_Placeholder">
+        android:hint="@string/EnterEmail">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/email_text_input_text"
@@ -59,7 +59,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginRight="16dp"
-        android:hint="@string/LoginView_Password_Placeholder">
+        android:hint="@string/EnterPassword">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/password_text_input_text"
@@ -86,7 +86,7 @@
             android:gravity="center"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
-            android:text="@string/LoginView_ForgotPassword_Title"
+            android:text="@string/ForgotPassword"
             android:textColor="@color/applicationWhite"
             android:textSize="12dp" />
 
@@ -100,7 +100,7 @@
             android:layout_toRightOf="@id/reset_password_title"
             android:autoLink="all"
             android:gravity="center"
-            android:text="@string/LoginView_ForgotPassword_Button"
+            android:text="@string/Restore"
             android:textColor="@color/applicationWhite"
             android:textSize="12dp"/>
     </RelativeLayout>
@@ -115,7 +115,7 @@
         android:layout_below="@+id/forgot_password_container"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
-        android:text="@string/LoginView_Continue_Button" />
+        android:text="@string/Continue" />
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -135,7 +135,7 @@
         android:layout_below="@+id/login_button"
         android:layout_marginTop="26dp"
         android:gravity="center_horizontal"
-        android:text="@string/LoginView_AltLogin_Title"
+        android:text="@string/EnterSocialNetworks"
         android:textColor="@android:color/white"
         android:textSize="12dp" />
 
@@ -194,7 +194,7 @@
         android:paddingBottom="10dp"
         android:autoLink="all"
         android:gravity="center"
-        android:text="@string/LoginView_CreateAccount_Button"
+        android:text="@string/CreateNewOneAccount"
         android:textColor="@color/applicationWhite"
         android:textSize="16dp" />
 
@@ -206,7 +206,7 @@
         android:layout_below="@+id/create_account_button"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
-        android:text="@string/Login_Without_Registration" />
+        android:text="@string/LoginWithoutRegistration" />
 
     <FrameLayout
         android:id="@+id/container_layout"
