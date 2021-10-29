@@ -1,9 +1,6 @@
 ﻿using System;
 using Android.App;
-using Android.Content;
-using Android.OS;
 using Android.Views.InputMethods;
-using Java.Util.Logging;
 
 namespace PrankChat.Mobile.Droid.Extensions
 {

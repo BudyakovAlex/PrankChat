@@ -1226,7 +1226,7 @@ Taking such a task the user will have to complete it or lose the Deposit!</value
     <value>PerYear</value>
   </data>
   <data name="AllTime" xml:space="preserve">
-    <value>За все время</value>
+    <value>Per all time</value>
     <comment>Fuzzy</comment>
   </data>
 </root>

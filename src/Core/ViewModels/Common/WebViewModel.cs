@@ -1,14 +1,36 @@
-﻿using PrankChat.Mobile.Core.ViewModels.Abstract;
+﻿using PrankChat.Mobile.Core.Providers.Configuration;
+using PrankChat.Mobile.Core.ViewModels.Abstract;
 
 namespace PrankChat.Mobile.Core.ViewModels.Common
 {
     public class WebViewModel : BasePageViewModel<string>
     {
-        public string Url { get; set; }
+        private readonly IEnvironmentConfigurationProvider _environmentConfigurationProvider;
+
+        private string _url;
+        public string Url
+        {
+            get => _url;
+            set => SetProperty(ref _url, value, CheckUrl);
+        }
+
+        public WebViewModel(IEnvironmentConfigurationProvider environmentConfigurationProvider)
+        {
+            _environmentConfigurationProvider = environmentConfigurationProvider;
+        }
 
         public override void Prepare(string parameter)
         {
             Url = parameter;
+        }
+
+        private void CheckUrl()
+        {
+            // TODO: Update this condition.
+            if (Url == "https://stage.onplaysite.com/")
+            {
+                CloseCommand?.Execute(null);
+            }
         }
     }
 }

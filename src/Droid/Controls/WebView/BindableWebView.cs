@@ -9,6 +9,7 @@ namespace PrankChat.Mobile.Droid.Controls.WebView
     public class BindableWebView : Android.Webkit.WebView
     {
         private string _webViewContent;
+        private CustomWebViewClient _webViewClient;
 
         public BindableWebView(Context context) : base(context)
         {
@@ -42,7 +43,7 @@ namespace PrankChat.Mobile.Droid.Controls.WebView
 
         public string WebViewUrlContent
         {
-            get { return _webViewContent; }
+            get => _webViewContent;
             set
             {
                 _webViewContent = value;
@@ -50,11 +51,17 @@ namespace PrankChat.Mobile.Droid.Controls.WebView
             }
         }
 
+        public void SetOnBeforeNavigation(Action<string> action)
+        {
+            _webViewClient.OnBeforeNavigation = action;
+        }
+
         private void Initilize()
         {
             Settings.JavaScriptEnabled = true;
             Settings.AllowUniversalAccessFromFileURLs = true;
-            SetWebViewClient(new CustomWebViewClient());
+            _webViewClient = new CustomWebViewClient();
+            SetWebViewClient(_webViewClient);
         }
 
         private void LoadHtmlString()

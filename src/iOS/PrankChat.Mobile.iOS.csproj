@@ -394,6 +394,7 @@
     <Compile Include="Extensions\UITapGestureExtensions.cs" />
     <Compile Include="Extensions\CALayerExtensions.cs" />
     <Compile Include="Extensions\BindingExtensions.cs" />
+    <Compile Include="Delegates\WKWebViewNavigationDelegate.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

@@ -753,7 +753,7 @@ Apple Inc. не является спонсором проведения кон�
     <comment>Fuzzy</comment>
   </data>
   <data name="NoIntentetConnection" xml:space="preserve">
-    <value>Интернет соединение отсуствует</value>
+    <value>Интернет соединение отсутствует</value>
     <comment>Fuzzy</comment>
   </data>
   <data name="VideoFailedToUpload" xml:space="preserve">
@@ -1227,7 +1227,7 @@ Apple Inc. не является спонсором проведения кон�
     <value>За год</value>
   </data>
   <data name="AllTime" xml:space="preserve">
-    <value>Per all time</value>
+    <value>За все время</value>
     <comment>Fuzzy</comment>
   </data>
 </root>
