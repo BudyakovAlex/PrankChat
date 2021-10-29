@@ -55,8 +55,7 @@ namespace PrankChat.Mobile.iOS.Plugins.UserInteraction
                 var datePicker = new DatePickerController(initialDateTime ?? DateTime.Now, resultAction)
                 {
                     ModalTransitionStyle = UIModalTransitionStyle.CrossDissolve,
-                    ModalPresentationStyle = UIModalPresentationStyle.OverCurrentContext,
-                    
+                    ModalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
                 };
                 topViewController.PresentViewController(datePicker, true, null);
             });
