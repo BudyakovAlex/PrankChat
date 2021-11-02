@@ -8,7 +8,7 @@ using Xam.Plugins.ImageCropper.iOS;
 namespace PrankChat.Mobile.iOS.Views.ProfileView
 {
     [MvxModalPresentation]
-    public partial class ImageCropView : BaseView<ImageCropViewModel>
+    public partial class ImageCropView : BaseViewController<ImageCropViewModel>
     {
         private TOCropViewController _pickerViewController;
 

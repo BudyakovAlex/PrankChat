@@ -17,6 +17,11 @@ namespace PrankChat.Mobile.iOS.Views.MainView
         private bool _tabsInitialized;
         private int _lastTabPosition;
 
+        public MainView()
+        {
+            ShouldSelectViewController = ShouldSelectViewControllerHandler;
+        }
+
         public override void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);
@@ -38,6 +43,11 @@ namespace PrankChat.Mobile.iOS.Views.MainView
         public override void ItemSelected(UITabBar tabbar, UITabBarItem item)
         {
             var tabPosition = tabbar.Items.ToList().IndexOf(item);
+            if (tabPosition == 2)
+            {
+                ViewModel?.ShowCreateOrderCommand?.Execute();
+            }
+
             if (tabPosition == _lastTabPosition)
             {
                 ItemReselected(tabPosition);
@@ -80,6 +90,11 @@ namespace PrankChat.Mobile.iOS.Views.MainView
                     _ = RefreshContentAsync(viewController);
                     break;
             }
+        }
+
+        private bool ShouldSelectViewControllerHandler(UITabBarController tabBarController, UIViewController viewController)
+        {
+            return _lastTabPosition != 2;
         }
 
         private void ScrollContentToTop(UIViewController viewController)

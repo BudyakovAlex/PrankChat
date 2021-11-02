@@ -1,6 +1,7 @@
 ﻿using Android.App;
 using Android.Content.PM;
 using Android.OS;
+using Android.Views;
 using AndroidX.AppCompat.App;
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
@@ -13,7 +14,7 @@ using PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications;
 
 namespace PrankChat.Mobile.Droid
 {
-    [Activity(Label = "PrankChat",
+    [Activity(Label = "OnPlay",
         MainLauncher = true,
         NoHistory = true,
         Theme = "@style/Theme.PrankChat.Splash",
@@ -30,7 +31,15 @@ namespace PrankChat.Mobile.Droid
         {
             AppCompatDelegate.CompatVectorFromResourcesEnabled = true;
 
+            RequestWindowFeature(WindowFeatures.NoTitle);
+            var decorView = Window.DecorView;
+            decorView.SystemUiVisibility = (StatusBarVisibility)(SystemUiFlags.Fullscreen
+                | SystemUiFlags.HideNavigation
+                | SystemUiFlags.Immersive
+                | SystemUiFlags.ImmersiveSticky);
+
             base.OnCreate(bundle);
+            RequestedOrientation = ScreenOrientation.FullSensor;
 
             Mvx.IoCProvider.CallbackWhenRegistered<IEnvironmentConfigurationProvider>(provider =>
             {

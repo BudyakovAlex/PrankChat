@@ -7,19 +7,28 @@ using MvvmCross.Platforms.Android.Binding;
 using PrankChat.Mobile.Core.ViewModels.Common;
 using PrankChat.Mobile.Droid.Views.Base;
 using PrankChat.Mobile.Droid.Presenters.Attributes;
+using Android.Views;
 
 namespace PrankChat.Mobile.Droid.Views
 {
     [ClearStackActivityPresentation]
-    [Activity(ScreenOrientation = ScreenOrientation.Portrait)]
+    [Activity(
+        ScreenOrientation = ScreenOrientation.Portrait,
+        Theme = "@style/Theme.PrankChat.Base.Maintanance")]
     public class MaintananceView : BaseView<MaintananceViewModel>
     {
         private MaterialButton _downloadButton;
 
         protected override void OnCreate(Bundle bundle)
         {
-            base.OnCreate(bundle, Resource.Layout.activity_maintanance);
+            RequestWindowFeature(WindowFeatures.NoTitle);
+            var decorView = Window.DecorView;
+            decorView.SystemUiVisibility = (StatusBarVisibility)(SystemUiFlags.HideNavigation
+                | SystemUiFlags.Immersive
+                | SystemUiFlags.ImmersiveSticky);
 
+            base.OnCreate(bundle, Resource.Layout.activity_maintanance);
+            RequestedOrientation = ScreenOrientation.FullSensor;
             Window.SetBackgroundDrawableResource(Resource.Drawable.gradient_background);
         }
 

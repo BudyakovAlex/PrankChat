@@ -27,6 +27,7 @@ namespace PrankChat.Mobile.Core.ViewModels
         private readonly IPushNotificationProvider _notificationService;
         private readonly IWalkthroughsProvider _walkthroughsProvider;
         private readonly int[] _skipTabIndexesInDemoMode = new[] { 2, 4 };
+        private readonly int _cantNavigateIndex = 2;
 
         private readonly IDisposable _refreshTokenExpiredMessageSubscription;
 
@@ -49,6 +50,10 @@ namespace PrankChat.Mobile.Core.ViewModels
             ShowWalkthrouthCommand = this.CreateCommand<int>(ShowWalthroughAsync);
             ShowWalkthrouthIfNeedCommand = this.CreateCommand<int>(ShowWalthroughIfNeedAsync);
             CheckActualAppVersionCommand = this.CreateCommand(CheckActualAppVersionAsync);
+            ShowCreateOrderCommand = this.CreateCommand(async () =>
+            {
+                await NavigationManager.NavigateAsync<CreateOrderViewModel>();
+            });
 
             SystemTimer.Start();
         }
@@ -60,6 +65,7 @@ namespace PrankChat.Mobile.Core.ViewModels
         public IMvxAsyncCommand<int> ShowWalkthrouthCommand { get; set; }
         public IMvxAsyncCommand<int> ShowWalkthrouthIfNeedCommand { get; set; }
         public IMvxAsyncCommand CheckActualAppVersionCommand { get; }
+        public IMvxAsyncCommand ShowCreateOrderCommand { get; }
 
         private async Task CheckActualAppVersionAsync()
         {
@@ -91,13 +97,14 @@ namespace PrankChat.Mobile.Core.ViewModels
                 return false;
             }
 
-            return true;
+            return position != _cantNavigateIndex;
         }
 
         private Task LoadContentAsync()
         {
             return Task.WhenAll(NavigationManager.NavigateAsync<PublicationsViewModel>(),
                     NavigationManager.NavigateAsync<CompetitionsViewModel>(),
+                    NavigationManager.NavigateAsync<EmptyCreateOrderViewModel>(),
                     NavigationManager.NavigateAsync<OrdersViewModel>(),
                     NavigationManager.NavigateAsync<ProfileViewModel>(),
                     NotificationBadgeViewModel.RefreshDataCommand.ExecuteAsync());

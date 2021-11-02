@@ -21,7 +21,7 @@ using PrankChat.Mobile.iOS.Common;
 namespace PrankChat.Mobile.iOS.Views.Publication
 {
     [MvxTabPresentation(TabName = "Publications", TabIconName = ImageNames.IconUnselected, TabSelectedIconName = ImageNames.IconSelected)]
-    public partial class PublicationsView : BaseRefreshableTabbedView<PublicationsViewModel>, IScrollableView
+    public partial class PublicationsView : BaseRefreshableTabbedViewController<PublicationsViewModel>, IScrollableView
     {
         private MvxUIRefreshControl _refreshControl;
         private UIBarButtonItem _notificationBarItem;
@@ -91,16 +91,14 @@ namespace PrankChat.Mobile.iOS.Views.Publication
 		{
 			NavigationController.NavigationBar.SetNavigationBarStyle();
 
-            _notificationBarItem = NavigationItemHelper.CreateBarButton(ImageNames.IconNotification, ViewModel.ShowNotificationCommand);
+            _notificationBarItem = NavigationItemHelper.CreateBarButton(ImageNames.IconNotification, ViewModel.ShowNotificationCommand, UIColor.Black);
             NavigationItem?.SetRightBarButtonItems(new UIBarButtonItem[]
             {
                 _notificationBarItem,
-                NavigationItemHelper.CreateBarButton(ImageNames.IconSearch, ViewModel.ShowSearchCommand)
+                NavigationItemHelper.CreateBarButton(ImageNames.IconSearch, ViewModel.ShowSearchCommand, UIColor.Black)
             }, true);
 
-            var logoButton = NavigationItemHelper.CreateBarButton(ImageNames.IconLogo, null);
-            logoButton.Enabled = false;
-            NavigationItem.LeftBarButtonItem = logoButton;
+            NavigationItem.LeftBarButtonItem = NavigationItemHelper.CreateBarLogoButton();
         }
 
         private void InitializeTableView()

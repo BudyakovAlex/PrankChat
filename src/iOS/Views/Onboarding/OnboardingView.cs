@@ -15,7 +15,7 @@ using UIKit;
 namespace PrankChat.Mobile.iOS.Views.Onboarding
 {
     [MvxRootPresentation(WrapInNavigationController = false)]
-    public partial class OnboardingView : BaseView<OnboardingViewModel>
+    public partial class OnboardingView : BaseViewController<OnboardingViewModel>
     {
         private readonly List<PageIndicatorView> _pageIndicatorViews = new List<PageIndicatorView>();
 

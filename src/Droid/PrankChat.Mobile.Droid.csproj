@@ -301,7 +301,7 @@
       <Generator>
       </Generator>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\fragment_finish_password_recovery.xml">
+    <AndroidResource Include="Resources\layout\activity_finish_password_recovery.xml">
       <SubType>
       </SubType>
       <Generator>
@@ -626,12 +626,6 @@
       </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable\bg_competition_orange.xml">
-      <SubType>
-      </SubType>
-      <Generator>
-      </Generator>
-    </AndroidResource>
-    <AndroidResource Include="Resources\drawable\ic_prankchat_icon.xml">
       <SubType>
       </SubType>
       <Generator>
@@ -1304,8 +1298,6 @@
       <Generator>
       </Generator>
     </AndroidResource>
-    <AndroidResource Include="Resources\drawable-v24\ic_launcher_background.xml" />
-    <AndroidResource Include="Resources\drawable-v24\ic_launcher_foreground.xml" />
     <AndroidResource Include="Resources\drawable-v24\ic_like.xml">
       <SubType>
       </SubType>
@@ -1414,12 +1406,6 @@
     <AndroidResource Include="Resources\drawable-v24\ic_payment_yandexmoney.xml" />
     <AndroidResource Include="Resources\drawable-v24\ic_payment_yandexmoney_selected.xml" />
     <AndroidResource Include="Resources\drawable-v24\ic_plus.xml">
-      <SubType>
-      </SubType>
-      <Generator>
-      </Generator>
-    </AndroidResource>
-    <AndroidResource Include="Resources\drawable-v24\ic_prankchat_icon.xml">
       <SubType>
       </SubType>
       <Generator>
@@ -1749,7 +1735,7 @@
     <AndroidResource Include="Resources\layout\notifications_layout.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\fragment_password_recovery.xml" />
+    <AndroidResource Include="Resources\layout\activity_password_recovery.xml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\fragment_profile.xml" />
@@ -1926,9 +1912,6 @@
     <AndroidResource Include="Resources\drawable\button_white_bordered_background.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\button_accent_background.xml" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\menu\profile_menu.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -2086,13 +2069,33 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_launcher_foreground.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_launcher_foreground.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_launcher_background.xml" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable\border_accent_load_video.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_onplay_icon.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-v24\ic_onplay_icon.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_launcher_foreground.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_launcher_background.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-v24\ic_launcher_foreground.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-v24\ic_launcher_background.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\activity_create_competition.xml" />

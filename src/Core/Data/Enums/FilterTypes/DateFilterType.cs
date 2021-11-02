@@ -13,6 +13,10 @@ namespace PrankChat.Mobile.Core.Models.Data
         [EnumMember(Value = "quarter")]
         Quarter,
         [EnumMember(Value = "half_year")]
-        HalfYear
+        HalfYear,
+        [EnumMember(Value = "year")]
+        Year,
+        [EnumMember(Value = "all_time")]
+        AllTime
     }
 }

@@ -13,7 +13,7 @@ using UIKit;
 namespace PrankChat.Mobile.iOS.Views.NotificationView
 {
     [MvxModalPresentation(WrapInNavigationController = true)]
-	public partial class NotificationView : BaseGradientBarView<NotificationViewModel>
+	public partial class NotificationView : BaseViewController<NotificationViewModel>
     {
         private MvxUIRefreshControl _refreshControl;
         private NotificationTableSource _notificationTableSource;

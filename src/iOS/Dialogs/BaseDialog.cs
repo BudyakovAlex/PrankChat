@@ -1,5 +1,4 @@
-﻿using System;
-using MvvmCross.Platforms.Ios.Presenters.Attributes;
+﻿using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using PrankChat.Mobile.Core.ViewModels.Abstract;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Views.Base;
@@ -10,7 +9,7 @@ namespace PrankChat.Mobile.iOS.Dialogs
     [MvxModalPresentation(
         ModalPresentationStyle = UIModalPresentationStyle.Custom,
         ModalTransitionStyle = UIModalTransitionStyle.CrossDissolve)]
-    public class BaseDialog<TMvxViewModel> : BaseView<TMvxViewModel> where TMvxViewModel : BasePageViewModel
+    public class BaseDialog<TMvxViewModel> : BaseViewController<TMvxViewModel> where TMvxViewModel : BasePageViewModel
     {
         public override void ViewWillAppear(bool animated)
         {

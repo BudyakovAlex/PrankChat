@@ -20,7 +20,7 @@ using UIKit;
 namespace PrankChat.Mobile.iOS.Views.Video
 {
     [MvxModalPresentation(ModalPresentationStyle = UIModalPresentationStyle.FullScreen)]
-    public partial class FullScreenVideoView : BaseView<FullScreenVideoViewModel>
+    public partial class FullScreenVideoView : BaseViewController<FullScreenVideoViewModel>
     {
         private const int ThreeSecondsTicks = 30_000_000;
         private const double AnimationDuration = 0.3d;

@@ -15,7 +15,7 @@ using UIKit;
 namespace PrankChat.Mobile.iOS.Views.ProfileView
 {
     [MvxModalPresentation(WrapInNavigationController = true)]
-    public partial class UserProfileView : BaseGradientBarView<UserProfileViewModel>
+    public partial class UserProfileView : BaseViewController<UserProfileViewModel>
     {
         private MvxUIRefreshControl _refreshControlProfile;
         private UIBarButtonItem _notificationBarItem;

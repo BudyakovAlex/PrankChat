@@ -31,6 +31,10 @@ namespace PrankChat.Mobile.Droid.Views.Subscriptions
         private RecycleViewBindableAdapter _adapter;
         private MvxSwipeRefreshLayout _subscriptionsSwipeRefreshLayout;
 
+        protected override string TitleActionBar => Core.Localization.Resources.Subscriptions;
+
+        protected override bool HasBackButton => true;
+
         private SubscriptionTabType _selectedTabType;
         public SubscriptionTabType SelectedTabType
         {

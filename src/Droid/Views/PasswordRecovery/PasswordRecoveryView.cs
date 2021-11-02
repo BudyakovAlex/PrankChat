@@ -1,4 +1,7 @@
-﻿using Android.Runtime;
+﻿using Android.App;
+using Android.Content.PM;
+using Android.OS;
+using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Google.Android.Material.AppBar;
@@ -14,24 +17,23 @@ using PrankChat.Mobile.Droid.Views.Base;
 
 namespace PrankChat.Mobile.Droid.Views.PasswordRecovery
 {
-    [MvxFragmentPresentation(
-        Tag = nameof(PasswordRecoveryView),
-        ActivityHostViewModelType = typeof(LoginViewModel),
-        FragmentContentId = Resource.Id.container_layout,
-        AddToBackStack = true)]
-    [Register(nameof(PasswordRecoveryView))]
-    public class PasswordRecoveryView : BaseFragment<PasswordRecoveryViewModel>
+    [MvxActivityPresentation]
+    [Activity(
+        ScreenOrientation = ScreenOrientation.Portrait,
+        Theme = "@style/Theme.PrankChat.Base")]
+    public class PasswordRecoveryView : BaseView<PasswordRecoveryViewModel>
     {
         private ImageButton _backImageButton;
         private TextInputEditText _textInputEmailEditText;
         private MaterialButton _registrationButton;
         private ProgressBar _progressBar;
 
-        public PasswordRecoveryView() : base(Resource.Layout.fragment_password_recovery)
+        protected override void OnCreate(Bundle bundle)
         {
-        }
+            base.OnCreate(bundle, Resource.Layout.activity_password_recovery);
 
-        protected override bool HasBackButton => true;
+            Window.SetBackgroundDrawableResource(Resource.Drawable.gradient_background);
+        }
 
         protected override void Bind()
         {
@@ -44,14 +46,14 @@ namespace PrankChat.Mobile.Droid.Views.PasswordRecovery
             bindingSet.Bind(_progressBar).For(v => v.BindVisible()).To(vm => vm.IsBusy);
         }
 
-        protected override void SetViewProperties(View view)
+        protected override void SetViewProperties()
         {
-            base.SetViewProperties(view);
+            base.SetViewProperties();
 
-            _backImageButton = view.FindViewById<ImageButton>(Resource.Id.back_button);
-            _textInputEmailEditText = view.FindViewById<TextInputEditText>(Resource.Id.email_edit_text);
-            _registrationButton = view.FindViewById<MaterialButton>(Resource.Id.registration_button);
-            _progressBar = view.FindViewById<ProgressBar>(Resource.Id.progressBar);
+            _backImageButton = FindViewById<ImageButton>(Resource.Id.back_button);
+            _textInputEmailEditText = FindViewById<TextInputEditText>(Resource.Id.email_edit_text);
+            _registrationButton = FindViewById<MaterialButton>(Resource.Id.registration_button);
+            _progressBar = FindViewById<ProgressBar>(Resource.Id.progressBar);
         }
     }
 }

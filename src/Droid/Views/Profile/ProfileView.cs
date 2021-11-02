@@ -109,7 +109,7 @@ namespace PrankChat.Mobile.Droid.Views.Profile
             _profileWithdrawalButton = view.FindViewById<MaterialButton>(Resource.Id.profile_withdrawal_button);
             _subscribersViewConstraintLayout = view.FindViewById<ConstraintLayout>(Resource.Id.subscribers_view);
             _descriptionTextView = view.FindViewById<TextView>(Resource.Id.description_text_view);
-            _mvxSwipeRefreshLayout = view.FindViewById<MvxSwipeRefreshLayout>(Resource.Id.user_profile_swipe_refresh_layout);
+            _mvxSwipeRefreshLayout = view.FindViewById<MvxSwipeRefreshLayout>(Resource.Id.swipe_refresh_layout);
 
             _layoutManager = new LinearLayoutManager(Context, LinearLayoutManager.Vertical, false);
             _endlessRecyclerView.SetLayoutManager(_layoutManager);

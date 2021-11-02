@@ -43,6 +43,8 @@ namespace PrankChat.Mobile.Droid.Views.Profile
 
         protected override string TitleActionBar => Core.Localization.Resources.ProfileEditing;
 
+        protected override bool HasBackButton => true;
+
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
             MenuInflater.Inflate(Resource.Menu.profile_menu, menu);

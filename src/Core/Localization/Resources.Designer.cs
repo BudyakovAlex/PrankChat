@@ -124,20 +124,11 @@ namespace PrankChat.Mobile.Core.Localization {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на .
+        ///   Ищет локализованную строку, похожую на Per all time.
         /// </summary>
-        public static string AllowCamera {
+        public static string AllTime {
             get {
-                return ResourceManager.GetString("AllowCamera", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на .
-        /// </summary>
-        public static string AllowStorage {
-            get {
-                return ResourceManager.GetString("AllowStorage", resourceCulture);
+                return ResourceManager.GetString("AllTime", resourceCulture);
             }
         }
         
@@ -169,7 +160,7 @@ namespace PrankChat.Mobile.Core.Localization {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на .
+        ///   Ищет локализованную строку, похожую на OnPlay.
         /// </summary>
         public static string appName {
             get {
@@ -331,15 +322,6 @@ namespace PrankChat.Mobile.Core.Localization {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на .
-        /// </summary>
-        public static string CheckmarkNotConfirmed {
-            get {
-                return ResourceManager.GetString("CheckmarkNotConfirmed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Ищет локализованную строку, похожую на Выбрать из галереи.
         /// </summary>
         public static string ChooseFromGallery {
@@ -430,137 +412,11 @@ namespace PrankChat.Mobile.Core.Localization {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на .
-        /// </summary>
-        public static string CompetitionsFinishedTerm {
-            get {
-                return ResourceManager.GetString("CompetitionsFinishedTerm", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на .
-        /// </summary>
-        public static string CompetitionsNewTerm {
-            get {
-                return ResourceManager.GetString("CompetitionsNewTerm", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на .
-        /// </summary>
-        public static string CompetitionsVotingTerm {
-            get {
-                return ResourceManager.GetString("CompetitionsVotingTerm", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Ищет локализованную строку, похожую на Пожаловаться....
         /// </summary>
         public static string Complain {
             get {
                 return ResourceManager.GetString("Complain", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на .
-        /// </summary>
-        public static string ComplaintCheating {
-            get {
-                return ResourceManager.GetString("ComplaintCheating", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на .
-        /// </summary>
-        public static string ComplaintCompleteMessage {
-            get {
-                return ResourceManager.GetString("ComplaintCompleteMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на .
-        /// </summary>
-        public static string ComplaintDangerousOrganizations {
-            get {
-                return ResourceManager.GetString("ComplaintDangerousOrganizations", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на .
-        /// </summary>
-        public static string ComplaintHostileUtterances {
-            get {
-                return ResourceManager.GetString("ComplaintHostileUtterances", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на .
-        /// </summary>
-        public static string ComplaintNakedContent {
-            get {
-                return ResourceManager.GetString("ComplaintNakedContent", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на .
-        /// </summary>
-        public static string ComplaintOther {
-            get {
-                return ResourceManager.GetString("ComplaintOther", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на .
-        /// </summary>
-        public static string ComplaintRightsViolation {
-            get {
-                return ResourceManager.GetString("ComplaintRightsViolation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на .
-        /// </summary>
-        public static string ComplaintSpam {
-            get {
-                return ResourceManager.GetString("ComplaintSpam", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на .
-        /// </summary>
-        public static string ComplaintUnacceptableContent {
-            get {
-                return ResourceManager.GetString("ComplaintUnacceptableContent", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на .
-        /// </summary>
-        public static string ComplaintUnacceptableInformationInProfile {
-            get {
-                return ResourceManager.GetString("ComplaintUnacceptableInformationInProfile", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на .
-        /// </summary>
-        public static string ComplaintWrongName {
-            get {
-                return ResourceManager.GetString("ComplaintWrongName", resourceCulture);
             }
         }
         
@@ -826,15 +682,6 @@ namespace PrankChat.Mobile.Core.Localization {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на .
-        /// </summary>
-        public static string Demo {
-            get {
-                return ResourceManager.GetString("Demo", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Ищет локализованную строку, похожую на Описание.
         /// </summary>
         public static string Description {
@@ -993,15 +840,6 @@ namespace PrankChat.Mobile.Core.Localization {
         public static string ErrorUnexpectedNetwork {
             get {
                 return ResourceManager.GetString("ErrorUnexpectedNetwork", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на .
-        /// </summary>
-        public static string ErrorUnexpectedNotFound {
-            get {
-                return ResourceManager.GetString("ErrorUnexpectedNotFound", resourceCulture);
             }
         }
         
@@ -1182,6 +1020,15 @@ namespace PrankChat.Mobile.Core.Localization {
         public static string InappropriateProfileInformation {
             get {
                 return ResourceManager.GetString("InappropriateProfileInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Введенный Email или пароль неверный. Попробуйте восстановить пароль или проверьте правильное написание почты..
+        /// </summary>
+        public static string IncorrectEmailOrPasswordException {
+            get {
+                return ResourceManager.GetString("IncorrectEmailOrPasswordException", resourceCulture);
             }
         }
         
@@ -1375,15 +1222,6 @@ namespace PrankChat.Mobile.Core.Localization {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на .
-        /// </summary>
-        public static string My {
-            get {
-                return ResourceManager.GetString("My", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Ищет локализованную строку, похожую на Моя лента.
         /// </summary>
         public static string MyFeed {
@@ -1483,7 +1321,7 @@ namespace PrankChat.Mobile.Core.Localization {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Интернет соединение отсувствует.
+        ///   Ищет локализованную строку, похожую на Интернет соединение отсуствует.
         /// </summary>
         public static string NoIntentetConnection {
             get {
@@ -1555,7 +1393,7 @@ namespace PrankChat.Mobile.Core.Localization {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Авторы PrankChat публикуют только эксклюзивные, самые смешные и безумные видео! Смотри и наслаждайся.
+        ///   Ищет локализованную строку, похожую на Авторы OnPlay публикуют только эксклюзивные, самые смешные и безумные видео! Смотри и наслаждайся.
         /// </summary>
         public static string OnBoardingFirstDescription {
             get {
@@ -1969,6 +1807,15 @@ namespace PrankChat.Mobile.Core.Localization {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на За год.
+        /// </summary>
+        public static string PerYear {
+            get {
+                return ResourceManager.GetString("PerYear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Место.
         /// </summary>
         public static string Place {
@@ -2109,15 +1956,6 @@ namespace PrankChat.Mobile.Core.Localization {
         public static string Registration {
             get {
                 return ResourceManager.GetString("Registration", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на .
-        /// </summary>
-        public static string RegistrationConfitmationMessage {
-            get {
-                return ResourceManager.GetString("RegistrationConfitmationMessage", resourceCulture);
             }
         }
         
@@ -2722,8 +2560,8 @@ namespace PrankChat.Mobile.Core.Localization {
         ///
         ///Конкурс состоит из трех этапов:
         ///1) На начальном этапе участники отправляют на конкурс свои видеоролики;
-        ///2) Голосование. Пользователи PrankChat отдают голоса за понравившееся видео;
-        ///3) Итоги. После подведения итогов на счета участников, чьи в [остаток строки не уместился]&quot;;.
+        ///2) Голосование. Пользователи OnPlay отдают голоса за понравившееся видео;
+        ///3) Итоги. После подведения итогов на счета участников, чьи виде [остаток строки не уместился]&quot;;.
         /// </summary>
         public static string WalkthrouthCompetitionsDescription {
             get {
@@ -2755,7 +2593,7 @@ namespace PrankChat.Mobile.Core.Localization {
         /// <summary>
         ///   Ищет локализованную строку, похожую на Ты можешь взять любой заказ из категории «Новый» и загрузить готовое видео согласно заданию. Чтобы принять заказ, внеси 20 % от его стоимости в качестве гарантии, что не забросишь его исполнение. Когда заказчик проверит твоё видео и одобрит его, жди оплату на свой счёт. Если же заказчик забыл одобрить заказ, деньги тебе поступят автоматически через 24 часа. 20 % от стоимости заказа составляет комиссия PrankChat.
         ///
-        ///В случае, если заказчику не понравилось твоё видео, он может отправить задание в «спор». Там в  [остаток строки не уместился]&quot;;.
+        ///В случае, если заказчику не понравилось твоё видео, он может отправить задание в «спор». Там в теч [остаток строки не уместился]&quot;;.
         /// </summary>
         public static string WalkthrouthOrdersDescription {
             get {
@@ -2814,15 +2652,6 @@ namespace PrankChat.Mobile.Core.Localization {
         public static string Withdrawal {
             get {
                 return ResourceManager.GetString("Withdrawal", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на .
-        /// </summary>
-        public static string WithdrawalVerifyUser {
-            get {
-                return ResourceManager.GetString("WithdrawalVerifyUser", resourceCulture);
             }
         }
         

@@ -7,7 +7,7 @@ using PrankChat.Mobile.iOS.Views.Base;
 
 namespace PrankChat.Mobile.iOS.Views.Competition
 {
-    public partial class CompetitionRulesView : BaseView<CompetitionRulesViewModel>
+    public partial class CompetitionRulesView : BaseViewController<CompetitionRulesViewModel>
     {
         protected override void SetupControls()
         {

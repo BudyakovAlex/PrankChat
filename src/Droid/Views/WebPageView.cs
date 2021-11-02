@@ -12,7 +12,6 @@ namespace PrankChat.Mobile.Droid.Views
     [Activity(ScreenOrientation = ScreenOrientation.Portrait)]
     public class WebPageView : BaseView<WebViewModel>
     {
-        
         private BindableWebView _bindableWebView;
 
         protected override bool HasBackButton => true;
@@ -28,11 +27,14 @@ namespace PrankChat.Mobile.Droid.Views
             base.SetViewProperties();
 
             _bindableWebView = FindViewById<BindableWebView>(Resource.Id.webView);
+
+            _bindableWebView.SetOnBeforeNavigation(url => ViewModel.Url = url);
         }
 
         protected override void Bind()
         {
             base.Bind();
+
             using var bindingSet = CreateBindingSet();
 
             bindingSet.Bind(_bindableWebView).For(v => v.WebViewUrlContent).To(vm => vm.Url);

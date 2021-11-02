@@ -1,5 +1,4 @@
 ﻿using CoreGraphics;
-using MvvmCross.Binding;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding;
 using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
@@ -21,7 +20,7 @@ using PrankChat.Mobile.iOS.Common;
 namespace PrankChat.Mobile.iOS.Views.ProfileView
 {
     [MvxTabPresentation(TabName = "Profile", TabIconName = ImageNames.IconUnselected, TabSelectedIconName = ImageNames.IconSelected, WrapInNavigationController = true)]
-    public partial class ProfileView : BaseRefreshableTabbedView<ProfileViewModel>, IScrollableView
+    public partial class ProfileView : BaseRefreshableTabbedViewController<ProfileViewModel>, IScrollableView
     {
         private MvxUIRefreshControl _refreshControl;
         private UIBarButtonItem _notificationBarItem;
@@ -67,15 +66,11 @@ namespace PrankChat.Mobile.iOS.Views.ProfileView
             bindingSet.Bind(_refreshControl).For(v => v.RefreshCommand).To(vm => vm.LoadProfileCommand);
             bindingSet.Bind(_source).To(vm => vm.Items);
             bindingSet.Bind(_source).For(v => v.LoadMoreItemsCommand).To(vm => vm.LoadMoreItemsCommand);
-            bindingSet.Bind(profileImageView).For(v => v.ImagePath).To(vm => vm.ProfilePhotoUrl)
-                      .Mode(MvxBindingMode.OneWay);
+            bindingSet.Bind(profileImageView).For(v => v.ImagePath).To(vm => vm.ProfilePhotoUrl).OneWay();
             bindingSet.Bind(profileImageView.Tap()).For(v => v.Command).To(vm => vm.ShowUpdateProfileCommand);
-            bindingSet.Bind(profileImageView).For(v => v.PlaceholderText).To(vm => vm.ProfileShortName)
-                      .Mode(MvxBindingMode.OneTime);
-            bindingSet.Bind(nameLabel).To(vm => vm.Login)
-                      .Mode(MvxBindingMode.OneWay);
-            bindingSet.Bind(descriptionLabel).To(vm => vm.Description)
-                      .Mode(MvxBindingMode.OneWay);
+            bindingSet.Bind(profileImageView).For(v => v.PlaceholderText).To(vm => vm.ProfileShortName).OneTime();
+            bindingSet.Bind(nameLabel).To(vm => vm.Login).OneWay();
+            bindingSet.Bind(descriptionLabel).To(vm => vm.Description).OneWay();
             bindingSet.Bind(refillButton).To(vm => vm.ShowRefillCommand);
             bindingSet.Bind(withdrawalButton).To(vm => vm.ShowWithdrawalCommand);
             bindingSet.Bind(priceLabel).To(vm => vm.Price);
@@ -84,7 +79,7 @@ namespace PrankChat.Mobile.iOS.Views.ProfileView
             bindingSet.Bind(subscriptionsValueLabel).To(vm => vm.SubscriptionsValue);
             bindingSet.Bind(subscriptionsView).For(v => v.BindTap()).To(vm => vm.ShowSubscriptionsCommand);
             bindingSet.Bind(_notificationBarItem).For(v => v.Image).To(vm => vm.NotificationBadgeViewModel.HasUnreadNotifications)
-                      .WithConversion<BoolToNotificationImageConverter>();
+                .WithConversion<BoolToNotificationImageConverter>();
         }
 
         protected override void SetupControls()
@@ -93,12 +88,12 @@ namespace PrankChat.Mobile.iOS.Views.ProfileView
 
             InitializeTableView();
 
-            _notificationBarItem = NavigationItemHelper.CreateBarButton(ImageNames.IconNotification, ViewModel.ShowNotificationCommand);
+            _notificationBarItem = NavigationItemHelper.CreateBarButton(ImageNames.IconNotification, ViewModel.ShowNotificationCommand, UIColor.Black);
             NavigationItem?.SetRightBarButtonItems(
                 new UIBarButtonItem[]
                 {
                     _notificationBarItem,
-                    NavigationItemHelper.CreateBarButton(ImageNames.IconInfo, ViewModel.ShowWalkthrouthCommand)
+                    NavigationItemHelper.CreateBarButton(ImageNames.IconInfo, ViewModel.ShowWalkthrouthCommand, UIColor.Black)
                 },
                 true);
 
@@ -118,10 +113,8 @@ namespace PrankChat.Mobile.iOS.Views.ProfileView
 
             _refreshControl = new MvxUIRefreshControl();
             rootScrollView.RefreshControl = _refreshControl;
-
-            var logoButton = NavigationItemHelper.CreateBarButton(ImageNames.IconLogo, null);
-            logoButton.Enabled = false;
-            NavigationItem.LeftBarButtonItem = logoButton;
+            
+            NavigationItem.LeftBarButtonItem = NavigationItemHelper.CreateBarLogoButton();
         }
 
         protected override void RefreshData()

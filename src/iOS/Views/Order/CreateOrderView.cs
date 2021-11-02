@@ -18,8 +18,9 @@ using PrankChat.Mobile.iOS.Common;
 
 namespace PrankChat.Mobile.iOS.Views.Order
 {
-    [MvxTabPresentation(TabName = "Create Order", TabIconName = ImageNames.IconUnselected, TabSelectedIconName = ImageNames.IconSelected, WrapInNavigationController = true)]
-    public partial class CreateOrderView : BaseTabbedView<CreateOrderViewModel>
+    // [MvxTabPresentation(TabName = "Create Order", TabIconName = ImageNames.IconUnselected, TabSelectedIconName = ImageNames.IconSelected, WrapInNavigationController = true)]
+    [MvxModalPresentation(WrapInNavigationController = true)]
+    public partial class CreateOrderView : BaseViewController<CreateOrderViewModel>
     {
         private const int MinimumDescriptionHeight = 80;
 
@@ -101,11 +102,11 @@ namespace PrankChat.Mobile.iOS.Views.Order
             _dynamicDescriptionTextView = new UITextView();
             DefinesPresentationContext = true;
 
-            _notificationBarItem = NavigationItemHelper.CreateBarButton(ImageNames.IconNotification, ViewModel.ShowNotificationCommand);
+            _notificationBarItem = NavigationItemHelper.CreateBarButton(ImageNames.IconNotification, ViewModel.ShowNotificationCommand, UIColor.Black);
             NavigationItem?.SetRightBarButtonItems(new UIBarButtonItem[]
             {
                 _notificationBarItem,
-                NavigationItemHelper.CreateBarButton(ImageNames.IconInfo, ViewModel.ShowWalkthrouthCommand)
+                NavigationItemHelper.CreateBarButton(ImageNames.IconInfo, ViewModel.ShowWalkthrouthCommand, UIColor.Black)
             }, true);
 
             _checkedImage = UIImage.FromBundle(ImageNames.IconChecked);

@@ -20,7 +20,7 @@ namespace PrankChat.Mobile.Droid.Bindings
 
         protected override void Dispose(bool isDisposing)
         {
-            if (isDisposing && !_isDisposed)
+            if (isDisposing && !_isDisposed && Target != null)
             {
                 Target.Touch -= OnViewTouch;
             }
