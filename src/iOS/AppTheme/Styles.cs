@@ -19,14 +19,52 @@ namespace PrankChat.Mobile.iOS.AppTheme
                 return;
             }
 
+            if (UIDevice.CurrentDevice.CheckSystemVersion(15, 0))
+            {
+                var appearance = new UINavigationBarAppearance();
+                appearance.ConfigureWithOpaqueBackground();
+                appearance.BackgroundColor = UIColor.White;
+                appearance.ShadowColor = UIColor.Black.ColorWithAlpha(0.15f);
+                appearance.ShadowImage = new UIImage();
+                navigationBar.StandardAppearance = appearance;
+                navigationBar.ScrollEdgeAppearance = appearance;
+                navigationBar.CompactScrollEdgeAppearance = appearance;
+            }
+
             navigationBar.BackgroundColor = UIColor.White;
+            navigationBar.ShadowImage = new UIImage();
             navigationBar.Layer.MasksToBounds = false;
             navigationBar.Layer.ShadowColor = UIColor.Black.ColorWithAlpha(0.15f).CGColor;
             navigationBar.Layer.ShadowOpacity = 1f;
             navigationBar.Layer.ShadowOffset = new CGSize(0, 2f);
             navigationBar.Layer.ShadowRadius = 10f;
-            navigationBar.ShadowImage = new UIImage();
             navigationBar.Translucent = false;
+        }
+
+        public static void SetStyle(this UITabBar tabBar)
+        {
+            if (tabBar == null)
+            {
+                return;
+            }
+
+            if (UIDevice.CurrentDevice.CheckSystemVersion(15, 0))
+            {
+                var appearance = new UITabBarAppearance();
+                appearance.ConfigureWithOpaqueBackground();
+                appearance.BackgroundColor = UIColor.White;
+
+                var tabBarItemAppearance = new UITabBarItemAppearance();
+                tabBarItemAppearance.Normal.IconColor = UIColor.Black;
+
+                appearance.StackedLayoutAppearance = tabBarItemAppearance;
+                tabBar.StandardAppearance = appearance;
+                tabBar.ScrollEdgeAppearance = appearance;
+                tabBar.UnselectedItemTintColor = UIColor.Black;
+                return;
+            }
+
+            tabBar.BarTintColor = UIColor.White;
         }
 
         public static void SetStyle(this UISegmentedControl segmentedControl, params string[] segmentNames)

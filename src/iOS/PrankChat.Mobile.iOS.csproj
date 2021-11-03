@@ -1148,8 +1148,6 @@
     </ImageAsset>
     <ImageAsset Include="Assets.xcassets\ic_logo.imageset\Logo-v1 %281%29 %281%29-1.pdf" />
     <ImageAsset Include="Assets.xcassets\ic_maintanance.imageset\Logo and text-ai %281%29.pdf" />
-    <ImageAsset Include="Assets.xcassets\ic_onplay.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_onplay.imageset\Logo and text-ai.pdf" />
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-40-2.png" />
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-60.png" />
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-58-1.png" />
@@ -1168,6 +1166,8 @@
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-152.png" />
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-167.png" />
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\1024x1024.png" />
+    <ImageAsset Include="Assets.xcassets\ic_onplay.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_onplay.imageset\Logo-and-text-ai.pdf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets.xcassets\bg_onboarding_fifth_slide.imageset\" />
