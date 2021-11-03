@@ -61,11 +61,10 @@ namespace PrankChat.Mobile.iOS.AppTheme
                 tabBar.StandardAppearance = appearance;
                 tabBar.ScrollEdgeAppearance = appearance;
                 tabBar.UnselectedItemTintColor = UIColor.Black;
+                return;
             }
-            else
-            {
-                tabBar.BarTintColor = UIColor.White;
-            }
+
+            tabBar.BarTintColor = UIColor.White;
         }
 
         public static void SetStyle(this UISegmentedControl segmentedControl, params string[] segmentNames)
