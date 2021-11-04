@@ -653,7 +653,7 @@ Taking such a task the user will have to complete it or lose the Deposit!"</stri
     <!-- Fuzzy -->
     <string name="NotViewed">"Not viewed"</string>
     <string name="LoginToAccount">"Log in"</string>
-    <string name="ComVkSdkAppId">"7343996"</string>
+    <integer name="com_vk_sdk_AppId">7343996</integer>
 
     <!-- Fuzzy -->
     <string name="SentToModerator">"Sent to moderator"</string>
