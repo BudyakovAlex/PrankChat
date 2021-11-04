@@ -30,6 +30,8 @@ namespace PrankChat.Mobile.iOS.Views.MainView
                 return;
             }
 
+            TabBar.SetStyle();
+
             ViewModel.LoadContentCommand.Execute(null);
             SetTabs();
             _tabsInitialized = true;
