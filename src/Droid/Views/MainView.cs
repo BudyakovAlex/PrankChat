@@ -170,6 +170,12 @@ namespace PrankChat.Mobile.Droid.Views
 
             this.HideKeyboard();
 
+            if (e.Tab.Position == 2)
+            {
+                _ = ViewModel.ShowCreateOrderCommand.ExecuteAsync().ConfigureAwait(false);
+                return;
+            }
+
             _toolbarLogo.Visibility = e.Tab.Position != 2 ? ViewStates.Visible : ViewStates.Invisible;
             _toolbarTitle.Visibility = e.Tab.Position == 2 ? ViewStates.Visible : ViewStates.Invisible;
             _toolbarTitle.Text = e.Tab.Position == 2 ? Localization.CreateOrder : string.Empty;

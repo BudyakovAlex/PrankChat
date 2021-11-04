@@ -50,10 +50,7 @@ namespace PrankChat.Mobile.Core.ViewModels
             ShowWalkthrouthCommand = this.CreateCommand<int>(ShowWalthroughAsync);
             ShowWalkthrouthIfNeedCommand = this.CreateCommand<int>(ShowWalthroughIfNeedAsync);
             CheckActualAppVersionCommand = this.CreateCommand(CheckActualAppVersionAsync);
-            ShowCreateOrderCommand = this.CreateCommand(async () =>
-            {
-                await NavigationManager.NavigateAsync<CreateOrderViewModel>();
-            });
+            ShowCreateOrderCommand = new MvxAsyncCommand(ShowCreateOrderAsync);
 
             SystemTimer.Start();
         }
@@ -143,6 +140,11 @@ namespace PrankChat.Mobile.Core.ViewModels
             Disposables.Remove(_refreshTokenExpiredMessageSubscription);
             _refreshTokenExpiredMessageSubscription.Dispose();
             NavigationManager.NavigateAsync<LoginViewModel>();
+        }
+
+        private async Task ShowCreateOrderAsync()
+        {
+            await NavigationManager.NavigateAsync<CreateOrderViewModel>();
         }
     }
 }

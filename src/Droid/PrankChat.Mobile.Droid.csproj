@@ -218,6 +218,7 @@
     <Compile Include="Extensions\BindingExtensions.cs" />
     <Compile Include="PlatformBusinessServices\FileSystem\FileSystemService.cs" />
     <Compile Include="Spans\LinkSpan.cs" />
+    <Compile Include="Views\EmptyCreateOrderView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -1575,6 +1576,10 @@
       </SubType>
       <Generator>
       </Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\fragment_empty_create_order.xml">
+      <SubType></SubType>
+      <Generator></Generator>
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
