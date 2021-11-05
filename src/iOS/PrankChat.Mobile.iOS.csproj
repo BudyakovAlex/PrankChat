@@ -330,7 +330,6 @@
     <Compile Include="Views\Base\BaseVideoTableCell.cs" />
     <Compile Include="SourcesAndDelegates\VideoTableSource.cs" />
     <Compile Include="Infrastructure\Constants.cs" />
-    <BundleResource Include="GoogleService-Info.plist" />
     <Compile Include="PlatformBusinessServices\Notifications\NotificationWrapper.cs" />
     <Compile Include="Binding\FloatPlaceholderTextFieldPaddingTargetBinding.cs" />
     <InterfaceDefinition Include="Views\Onboarding\OnboardingView.xib" />
@@ -395,6 +394,7 @@
     <Compile Include="Extensions\CALayerExtensions.cs" />
     <Compile Include="Extensions\BindingExtensions.cs" />
     <Compile Include="Delegates\WKWebViewNavigationDelegate.cs" />
+    <BundleResource Include="GoogleService-Info.plist" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
