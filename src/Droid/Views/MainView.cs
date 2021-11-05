@@ -272,6 +272,12 @@ namespace PrankChat.Mobile.Droid.Views
                 return false;
             }
 
+            if (index == 2)
+            {
+                ViewModel.ShowCreateOrderCommand.ExecuteAsync().ConfigureAwait(false);
+                return false;
+            }
+
             if (!ViewModel.CanSwitchTabs(index) &&
                 motionEvent.Action != MotionEventActions.Up)
             {
