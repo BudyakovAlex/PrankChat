@@ -51,8 +51,15 @@ namespace PrankChat.Mobile.iOS
 
         public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
         {
-            Facebook.CoreKit.Profile.EnableUpdatesOnAccessTokenChange(true);
-            Facebook.CoreKit.ApplicationDelegate.SharedInstance.FinishedLaunching(application, launchOptions);
+            try
+            {
+                Facebook.CoreKit.Profile.EnableUpdatesOnAccessTokenChange(true);
+                Facebook.CoreKit.ApplicationDelegate.SharedInstance.FinishedLaunching(application, launchOptions);
+            }
+            catch (Exception exception)
+            {
+                Crashes.TrackError(exception);
+            }
 
             return base.FinishedLaunching(application, launchOptions);
         }
