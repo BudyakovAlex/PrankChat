@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>722959635287-tju1dsr597gsqc3qb7pbpso01908uqe4.apps.googleusercontent.com</string>
+	<string>722959635287-qo0arq095hu9fod094tn1ef7sfi2ipuk.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.722959635287-tju1dsr597gsqc3qb7pbpso01908uqe4</string>
+	<string>com.googleusercontent.apps.722959635287-qo0arq095hu9fod094tn1ef7sfi2ipuk</string>
 	<key>API_KEY</key>
 	<string>AIzaSyDA0CCavi7xlyPR9-0fe0O8635PZ7XecYE</string>
 	<key>GCM_SENDER_ID</key>
@@ -21,7 +21,7 @@
 	<key>IS_ADS_ENABLED</key>
 	<false/>
 	<key>IS_ANALYTICS_ENABLED</key>
-	<true/>
+	<false/>
 	<key>IS_APPINVITE_ENABLED</key>
 	<true/>
 	<key>IS_GCM_ENABLED</key>
