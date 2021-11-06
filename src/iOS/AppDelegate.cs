@@ -38,7 +38,7 @@ namespace PrankChat.Mobile.iOS
         {
             try
             {
-                InitializeFirebase();
+                // InitializeFirebase();
                 InitializePushNotification();
             }
             catch (Exception exception)
