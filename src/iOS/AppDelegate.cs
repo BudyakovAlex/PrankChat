@@ -36,7 +36,7 @@ namespace PrankChat.Mobile.iOS
 
         public override bool WillFinishLaunching(UIApplication application, NSDictionary launchOptions)
         {
-            InitializeFirebase();
+            // InitializeFirebase();
             InitializePushNotification();
             return true;
         }
