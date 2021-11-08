@@ -141,5 +141,15 @@
 	<string>com.capaalex.prankchat</string>
 	<key>FirebaseAppStoreReceiptURLCheckEnabled</key>
 	<false/>
+	<key>NSContactsUsageDescription</key>
+	<string>This app needs contacts for find your contacts in our system.</string>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>This app needs bluetooth for find nearby you our users.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>This app needs microphone for capture video.</string>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>This app needs media library for choose video from your phone.</string>
+	<key>NSSiriUsageDescription</key>
+	<string>This app needs siri features for siri commands.</string>
 </dict>
 </plist>
