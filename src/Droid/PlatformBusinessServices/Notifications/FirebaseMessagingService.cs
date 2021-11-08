@@ -44,8 +44,7 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications
             }
             catch (Exception ex)
             {
-                var log = Mvx.IoCProvider.Resolve<IMvxLog>();
-                log.ErrorException("Can not resolve IPushNotificationService", ex);
+                this.Logger().LogError(ex, "Can not resolve IPushNotificationService");
             }
         }
 

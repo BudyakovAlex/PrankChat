@@ -1,7 +1,6 @@
 ﻿using Firebase.CloudMessaging;
 using Foundation;
 using MvvmCross;
-using MvvmCross.Logging;
 using MvvmCross.Plugin.Messenger;
 using Newtonsoft.Json;
 using PrankChat.Mobile.Core.Models.Data;
@@ -34,8 +33,7 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Notifications
             }
             catch (Exception ex)
             {
-                var log = Mvx.IoCProvider.Resolve<IMvxLog>();
-                log.ErrorException("Can not resolve IPushNotificationService", ex);
+                this.Logger().LogError(ex, "Can not resolve IPushNotificationService");
             }
         }
 

@@ -19,7 +19,7 @@ using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.ViewModels.Profile
 {
-    public class UserProfileViewModel : PaginationViewModel, IMvxViewModel<int, bool>
+    public class UserProfileViewModel : PaginationViewModel<int, bool>
     {
         private readonly IUsersManager _usersManager;
         private readonly IOrdersManager _ordersManager;
@@ -73,8 +73,6 @@ namespace PrankChat.Mobile.Core.ViewModels.Profile
 
         public MvxObservableCollection<OrderItemViewModel> Items { get; }
 
-        public TaskCompletionSource<object> CloseCompletionSource { get; set; }
-
         public string ProfileShortLogin => Login.ToShortenName();
 
         public bool HasDescription => !string.IsNullOrEmpty(Description);
@@ -121,7 +119,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Profile
             private set => SetProperty(ref _description, value, () => RaisePropertyChanged(nameof(HasDescription)));
         }
 
-        public void Prepare(int parameter)
+        public override void Prepare(int parameter)
         {
             _userId = parameter;
         }

@@ -1,8 +1,8 @@
-﻿using MvvmCross.Logging;
-using MvvmCross.Plugin.Messenger;
+﻿using MvvmCross.Plugin.Messenger;
 using Plugin.DeviceInfo;
 using PrankChat.Mobile.Core.Data.Dtos;
 using PrankChat.Mobile.Core.Data.Dtos.Base;
+using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Providers.Configuration;
 using PrankChat.Mobile.Core.Providers.UserSession;
 using System.Threading.Tasks;
@@ -16,17 +16,14 @@ namespace PrankChat.Mobile.Core.Services.Network.Http.Notifications
         public NotificationsService(
             IUserSessionProvider userSessionProvider,
             IEnvironmentConfigurationProvider environmentConfigurationProvider,
-            IMvxLogProvider logProvider,
             IMvxMessenger messenger)
         {
-            var log = logProvider.GetLogFor<NotificationsService>();
-
             var environment = environmentConfigurationProvider.Environment;
             _client = new HttpClient(
                 environment.ApiUrl,
                 environment.ApiVersion,
                 userSessionProvider,
-                log,
+                this.Logger(),
                 messenger);
         }
 

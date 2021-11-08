@@ -1,9 +1,10 @@
 ﻿using MvvmCross.ViewModels;
+using PrankChat.Mobile.Core.Managers.Navigation.Arguments.NavigationResults;
 using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.ViewModels.Common
 {
-    public abstract class PaginationViewModelResult<TResult> : PaginationViewModel, IMvxViewModelResult<TResult>
+    public abstract class PaginationViewModelResult<TResult> : PaginationViewModel, IMvxViewModelResult<GenericNavigationResult<TResult>>
     {
         protected PaginationViewModelResult(int paginationSize)
             : base(paginationSize)

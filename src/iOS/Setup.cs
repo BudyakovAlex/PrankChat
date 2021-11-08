@@ -25,14 +25,17 @@ using WebKit;
 using PrankChat.Mobile.Core.Plugins.UserInteraction;
 using PrankChat.Mobile.iOS.Plugins.UserInteraction;
 using PrankChat.Mobile.iOS.Common;
+using Microsoft.Extensions.Logging;
+using Serilog;
+using Serilog.Extensions.Logging;
 
 namespace PrankChat.Mobile.iOS
 {
     public class Setup : MvxIosSetup<App>
     {
-        protected override void InitializeFirstChance()
+        protected override void InitializeFirstChance(IMvxIoCProvider iocProvider)
         {
-            base.InitializeFirstChance();
+            base.InitializeFirstChance(iocProvider);
 
             Mvx.IoCProvider.CallbackWhenRegistered<IEnvironmentConfigurationProvider>(provider =>
             {
@@ -40,9 +43,23 @@ namespace PrankChat.Mobile.iOS
             });
         }
 
-        protected override void InitializeLastChance()
+        protected override ILoggerProvider CreateLogProvider()
         {
-            base.InitializeLastChance();
+            return new SerilogLoggerProvider();
+        }
+
+        protected override ILoggerFactory CreateLogFactory()
+        {
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel
+                .Debug()
+                .CreateLogger();
+            return new SerilogLoggerFactory();
+        }
+
+        protected override void InitializeLastChance(IMvxIoCProvider iocProvider)
+        {
+            base.InitializeLastChance(iocProvider);
 
             CompositionRoot.Container.RegisterType<IVideoPlayer, VideoPlayer>();
             CompositionRoot.Container.RegisterSingleton<IUserInteraction, UserInteraction>();

@@ -1,5 +1,4 @@
-﻿using MvvmCross.Logging;
-using MvvmCross.Plugin.Messenger;
+﻿using MvvmCross.Plugin.Messenger;
 using Newtonsoft.Json;
 using PrankChat.Mobile.Core.Services.ErrorHandling.Messages;
 using PrankChat.Mobile.Core.Data.Dtos;
@@ -26,20 +25,17 @@ namespace PrankChat.Mobile.Core.Services.Network.Http.Authorization
         public AuthorizationService(
             IUserSessionProvider userSessionProvider,
             IEnvironmentConfigurationProvider environmentConfigurationProvider,
-            IMvxLogProvider logProvider,
             IMvxMessenger messenger)
         {
             _userSessionProvider = userSessionProvider;
             _messenger = messenger;
-
-            var log = logProvider.GetLogFor<AuthorizationService>();
 
             var environment = environmentConfigurationProvider.Environment;
             _client = new HttpClient(
                 environment.ApiUrl,
                 environment.ApiVersion,
                 userSessionProvider,
-                log,
+                this.Logger(),
                 messenger);
 
             _messenger.Subscribe<UnauthorizedMessage>(OnUnauthorizedUser, MvxReference.Strong);
