@@ -1,4 +1,6 @@
 ﻿<linker>
     <assembly fullname="PrankChat.Mobile.iOS" />
-    <assembly fullname="MvvmCross.Assembly"/>
+    <assembly fullname="MvvmCross"/>
+    <assembly fullname="Microsoft.Extensions.Logging"/>
+    <assembly fullname="Microsoft.Extensions.Logging.Abstractions"/>
 </linker>
