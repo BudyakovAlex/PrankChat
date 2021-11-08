@@ -1,5 +1,4 @@
 ﻿using MvvmCross.Commands;
-using MvvmCross.Logging;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.Common;
 using PrankChat.Mobile.Core.Extensions;
@@ -13,18 +12,16 @@ using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.ViewModels.Comment
 {
-    public class CommentsViewModel : PaginationViewModel, IMvxViewModel<int, int>
+    public class CommentsViewModel : PaginationViewModel<int, int>
     {
         private readonly IVideoManager _videoManager;
-        private readonly IMvxLog _mvxLog;
 
         private int _videoId;
         private int _newCommentsCounter;
 
-        public CommentsViewModel(IVideoManager videoManager, IMvxLog mvxLog) : base(Constants.Pagination.DefaultPaginationSize)
+        public CommentsViewModel(IVideoManager videoManager) : base(Constants.Pagination.DefaultPaginationSize)
         {
             _videoManager = videoManager;
-            _mvxLog = mvxLog;
 
             Items = new MvxObservableCollection<CommentItemViewModel>();
 
@@ -49,9 +46,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Comment
 
         public IMvxAsyncCommand SendCommentCommand { get; }
 
-        public TaskCompletionSource<object> CloseCompletionSource { get; set; } = new TaskCompletionSource<object>();
-
-        public void Prepare(int parameter)
+        public override void Prepare(int parameter)
         {
             _videoId = parameter;
         }

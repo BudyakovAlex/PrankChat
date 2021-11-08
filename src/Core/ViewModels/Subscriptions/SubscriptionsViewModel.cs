@@ -3,6 +3,8 @@ using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.Common;
 using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Localization;
+using PrankChat.Mobile.Core.Managers.Navigation.Arguments.NavigationParameters;
+using PrankChat.Mobile.Core.Managers.Navigation.Arguments.NavigationResults;
 using PrankChat.Mobile.Core.Managers.Users;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.Shared;
@@ -13,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.ViewModels.Subscriptions.Items
 {
-    public class SubscriptionsViewModel : PaginationViewModel, IMvxViewModel<SubscriptionsNavigationParameter, bool>
+    public class SubscriptionsViewModel : PaginationViewModel, IMvxViewModel<GenericNavigationParams<SubscriptionsNavigationParameter>, GenericNavigationResult<bool>>
     {
         private readonly IUsersManager _usersManager;
 
@@ -87,11 +89,11 @@ namespace PrankChat.Mobile.Core.ViewModels.Subscriptions.Items
             _reloadTask = ReloadItemsCommand.ExecuteAsync();
         }
 
-        public void Prepare(SubscriptionsNavigationParameter parameter)
+        public void Prepare(GenericNavigationParams<SubscriptionsNavigationParameter> parameter)
         {
-            _userId = parameter.UserId;
-            _selectedTabType = parameter.SubscriptionTabType;
-            Title = parameter.UserName;
+            _userId = parameter.Parameter.UserId;
+            _selectedTabType = parameter.Parameter.SubscriptionTabType;
+            Title = parameter.Parameter.UserName;
         }
 
         public override void ViewDestroy(bool viewFinishing = true)

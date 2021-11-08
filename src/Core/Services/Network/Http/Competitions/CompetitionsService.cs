@@ -3,6 +3,7 @@ using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.Data.Dtos;
 using PrankChat.Mobile.Core.Data.Dtos.Base;
 using PrankChat.Mobile.Core.Data.Enums;
+using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Providers.Configuration;
 using PrankChat.Mobile.Core.Providers.UserSession;
 using System.Collections.Generic;
@@ -19,11 +20,9 @@ namespace PrankChat.Mobile.Core.Services.Network.Http.Competitions
         public CompetitionsService(
             IUserSessionProvider userSessionProvider,
             IEnvironmentConfigurationProvider environmentConfigurationProvider,
-            IMvxLogProvider logProvider,
             IMvxMessenger messenger)
         {
             _userSessionProvider = userSessionProvider;
-            var log = logProvider.GetLogFor<CompetitionsService>();
 
             var environment = environmentConfigurationProvider.Environment;
 
@@ -31,7 +30,7 @@ namespace PrankChat.Mobile.Core.Services.Network.Http.Competitions
                 environment.ApiUrl,
                 environment.ApiVersion,
                 userSessionProvider,
-                log,
+                this.Logger(),
                 messenger);
         }
 

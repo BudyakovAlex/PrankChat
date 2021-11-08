@@ -396,7 +396,7 @@
 		<Compile Include="Delegates\WKWebViewNavigationDelegate.cs" />
 		<BundleResource Include="GoogleService-Info.plist" />
 		<None Include="LinkerConfig.xml">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 	</ItemGroup>
 	<ItemGroup>
@@ -409,7 +409,7 @@
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="MvvmCross">
-			<Version>7.1.2</Version>
+			<Version>8.0.2</Version>
 		</PackageReference>
 		<PackageReference Include="Xam.Plugin.DeviceInfo">
 			<Version>4.1.1</Version>
@@ -428,7 +428,7 @@
 			<Version>1.4.1</Version>
 		</PackageReference>
 		<PackageReference Include="MvvmCross.Plugin.Visibility">
-			<Version>7.1.2</Version>
+			<Version>8.0.2</Version>
 		</PackageReference>
 		<PackageReference Include="Xam.Plugin.Media">
 			<Version>5.0.1</Version>
@@ -455,7 +455,7 @@
 			<Version>4.7.1</Version>
 		</PackageReference>
 		<PackageReference Include="MvvmCross.Plugin.WebBrowser">
-			<Version>7.1.2</Version>
+			<Version>8.0.2</Version>
 		</PackageReference>
 		<PackageReference Include="Xam.Plugin.Badge">
 			<Version>1.0.0</Version>
@@ -481,11 +481,762 @@
 		<PackageReference Include="Vlc.DotNet.Core">
 			<Version>3.1.0</Version>
 		</PackageReference>
+		<PackageReference Include="Serilog">
+			<Version>2.10.0</Version>
+		</PackageReference>
+		<PackageReference Include="Serilog.Extensions.Logging">
+			<Version>3.1.0</Version>
+		</PackageReference>
 	</ItemGroup>
 	<ItemGroup>
-		<ImageAsset Include="Assets.xcassets\**\*.json" Visible="false" />
-        <ImageAsset Include="Assets.xcassets\**\*.pdf" Visible="false" />
-        <ImageAsset Include="Assets.xcassets\**\*.png" Visible="false" />
+		<ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_home.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_home.imageset\Vector.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_rate.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_rate.imageset\Vector %281%29.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_create_order.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_create_order.imageset\Group 54.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_orders.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_orders.imageset\Vector %282%29.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_profile.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_profile.imageset\Vector %283%29.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_filter_arrow.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_filter_arrow.imageset\Shape.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_search.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_search.imageset\Shape.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_notification.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_notification.imageset\Vector %284%29.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_notification_new.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_notification_new.imageset\Group 128.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_logo.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_back.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_back.imageset\Shape.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_search_grey.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_search_grey.imageset\Shape %281%29.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_bookmark.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_bookmark.imageset\ic_bookmark.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_more.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_more.imageset\ic_more.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_share.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_share.imageset\ic_share.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_vk.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_vk.imageset\vk.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_ok.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_ok.imageset\odnoklassniki.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_facebook.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_facebook.imageset\facebook.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_gmail.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_gmail.imageset\gmail.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_radio_button_active.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_radio_button_inactive.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_radio_button_active.imageset\Group 176.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_radio_button_inactive.imageset\Radio_button.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_calendar.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_calendar.imageset\mdi_date_range.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_menu.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_menu.imageset\Vector.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\background_order.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\background_order.imageset\background_order.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_thumbs_up.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_thumbs_up.imageset\Vector %281%29.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_thumbs_down.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_thumbs_down.imageset\Vector %282%29.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_download.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_download.imageset\ic_download.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_calendar_accent.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_checkbox_checked.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_checkbox_unchecked.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_calendar_accent.imageset\Vector %283%29.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_checkbox_checked.imageset\Shape.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_checkbox_unchecked.imageset\Path.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_comment.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_comment.imageset\ic_comment.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_send.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_send.imageset\ic_send.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_mastercard_banner.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_visa_banner.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_3dsecure_banner.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_payment_cards.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_payment_qiwi.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_payment_yandexmoney.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_payment_phone.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_payment_sberbank.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_payment_alphabank.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_payment_yandexmoney.imageset\Group.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_payment_phone.imageset\Group 179.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_payment_sberbank.imageset\Sberbank 1.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_payment_alphabank.imageset\Alfa bank.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_question.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_question.imageset\Vector %284%29.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\bg_selected_payment.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\bg_payment.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\bg_selected_payment.imageset\Rectangle 35.6.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\bg_payment.imageset\Rectangle 35.11.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_payment_alphabank_selected.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_payment_cards_selected.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_payment_phone_selected.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_payment_qiwi_selected.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_payment_sberbank_selected.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_payment_yandexmoney_selected.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_payment_alphabank_selected.imageset\Group 181.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_payment_phone_selected.imageset\Group 179 %281%29.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_payment_qiwi_selected.imageset\Group %281%29.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_payment_sberbank_selected.imageset\Sberbank 1 %281%29.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_payment_yandexmoney_selected.imageset\Group %282%29.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_payment_qiwi.imageset\Group %281%29.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_payment_cards.imageset\Group 178.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_payment_cards_selected.imageset\Group 178 %281%29-1.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_3dsecure_banner.imageset\Group %282%29.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_visa_banner.imageset\Group %281%29.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_mastercard_banner.imageset\Group.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_share_copy.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_share_instagram.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_share_copy.imageset\Group 113.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_share_instagram.imageset\Group 114.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_sound_muted.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_sound_muted.imageset\Group 189-1.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_image_background.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_image_background.imageset\ic_image_background.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_sound_muted.imageset\Group 189-1.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_change_profile.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_change_profile.imageset\ic_change_profile.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_accent_thumbs_down.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_accent_thumbs_down.imageset\ic_accent_thumbs_down.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_accent_thumbs_up.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_accent_thumbs_up.imageset\ic_accent_thumbs_up.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_accent_thumbs_down.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_accent_thumbs_down.imageset\ic_accent_thumbs_down.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_accent_thumbs_up.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_accent_thumbs_up.imageset\ic_accent_thumbs_up.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_play.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_play.imageset\FullscreenVideoPlay.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\bg_order_type_my.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\bg_order_type_my.imageset\OrderTypeMyBackground.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\bg_order_type_my_in_moderation.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\bg_order_type_my_in_moderation.imageset\OrderTypeMyInModerationBackground.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\bg_order_type_not_my.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\bg_order_type_not_my.imageset\OrderTypeNotMyBackground.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_pause.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_pause.imageset\FullscreenVideoPause.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_mute.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_mute.imageset\FullscreenVideoMute.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_plus.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_three_dots.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_notification_user.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_notification_user.imageset\Userpic.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_have_notification.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_have_notification.imageset\Group 106.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_arrow_left_alt.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_arrow_left_alt.imageset\mdi_arrow_left_alt.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\bg_order_type_completed.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\bg_order_type_completed.imageset\bg_order_type_completed.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_arrow_right_alt.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_arrow_right_alt.imageset\mdi_arrow_right_alt.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_credit_card.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_credit_card.imageset\ic_credit_card.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_arrow_dropdown.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_arrow_dropdown.imageset\Polygon.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_three_dots.imageset\ThreeDots.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_arrow_left_alt.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_arrow_left_alt.imageset\mdi_arrow_left_alt.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\bg_order_type_completed.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\bg_order_type_completed.imageset\bg_order_type_completed.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_arrow_right_alt.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_arrow_right_alt.imageset\mdi_arrow_right_alt.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_competitions.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_competitions.imageset\ic_competitions-1.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_warning.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_warning.imageset\ic_warning.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\bg_onboarding_item.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\bg_onboarding_item.imageset\bg_onboarding_item.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\bg_onboarding_first_slide.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\bg_onboarding_first_slide.imageset\bg_onboarding_first_slide.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\bg_onboarding_second_slide.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\bg_onboarding_second_slide.imageset\bg_onboarding_second_slide.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\bg_onboarding_third_slide.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\bg_onboarding_third_slide.imageset\bg_onboarding_third_slide.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\bg_onboarding_fourth_slide.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\bg_onboarding_fourth_slide.imageset\bg_onboarding_fourth_slide.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\bg_onboarding_fifth_slide.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\bg_onboarding_fifth_slide.imageset\bg_onboarding_fifth_slide.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\bg_order_type_my_completed.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\bg_order_type_my_completed.imageset\bg_order_type_my_completed.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_fullscreen.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_fullscreen.imageset\ic_fullscreen.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\OrderTagTypeNewNotMine.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\OrderTagTypeNewNotMine.imageset\OrderTagTypeNewNotMine.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\OrderTagTypeInArbitration.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\OrderTagTypeInArbitration.imageset\OrderTagTypeInArbitration.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\OrderTagTypeInModeration.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\OrderTagTypeInModeration.imageset\OrderTagTypeInModeration.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\OrderTagTypeInWork.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\OrderTagTypeInWork.imageset\OrderTagTypeInWork.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\OrderTagTypeNew.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\OrderTagTypeNew.imageset\OrderTagTypeNew.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\OrderTagTypeFinished.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\OrderTagTypeFinished.imageset\OrderTagTypeFinished.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\OrderTagTypeWait.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\OrderTagTypeWait.imageset\OrderTagTypeWait.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_info.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_info.imageset\ic_info.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_clear.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_clear.imageset\ic_clear.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_logout.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_logout.imageset\ic_logout.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_comments.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_comments.imageset\ic_comments.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_circle_clear.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_circle_clear.imageset\ic_circle_clear.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_notification_with_bage.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_notification_with_bage.imageset\ic_notification_with_bage.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_maintanance.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_like.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_dislike.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_like.imageset\ic_like.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_like_hollow.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_dislike_hollow.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_like_hollow.imageset\ic_like_hollow.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_dislike_hollow.imageset\ic_dislike_hollow.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_check_mark.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_check_mark.imageset\ic_check_mark.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_plus.imageset\ic_plus.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_apple.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_apple.imageset\ic_apple-1.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_competition_cup.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_competition_cup.imageset\ic_competition_cup.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_dislike.imageset\ic_dislike-1.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_order_hidden.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_order_hidden.imageset\Group 2.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_order_paid.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_order_paid.imageset\ic_order_paid.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_yoomoney_account.imageset\Contents.json">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_yoomoney_account.imageset\ic_yoomoney_account.pdf">
+			<Visible>false</Visible>
+		</ImageAsset>
+		<ImageAsset Include="Assets.xcassets\ic_logo.imageset\Logo-v1 %281%29 %281%29-1.pdf" />
+		<ImageAsset Include="Assets.xcassets\ic_maintanance.imageset\Logo and text-ai %281%29.pdf" />
+		<ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-40-2.png" />
+		<ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-60.png" />
+		<ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-58-1.png" />
+		<ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-87.png" />
+		<ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-80-1.png" />
+		<ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-120-1.png" />
+		<ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-120-2.png" />
+		<ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-180.png" />
+		<ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-20.png" />
+		<ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-40-3.png" />
+		<ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-29.png" />
+		<ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-58-2.png" />
+		<ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-40.png" />
+		<ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-80-2.png" />
+		<ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-76.png" />
+		<ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-152.png" />
+		<ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-167.png" />
+		<ImageAsset Include="Assets.xcassets\AppIcon.appiconset\1024x1024.png" />
+		<ImageAsset Include="Assets.xcassets\ic_onplay.imageset\Contents.json" />
+		<ImageAsset Include="Assets.xcassets\ic_onplay.imageset\Logo-and-text-ai.pdf" />
+	</ItemGroup>
+	<ItemGroup>
+		<Folder Include="Assets.xcassets\bg_onboarding_fifth_slide.imageset\" />
+		<Folder Include="Assets.xcassets\bg_onboarding_first_slide.imageset\" />
+		<Folder Include="Assets.xcassets\bg_onboarding_fourth_slide.imageset\" />
+		<Folder Include="Assets.xcassets\bg_onboarding_item.imageset\" />
+		<Folder Include="Assets.xcassets\bg_onboarding_second_slide.imageset\" />
+		<Folder Include="Assets.xcassets\bg_onboarding_third_slide.imageset\" />
+		<Folder Include="Assets.xcassets\bg_order_type_completed.imageset\" />
+		<Folder Include="Assets.xcassets\bg_order_type_my.imageset\" />
+		<Folder Include="Assets.xcassets\bg_order_type_my_completed.imageset\" />
+		<Folder Include="Assets.xcassets\bg_order_type_my_in_moderation.imageset\" />
+		<Folder Include="Assets.xcassets\bg_order_type_not_my.imageset\" />
+		<Folder Include="Assets.xcassets\dsadad.imageset\" />
+		<Folder Include="Assets.xcassets\ic_accent_thumbs_down.imageset\" />
+		<Folder Include="Assets.xcassets\ic_accent_thumbs_up.imageset\" />
+		<Folder Include="Assets.xcassets\ic_apple.imageset\" />
+		<Folder Include="Assets.xcassets\ic_arrow_dropdown.imageset\" />
+		<Folder Include="Assets.xcassets\ic_arrow_left_alt.imageset\" />
+		<Folder Include="Assets.xcassets\ic_arrow_right_alt.imageset\" />
+		<Folder Include="Assets.xcassets\ic_change_profile.imageset\" />
+		<Folder Include="Assets.xcassets\ic_check_mark.imageset\" />
+		<Folder Include="Assets.xcassets\ic_circle_clear.imageset\" />
+		<Folder Include="Assets.xcassets\ic_clear.imageset\" />
+		<Folder Include="Assets.xcassets\ic_comments.imageset\" />
+		<Folder Include="Assets.xcassets\ic_competitions.imageset\" />
+		<Folder Include="Assets.xcassets\ic_competition_cup.imageset\" />
+		<Folder Include="Assets.xcassets\ic_credit_card.imageset\" />
+		<Folder Include="Assets.xcassets\ic_dislike.imageset\" />
+		<Folder Include="Assets.xcassets\ic_dislike_hollow.imageset\" />
+		<Folder Include="Assets.xcassets\ic_fullscreen.imageset\" />
+		<Folder Include="Assets.xcassets\ic_have_notification.imageset\" />
+		<Folder Include="Assets.xcassets\ic_image_background.imageset\" />
+		<Folder Include="Assets.xcassets\ic_info.imageset\" />
+		<Folder Include="Assets.xcassets\ic_like.imageset\" />
+		<Folder Include="Assets.xcassets\ic_like_active.imageset\" />
+		<Folder Include="Assets.xcassets\ic_like_hollow.imageset\" />
+		<Folder Include="Assets.xcassets\ic_logout.imageset\" />
+		<Folder Include="Assets.xcassets\ic_maintanance.imageset\" />
+		<Folder Include="Assets.xcassets\ic_mute.imageset\" />
+		<Folder Include="Assets.xcassets\ic_notification_user.imageset\" />
+		<Folder Include="Assets.xcassets\ic_notification_with_bage.imageset\" />
+		<Folder Include="Assets.xcassets\ic_order_hidden.imageset\" />
+		<Folder Include="Assets.xcassets\ic_order_paid.imageset\" />
+		<Folder Include="Assets.xcassets\ic_pause.imageset\" />
+		<Folder Include="Assets.xcassets\ic_play.imageset\" />
+		<Folder Include="Assets.xcassets\ic_plus.imageset\" />
+		<Folder Include="Assets.xcassets\ic_onplay_icon.imageset\" />
+		<Folder Include="Assets.xcassets\ic_three_dots.imageset\" />
+		<Folder Include="Assets.xcassets\ic_warning.imageset\" />
+		<Folder Include="Assets.xcassets\ic_yoomoney_account.imageset\" />
+		<Folder Include="Assets.xcassets\OrderTagTypeDone.imageset\" />
+		<Folder Include="Assets.xcassets\OrderTagTypeFinished.imageset\" />
+		<Folder Include="Assets.xcassets\OrderTagTypeInArbitration.imageset\" />
+		<Folder Include="Assets.xcassets\OrderTagTypeInModeration.imageset\" />
+		<Folder Include="Assets.xcassets\OrderTagTypeInWork.imageset\" />
+		<Folder Include="Assets.xcassets\OrderTagTypeNew.imageset\" />
+		<Folder Include="Assets.xcassets\OrderTagTypeNewNotMine.imageset\" />
+		<Folder Include="Assets.xcassets\OrderTagTypeWait.imageset\" />
+		<Folder Include="Assets.xcassets\ic_onplay.imageset\" />
 	</ItemGroup>
 	<Choose>
 		<When Condition="'$(MtouchLink)'=='Full' Or '$(MtouchLink)'=='SdkOnly'">

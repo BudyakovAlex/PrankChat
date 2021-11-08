@@ -21,7 +21,14 @@ namespace PrankChat.Mobile.iOS
             Runtime.MarshalManagedException += Runtime_MarshalManagedException;
             Runtime.MarshalObjectiveCException += Runtime_MarshalObjectiveCException;
 
-            UIApplication.Main(args, null, "AppDelegate");
+            try
+            {
+                UIApplication.Main(args, null, "AppDelegate");
+            }
+            catch (Exception exception)
+            {
+                Crashes.TrackError(exception);
+            }
         }
 
         private static void Runtime_MarshalObjectiveCException(object sender, MarshalObjectiveCExceptionEventArgs args)

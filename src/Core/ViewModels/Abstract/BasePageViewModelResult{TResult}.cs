@@ -1,9 +1,10 @@
 ﻿using MvvmCross.ViewModels;
+using PrankChat.Mobile.Core.Managers.Navigation.Arguments.NavigationResults;
 using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.ViewModels.Abstract
 {
-    public abstract class BasePageViewModelResult<TResult> : BasePageViewModel, IMvxViewModelResult<TResult>
+    public abstract class BasePageViewModelResult<TResult> : BasePageViewModel, IMvxViewModelResult<GenericNavigationResult<TResult>>
     {
         public TaskCompletionSource<object> CloseCompletionSource { get; set; } = new TaskCompletionSource<object>();
 
