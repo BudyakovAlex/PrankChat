@@ -11,6 +11,8 @@ namespace PrankChat.Mobile.Core.Extensions
         private const string TagFatal = "Unhandled Exception";
         private const string UnknownMember = "Unknown MemberName";
         private const string ExceptionTemplate = "Error logged in {FileName}->{MemberName}:{LineNumber} \r\n With message:{Message} \r\n {StackTrace}";
+        private const string InformationTemplate = "Message: {message} \r\n Invoked {FileName}->{MemberName}:{LineNumber}";
+        private const string UnknownFilePath = "Unknown FilePath";
 
         public static ILogger Logger(this object? obj)
             => Log.Logger.WithTag($"{(obj is Type type ? type : obj?.GetType())?.Name ?? TagDefault}:");
@@ -57,10 +59,10 @@ namespace PrankChat.Mobile.Core.Extensions
         {
             memberName ??= UnknownMember;
             fileName = GetFileName(fileName);
-            logger.Information("Message: {message} \r\n Invoked {FileName}->{MemberName}:{LineNumber}", message, fileName, memberName, lineNumber);
+            logger.Information(InformationTemplate, message, fileName, memberName, lineNumber);
         }
 
         private static string GetFileName(string? filePath)
-            => string.IsNullOrWhiteSpace(filePath) ? "Unknown FilePath" : System.IO.Path.GetFileName(filePath);
+            => string.IsNullOrWhiteSpace(filePath) ? UnknownFilePath : System.IO.Path.GetFileName(filePath);
     }
 }
