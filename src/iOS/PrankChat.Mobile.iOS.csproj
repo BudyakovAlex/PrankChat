@@ -38,6 +38,7 @@
 		<MtouchArch>x86_64</MtouchArch>
 		<CodesignKey>iPhone Developer</CodesignKey>
 		<LangVersion>8.0</LangVersion>
+		<MtouchDebug>true</MtouchDebug>
 	</PropertyGroup>
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
 		<DebugSymbols>true</DebugSymbols>
@@ -66,6 +67,7 @@
 		<CodesignKey>iPhone Distribution</CodesignKey>
 		<MtouchLink>SdkOnly</MtouchLink>
 		<LangVersion>8.0</LangVersion>
+		<MtouchDebug>true</MtouchDebug>
 	</PropertyGroup>
 	<ItemGroup>
 		<Compile Include="Main.cs" />
