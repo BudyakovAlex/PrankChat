@@ -52,7 +52,7 @@
 		<CodesignKey>Apple Development: Anton Chepelev (BCDQ5WV3X7)</CodesignKey>
 		<MtouchDebug>true</MtouchDebug>
 		<CodesignProvision>Development Profile Apr 2020</CodesignProvision>
-		<MtouchLink>SdkOnly</MtouchLink>
+		<MtouchLink>None</MtouchLink>
 		<LangVersion>8.0</LangVersion>
 	</PropertyGroup>
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
@@ -64,7 +64,7 @@
 		<CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
 		<MtouchArch>ARM64</MtouchArch>
 		<CodesignKey>iPhone Distribution</CodesignKey>
-		<MtouchLink>SdkOnly</MtouchLink>
+		<MtouchLink>None</MtouchLink>
 		<LangVersion>8.0</LangVersion>
 	</PropertyGroup>
 	<ItemGroup>
