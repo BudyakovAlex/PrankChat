@@ -88,15 +88,6 @@
 		<true/>
 		<key>NSExceptionDomains</key>
 		<dict>
-			<key>stage.prankchat.store</key>
-			<dict>
-				<key>NSIncludesSubdomains</key>
-				<true/>
-				<key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
-				<true/>
-				<key>NSTemporaryExceptionMinimumTLSVersion</key>
-				<string>TLSv1.1</string>
-			</dict>
 			<key>vk.com</key>
 			<dict>
 				<key>NSExceptionRequiresForwardSecrecy</key>
