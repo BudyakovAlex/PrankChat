@@ -28,11 +28,15 @@ using PrankChat.Mobile.iOS.Common;
 using Microsoft.Extensions.Logging;
 using Serilog;
 using Serilog.Extensions.Logging;
+using System;
+using PrankChat.Mobile.iOS.Plugins.Logging;
 
 namespace PrankChat.Mobile.iOS
 {
     public class Setup : MvxIosSetup<App>
     {
+        private const string LoggerTag = "Prank_IOS";
+
         protected override void InitializeFirstChance(IMvxIoCProvider iocProvider)
         {
             base.InitializeFirstChance(iocProvider);
@@ -41,6 +45,19 @@ namespace PrankChat.Mobile.iOS
             {
                 AppCenter.Start(provider.Environment.AppCenterIosId, typeof(Analytics), typeof(Crashes));
             });
+        }
+
+        public override void InitializeSecondary()
+        {
+            //NOTE: need to trace errors in console
+            try
+            {
+                base.InitializeSecondary();
+            }
+            catch (Exception exception)
+            {
+                NativeConsoleLogger.Write(LoggerTag, $"{exception.Message} \n\n\n\n{exception.StackTrace}");
+            }
         }
 
         protected override ILoggerProvider CreateLogProvider()

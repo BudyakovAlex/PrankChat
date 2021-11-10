@@ -2,18 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>This app needs location when app in usage.</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>This app require location to set it for video.</string>
-	<key>NSCalendarsUsageDescription</key>
-	<string>This app needs access to calendar to pick date and time.</string>
 	<key>CFBundleDisplayName</key>
 	<string>OnPlay</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
-	<key>CFBundleVersion</key>
-	<string>1.0</string>
+	<string>2.1.13</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>LSSupportsOpeningDocumentsInPlace</key>
@@ -21,7 +13,7 @@
 	<key>UIFileSharingEnabled</key>
 	<true/>
 	<key>MinimumOSVersion</key>
-	<string>14.4</string>
+	<string>14.0</string>
 	<key>UIDeviceFamily</key>
 	<array>
 		<integer>1</integer>
@@ -79,7 +71,7 @@
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>CFBundleName</key>
-	<string>Prank Chat</string>
+	<string>OnPlay</string>
 	<key>UIUserInterfaceStyle</key>
 	<string>Light</string>
 	<key>NSAppTransportSecurity</key>
@@ -117,7 +109,7 @@
 	<key>FacebookAppID</key>
 	<string>621471715102522</string>
 	<key>FacebookDisplayName</key>
-	<string>Prankchat</string>
+	<string>OnPlay</string>
 	<key>NSCameraUsageDescription</key>
 	<string>This app needs access to the camera to take photos.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
@@ -142,5 +134,7 @@
 	<string>This app needs media library for choose video from your phone.</string>
 	<key>NSSiriUsageDescription</key>
 	<string>This app needs siri features for siri commands.</string>
+	<key>CFBundleVersion</key>
+	<string>4324</string>
 </dict>
 </plist>
