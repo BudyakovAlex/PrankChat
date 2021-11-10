@@ -49,9 +49,8 @@
 		<WarningLevel>4</WarningLevel>
 		<MtouchArch>ARM64</MtouchArch>
 		<CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
-		<CodesignKey>Apple Development: Anton Chepelev (BCDQ5WV3X7)</CodesignKey>
+		<CodesignKey>iPhone Developer</CodesignKey>
 		<MtouchDebug>true</MtouchDebug>
-		<CodesignProvision>Development Profile Apr 2020</CodesignProvision>
 		<MtouchLink>None</MtouchLink>
 		<LangVersion>8.0</LangVersion>
 	</PropertyGroup>
@@ -61,11 +60,15 @@
 		<OutputPath>bin\iPhone\Release</OutputPath>
 		<ErrorReport>prompt</ErrorReport>
 		<WarningLevel>4</WarningLevel>
-		<CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
 		<MtouchArch>ARM64</MtouchArch>
-		<CodesignKey>iPhone Distribution</CodesignKey>
-		<MtouchLink>None</MtouchLink>
+		<CodesignKey>Apple Development: Anton Chepelev (BCDQ5WV3X7)</CodesignKey>
+		<MtouchLink>SdkOnly</MtouchLink>
 		<LangVersion>8.0</LangVersion>
+		<CodesignProvision>iOS Team Provisioning Profile: com.capaalex.prankchat</CodesignProvision>
+		<CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+		<BuildIpa>true</BuildIpa>
+		<DeviceSpecificBuild>false</DeviceSpecificBuild>
+		<MtouchUseLlvm>true</MtouchUseLlvm>
 	</PropertyGroup>
 	<ItemGroup>
 		<Compile Include="Main.cs" />
@@ -398,6 +401,7 @@
 		<None Include="LinkerConfig.xml">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
+		<Compile Include="Plugins\Logging\NativeConsoleLogger.cs" />
 	</ItemGroup>
 	<ItemGroup>
 		<Reference Include="System" />
@@ -437,10 +441,10 @@
 			<Version>2.5.13</Version>
 		</PackageReference>
 		<PackageReference Include="Xamarin.Essentials">
-			<Version>1.6.1</Version>
+			<Version>1.7.0</Version>
 		</PackageReference>
 		<PackageReference Include="Xamarin.Facebook.iOS">
-			<Version>7.1.1</Version>
+			<Version>9.0.1.5</Version>
 		</PackageReference>
 		<PackageReference Include="Xamarin.VKontakte.iOS">
 			<Version>1.3.16</Version>
@@ -461,22 +465,22 @@
 			<Version>1.0.0</Version>
 		</PackageReference>
 		<PackageReference Include="Microsoft.AppCenter.Analytics">
-			<Version>4.1.0</Version>
+			<Version>4.4.0</Version>
 		</PackageReference>
 		<PackageReference Include="Microsoft.AppCenter.Crashes">
-			<Version>4.1.0</Version>
+			<Version>4.4.0</Version>
 		</PackageReference>
 		<PackageReference Include="Microsoft.AppCenter">
-			<Version>4.1.0</Version>
+			<Version>4.4.0</Version>
 		</PackageReference>
 		<PackageReference Include="VideoLAN.LibVLC.iOS">
-			<Version>3.3.10</Version>
+			<Version>3.3.17</Version>
 		</PackageReference>
 		<PackageReference Include="VLC.Native">
 			<Version>3.0.8</Version>
 		</PackageReference>
 		<PackageReference Include="LibVLCSharp">
-			<Version>3.5.1</Version>
+			<Version>3.6.1</Version>
 		</PackageReference>
 		<PackageReference Include="Vlc.DotNet.Core">
 			<Version>3.1.0</Version>
@@ -1240,6 +1244,7 @@
 		<Folder Include="Assets.xcassets\OrderTagTypeNewNotMine.imageset\" />
 		<Folder Include="Assets.xcassets\OrderTagTypeWait.imageset\" />
 		<Folder Include="Assets.xcassets\ic_onplay.imageset\" />
+		<Folder Include="Plugins\Logging\" />
 	</ItemGroup>
 	<Choose>
 		<When Condition="'$(MtouchLink)'=='Full' Or '$(MtouchLink)'=='SdkOnly'">
