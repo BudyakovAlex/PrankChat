@@ -22,7 +22,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition.Items
         {
             Competition = competition;
 
-            SystemTimer.SubscribeToEvent(
+            _timerTickSubscription = SystemTimer.SubscribeToEvent(
                 OnTimerTick,
                 (timer, handler) => timer.TimerElapsed += handler,
                 (timer, handler) => timer.TimerElapsed -= handler).DisposeWith(Disposables);

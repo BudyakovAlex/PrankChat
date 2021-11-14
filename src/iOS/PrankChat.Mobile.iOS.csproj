@@ -25,8 +25,10 @@
 		<MtouchArch>x86_64</MtouchArch>
 		<MtouchLink>None</MtouchLink>
 		<MtouchDebug>true</MtouchDebug>
-		<CodesignKey>iPhone Developer</CodesignKey>
+		<CodesignKey>Apple Development: Anton Chepelev (BCDQ5WV3X7)</CodesignKey>
 		<LangVersion>8.0</LangVersion>
+		<CodesignProvision>iOS Team Provisioning Profile: com.capaalex.prankchat</CodesignProvision>
+		<CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
 	</PropertyGroup>
 	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
 		<DebugType>none</DebugType>
