@@ -21,7 +21,7 @@
 	<key>UIFileSharingEnabled</key>
 	<true/>
 	<key>MinimumOSVersion</key>
-	<string>15.0</string>
+	<string>14.4</string>
 	<key>UIDeviceFamily</key>
 	<array>
 		<integer>1</integer>
@@ -139,5 +139,7 @@
 	</array>
 	<key>CFBundleIdentifier</key>
 	<string>com.capaalex.prankchat</string>
+	<key>FirebaseAppStoreReceiptURLCheckEnabled</key>
+	<false/>
 </dict>
 </plist>

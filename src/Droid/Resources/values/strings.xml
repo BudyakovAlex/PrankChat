@@ -652,7 +652,7 @@ Apple Inc. не является спонсором проведения кон�
     <!-- Fuzzy -->
     <string name="NotViewed">"Не просмотрено"</string>
     <string name="LoginToAccount">"Войти в аккаунт"</string>
-    <string name="ComVkSdkAppId">"7343996"</string>
+    <integer name="com_vk_sdk_AppId">7343996</integer>
 
     <!-- Fuzzy -->
     <string name="SentToModerator">"Отправлено модератору"</string>
