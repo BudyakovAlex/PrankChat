@@ -1,11 +1,12 @@
-﻿using MvvmCross.Logging;
-using MvvmCross.Plugin.Messenger;
+﻿using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.Data.Dtos;
 using PrankChat.Mobile.Core.Data.Dtos.Base;
+using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Providers.Configuration;
 using PrankChat.Mobile.Core.Providers.UserSession;
 using System;
 using System.Threading;
+using Serilog;
 using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Services.Network.Http.Video
@@ -13,23 +14,21 @@ namespace PrankChat.Mobile.Core.Services.Network.Http.Video
     public class VideoService : IVideoService
     {
         private readonly HttpClient _client;
-        private readonly IMvxLog _log;
+        private readonly ILogger _logger;
 
         public VideoService(
             IUserSessionProvider userSessionProvider,
             IEnvironmentConfigurationProvider environmentConfigurationProvider,
-            IMvxLogProvider logProvider,
             IMvxMessenger messenger)
         {
-            _log = logProvider.GetLogFor<VideoService>();
-
             var environment = environmentConfigurationProvider.Environment;
+            _logger = this.Logger();
 
             _client = new HttpClient(
                 environment.ApiUrl,
                 environment.ApiVersion,
                 userSessionProvider,
-                _log,
+                _logger,
                 messenger);
         }
 
@@ -59,7 +58,7 @@ namespace PrankChat.Mobile.Core.Services.Network.Http.Video
         public async Task<long?> IncrementVideoViewsAsync(int videoId)
         {
             var videoApiModel = await _client.UnauthorizedGetAsync<ResponseDto<VideoDto>>($"videos/{videoId}/looked");
-            _log.Log(MvxLogLevel.Debug, () => $"Registered {videoApiModel?.Data?.ViewsCount} for video with id {videoId}");
+            _logger.LogDebug($"Registered {videoApiModel?.Data?.ViewsCount} for video with id {videoId}");
             return videoApiModel?.Data?.ViewsCount;
         }
 

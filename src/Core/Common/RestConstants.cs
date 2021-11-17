@@ -9,7 +9,7 @@
         public const string NewVideos = "newsline/videos/new";
         public const string ProfileOwnOrders = "profile/orders/own";
         public const string ProfileOwnOrdersInExecute = "profile/orders/execute";
-        public const string PolicyEndpoint = "https://prankchat.store/policy";
+        public const string PolicyEndpoint = "https://onplaysite.com/policy";
         public const string StorePassportDataResource = "me/requisites";
 
         public const string YoomoneyResourceUrl = "https://yoomoney.ru/";

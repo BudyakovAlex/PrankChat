@@ -4,12 +4,10 @@ using Android.Widget;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Binding;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
-using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.ViewModels.Publication.Items;
 using PrankChat.Mobile.Droid.Controls;
 using PrankChat.Mobile.Droid.Extensions;
 using PrankChat.Mobile.Droid.Adapters.ViewHolders.Abstract.Video;
-using PrankChat.Mobile.Droid.Bindings;
 using PrankChat.Mobile.Droid.Listeners;
 using PrankChat.Mobile.Droid.Utils.Helpers;
 

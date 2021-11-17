@@ -20,11 +20,9 @@ namespace PrankChat.Mobile.Core.Services.Network.Http.Publications
         public PublicationsService(
             IUserSessionProvider userSessionProvider,
             IEnvironmentConfigurationProvider environmentConfigurationProvider,
-            IMvxLogProvider logProvider,
             IMvxMessenger messenger)
         {
             _userSessionProvider = userSessionProvider;
-            var log = logProvider.GetLogFor<PublicationsService>();
 
             var environment = environmentConfigurationProvider.Environment;
 
@@ -32,7 +30,7 @@ namespace PrankChat.Mobile.Core.Services.Network.Http.Publications
                 environment.ApiUrl,
                 environment.ApiVersion,
                 userSessionProvider,
-                log,
+                this.Logger(),
                 messenger);
         }
 

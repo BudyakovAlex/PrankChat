@@ -1,5 +1,4 @@
 ﻿using MvvmCross.Commands;
-using MvvmCross.ViewModels;
 using Plugin.DeviceInfo;
 using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Localization;
@@ -10,7 +9,7 @@ using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.ViewModels.Dialogs
 {
-    public class ShareDialogViewModel : BasePageViewModel, IMvxViewModel<ShareDialogParameter>
+    public class ShareDialogViewModel : BasePageViewModel<ShareDialogParameter>
     {
         private string _url;
 
@@ -27,7 +26,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Dialogs
 
         public MvxAsyncCommand ShareCommand { get; }
 
-        public void Prepare(ShareDialogParameter parameter)
+        public override void Prepare(ShareDialogParameter parameter)
         {
             _url = parameter.Url;
         }

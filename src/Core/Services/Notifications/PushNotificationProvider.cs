@@ -1,6 +1,7 @@
-﻿using MvvmCross.Logging;
+﻿using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Managers.Notifications;
 using PrankChat.Mobile.Core.Providers.UserSession;
+using Serilog;
 using System;
 using System.Threading.Tasks;
 
@@ -12,28 +13,27 @@ namespace PrankChat.Mobile.Core.Services.Notifications
 
         protected IUserSessionProvider UserSessionProvider { get; }
 
-        protected IMvxLog MvxLog { get; }
+        protected ILogger Logger { get; }
 
         public PushNotificationProvider(INotificationsManager notificationsManager,
-                                        IUserSessionProvider userSessionProvider,
-                                        IMvxLog mvxLog)
+                                        IUserSessionProvider userSessionProvider)
         {
             _notificationsManager = notificationsManager;
             UserSessionProvider = userSessionProvider;
-            MvxLog = mvxLog;
+            Logger = this.Logger();
         }
 
         public async Task<bool> TryUpdateTokenAsync()
         {
             if (string.IsNullOrWhiteSpace(UserSessionProvider.PushToken))
             {
-                MvxLog.ErrorException("Push Token can't be null", new ArgumentNullException());
+                Logger.Error("Push Token can't be null", new ArgumentNullException());
                 return false;
             }
 
             if (UserSessionProvider.User == null)
             {
-                MvxLog.ErrorException("User can't be null", new ArgumentNullException());
+                Logger.Error("User can't be null", new ArgumentNullException());
                 return false;
             }
 
