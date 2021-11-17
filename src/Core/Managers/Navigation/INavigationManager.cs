@@ -1,4 +1,6 @@
 ﻿using MvvmCross.ViewModels;
+using PrankChat.Mobile.Core.Managers.Navigation.Arguments.NavigationParameters;
+using PrankChat.Mobile.Core.Managers.Navigation.Arguments.NavigationResults;
 using System;
 using System.Threading.Tasks;
 
@@ -12,14 +14,17 @@ namespace PrankChat.Mobile.Core.Managers.Navigation
 
         Task<bool> NavigateAsync<TViewModel>() where TViewModel : IMvxViewModel;
 
-        Task<TResult> NavigateAsync<TViewModel, TResult>() where TViewModel : IMvxViewModelResult<TResult>;
+        Task<TResult> NavigateAsync<TViewModel, TResult>()
+            where TViewModel : IMvxViewModelResult<GenericNavigationResult<TResult>>;
 
-        Task<bool> NavigateAsync<TViewModel, TParameter>(TParameter parameter) where TViewModel : IMvxViewModel<TParameter>;
+        Task<bool> NavigateAsync<TViewModel, TParameter>(TParameter parameter)
+            where TViewModel : IMvxViewModel<GenericNavigationParams<TParameter>>;
 
-        Task<TResult> NavigateAsync<TViewModel, TParameter, TResult>(TParameter parameter) where TViewModel : IMvxViewModel<TParameter, TResult>;
+        Task<TResult> NavigateAsync<TViewModel, TParameter, TResult>(TParameter parameter)
+            where TViewModel : IMvxViewModel<GenericNavigationParams<TParameter>, GenericNavigationResult<TResult>>;
 
         Task<bool> CloseAsync(IMvxViewModel viewModel);
 
-        Task<bool> CloseAsync<TResult>(IMvxViewModelResult<TResult> viewModel, TResult result);
+        Task<bool> CloseAsync<TResult>(IMvxViewModelResult<GenericNavigationResult<TResult>> viewModel, TResult result);
     }
 }

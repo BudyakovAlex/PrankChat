@@ -1,5 +1,4 @@
-﻿using MvvmCross.Logging;
-using MvvmCross.Plugin.Messenger;
+﻿using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.Common;
 using PrankChat.Mobile.Core.Data.Dtos;
 using PrankChat.Mobile.Core.Data.Dtos.Base;
@@ -9,6 +8,7 @@ using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Mappers;
 using PrankChat.Mobile.Core.Providers.Configuration;
 using PrankChat.Mobile.Core.Providers.UserSession;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,25 +21,23 @@ namespace PrankChat.Mobile.Core.Services.Network.Http.Users
     public class UsersService : IUsersService
     {
         private readonly IUserSessionProvider _userSesionProvider;
-        private readonly IMvxLog _log;
-
         private readonly HttpClient _client;
+        private readonly ILogger _logger;
 
         public UsersService(
             IUserSessionProvider userSessionProvider,
             IEnvironmentConfigurationProvider environmentConfigurationProvider,
-            IMvxLogProvider logProvider,
             IMvxMessenger messenger)
         {
             _userSesionProvider = userSessionProvider;
-            _log = logProvider.GetLogFor<UsersService>();
+            _logger = this.Logger();
 
             var environment = environmentConfigurationProvider.Environment;
             _client = new HttpClient(
                 environment.ApiUrl,
                 environment.ApiVersion,
                 userSessionProvider,
-                _log,
+                _logger,
                 messenger);
         }
 
@@ -68,7 +66,7 @@ namespace PrankChat.Mobile.Core.Services.Network.Http.Users
             }
             catch (Exception ex)
             {
-                _log.Warn(ex, ex.Message);
+                _logger.LogError(ex, ex.Message);
             }
         }
 

@@ -1,5 +1,4 @@
-﻿using MvvmCross.Logging;
-using MvvmCross.Plugin.Messenger;
+﻿using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.Data.Dtos;
 using PrankChat.Mobile.Core.Data.Dtos.Base;
 using PrankChat.Mobile.Core.Data.Enums;
@@ -16,25 +15,22 @@ namespace PrankChat.Mobile.Core.Services.Network.Http.Payment
     public class OrdersService : IOrdersService
     {
         private readonly IUserSessionProvider _userSessionProvider;
-        private readonly IMvxLog _log;
 
         private readonly HttpClient _client;
 
         public OrdersService(
             IUserSessionProvider userSessionProvider,
             IEnvironmentConfigurationProvider environmentConfigurationProvider,
-            IMvxLogProvider logProvider,
             IMvxMessenger messenger)
         {
             _userSessionProvider = userSessionProvider;
-            _log = logProvider.GetLogFor<OrdersService>();
 
             var environment = environmentConfigurationProvider.Environment;
             _client = new HttpClient(
                 environment.ApiUrl,
                 environment.ApiVersion,
                 userSessionProvider,
-                _log,
+                this.Logger(),
                 messenger);
         }
 

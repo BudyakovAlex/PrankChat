@@ -27,7 +27,7 @@ using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.ViewModels.Competition
 {
-    public class CompetitionDetailsViewModel : PaginationViewModel, IMvxViewModel<Models.Data.Competition, bool>
+    public class CompetitionDetailsViewModel : PaginationViewModel<Models.Data.Competition, bool>
     {
         private readonly ICompetitionsManager _competitionsManager;
         private readonly IVideoManager _videoManager;
@@ -91,9 +91,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
 
         public IMvxCommand CancelUploadingCommand { get; }
 
-        public TaskCompletionSource<object> CloseCompletionSource { get; set; } = new TaskCompletionSource<object>();
-
-        public void Prepare(Models.Data.Competition parameter)
+        public override void Prepare(Models.Data.Competition parameter)
         {
             _competition = parameter;
             _header = new CompetitionDetailsHeaderViewModel(

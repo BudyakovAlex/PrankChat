@@ -12,10 +12,11 @@ using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.ViewModels.Parameters;
 using PrankChat.Mobile.Core.ViewModels.Profile.Abstract;
 using PrankChat.Mobile.Core.Services.Notifications;
+using PrankChat.Mobile.Core.Managers.Navigation.Arguments.NavigationParameters;
 
 namespace PrankChat.Mobile.Core.ViewModels.Registration
 {
-    public class RegistrationSecondStepViewModel : BaseProfileViewModel, IMvxViewModel<RegistrationNavigationParameter>
+    public class RegistrationSecondStepViewModel : BaseProfileViewModel, IMvxViewModel<GenericNavigationParams<RegistrationNavigationParameter>>
     {
         private readonly IAuthorizationManager _authorizationManager;
         private readonly IPushNotificationProvider _pushNotificationService;
@@ -64,9 +65,9 @@ namespace PrankChat.Mobile.Core.ViewModels.Registration
 
         public IMvxCommand ShowTermsAndRulesCommand { get; }
 
-        public void Prepare(RegistrationNavigationParameter parameter)
+        public void Prepare(GenericNavigationParams<RegistrationNavigationParameter> parameter)
         {
-            Email = parameter.Email;
+            Email = parameter.Parameter.Email;
         }
 
         private Task ShowTermsAndRulesAsync() =>

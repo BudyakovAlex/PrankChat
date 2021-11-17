@@ -18,10 +18,11 @@ using PrankChat.Mobile.Core.Services.ExternalAuth;
 using PrankChat.Mobile.Core.Services.Notifications;
 using System;
 using System.Threading.Tasks;
+using PrankChat.Mobile.Core.Managers.Navigation.Arguments.NavigationResults;
 
 namespace PrankChat.Mobile.Core.ViewModels.Profile
 {
-    public class ProfileUpdateViewModel : BaseProfileViewModel, IMvxViewModelResult<ProfileUpdateResult>
+    public class ProfileUpdateViewModel : BaseProfileViewModel, IMvxViewModelResult<GenericNavigationResult<ProfileUpdateResult>>
     {
         private readonly IAuthorizationManager _authorizationManager;
         private readonly IMediaManager _mediaManager;
