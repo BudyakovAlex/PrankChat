@@ -67,7 +67,7 @@ namespace PrankChat.Mobile.iOS.Views.Order
         {
             ViewModel?.ReloadItemsCommand.Execute();
             MainThread.BeginInvokeOnMainThread(() =>
-                ViewModel.SafeExecutionWrapper.Wrap(() =>
+                ViewModel?.SafeExecutionWrapper.Wrap(() =>
                 tableView.SetContentOffset(new CGPoint(0, -_refreshControl.Frame.Height), true)));
         }
 
