@@ -11,6 +11,12 @@ namespace PrankChat.Mobile.iOS.Dialogs
         ModalTransitionStyle = UIModalTransitionStyle.CrossDissolve)]
     public class BaseDialog<TMvxViewModel> : BaseViewController<TMvxViewModel> where TMvxViewModel : BasePageViewModel
     {
+        public BaseDialog()
+        {
+            // TODO: Crutch for avoid crash issue in MvvmCross presenter.
+            _ = PresentationController;
+        }
+
         public override void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);
