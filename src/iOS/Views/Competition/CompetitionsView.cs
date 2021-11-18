@@ -61,7 +61,7 @@ namespace PrankChat.Mobile.iOS.Views.Competition
         {
             ViewModel?.LoadDataCommand.Execute();
             MainThread.BeginInvokeOnMainThread(() =>
-                ViewModel.SafeExecutionWrapper.Wrap(() =>
+                ViewModel?.SafeExecutionWrapper?.Wrap(() =>
                 tableView.SetContentOffset(new CGPoint(0, -_refreshControl.Frame.Height), true)));
         }
 
