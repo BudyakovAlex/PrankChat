@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Globalization;
 using MvvmCross.Converters;
-using PrankChat.Mobile.Core.Extensions;
 
 namespace PrankChat.Mobile.Core.Converters
 {
-    public class PriceConverter : MvxValueConverter<double?, string>
+    public class PercentConverter : MvxValueConverter<double?, string>
     {
+        private const string Percent = "%";
+
         protected override string Convert(double? value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value == null || value == 0)
@@ -14,12 +15,14 @@ namespace PrankChat.Mobile.Core.Converters
                 return string.Empty;
             }
 
-            return value.ToPriceString();
+            return $"{value} {Percent}";
         }
 
         protected override double? ConvertBack(string value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value.PriceToDouble();
+            value = value?.Replace(Percent, string.Empty).Replace(" ", string.Empty);
+            double.TryParse(value, out var result);
+            return result;
         }
     }
 }

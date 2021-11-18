@@ -18,6 +18,8 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using PrankChat.Mobile.Core.Managers.Authorization;
 using PrankChat.Mobile.Core.Ioc;
+using PrankChat.Mobile.Core.Plugins.UserInteraction;
+using PrankChat.Mobile.Core.Localization;
 
 namespace PrankChat.Mobile.Core.ViewModels
 {
@@ -26,16 +28,18 @@ namespace PrankChat.Mobile.Core.ViewModels
         private readonly IVersionManager _versionManager;
         private readonly IPushNotificationProvider _notificationService;
         private readonly IWalkthroughsProvider _walkthroughsProvider;
+        private readonly IUserInteraction _userInteraction;
         private readonly int[] _skipTabIndexesInDemoMode = new[] { 2, 4 };
-        private readonly int _cantNavigateIndex = 2;
 
         private readonly IDisposable _refreshTokenExpiredMessageSubscription;
 
         public MainViewModel(
             IVersionManager versionManager,
             IPushNotificationProvider notificationService,
-            IWalkthroughsProvider walkthroughsProvider)
+            IWalkthroughsProvider walkthroughsProvider,
+            IUserInteraction userInteraction)
         {
+            _userInteraction = userInteraction;
             //NOTE: workaround for instantiate correctly IAuthorizationManager
             CompositionRoot.Container.CallbackWhenRegistered<IAuthorizationManager>((_) => { });
 
@@ -50,7 +54,7 @@ namespace PrankChat.Mobile.Core.ViewModels
             ShowWalkthrouthCommand = this.CreateCommand<int>(ShowWalthroughAsync);
             ShowWalkthrouthIfNeedCommand = this.CreateCommand<int>(ShowWalthroughIfNeedAsync);
             CheckActualAppVersionCommand = this.CreateCommand(CheckActualAppVersionAsync);
-            ShowCreateOrderCommand = new MvxAsyncCommand(ShowCreateOrderAsync);
+            ShowChooseCreateTypeCommand = new MvxAsyncCommand(ShowChooseCreationTypeAsync);
 
             SystemTimer.Start();
         }
@@ -62,7 +66,7 @@ namespace PrankChat.Mobile.Core.ViewModels
         public IMvxAsyncCommand<int> ShowWalkthrouthCommand { get; set; }
         public IMvxAsyncCommand<int> ShowWalkthrouthIfNeedCommand { get; set; }
         public IMvxAsyncCommand CheckActualAppVersionCommand { get; }
-        public IMvxAsyncCommand ShowCreateOrderCommand { get; }
+        public IMvxAsyncCommand ShowChooseCreateTypeCommand { get; }
 
         private async Task CheckActualAppVersionAsync()
         {
@@ -94,7 +98,7 @@ namespace PrankChat.Mobile.Core.ViewModels
                 return false;
             }
 
-            return position != _cantNavigateIndex;
+            return true;
         }
 
         private Task LoadContentAsync()
@@ -142,9 +146,17 @@ namespace PrankChat.Mobile.Core.ViewModels
             NavigationManager.NavigateAsync<LoginViewModel>();
         }
 
-        private async Task ShowCreateOrderAsync()
+        private async Task ShowChooseCreationTypeAsync()
         {
-            await NavigationManager.NavigateAsync<CreateOrderViewModel>();
+            var result = await _userInteraction.ShowMenuDialogAsync(new[] { Resources.CreateOrder, Resources.CreateContest }, Resources.Cancel);
+            if (result == Resources.CreateOrder)
+            {
+                await NavigationManager.NavigateAsync<CreateOrderViewModel>();
+            }
+            else if (result == Resources.CreateContest)
+            {
+                await NavigationManager.NavigateAsync<CreateCompetitionViewModel>();
+            }
         }
     }
 }

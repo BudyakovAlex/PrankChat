@@ -2,7 +2,6 @@
 using Android.Content.PM;
 using Android.OS;
 using Android.Text;
-using Android.Views;
 using Android.Widget;
 using Google.Android.Material.Button;
 using Google.Android.Material.TextField;

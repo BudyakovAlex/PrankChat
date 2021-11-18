@@ -47,7 +47,7 @@ namespace PrankChat.Mobile.iOS.Views.MainView
             var tabPosition = tabbar.Items.ToList().IndexOf(item);
             if (tabPosition == 2)
             {
-                ViewModel?.ShowCreateOrderCommand?.Execute();
+                ViewModel?.ShowChooseCreateTypeCommand?.Execute();
             }
 
             if (tabPosition == _lastTabPosition)

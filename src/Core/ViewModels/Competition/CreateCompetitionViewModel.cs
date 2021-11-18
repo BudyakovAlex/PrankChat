@@ -14,7 +14,6 @@ using PrankChat.Mobile.Core.Providers;
 using PrankChat.Mobile.Core.Providers.Configuration;
 using System;
 using System.Threading.Tasks;
-using System.Linq;
 
 namespace PrankChat.Mobile.Core.ViewModels.Competition
 {

@@ -400,6 +400,14 @@
     <Compile Include="Views\MainView\EmptyCreateOrderView.designer.cs">
       <DependentUpon>EmptyCreateOrderView.cs</DependentUpon>
     </Compile>
+    <InterfaceDefinition Include="Views\Competition\CreateCompetitionView.xib" />
+    <Compile Include="Views\Competition\CreateCompetitionView.cs" />
+    <Compile Include="Views\Competition\CreateCompetitionView.designer.cs">
+      <DependentUpon>CreateCompetitionView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DoneAccessoryView.cs" />
+    <Compile Include="Extensions\UITextFieldExtensions.cs" />
+    <Compile Include="Extensions\DateTimeExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -1173,6 +1181,8 @@
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\1024x1024.png" />
     <ImageAsset Include="Assets.xcassets\ic_onplay.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\ic_onplay.imageset\Logo-and-text-ai.pdf" />
+    <ImageAsset Include="Assets.xcassets\ic_arrow_right.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\ic_arrow_right.imageset\Selected_arrow.pdf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets.xcassets\bg_onboarding_fifth_slide.imageset\" />
@@ -1233,6 +1243,7 @@
     <Folder Include="Assets.xcassets\OrderTagTypeNewNotMine.imageset\" />
     <Folder Include="Assets.xcassets\OrderTagTypeWait.imageset\" />
     <Folder Include="Assets.xcassets\ic_onplay.imageset\" />
+    <Folder Include="Assets.xcassets\ic_arrow_right.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj">

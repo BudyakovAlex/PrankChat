@@ -172,7 +172,7 @@ namespace PrankChat.Mobile.Droid.Views
 
             if (e.Tab.Position == 2)
             {
-                _ = ViewModel.ShowCreateOrderCommand.ExecuteAsync().ConfigureAwait(false);
+                _ = ViewModel.ShowChooseCreateTypeCommand.ExecuteAsync().ConfigureAwait(false);
                 return;
             }
 
@@ -274,8 +274,8 @@ namespace PrankChat.Mobile.Droid.Views
 
             if (index == 2)
             {
-                ViewModel.ShowCreateOrderCommand.ExecuteAsync().ConfigureAwait(false);
-                return false;
+                ViewModel.ShowChooseCreateTypeCommand.ExecuteAsync().ConfigureAwait(false);
+                return true;
             }
 
             if (!ViewModel.CanSwitchTabs(index) &&
