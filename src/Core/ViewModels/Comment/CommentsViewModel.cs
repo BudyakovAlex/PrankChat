@@ -29,6 +29,8 @@ namespace PrankChat.Mobile.Core.ViewModels.Comment
             ScrollInteraction = new MvxInteraction<int>();
         }
 
+        protected override int DefaultResult => _newCommentsCounter;
+
         public MvxObservableCollection<CommentItemViewModel> Items { get; }
 
         public MvxInteraction<int> ScrollInteraction { get; }
@@ -60,16 +62,6 @@ namespace PrankChat.Mobile.Core.ViewModels.Comment
         public override Task InitializeAsync()
         {
             return LoadMoreItemsCommand.ExecuteAsync();
-        }
-
-        public override void ViewDestroy(bool viewFinishing = true)
-        {
-            if (viewFinishing && CloseCompletionSource != null && !CloseCompletionSource.Task.IsCompleted && !CloseCompletionSource.Task.IsFaulted)
-            {
-                CloseCompletionSource?.SetResult(_newCommentsCounter);
-            }
-
-            base.ViewDestroy(viewFinishing);
         }
 
         protected override async Task<int> LoadMoreItemsAsync(int page = 1, int pageSize = 20)
