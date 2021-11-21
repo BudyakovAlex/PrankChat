@@ -101,11 +101,11 @@ namespace PrankChat.Mobile.iOS.Views.Order
             _dynamicDescriptionTextView = new UITextView();
             DefinesPresentationContext = true;
 
-            _notificationBarItem = NavigationItemHelper.CreateBarButton(ImageNames.IconNotification, ViewModel.ShowNotificationCommand, UIColor.Black);
+            _notificationBarItem = NavigationItemHelper.CreateBarButton(ImageNames.IconNotification, ViewModel.ShowNotificationCommand);
             NavigationItem?.SetRightBarButtonItems(new UIBarButtonItem[]
             {
                 _notificationBarItem,
-                NavigationItemHelper.CreateBarButton(ImageNames.IconInfo, ViewModel.ShowWalkthrouthCommand, UIColor.Black)
+                NavigationItemHelper.CreateBarButton(ImageNames.IconInfo, ViewModel.ShowWalkthrouthCommand)
             }, true);
 
             _checkedImage = UIImage.FromBundle(ImageNames.IconChecked);

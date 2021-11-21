@@ -29,7 +29,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Registration
         {
 #if DEBUG
             EmailText = "8118887@gmail.com";
-            PasswordText = "88888888";
+            PasswordText = "11111111";
 #endif
             LoginWithAppleCommand = this.CreateCommand<AppleAuth>(LoginWithAppleAsync);
             ShowDemoModeCommand = this.CreateCommand(NavigationManager.NavigateAsync<MainViewModel>);

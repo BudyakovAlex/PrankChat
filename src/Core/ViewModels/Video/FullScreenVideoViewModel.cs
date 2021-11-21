@@ -119,6 +119,8 @@ namespace PrankChat.Mobile.Core.ViewModels.Video
             }
 
             var shouldRefresh = await NavigationManager.NavigateAsync<UserProfileViewModel, int, bool>(CurrentVideo.UserId);
+            CurrentVideo.FullVideoPlayer.Play();
+
             if (!shouldRefresh)
             {
                 return;
@@ -136,6 +138,8 @@ namespace PrankChat.Mobile.Core.ViewModels.Video
             CurrentVideo.NumberOfComments = commentsCount > 0 ? commentsCount : CurrentVideo.NumberOfComments;
             await RaisePropertyChanged(nameof(NumberOfCommentsPresentation));
             _isReloadNeeded = true;
+
+            CurrentVideo.FullVideoPlayer.Play();
         }
 
         private void MovePrevious()
