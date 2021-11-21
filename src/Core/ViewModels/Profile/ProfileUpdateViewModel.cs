@@ -60,7 +60,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Profile
         {
             if (viewFinishing && CloseCompletionSource != null && !CloseCompletionSource.Task.IsCompleted && !CloseCompletionSource.Task.IsFaulted)
             {
-                CloseCompletionSource?.TrySetResult(new ProfileUpdateResult(false, _isUserPhotoUpdated));
+                CloseCompletionSource?.TrySetResult(new GenericNavigationResult<ProfileUpdateResult>(new ProfileUpdateResult(false, _isUserPhotoUpdated)));
             }
 
             base.ViewDestroy(viewFinishing);
@@ -146,7 +146,9 @@ namespace PrankChat.Mobile.Core.ViewModels.Profile
                 try
                 {
                     SystemTimer.Stop();
+                    RemoveTimerSubscription();
                     ErrorHandleService.SuspendServerErrorsHandling();
+
                     await _pushNotificationService.UnregisterNotificationsAsync();
                     await _authorizationManager.LogoutAsync();
                 }

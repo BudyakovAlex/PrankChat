@@ -162,8 +162,8 @@ namespace PrankChat.Mobile.iOS.AppTheme
         {
             if (CrossDeviceInfo.Current.VersionNumber > new Version(13, 0))
             {
-                searchBar.SearchTextField.BackgroundColor = Theme.Color.White;
                 searchBar.SearchTextField.TextColor = Theme.Color.Text;
+                searchBar.SearchBarStyle = UISearchBarStyle.Prominent;
             }
 
             searchBar.TintColor = Theme.Color.Text;
@@ -340,6 +340,17 @@ namespace PrankChat.Mobile.iOS.AppTheme
             {
                 Font = Theme.Font.MediumOfSize(14),
                 ForegroundColor = Theme.Color.Black
+            };
+
+            label.AttributedText = new NSAttributedString(label.Text, attributes);
+        }
+
+        public static void SetWhiteTitleStyle(this UILabel label)
+        {
+            var attributes = new UIStringAttributes
+            {
+                Font = Theme.Font.MediumOfSize(14),
+                ForegroundColor = Theme.Color.White
             };
 
             label.AttributedText = new NSAttributedString(label.Text, attributes);

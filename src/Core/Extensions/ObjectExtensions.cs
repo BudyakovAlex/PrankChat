@@ -38,6 +38,14 @@ namespace PrankChat.Mobile.Core.Extensions
                              .Subscribe(data => eventHandler.Invoke(data.Sender, data.EventArgs));
         }
 
+        public static IDisposable SubscribeToEvent<TSource, THandler, TEventArgs>(this TSource source, THandler eventHandler, Action<TSource, THandler> addHandler, Action<TSource, THandler> removeHandler)
+            where THandler : Delegate
+            where TEventArgs : EventArgs
+        {
+            return Observable.FromEventPattern<THandler, EventArgs>(handler => addHandler.Invoke(source, handler), handler => removeHandler.Invoke(source, handler))
+                             .Subscribe(data => eventHandler.DynamicInvoke(data.Sender, data.EventArgs));
+        }
+
         public static IDisposable SubscribeToCollectionChanged<TSource>(this TSource source, NotifyCollectionChangedEventHandler eventHandler) where TSource : INotifyCollectionChanged
         {
             return Observable.FromEventPattern<NotifyCollectionChangedEventHandler, NotifyCollectionChangedEventArgs>(handler => source.CollectionChanged += handler, handler => source.CollectionChanged -= handler)

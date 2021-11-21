@@ -39,7 +39,7 @@ namespace PrankChat.Mobile.iOS.Views.Order
         {
             base.SetupControls();
 
-            orderTitleLabel.SetScreenTitleStyle();
+            orderTitleLabel.SetWhiteTitleStyle();
 
             timeLabel.SetMediumStyle(10, Theme.Color.White);
             timeLabel.Text = Resources.OrderTime;

@@ -540,13 +540,7 @@
 		<ImageAsset Include="Assets.xcassets\ic_search.imageset\Contents.json">
 			<Visible>false</Visible>
 		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_search.imageset\Shape.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
 		<ImageAsset Include="Assets.xcassets\ic_notification.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_notification.imageset\Vector %284%29.pdf">
 			<Visible>false</Visible>
 		</ImageAsset>
 		<ImageAsset Include="Assets.xcassets\ic_notification_new.imageset\Contents.json">
@@ -1065,9 +1059,6 @@
 		<ImageAsset Include="Assets.xcassets\ic_info.imageset\Contents.json">
 			<Visible>false</Visible>
 		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_info.imageset\ic_info.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
 		<ImageAsset Include="Assets.xcassets\ic_clear.imageset\Contents.json">
 			<Visible>false</Visible>
 		</ImageAsset>
@@ -1093,9 +1084,6 @@
 			<Visible>false</Visible>
 		</ImageAsset>
 		<ImageAsset Include="Assets.xcassets\ic_notification_with_bage.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_notification_with_bage.imageset\ic_notification_with_bage.pdf">
 			<Visible>false</Visible>
 		</ImageAsset>
 		<ImageAsset Include="Assets.xcassets\ic_maintanance.imageset\Contents.json">
@@ -1186,6 +1174,10 @@
 		<ImageAsset Include="Assets.xcassets\AppIcon.appiconset\1024x1024.png" />
 		<ImageAsset Include="Assets.xcassets\ic_onplay.imageset\Contents.json" />
 		<ImageAsset Include="Assets.xcassets\ic_onplay.imageset\Logo-and-text-ai.pdf" />
+		<ImageAsset Include="Assets.xcassets\ic_notification.imageset\ic_notification.pdf" />
+		<ImageAsset Include="Assets.xcassets\ic_notification_with_bage.imageset\ic_notification_with_bage.pdf" />
+		<ImageAsset Include="Assets.xcassets\ic_search.imageset\Shape.pdf" />
+		<ImageAsset Include="Assets.xcassets\ic_info.imageset\ic_info.pdf" />
 	</ItemGroup>
 	<ItemGroup>
 		<Folder Include="Assets.xcassets\bg_onboarding_fifth_slide.imageset\" />
