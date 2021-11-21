@@ -14,5 +14,10 @@
 
         public const string YoomoneyResourceUrl = "https://yoomoney.ru/";
         public const string ComplaintUserResourceTemplate = "users/{0}/complaint";
+
+        public const string MyDevice = "me/device";
+        public const string Notifications = "notifications";
+        public const string NotificationsRead = "notifications/read";
+        public const string NotificationsUnreaded = "notifications/undelivered";
     }
 }

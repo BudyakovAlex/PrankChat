@@ -1,14 +1,11 @@
-﻿using Badge.Plugin;
+﻿using System;
+using System.Threading.Tasks;
+using Badge.Plugin;
 using MvvmCross.Commands;
 using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Managers.Notifications;
 using PrankChat.Mobile.Core.Messages;
-using PrankChat.Mobile.Core.Plugins.Timer;
 using PrankChat.Mobile.Core.Providers.UserSession;
-using PrankChat.Mobile.Core.Wrappers;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.ViewModels.Abstract
@@ -48,17 +45,14 @@ namespace PrankChat.Mobile.Core.ViewModels.Abstract
                 return;
             }
 
-            await ExecutionStateWrapper.WrapAsync(async () =>
-            {
-                var unreadNotifications = await _notificationManager.GetUnreadNotificationsCountAsync();
-                HasUnreadNotifications = unreadNotifications > 0;
-                await RaisePropertyChanged(nameof(HasUnreadNotifications));
+            var unreadNotifications = await _notificationManager.GetUnreadNotificationsCountAsync();
+            HasUnreadNotifications = unreadNotifications > 0;
+            await RaisePropertyChanged(nameof(HasUnreadNotifications));
 
-                if (HasUnreadNotifications)
-                {
-                    MainThread.BeginInvokeOnMainThread(() => CrossBadge.Current.SetBadge(unreadNotifications));
-                }
-            }, awaitWhenBusy: true);
+            if (HasUnreadNotifications)
+            {
+                MainThread.BeginInvokeOnMainThread(() => CrossBadge.Current.SetBadge(unreadNotifications));
+            }
         }
 
         private void OnTimerTick(object _, EventArgs __)
@@ -67,7 +61,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Abstract
             if (_timerThicksCount >= RefreshAfterSeconds)
             {
                 _timerThicksCount = 0;
-                RefreshDataCommand.ExecuteAsync(null).FireAndForget();
+                _ = RefreshDataCommand.ExecuteAsync();
             }
         }
     }
