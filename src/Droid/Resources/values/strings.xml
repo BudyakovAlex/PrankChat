@@ -752,4 +752,6 @@ Apple Inc. не является спонсором проведения кон�
 
     <!-- Fuzzy -->
     <string name="AllTime">"За все время"</string>
+    <string name="YouAreNotConfirmedAdultAge">"Вы не подтвердили что Вам есть 18 лет"</string>
+    <string name="YouAreNotConfirmedUserAgreement">"Вы не подтвердили согласие с пользовательским соглашением"</string>
 </resources>

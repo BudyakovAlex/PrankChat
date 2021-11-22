@@ -1230,4 +1230,10 @@ Apple Inc. не является спонсором проведения кон�
     <value>За все время</value>
     <comment>Fuzzy</comment>
   </data>
+  <data name="YouAreNotConfirmedAdultAge" xml:space="preserve">
+    <value>Вы не подтвердили что Вам есть 18 лет</value>
+  </data>
+  <data name="YouAreNotConfirmedUserAgreement" xml:space="preserve">
+    <value>Вы не подтвердили согласие с пользовательским соглашением</value>
+  </data>
 </root>

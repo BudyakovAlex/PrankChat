@@ -736,3 +736,5 @@
 
 /*Fuzzy*/
 "AllTime" = "За все время";
+"YouAreNotConfirmedAdultAge" = "Вы не подтвердили что Вам есть 18 лет";
+"YouAreNotConfirmedUserAgreement" = "Вы не подтвердили согласие с пользовательским соглашением";

@@ -356,7 +356,7 @@
 "DeleteCardQuestion" = "Are you sure you want to delete this card?";
 
 /*Fuzzy*/
-"OnBoardingFirstTitle" = "watch and enjoy";
+"OnBoardingFirstTitle" = "Watch and enjoy";
 
 /*Fuzzy*/
 "OnBoardingSecondTitle" = "Create your first order";
@@ -736,3 +736,5 @@
 
 /*Fuzzy*/
 "AllTime" = "Per all time";
+"YouAreNotConfirmedAdultAge" = "You are not confirmed that you have adult age";
+"YouAreNotConfirmedUserAgreement" = "You are not approved user agreement";

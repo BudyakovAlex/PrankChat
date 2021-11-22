@@ -1,4 +1,4 @@
-package MvvmCross.droidx;
+package mvvmcross.droidx;
 
 import android.content.Context;
 import android.util.AttributeSet;

@@ -608,7 +608,7 @@
     <comment>Fuzzy</comment>
   </data>
   <data name="OnBoardingFirstTitle" xml:space="preserve">
-    <value>watch and enjoy</value>
+    <value>Watch and enjoy</value>
     <comment>Fuzzy</comment>
   </data>
   <data name="OnBoardingSecondTitle" xml:space="preserve">
@@ -1228,5 +1228,11 @@ Taking such a task the user will have to complete it or lose the Deposit!</value
   <data name="AllTime" xml:space="preserve">
     <value>Per all time</value>
     <comment>Fuzzy</comment>
+  </data>
+  <data name="YouAreNotConfirmedAdultAge" xml:space="preserve">
+    <value>You are not confirmed that you have adult age</value>
+  </data>
+  <data name="YouAreNotConfirmedUserAgreement" xml:space="preserve">
+    <value>You are not approved user agreement</value>
   </data>
 </root>
