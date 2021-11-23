@@ -64,6 +64,8 @@ namespace PrankChat.Mobile.Droid.Views.Profile
             }
         }
 
+        protected override bool HasBackButton => true;
+
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle, Resource.Layout.activity_user_profile);
