@@ -6,8 +6,6 @@ namespace PrankChat.Mobile.Core.Messages
 {
     public class ReloadPublicationsMessage : MvxMessage
     {
-        public Dictionary<int, FullScreenVideoResult> UpdatedItemsDictionary { get; }
-
         public ReloadPublicationsMessage(object sender)
             : base(sender)
         {
@@ -18,5 +16,7 @@ namespace PrankChat.Mobile.Core.Messages
         {
             UpdatedItemsDictionary = updatedItems;
         }
+
+        public Dictionary<int, FullScreenVideoResult> UpdatedItemsDictionary { get; }
     }
 }

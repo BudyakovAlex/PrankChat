@@ -24,7 +24,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Video
     {
         private readonly IUsersManager _usersManager;
 
-        private Dictionary<int, FullScreenVideoResult> _dict;
+        private Dictionary<int, FullScreenVideoResult> _updatedVideoItemsDictionary;
         private int _index;
 
         private BaseVideoItemViewModel[] _videos;
@@ -35,7 +35,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Video
             Interaction = new MvxInteraction();
 
             _usersManager = usersManager;
-            _dict = new Dictionary<int, FullScreenVideoResult>();
+            _updatedVideoItemsDictionary = new Dictionary<int, FullScreenVideoResult>();
 
             ShareCommand = this.CreateCommand(ShareAsync);
             MoveNextCommand = this.CreateCommand(MoveNext);
@@ -52,7 +52,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Video
                 handleFunc: NavigateByRestrictionAsync);
         }
 
-        protected override Dictionary<int, FullScreenVideoResult> DefaultResult => _dict;
+        protected override Dictionary<int, FullScreenVideoResult> DefaultResult => _updatedVideoItemsDictionary;
 
         public IMvxAsyncCommand ShareCommand { get; }
 
@@ -214,10 +214,10 @@ namespace PrankChat.Mobile.Core.ViewModels.Video
 
         private void CheckChangedVideoData()
         {
-            if (!_dict.TryGetValue(CurrentVideo.VideoId, out var value))
+            if (!_updatedVideoItemsDictionary.TryGetValue(CurrentVideo.VideoId, out var value))
             {
                 value = new FullScreenVideoResult();
-                _dict.Add(CurrentVideo.VideoId, value);
+                _updatedVideoItemsDictionary.Add(CurrentVideo.VideoId, value);
             }
 
             value.NumberOfComments = CurrentVideo.NumberOfComments;
