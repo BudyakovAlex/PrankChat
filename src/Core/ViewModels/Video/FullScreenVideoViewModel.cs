@@ -23,8 +23,8 @@ namespace PrankChat.Mobile.Core.ViewModels.Video
     public class FullScreenVideoViewModel : BasePageViewModel<FullScreenVideoParameter, Dictionary<int, FullScreenVideoResult>>
     {
         private readonly IUsersManager _usersManager;
+        private readonly Dictionary<int, FullScreenVideoResult> _updatedVideoItemsDictionary;
 
-        private Dictionary<int, FullScreenVideoResult> _updatedVideoItemsDictionary;
         private int _index;
 
         private BaseVideoItemViewModel[] _videos;
@@ -97,7 +97,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Video
         private void OnLikesChanged()
         {
             RaisePropertiesChanged(nameof(NumberOfLikesPresentation), nameof(NumberOfDislikesPresentation));
-            CheckChangedVideoData();
+            UpdateVideoDataChanges();
         }
 
         private Task NavigateByRestrictionAsync()
@@ -140,7 +140,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Video
             var commentsCount = await NavigationManager.NavigateAsync<CommentsViewModel, int, int>(CurrentVideo.VideoId);
             CurrentVideo.NumberOfComments = commentsCount > 0 ? commentsCount : CurrentVideo.NumberOfComments;
             await RaisePropertyChanged(nameof(NumberOfCommentsPresentation));
-            CheckChangedVideoData();
+            UpdateVideoDataChanges();
 
             CurrentVideo.FullVideoPlayer.Play();
         }
@@ -207,12 +207,12 @@ namespace PrankChat.Mobile.Core.ViewModels.Video
         private void SubscribeToVideoViewsChanged(BaseVideoItemViewModel videoItemViewModel)
         {
             videoItemViewModel.SubscribeToEvent(
-                (_, __) => CheckChangedVideoData(),
+                (_, __) => UpdateVideoDataChanges(),
                 (wrapper, handler) => wrapper.ViewsCountChanged += handler,
                 (wrapper, handler) => wrapper.ViewsCountChanged -= handler).DisposeWith(Disposables);
         }
 
-        private void CheckChangedVideoData()
+        private void UpdateVideoDataChanges()
         {
             if (!_updatedVideoItemsDictionary.TryGetValue(CurrentVideo.VideoId, out var value))
             {
