@@ -46,7 +46,7 @@ namespace PrankChat.Mobile.Droid.Controls
                 DisplayUtils.DpToPx(borderRadius),
                 DisplayUtils.DpToPx(borderRadius),
                 DisplayUtils.DpToPx(borderWidth),
-                Color.Black,
+                Color.ParseColor("#A1A1A1"),
                 Color.Transparent);
             clearButton = ContextCompat.GetDrawable(Android.App.Application.Context, Resource.Drawable.ic_clear);
             clearButton.SetBounds(0, 0, clearButton.IntrinsicWidth, clearButton.IntrinsicHeight);

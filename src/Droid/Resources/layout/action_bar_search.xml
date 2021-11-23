@@ -5,6 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_horizontal"
+    android:background="@drawable/shadow"
+    android:translationZ="5dp"
     app:elevation="25dp">
 
     <androidx.appcompat.widget.Toolbar
@@ -20,7 +22,7 @@
         <PrankChat.Mobile.Droid.Controls.ClearEditText
             android:id="@+id/search_text_view"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="40dp"
             android:layout_marginRight="16dp"
             android:background="@drawable/rounded_edittext"
             android:drawableLeft="@drawable/ic_search_dark"
