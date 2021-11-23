@@ -46,7 +46,15 @@ namespace PrankChat.Mobile.Droid.Extensions
             var gradientDrawable = new GradientDrawable();
             gradientDrawable.SetColor(backgroundColor.ToArgb());
             gradientDrawable.SetStroke((int)widthBorder, borderColor);
-            gradientDrawable.SetCornerRadii(new[] { topLeftRadius, topLeftRadius, topRightRadius, topRightRadius, bottomLeftRadius, bottomLeftRadius, bottomRightRadius, bottomRightRadius });
+            gradientDrawable.SetCornerRadii(new[] {
+                    topLeftRadius,
+                    topLeftRadius,
+                    topRightRadius,
+                    topRightRadius,
+                    bottomLeftRadius,
+                    bottomLeftRadius,
+                    bottomRightRadius,
+                    bottomRightRadius });
             if (Android.OS.Build.VERSION.SdkInt < Android.OS.BuildVersionCodes.JellyBean)
             {
                 view.SetBackgroundDrawable(gradientDrawable);
