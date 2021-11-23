@@ -10,6 +10,8 @@ using PrankChat.Mobile.Core.Providers.UserSession;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Collections.Generic;
+using PrankChat.Mobile.Core.ViewModels.Results;
 
 namespace PrankChat.Mobile.Core.ViewModels.Competition.Items
 {
@@ -83,8 +85,8 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition.Items
                 return;
             }
 
-            var shouldRefresh = await NavigationManager.NavigateAsync<FullScreenVideoViewModel, FullScreenVideoParameter, bool>(navigationParams);
-            if (!shouldRefresh)
+            var refreshedItems = await NavigationManager.NavigateAsync<FullScreenVideoViewModel, FullScreenVideoParameter, Dictionary<int, FullScreenVideoResult>>(navigationParams);
+            if (refreshedItems == null || refreshedItems.Count == 0)
             {
                 return;
             }

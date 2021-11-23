@@ -50,7 +50,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Publication
             ItemsChangedInteraction = new MvxInteraction();
             OpenFilterCommand = new MvxAsyncCommand(OnOpenFilterAsync);
 
-            Messenger.SubscribeOnMainThread<ReloadPublicationsMessage>(_ => ReloadItems()).DisposeWith(Disposables);
+            Messenger.SubscribeOnMainThread<ReloadPublicationsMessage>(ReloadItems).DisposeWith(Disposables);
         }
 
         private PublicationType _selectedPublicationType;
@@ -189,8 +189,32 @@ namespace PrankChat.Mobile.Core.ViewModels.Publication
                 _usersManager);
         }
 
-        private void ReloadItems()
+        private void ReloadItems(ReloadPublicationsMessage message)
         {
+            if (message.UpdatedItemsDictionary != null && message.UpdatedItemsDictionary.Count != 0)
+            {
+                var updatedItems = 0;
+                foreach (var item in Items)
+                {
+                    if (!message.UpdatedItemsDictionary.TryGetValue(item.VideoId, out var value))
+                    {
+                        continue;
+                    }
+
+                    item.NumberOfLikes = value.NumberOfLikes;
+                    item.NumberOfDislikes = value.NumberOfDislikes;
+                    item.NumberOfComments = value.NumberOfComments;
+                    updatedItems++;
+                    item.RaisePropertiesChanged(nameof(item.NumberOfLikesText), nameof(item.NumberOfDislikesText), nameof(item.NumberOfCommentsPresentation));
+                    if (updatedItems == message.UpdatedItemsDictionary.Count)
+                    {
+                        break;
+                    }
+                }
+
+                return;
+            }
+
             Items.Clear();
             ReloadItemsCommand.Execute();
         }

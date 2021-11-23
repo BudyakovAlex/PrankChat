@@ -17,6 +17,8 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
+using System.Collections.Generic;
+using PrankChat.Mobile.Core.ViewModels.Results;
 
 namespace PrankChat.Mobile.Core.ViewModels.Publication.Items
 {
@@ -141,13 +143,13 @@ namespace PrankChat.Mobile.Core.ViewModels.Publication.Items
                 return;
             }
 
-            var shouldRefresh = await NavigationManager.NavigateAsync<FullScreenVideoViewModel, FullScreenVideoParameter, bool>(navigationParams);
-            if (!shouldRefresh)
+            var refreshedItems = await NavigationManager.NavigateAsync<FullScreenVideoViewModel, FullScreenVideoParameter, Dictionary<int, FullScreenVideoResult>>(navigationParams);
+            if (refreshedItems == null || refreshedItems.Count == 0)
             {
                 return;
             }
 
-            Messenger.Publish(new ReloadPublicationsMessage(this));
+            Messenger.Publish(new ReloadPublicationsMessage(this, refreshedItems));
         }
 
         private async Task ShowCommentsAsync()

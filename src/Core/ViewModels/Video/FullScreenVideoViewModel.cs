@@ -11,18 +11,20 @@ using PrankChat.Mobile.Core.ViewModels.Common.Abstract;
 using PrankChat.Mobile.Core.ViewModels.Parameters;
 using PrankChat.Mobile.Core.ViewModels.Profile;
 using PrankChat.Mobile.Core.ViewModels.Registration;
+using PrankChat.Mobile.Core.ViewModels.Results;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.ViewModels.Video
 {
-    public class FullScreenVideoViewModel : BasePageViewModel<FullScreenVideoParameter, bool>
+    public class FullScreenVideoViewModel : BasePageViewModel<FullScreenVideoParameter, Dictionary<int, FullScreenVideoResult>>
     {
         private readonly IUsersManager _usersManager;
 
-        private bool _isReloadNeeded;
+        private Dictionary<int, FullScreenVideoResult> _dict;
         private int _index;
 
         private BaseVideoItemViewModel[] _videos;
@@ -33,6 +35,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Video
             Interaction = new MvxInteraction();
 
             _usersManager = usersManager;
+            _dict = new Dictionary<int, FullScreenVideoResult>();
 
             ShareCommand = this.CreateCommand(ShareAsync);
             MoveNextCommand = this.CreateCommand(MoveNext);
@@ -49,7 +52,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Video
                 handleFunc: NavigateByRestrictionAsync);
         }
 
-        protected override bool DefaultResult => _isReloadNeeded;
+        protected override Dictionary<int, FullScreenVideoResult> DefaultResult => _dict;
 
         public IMvxAsyncCommand ShareCommand { get; }
 
@@ -94,7 +97,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Video
         private void OnLikesChanged()
         {
             RaisePropertiesChanged(nameof(NumberOfLikesPresentation), nameof(NumberOfDislikesPresentation));
-            _isReloadNeeded = true;
+            CheckChangedVideoData();
         }
 
         private Task NavigateByRestrictionAsync()
@@ -137,7 +140,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Video
             var commentsCount = await NavigationManager.NavigateAsync<CommentsViewModel, int, int>(CurrentVideo.VideoId);
             CurrentVideo.NumberOfComments = commentsCount > 0 ? commentsCount : CurrentVideo.NumberOfComments;
             await RaisePropertyChanged(nameof(NumberOfCommentsPresentation));
-            _isReloadNeeded = true;
+            CheckChangedVideoData();
 
             CurrentVideo.FullVideoPlayer.Play();
         }
@@ -204,9 +207,22 @@ namespace PrankChat.Mobile.Core.ViewModels.Video
         private void SubscribeToVideoViewsChanged(BaseVideoItemViewModel videoItemViewModel)
         {
             videoItemViewModel.SubscribeToEvent(
-                (_, __) => _isReloadNeeded = true,
+                (_, __) => CheckChangedVideoData(),
                 (wrapper, handler) => wrapper.ViewsCountChanged += handler,
                 (wrapper, handler) => wrapper.ViewsCountChanged -= handler).DisposeWith(Disposables);
+        }
+
+        private void CheckChangedVideoData()
+        {
+            if (!_dict.TryGetValue(CurrentVideo.VideoId, out var value))
+            {
+                value = new FullScreenVideoResult();
+                _dict.Add(CurrentVideo.VideoId, value);
+            }
+
+            value.NumberOfComments = CurrentVideo.NumberOfComments;
+            value.NumberOfDislikes = CurrentVideo.NumberOfDislikes;
+            value.NumberOfLikes = CurrentVideo.NumberOfLikes;
         }
     }
 }
