@@ -1,4 +1,6 @@
-﻿using Android.Views;
+﻿using Android.Graphics;
+using Android.Graphics.Drawables;
+using Android.Views;
 using PrankChat.Mobile.Droid.Providers;
 
 namespace PrankChat.Mobile.Droid.Extensions
@@ -29,6 +31,32 @@ namespace PrankChat.Mobile.Droid.Extensions
             });
 
             layout.ClipToOutline = true;
+        }
+
+        public static GradientDrawable AddBorder(
+            this View view,
+            float topLeftRadius,
+            float topRightRadius,
+            float bottomLeftRadius,
+            float bottomRightRadius,
+            float widthBorder,
+            Color borderColor,
+            Color backgroundColor)
+        {
+            var gradientDrawable = new GradientDrawable();
+            gradientDrawable.SetColor(backgroundColor.ToArgb());
+            gradientDrawable.SetStroke((int)widthBorder, borderColor);
+            gradientDrawable.SetCornerRadii(new[] { topLeftRadius, topLeftRadius, topRightRadius, topRightRadius, bottomLeftRadius, bottomLeftRadius, bottomRightRadius, bottomRightRadius });
+            if (Android.OS.Build.VERSION.SdkInt < Android.OS.BuildVersionCodes.JellyBean)
+            {
+                view.SetBackgroundDrawable(gradientDrawable);
+            }
+            else
+            {
+                view.Background = gradientDrawable;
+            }
+
+            return gradientDrawable;
         }
     }
 }
