@@ -51,7 +51,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Profile
             LoadProfileCommand = this.CreateCommand(LoadProfileAsync);
             ShowUpdateProfileCommand = this.CreateCommand(ShowUpdateProfileAsync);
 
-            Messenger.SubscribeOnMainThread<OrderChangedMessage>((msg) => ReloadItemsCommand?.Execute()).DisposeWith(Disposables);
+            Messenger.SubscribeOnMainThread<OrderChangedMessage>(OnOrdersChanged).DisposeWith(Disposables);
             Messenger.SubscribeOnMainThread<SubscriptionChangedMessage>((msg) => LoadProfileCommand.Execute()).DisposeWith(Disposables);
         }
 
@@ -292,6 +292,12 @@ namespace PrankChat.Mobile.Core.ViewModels.Profile
             return Items.Where(item => item.VideoItemViewModel != null)
                         .Select(item => item.VideoItemViewModel)
                         .ToArray();
+        }
+
+        private void OnOrdersChanged(OrderChangedMessage _)
+        {
+            // TODO
+            ReloadItemsCommand?.Execute();
         }
     }
 }

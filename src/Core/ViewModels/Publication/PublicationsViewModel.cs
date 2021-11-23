@@ -15,8 +15,10 @@ using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.ViewModels.Common;
 using PrankChat.Mobile.Core.ViewModels.Publication.Items;
 using PrankChat.Mobile.Core.ViewModels.Registration;
+using PrankChat.Mobile.Core.ViewModels.Results;
 using PrankChat.Mobile.Core.Wrappers;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -50,7 +52,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Publication
             ItemsChangedInteraction = new MvxInteraction();
             OpenFilterCommand = new MvxAsyncCommand(OnOpenFilterAsync);
 
-            Messenger.SubscribeOnMainThread<ReloadPublicationsMessage>(_ => ReloadItems()).DisposeWith(Disposables);
+            Messenger.SubscribeOnMainThread<ReloadPublicationsMessage>(OnReloadPublications).DisposeWith(Disposables);
         }
 
         private PublicationType _selectedPublicationType;
@@ -189,10 +191,46 @@ namespace PrankChat.Mobile.Core.ViewModels.Publication
                 _usersManager);
         }
 
+        private void OnReloadPublications(ReloadPublicationsMessage message)
+        {
+            if (message.UpdatedItemsDictionary != null && message.UpdatedItemsDictionary.Count != 0)
+            {
+                UpdateDataItemsWithoutReload(message.UpdatedItemsDictionary);
+                return;
+            }
+
+            ReloadItems();
+        }
+
         private void ReloadItems()
         {
             Items.Clear();
             ReloadItemsCommand.Execute();
+        }
+
+        private void UpdateDataItemsWithoutReload(Dictionary<int, FullScreenVideoResult> items)
+        {
+            var updatedItems = 0;
+            foreach (var item in Items)
+            {
+                if (!items.TryGetValue(item.VideoId, out var value))
+                {
+                    continue;
+                }
+
+                item.NumberOfLikes = value.NumberOfLikes;
+                item.NumberOfDislikes = value.NumberOfDislikes;
+                item.NumberOfComments = value.NumberOfComments;
+                updatedItems++;
+                item.RaisePropertiesChanged(
+                    nameof(item.NumberOfLikesText),
+                    nameof(item.NumberOfDislikesText),
+                    nameof(item.NumberOfCommentsPresentation));
+                if (updatedItems == items.Count)
+                {
+                    break;
+                }
+            }
         }
     }
 }

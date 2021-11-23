@@ -251,6 +251,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Order
 
         private void OrdersChanged(OrderChangedMessage newOrderMessage)
         {
+            // TODO
             ReloadItemsCommand?.Execute();
         }
 

@@ -231,6 +231,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
 
         private void OnReloadData(ReloadCompetitionMessage obj)
         {
+            // TODO
             _isReloadNeeded = true;
             RefreshDataCommand.Execute();
         }

@@ -15,6 +15,8 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using PrankChat.Mobile.Core.ViewModels.Results;
+using System.Collections.Generic;
 
 namespace PrankChat.Mobile.Core.ViewModels.Order.Sections
 {
@@ -198,8 +200,8 @@ namespace PrankChat.Mobile.Core.ViewModels.Order.Sections
                 return;
             }
 
-            var shouldReload = await NavigationManager.NavigateAsync<FullScreenVideoViewModel, FullScreenVideoParameter, bool>(navigationParams);
-            if (!shouldReload)
+            var refreshedItems = await NavigationManager.NavigateAsync<FullScreenVideoViewModel, FullScreenVideoParameter, Dictionary<int, FullScreenVideoResult>>(navigationParams);
+            if (refreshedItems == null || refreshedItems.Count == 0)
             {
                 return;
             }
