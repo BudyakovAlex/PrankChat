@@ -38,10 +38,10 @@
     <string name="Continue">"Continue"</string>
 
     <!-- Fuzzy -->
-    <string name="StepTwo" formatted="false">"Step 2"</string>
+    <string name="StepTwo">"Step 2"</string>
 
     <!-- Fuzzy -->
-    <string name="StepThree" formatted="false">"Step 3"</string>
+    <string name="StepThree">"Step 3"</string>
 
     <!-- Fuzzy -->
     <string name="GoToFeed">"Go to the feed"</string>
@@ -360,7 +360,7 @@
     <string name="DeleteCardQuestion">"Are you sure you want to delete this card?"</string>
 
     <!-- Fuzzy -->
-    <string name="OnBoardingFirstTitle">"watch and enjoy"</string>
+    <string name="OnBoardingFirstTitle">"Watch and enjoy"</string>
 
     <!-- Fuzzy -->
     <string name="OnBoardingSecondTitle">"Create your first order"</string>
@@ -751,4 +751,6 @@ Taking such a task the user will have to complete it or lose the Deposit!"</stri
 
     <!-- Fuzzy -->
     <string name="AllTime">"Per all time"</string>
+    <string name="YouAreNotConfirmedAdultAge">"You are not confirmed that you have adult age"</string>
+    <string name="YouAreNotConfirmedUserAgreement">"You are not approved user agreement"</string>
 </resources>
