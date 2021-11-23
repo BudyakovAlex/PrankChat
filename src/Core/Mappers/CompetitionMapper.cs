@@ -1,5 +1,5 @@
-﻿using PrankChat.Mobile.Core.Infrastructure.Extensions;
-using PrankChat.Mobile.Core.Data.Dtos;
+﻿using PrankChat.Mobile.Core.Data.Dtos;
+using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
 using System;
@@ -17,7 +17,7 @@ namespace PrankChat.Mobile.Core.Mappers
             }
 
             var values = Enum.GetValues(typeof(OrderCategory)).OfType<OrderCategory>();
-            var matchedCategory = values.FirstOrDefault(item => item.GetEnumMemberAttrValue() == dto.Category);
+            var matchedCategory = values.FirstOrDefault(item => item.GetEnumMemberAttrValue()?.ToLower() == dto.Category?.ToLower());
 
             return new Competition(
                 dto.Id,

@@ -1,362 +1,756 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="Close">"Close"</string>
-    <string name="app_name">"Prank Chat"</string>
-    <string name="Home_Tab">"Home"</string>
-    <string name="Rate_Tab">"Rate"</string>
-    <string name="Orders_Tab">"Orders"</string>
-    <string name="Profile_Tab">"Profile"</string>
-    <string name="Popular_Publication_Tab">"Popular"</string>
-    <string name="Actual_Publication_Tab">"Actual"</string>
-    <string name="MyFeed_Publication_Tab">"My feed"</string>
-    <string name="Publication_Tab_Filter_Day">"Per day"</string>
-    <string name="Publication_Tab_Filter_Week">"Per week"</string>
-    <string name="Publication_Tab_Filter_Month">"Per month"</string>
-    <string name="Publication_Tab_Filter_Quarter">"Per quarter"</string>
-    <string name="Publication_Tab_Filter_HalfYear">"Per half year"</string>
+
+    <!-- Fuzzy -->
+    <string name="Home">"Home"</string>
+
+    <!-- Fuzzy -->
+    <string name="Orders">"Orders"</string>
+
+    <!-- Fuzzy -->
+    <string name="Profile">"Profile"</string>
+
+    <!-- Fuzzy -->
+    <string name="PerDay">"Per day"</string>
+
+    <!-- Fuzzy -->
+    <string name="PerWeek">"Per week"</string>
+
+    <!-- Fuzzy -->
+    <string name="PerMonth">"Per month"</string>
+
+    <!-- Fuzzy -->
+    <string name="PerQuarter">"Per quarter"</string>
+
+    <!-- Fuzzy -->
+    <string name="PerHalfYear">"Per half year"</string>
     <string name="Cancel">"Cancel"</string>
-    <string name="Search_View_Search_Placeholder">"Search"</string>
     <string name="Share">"Share"</string>
-    <string name="Error_Unexpected_Server">"The unexpected error occurred on the server. We have received information about it and working actively to resolve it."</string>
-    <string name="Error_Unexpected_Not_Found">"Requested entity not found."</string>
-    <string name="Error_Unexpected_Network">"Unexpected error occurred on request. Please, try again."</string>
-    <string name="LoginView_Email_Placeholder">"Enter e-mail"</string>
-    <string name="LoginView_Password_Placeholder">"Enter password"</string>
-    <string name="LoginView_ForgotPassword_Title">"Forgot password?"</string>
-    <string name="LoginView_ForgotPassword_Button">"Restore"</string>
-    <string name="LoginView_Continue_Button">"Continue"</string>
-    <string name="LoginView_CreateAccount_Button">"Don't have an account? Create a new one."</string>
-    <string name="LoginView_Login_Title">"Log in"</string>
-    <string name="LoginView_AltLogin_Title">"Enter social networks:"</string>
-    <string name="RegistrationView_Title">"Registration"</string>
-    <string name="RegistrationView_Email_Placeholder">"Enter e-mail"</string>
-    <string name="RegistrationView_RegisteredYet_Label">"Already registered?"</string>
-    <string name="RegistrationView_Login_Button">"Log in"</string>
-    <string name="RegistrationView_Login_Placeholder">"Enter nickname"</string>
-    <string name="RegistrationView_Name_Placeholder">"Enter your name"</string>
-    <string name="RegistrationView_Birthday_Placeholder">"Enter birthday"</string>
-    <string name="RegistrationView_Password_Placeholder">"Enter password"</string>
-    <string name="RegistrationView_PasswordRepeat_Placeholder">"Enter password again"</string>
-    <string name="RegistrationView_GenderSelect_Title">"Select sex:"</string>
-    <string name="RegistrationView_Male_Button">"Male"</string>
-    <string name="RegistrationView_Female_Button">"Female"</string>
-    <string name="RegistrationView_Register_Button">"Register"</string>
-    <string name="RegistrationView_StepTwo_Title">"Step 2"</string>
-    <string name="RegistrationView_StepThree_Title">"Step 3"</string>
-    <string name="RegistrationView_Congrats_Title">"Congratulations!"</string>
-    <string name="RegistrationView_Confirmation_Label">"Verification text."</string>
-    <string name="RegistrationView_GoToFeed_Button">"Go to feed"</string>
-    <string name="Password_Recovery_View_Title">"Password recovery"</string>
-    <string name="Password_Recovery_View_Email_Placeholder">"Enter e-mail"</string>
-    <string name="Password_Recovery_View_Recovery_Button">"Restore"</string>
-    <string name="Password_Recovery_View_Attention">"Attention!"</string>
-    <string name="Password_Recovery_View_Finish_Text">"An email was sent to the mail with a link to reset the password."</string>
-    <string name="ProfileView_Menu_Favourites">"Featured Videos"</string>
-    <string name="ProfileView_Menu_TaskSubscriptions">"Custom Subscriptions"</string>
-    <string name="ProfileView_Menu_Faq">"FAQ"</string>
-    <string name="ProfileView_Menu_Support">"References / reviews"</string>
-    <string name="ProfileView_Menu_Settings">"Settings"</string>
-    <string name="ProfileView_Menu_LogOut">"Sign out"</string>
-    <string name="ProfileView_Refill">"Replenish"</string>
-    <string name="ProfileView_Withdrawal">"Withdraw"</string>
-    <string name="ProfileView_Orders_Subtitle">"orders"</string>
-    <string name="ProfileView_Completed_Subtitle">"performed"</string>
-    <string name="ProfileView_Subscribers_Subtitle">"subscribers"</string>
-    <string name="ProfileView_Subscriptions_Subtitle">"subscriptions"</string>
-    <string name="ProfileView_MyOrders_Tab">"I ordered"</string>
-    <string name="ProfileView_CompletedOrders_Tab">"I execute"</string>
-    <string name="Order_View_Time_Text">"Order Time:"</string>
-    <string name="Order_View_Price_Text">"Order price:"</string>
-    <string name="Order_View_Day">"Day"</string>
-    <string name="Order_View_Hour">"Hours"</string>
-    <string name="Order_View_Minute">"Minutes"</string>
-    <string name="Order_View_Details">"More details"</string>
-    <string name="Order_View_New_Task">"New order"</string>
-    <string name="Order_View_My_Task">"My orders"</string>
-    <string name="OrdersView_Filter_AllTasks">"All orders"</string>
-    <string name="OrdersView_Filter_NewTasks">"New orders"</string>
-    <string name="OrdersView_Filter_CurrentTasks">"Order Executed"</string>
-    <string name="OrdersView_Filter_MyTasks">"My orders"</string>
-    <string name="RateView_Filter_AllTasks">"All orders in dispute"</string>
-    <string name="RateView_Filter_MyTasks">"My orders in dispute"</string>
-    <string name="RateView_Filter_NewTasks">"New Dispute Orders"</string>
-    <string name="RateView_Title_Label">"Rating"</string>
-    <string name="OrdersView_Title_Label">"Orders"</string>
-    <string name="RateView_Vote_Button">"Estimate"</string>
-    <string name="CreateOrderView_Title">"Create Order"</string>
-    <string name="CreateOrderView_Name_Placeholder">"Order Name"</string>
-    <string name="CreateOrderView_Description_Placeholder">"Order Description"</string>
-    <string name="CreateOrderView_Price_Placeholder">"10 000 ₽"</string>
-    <string name="CreateOrderView_CompleteDate_Placeholder">"Date of execution"</string>
-    <string name="CreateOrderView_HideExecutor_Button">"Hide artist"</string>
-    <string name="CreateOrderView_Create_Button">"Create order"</string>
-    <string name="NotificationView_Title">"Notifications"</string>
-    <string name="OrderDetailsView_Price_Text">"Order price:"</string>
-    <string name="OrderDetailsView_Time_Text">"Order Time:"</string>
-    <string name="OrderDetailsView_Take_Order_Button">"Take an order"</string>
-    <string name="OrderDetailsView_Subscribe_Button">"Subscribe"</string>
-    <string name="OrderDetailsView_Unsubscribe_Button">"Unsubscribe"</string>
-    <string name="OrderDetailsView_Download_Text">"Upload video:"</string>
-    <string name="OrderDetailsView_Execute_Button">"Run"</string>
-    <string name="OrderDetailsView_Cancel_Button">"Cancel"</string>
-    <string name="OrderDetailsView_Took_The_Order_Text">"Executor:"</string>
-    <string name="OrderDetailsView_Yes_Button">"Yes"</string>
-    <string name="OrderDetailsView_No_Button">"No"</string>
-    <string name="OrderDetailsView_Accept_Button">"To accept"</string>
-    <string name="OrderDetailsView_Argue_Button">"In dispute"</string>
-    <string name="OrderDetailsView_Corresponds_To_Video_Text">"Does the video order match?"</string>
-    <string name="CreateOrderView_PriceTitle_Placeholder">"Price"</string>
-    <string name="OrderDetailsView_Title">"Order"</string>
-    <string name="CashboxView_Title">"Cashbox"</string>
-    <string name="CashboxView_Fillup_Tab">"Replenishment"</string>
-    <string name="CashboxView_Withdrawal_Tab">"Withdrawal"</string>
-    <string name="CashboxView_Fillup_Button">"Replenish"</string>
-    <string name="CashboxView_FillupMethodSelect_Title">"Choose a method to replenish:"</string>
-    <string name="CashboxView_WithdrawalAvailable_Title">"Available for removal including payment service commission:"</string>
-    <string name="CashboxView_Withdrawal_Button">"Take off"</string>
-    <string name="CashboxView_WithdrawalMethodSelect_Title">"Select a method to remove:"</string>
-    <string name="CashboxView_Price_Placeholder">"1 000 000 ₽"</string>
-    <string name="CommentView_Title">"Comments"</string>
-    <string name="Publication_Item_Complain">"Complain ..."</string>
-    <string name="Publication_Item_Copy_Link">"Copy link"</string>
-    <string name="Publication_Item_Subscribe_To_Author">"Subscribe to the author"</string>
-    <string name="ShareDialog_Title">"Share this"</string>
-    <string name="ShareDialog_CopyLink_Label">"Cop. the link"</string>
-    <string name="ShareDialog_ShareInstagram_Label">"On Instagram"</string>
-    <string name="ShareDialog_LinkShareTitle">"Share link"</string>
-    <string name="OrderStatus_New">"Moderation"</string>
-    <string name="OrderStatus_Rejected">"Canceled by moderator"</string>
-    <string name="OrderStatus_Cancelled">"Canceled"</string>
-    <string name="OrderStatus_Active">"New"</string>
-    <string name="OrderStatus_InWork">"In work"</string>
-    <string name="OrderStatus_InArbitration">"In dispute"</string>
-    <string name="OrderStatus_ProcessCloseArbitration">"Closing a dispute"</string>
-    <string name="OrderStatus_ClosedAfterArbitrationCustomerWin">"Dispute won"</string>
-    <string name="OrderStatus_ClosedAfterArbitrationExecutorWin">"Dispute lost"</string>
-    <string name="OrderStatus_Finished">"Accomplished"</string>
+
+    <!-- Fuzzy -->
+    <string name="ErrorUnexpectedServer">"The unexpected error occurred on the server. We have received information about it and working actively to resolve it."</string>
+
+    <!-- Fuzzy -->
+    <string name="ErrorUnexpectedNetwork">"Unexpected error occurred on request. Please, try again."</string>
+
+    <!-- Fuzzy -->
+    <string name="Continue">"Continue"</string>
+
+    <!-- Fuzzy -->
+    <string name="StepTwo">"Step 2"</string>
+
+    <!-- Fuzzy -->
+    <string name="StepThree">"Step 3"</string>
+
+    <!-- Fuzzy -->
+    <string name="GoToFeed">"Go to the feed"</string>
+
+    <!-- Fuzzy -->
+    <string name="PasswordRecovery">"Password recovery"</string>
+
+    <!-- Fuzzy -->
+    <string name="SignOut">"Sign out"</string>
+
+    <!-- Fuzzy -->
+    <string name="Replenish">"Replenish"</string>
+
+    <!-- Fuzzy -->
+    <string name="OrderTime">"Order Time:"</string>
+
+    <!-- Fuzzy -->
+    <string name="OrderPrice">"Order price:"</string>
+
+    <!-- Fuzzy -->
+    <string name="Day">"Day"</string>
+
+    <!-- Fuzzy -->
+    <string name="Hour">"Hours"</string>
+
+    <!-- Fuzzy -->
+    <string name="Minute">"Minutes"</string>
+
+    <!-- Fuzzy -->
+    <string name="MoreDetails">"More details"</string>
+
+    <!-- Fuzzy -->
+    <string name="MyOrders">"My orders"</string>
+
+    <!-- Fuzzy -->
+    <string name="AllOrders">"All orders"</string>
+
+    <!-- Fuzzy -->
+    <string name="NewOrders">"New orders"</string>
+
+    <!-- Fuzzy -->
+    <string name="OrderExecuted">"Order Executed"</string>
+
+    <!-- Fuzzy -->
+    <string name="AllOrdersInDispute">"All orders in dispute"</string>
+
+    <!-- Fuzzy -->
+    <string name="MyOrdersInDispute">"My orders in dispute"</string>
+
+    <!-- Fuzzy -->
+    <string name="NewDisputeOrders">"New Dispute Orders"</string>
+
+    <!-- Fuzzy -->
+    <string name="CreateOrder">"Create Order"</string>
+
+    <!-- Fuzzy -->
+    <string name="Notifications">"Notifications"</string>
+
+    <!-- Fuzzy -->
+    <string name="TakeAnOrder">"Take an order"</string>
+
+    <!-- Fuzzy -->
+    <string name="Subscribe">"Subscribe"</string>
+
+    <!-- Fuzzy -->
+    <string name="Unsubscribe">"Unsubscribe"</string>
+
+    <!-- Fuzzy -->
+    <string name="UploadVideo">"Upload video:"</string>
+
+    <!-- Fuzzy -->
+    <string name="Run">"Run"</string>
+
+    <!-- Fuzzy -->
+    <string name="Executor">"Executor:"</string>
+
+    <!-- Fuzzy -->
+    <string name="Yes">"Yes"</string>
+
+    <!-- Fuzzy -->
+    <string name="No">"No"</string>
+
+    <!-- Fuzzy -->
+    <string name="ToAccept">"To accept"</string>
+
+    <!-- Fuzzy -->
+    <string name="InDispute">"In dispute"</string>
+
+    <!-- Fuzzy -->
+    <string name="Price">"Price"</string>
+
+    <!-- Fuzzy -->
+    <string name="Order">"Order"</string>
+
+    <!-- Fuzzy -->
+    <string name="Cashbox">"Cashbox"</string>
+
+    <!-- Fuzzy -->
+    <string name="Replenishment">"Replenishment"</string>
+
+    <!-- Fuzzy -->
+    <string name="Withdrawal">"Withdrawal"</string>
+
+    <!-- Fuzzy -->
+    <string name="AvailableForRemoval">"Available for removal including payment service commission:"</string>
+
+    <!-- Fuzzy -->
+    <string name="Comments">"Comments"</string>
+
+    <!-- Fuzzy -->
+    <string name="Complain">"Complain ..."</string>
+
+    <!-- Fuzzy -->
+    <string name="CopyLink">"Copy link"</string>
+
+    <!-- Fuzzy -->
+    <string name="SubscribeToAuthor">"Subscribe to the author"</string>
+
+    <!-- Fuzzy -->
+    <string name="ShareLink">"Share link"</string>
+
+    <!-- Fuzzy -->
+    <string name="Moderation">"Moderation"</string>
+
+    <!-- Fuzzy -->
+    <string name="CanceledByModerator">"Canceled by moderator"</string>
+
+    <!-- Fuzzy -->
+    <string name="Canceled">"Canceled"</string>
+
+    <!-- Fuzzy -->
+    <string name="New">"New"</string>
+
+    <!-- Fuzzy -->
+    <string name="InWork">"In work"</string>
+
+    <!-- Fuzzy -->
+    <string name="ClosingDispute">"Closing a dispute"</string>
+
+    <!-- Fuzzy -->
+    <string name="DisputeWon">"Dispute won"</string>
+
+    <!-- Fuzzy -->
+    <string name="DisputeLost">"Dispute lost"</string>
+
+    <!-- Fuzzy -->
+    <string name="Accomplished">"Accomplished"</string>
     <string name="Ok">"OK"</string>
     <string name="Attention">"Attention!"</string>
-    <string name="OrderDetailsView_TakeOrderTitle">"Take an order"</string>
-    <string name="OrderDetailsView_TakeOrderQuestion">"To accept the order, you must pay a Deposit as a guarantee of its implementation 
-20\%% of the cost for simple orders
-40\%% for secret orders"</string>
 
     <!-- Fuzzy -->
-    <string name="Seconds_Short">"s."</string>
+    <string name="TakeOrderQuestion" formatted="false">"To accept the order, you must pay a Deposit as a guarantee of its implementation 
+20 % of the cost for simple orders
+40 % for secret orders"</string>
 
     <!-- Fuzzy -->
-    <string name="Minutes_Short">"m."</string>
+    <string name="SecondsShort">"s."</string>
 
     <!-- Fuzzy -->
-    <string name="Hours_Short">"h."</string>
+    <string name="MinutesShort">"m."</string>
 
     <!-- Fuzzy -->
-    <string name="Days_Short">"d."</string>
+    <string name="HoursShort">"h."</string>
 
     <!-- Fuzzy -->
-    <string name="Weeks_Short">"w."</string>
+    <string name="DaysShort">"d."</string>
 
     <!-- Fuzzy -->
-    <string name="Count_Thousand">"k"</string>
+    <string name="WeeksShort">"w."</string>
 
     <!-- Fuzzy -->
-    <string name="Count_Millions">"m"</string>
+    <string name="CountThousand">"k"</string>
+
+    <!-- Fuzzy -->
+    <string name="CountMillions">"m"</string>
 
     <!-- Fuzzy -->
     <string name="Currency">"₽"</string>
 
     <!-- Fuzzy -->
-    <string name="Count_View">"view"</string>
+    <string name="View">"view"</string>
 
     <!-- Fuzzy -->
-    <string name="Count_Views">"views"</string>
+    <string name="Views">"views"</string>
 
     <!-- Fuzzy -->
-    <string name="Count_Of_Viewing">"of viewing"</string>
-    <string name="Year_Short">"y."</string>
-    <string name="OrderStatus_MyOrder">"My"</string>
-    <string name="OrderDetails_View_Cancel_Title">"Are you sure you want to cancel the order?"</string>
-    <string name="ProfileUpdateView_Email_Placeholder">"Email"</string>
-    <string name="ProfileUpdateView_Login_Placeholder">"Login"</string>
+    <string name="OfViewing">"of viewing"</string>
 
     <!-- Fuzzy -->
-    <string name="ProfileUpdateView_Name_Placeholder">"Name"</string>
-    <string name="ProfileUpdateView_Birthday_Placeholder">"Birth day"</string>
-    <string name="ProfileUpdateView_Button_Save">"Save"</string>
-    <string name="ProfileUpdateView_GenderSelect_Title">"Your gender"</string>
+    <string name="YearShort">"y."</string>
 
     <!-- Fuzzy -->
-    <string name="ProfileUpdateView_Title">"Profile editing"</string>
-    <string name="ProfileUpdateView_ChangePassword">"Change password"</string>
-    <string name="TakePhoto">"Take a picture"</string>
-    <string name="PickPhoto">"Choose from gallery"</string>
-    <string name="ProfileUpdateView_Description_Placeholder">"About Me"</string>
-    <string name="ProfileUpdateView_PhotoChange_Title">"Change profile photo"</string>
+    <string name="WantToCancelOrder">"Are you sure you want to cancel the order?"</string>
+
+    <!-- Fuzzy -->
+    <string name="Email">"Email"</string>
+
+    <!-- Fuzzy -->
+    <string name="Login">"Login"</string>
+
+    <!-- Fuzzy -->
+    <string name="Name">"Name"</string>
+
+    <!-- Fuzzy -->
+    <string name="Birthday">"Birth day"</string>
+
+    <!-- Fuzzy -->
+    <string name="ProfileEditing">"Profile editing"</string>
+
+    <!-- Fuzzy -->
+    <string name="TakePicture">"Take a picture"</string>
+
+    <!-- Fuzzy -->
+    <string name="ChooseFromGallery">"Choose from gallery"</string>
     <string name="Select">"Select"</string>
-    <string name="CreateOrderView_Choose_Time_Period">"Select the validity period of the order."</string>
-    <string name="OrderStatus_WaitFinish">"Pending"</string>
-    <string name="OrderDetailsView_LoadVideo">"Upload video"</string>
-    <string name="NotificationStatus_Viewed">"Viewed"</string>
-    <string name="NotificationStatus_NotViewed">"Not viewed"</string>
-    <string name="Validation_Field_Title">"Headline"</string>
-    <string name="Validation_Field_Description">"Description"</string>
-    <string name="Validation_Field_Price">"Price"</string>
-    <string name="Validation_Field_OrderPeriod">"Period"</string>
-    <string name="Validation_Field_Cost">"Cost"</string>
-    <string name="Validation_Field_Login">"Login"</string>
-    <string name="Validation_Field_Name">"Name"</string>
-    <string name="Validation_Field_Birthday">"Birthday"</string>
-    <string name="Validation_Field_Gender">"Floor"</string>
-    <string name="Validation_Field_Email">"E-mail"</string>
-    <string name="Validation_Field_Password">"Password"</string>
-    <string name="Validation_Field_PasswordRepeat">"Password replay"</string>
-    <string name="Validation_Error_Empty">"{0} cannot be empty."</string>
-    <string name="Validation_Error_GreaterThanRequired">"{0} cannot be greater than {1}."</string>
-    <string name="Validation_Error_LowerThanRequired">"{0} cannot be less than {1}."</string>
-    <string name="Validation_Error_NotMatch">"{0} does not match {1}."</string>
-    <string name="Validation_Error_CanNotMatch">"{0} cannot be equal to {1}."</string>
-    <string name="Validation_Error_Invalid">"{0} has the wrong format."</string>
-    <string name="Demo">"Demo"</string>
-    <string name="FinishPasswordRecoveryView_GoToFeed_Button">"Go to feed"</string>
-    <string name="FinishPasswordRecoveryView_GoToLogin_Button">"Login to account"</string>
-    <string name="Count_Days">"Days"</string>
-    <string name="Count_Hours">"Hours"</string>
-    <string name="Count_Minutes">"Minutes"</string>
+
+    <!-- Fuzzy -->
+    <string name="SelectValidityPeriod">"Select the validity period of the order."</string>
+
+    <!-- Fuzzy -->
+    <string name="Pending">"Pending"</string>
+
+    <!-- Fuzzy -->
+    <string name="Headline">"Headline"</string>
+
+    <!-- Fuzzy -->
+    <string name="Description">"Description"</string>
+
+    <!-- Fuzzy -->
+    <string name="Period">"Period"</string>
+
+    <!-- Fuzzy -->
+    <string name="Cost">"Cost"</string>
+
+    <!-- Fuzzy -->
+    <string name="Floor">"Floor"</string>
+
+    <!-- Fuzzy -->
+    <string name="Password">"Password"</string>
+
+    <!-- Fuzzy -->
+    <string name="PasswordRepeat">"Password repeat"</string>
+
+    <!-- Fuzzy -->
+    <string name="CannotBeEmpty">"{0} cannot be empty."</string>
+
+    <!-- Fuzzy -->
+    <string name="ValidationErrorGreaterThanRequired">"{0} cannot be greater than {1}."</string>
+
+    <!-- Fuzzy -->
+    <string name="ValidationErrorLowerThanRequired">"{0} cannot be less than {1}."</string>
+
+    <!-- Fuzzy -->
+    <string name="ValidationErrorNotMatch">"{0} does not match {1}."</string>
+
+    <!-- Fuzzy -->
+    <string name="ValidationErrorCanNotMatch">"{0} cannot be equal to {1}."</string>
+
+    <!-- Fuzzy -->
+    <string name="ValidationErrorInvalid">"{0} has the wrong format."</string>
+
+    <!-- Fuzzy -->
+    <string name="Days">"Days"</string>
+
+    <!-- Fuzzy -->
+    <string name="Hours">"Hours"</string>
+
+    <!-- Fuzzy -->
+    <string name="Minutes">"Minutes"</string>
     <string name="LinkCopied">"Link copied"</string>
-    <string name="ComplainSuccessful">"Sent to moderator"</string>
-    <string name="Competitions_Voting">"Voting"</string>
-    <string name="Competitions_New">"New"</string>
-    <string name="Competitions_Finished">"Summary"</string>
-    <string name="Competitions_Voting_Term">"Until the end of voting:"</string>
-    <string name="Competitions_Finished_Term">"Competition period:"</string>
-    <string name="Competitions_See">"Watch"</string>
-    <string name="Competitions_More">"More details"</string>
-    <string name="Competitions_Participate">"Participate"</string>
-    <string name="Competitions_Prize_Pool">"Tournament prize pool:"</string>
-    <string name="Competitions_New_Term">"Before the start of voting:"</string>
-    <string name="Competition_Load_Video">"Upload video"</string>
-    <string name="Competition_Rules">"Competition Rules"</string>
-    <string name="Competition_Results">"results"</string>
-    <string name="WithdrawalView_FirstName_Placeholder">"Name"</string>
-    <string name="WithdrawalView_LastName_Placeholder">"Surname"</string>
-    <string name="WithdrawalView_CardNumber_Placeholder">"Card number"</string>
-    <string name="WithdrawalView_AttachFile_Button">"Attach file"</string>
-    <string name="WithdrawalView_Revoke_Button">"Withdraw"</string>
-    <string name="Login_Without_Registration">"Sign in without registration"</string>
-    <string name="Competition_Prize_Pool_Rating">"Rating"</string>
-    <string name="Competition_Prize_Pool_Participant">"Party book"</string>
-    <string name="Competition_Prize_Pool">"Prize pool"</string>
-    <string name="Competitions_Tab">"Contests"</string>
-    <string name="WithdrawalView_Empty_Card_Error">"Card cannot be empty."</string>
-    <string name="WithdrawalView_Cancel_Withdrawal_Error">"Cannot cancel transaction to withdraw funds."</string>
-    <string name="WithdrawalView_Delete_Card_Text">"Delete card"</string>
+
+    <!-- Fuzzy -->
+    <string name="Voting">"Voting"</string>
+
+    <!-- Fuzzy -->
+    <string name="Summary">"Summary"</string>
+
+    <!-- Fuzzy -->
+    <string name="UntilEndVoting">"Until the end of voting:"</string>
+
+    <!-- Fuzzy -->
+    <string name="CompetitionPeriod">"Competition period:"</string>
+
+    <!-- Fuzzy -->
+    <string name="Watch">"Watch"</string>
+
+    <!-- Fuzzy -->
+    <string name="Participate">"Participate"</string>
+
+    <!-- Fuzzy -->
+    <string name="TournamentPrizePool">"Tournament prize pool:"</string>
+
+    <!-- Fuzzy -->
+    <string name="BeforeStartVoting">"Before the start of voting:"</string>
+
+    <!-- Fuzzy -->
+    <string name="CompetitionRules">"Competition Rules"</string>
+
+    <!-- Fuzzy -->
+    <string name="Results">"results"</string>
+
+    <!-- Fuzzy -->
+    <string name="Contests">"Contests"</string>
+
+    <!-- Fuzzy -->
+    <string name="EmptyCardError">"Card cannot be empty."</string>
+
+    <!-- Fuzzy -->
+    <string name="CancelWithdrawalError">"Cannot cancel transaction to withdraw funds."</string>
+
+    <!-- Fuzzy -->
+    <string name="DeleteCard">"Delete card"</string>
     <string name="Delete">"Delete"</string>
-    <string name="WithdrawalView_Delete_Card_Question">"Are you sure you want to delete this card?"</string>
-    <string name="WithdrawalView_Verify_User_Text">"In order to withdraw funds from your account, you need to confirm your identity by attaching a selfie with a passport in expanded form."</string>
-    <string name="WithdrawalView_Attach_File">"Attach file"</string>
-    <string name="WithdrawalView_Pendng_Verify_User_Text">"Your request is being processed, the waiting time can be up to 24 hours"</string>
-    <string name="WithdrawalView_Card_Number">"Card number"</string>
-    <string name="WithdrawalView_Surname">"Surname"</string>
-    <string name="WithdrawalView_Name">"Name"</string>
-    <string name="WithdrawalView_Cost">"Amount"</string>
-    <string name="WithdrawalView_Pending_Withdrawal_Text">"Your request for withdrawal of funds is currently being processed."</string>
-    <string name="WithdrawalView_Create_Date">"date of creation"</string>
-    <string name="WithdrawalView_Status_Text">"Status"</string>
-    <string name="WithdrawalView_Pending">"Pending"</string>
-    <string name="WithdrawalView_Withdraw_Text">"Withdraw"</string>
-    <string name="Competiton_Prize_Pool_Place">"A place"</string>
-    <string name="Orders_In_Dispute">"In dispute"</string>
-    <string name="OnBoarding_Go_To_Main">"Go to feed"</string>
-    <string name="OnBoarding_First_Title">"watch and enjoy"</string>
-    <string name="OnBoarding_Second_Title">"Create your first order"</string>
-    <string name="OnBoarding_Third_Title">"Earn money by completing orders"</string>
-    <string name="OnBoarding_Fourth_Title">"Take part in free contests"</string>
-    <string name="OnBoarding_Fifth_Title">"Do it funny and to the music!"</string>
-    <string name="OnBoarding_First_Description">"The authors of PrankChat only publish exclusive, funniest and craziest videos! watch and enjoy"</string>
-    <string name="OnBoarding_Second_Description">"Post the task, cost and deadline by which other users will make a video for you. Get your dream movie!"</string>
-    <string name="OnBoarding_Third_Description">"Monetize your love of creativity! Shoot videos for other users and earn real money on it"</string>
-    <string name="OnBoarding_Fourth_Description">"Take part in creative contests! Make the best video and win a decent cash prize! And we won’t take a dime from you"</string>
-    <string name="OnBoarding_Fifth_Description">"Publish your video and become famous"</string>
-    <string name="Complaint_Spam">"This is spam"</string>
-    <string name="Complaint_Naked_Content">"Pornography and nudity"</string>
-    <string name="Complaint_Hostile_Utterances">"Insulting or bullying"</string>
-    <string name="Complaint_Dangerous_Organizations">"Violence or dangerous organizations"</string>
-    <string name="Complaint_Rights_Violation">"Copyright infringement"</string>
-    <string name="Complaint_Cheating">"Cheating or cheating"</string>
-    <string name="Complaint_Complete_Message">"Thank you for letting us know."</string>
-    <string name="Complaint_Other">"Other"</string>
-    <string name="Complaint_Wrong_Name">"Uses someone else's name"</string>
-    <string name="Complaint_Unacceptable_Content">"Inappropriate Content"</string>
-    <string name="Complaint_Unacceptable_Information_In_Profile">"Inappropriate profile information"</string>
-    <string name="Order_Add">"Create"</string>
-    <string name="Order_Create_Message">"Are you sure you want to create an order?"</string>
-    <string name="Processing_Video">"Processing takes a few minutes"</string>
-    <string name="Profile_Your_Email_Not_Actual">"Your mail is not confirmed"</string>
-    <string name="Profile_Email_Confirmation_Sent">"A confirmation email has been sent to your mail"</string>
-    <string name="Profile_Resend_Confirmation">"resend"</string>
-    <string name="OrderDetailsView_Video_Uploaded">"The customer has 24 hours to pay"</string>
-    <string name="Cashbox_Commision_Warning">"Please note that operator fees will be added to the recharge amount"</string>
-    <string name="Registration_Confirm_Adult">"I confirm that I am 18 years old"</string>
-    <string name="Registration_Agree_With">"I agree with"</string>
-    <string name="Registration_Terms_And_Rules">"terms and conditions"</string>
-    <string name="Validation_Field_Adult_Check">"Age"</string>
-    <string name="Validation_Field_Privacy_Check">"Terms &amp; Conditions"</string>
-    <string name="Registration_Checkmark_Not_Confirmed">"Confirm age and agree to the rules"</string>
-    <string name="Not_Confirmed">"{0} not verified"</string>
-    <string name="Competition_Prize">"Prize"</string>
-    <string name="Competition_Votes">"Vote"</string>
-    <string name="Create_Order_Hour">"hour"</string>
-    <string name="Create_Orders_Hours_Plural">"hours"</string>
-    <string name="Create_Orders_Hours_Singular">"hours"</string>
-    <string name="Walkthrouth_Competitions_Description">"Take part in contests with cash prizes! Read the terms and conditions and post your video soon. Winners will be selected by general vote and will instantly receive prize money in their account. Do not forget to call your friends to vote, they will increase your chances of winning!
+
+    <!-- Fuzzy -->
+    <string name="DeleteCardQuestion">"Are you sure you want to delete this card?"</string>
+
+    <!-- Fuzzy -->
+    <string name="OnBoardingFirstTitle">"Watch and enjoy"</string>
+
+    <!-- Fuzzy -->
+    <string name="OnBoardingSecondTitle">"Create your first order"</string>
+
+    <!-- Fuzzy -->
+    <string name="OnBoardingThirdTitle">"Earn money by completing orders"</string>
+
+    <!-- Fuzzy -->
+    <string name="OnBoardingFourthTitle">"Take part in free contests"</string>
+
+    <!-- Fuzzy -->
+    <string name="OnBoardingFifthTitle">"Do it funny and to the music!"</string>
+
+    <!-- Fuzzy -->
+    <string name="OnBoardingFirstDescription">"The authors of OnPlay only publish exclusive, funniest and craziest videos! watch and enjoy"</string>
+
+    <!-- Fuzzy -->
+    <string name="OnBoardingSecondDescription">"Post the task, cost and deadline by which other users will make a video for you. Get your dream movie!"</string>
+
+    <!-- Fuzzy -->
+    <string name="OnBoardingThirdDescription">"Monetize your love of creativity! Shoot videos for other users and earn real money on it"</string>
+
+    <!-- Fuzzy -->
+    <string name="OnBoardingFourthDescription">"Take part in creative contests! Make the best video and win a decent cash prize! And we won’t take a dime from you"</string>
+
+    <!-- Fuzzy -->
+    <string name="OnBoardingFifthDescription">"Publish your video and become famous"</string>
+
+    <!-- Fuzzy -->
+    <string name="ThisIsSpam">"This is spam"</string>
+
+    <!-- Fuzzy -->
+    <string name="PornographyAndNudity">"Pornography and nudity"</string>
+
+    <!-- Fuzzy -->
+    <string name="InsultingOrBullying">"Insulting or bullying"</string>
+
+    <!-- Fuzzy -->
+    <string name="ViolenceOrDangerousOrganizations">"Violence or dangerous organizations"</string>
+
+    <!-- Fuzzy -->
+    <string name="CopyrighInfringement">"Copyright infringement"</string>
+
+    <!-- Fuzzy -->
+    <string name="FraudOrDeception">"Fraud or deception"</string>
+
+    <!-- Fuzzy -->
+    <string name="ThankYouForLettingUsKnow">"Thank you for letting us know."</string>
+
+    <!-- Fuzzy -->
+    <string name="Other">"Other"</string>
+
+    <!-- Fuzzy -->
+    <string name="UsesSomeoneElseName">"Uses someone else's name"</string>
+
+    <!-- Fuzzy -->
+    <string name="InappropriateContent">"Inappropriate Content"</string>
+
+    <!-- Fuzzy -->
+    <string name="InappropriateProfileInformation">"Inappropriate profile information"</string>
+
+    <!-- Fuzzy -->
+    <string name="Create">"Create"</string>
+
+    <!-- Fuzzy -->
+    <string name="OrderCreateMessage">"Are you sure you want to create an order?"</string>
+
+    <!-- Fuzzy -->
+    <string name="ProcessingVideo">"Processing takes a few minutes"</string>
+
+    <!-- Fuzzy -->
+    <string name="ProfileYourEmailNotActual">"Your mail is not confirmed"</string>
+
+    <!-- Fuzzy -->
+    <string name="ProfileEmailConfirmationSent">"A confirmation email has been sent to your mail"</string>
+
+    <!-- Fuzzy -->
+    <string name="TwentyFourHoursToPay">"The customer has 24 hours to pay"</string>
+
+    <!-- Fuzzy -->
+    <string name="NotVerified">"{0} not verified"</string>
+
+    <!-- Fuzzy -->
+    <string name="WalkthrouthCompetitionsDescription">"Take part in contests with cash prizes! Read the terms and conditions and post your video soon. Winners will be selected by general vote and will instantly receive prize money in their account. Do not forget to call your friends to vote, they will increase your chances of winning!
 
 The competition consists of three stages:
 1) At the initial stage, the participants send their videos to the competition;
-2) Voting. PrankChat users vote for their favorite video;
-3) Results. After summing up the accounts of participants whose videos won prizes, the money won is transferred."</string>
-    <string name="Walkthrouth_CreateOrder_Description">"Post your assignment, according to which other users will make a video for you. Describe the task in as much detail as possible, set the deadline and the amount of remuneration to get the perfect movie."</string>
-    <string name="Walkthrouth_Orders_Description">"You can take any order from the “New” category and upload the finished video according to the assignment. To accept the order, pay 20 \%% of its value as a guarantee that you will not abandon its execution. When the customer checks your video and approves it, wait for payment to your account. If the customer forgot to approve the order, the money will be sent to you automatically after 24 hours. 20 \%% of the order value is the commission PrankChat.
+2) Voting. OnPlay users vote for their favorite video;
+3) Results. After summing up the accounts of participants whose videos won prizes, the money won is transferred.
+
+Apple Inc. is not a sponsor of the competitions."</string>
+
+    <!-- Fuzzy -->
+    <string name="WalkthrouthCreateOrderDescription">"Post your assignment, according to which other users will make a video for you. Describe the task in as much detail as possible, set the deadline and the amount of remuneration to get the perfect movie."</string>
+
+    <!-- Fuzzy -->
+    <string name="WalkthrouthOrdersDescription" formatted="false">"You can take any order from the “New” category and upload the finished video according to the assignment. To accept the order, pay 20% of its value as a guarantee that you will not abandon its execution. When the customer checks your video and approves it, wait for payment to your account. If the customer forgot to approve the order, the money will be sent to you automatically after 24 hours. 20 % of the order value is the commission OnPlay.
 
 If the customer did not like your video, he can send the task to the \"dispute\". Independent users will decide within 24 hours whether the completed video matches the order. If the number of positive votes exceeds the number of negative, then wait for your well-deserved bonus. In the opposite situation, the reward will be returned to the customer."</string>
-    <string name="Walkthrouth_Profile_Description">"In the profile, the user can track the amount of money in the current account, as well as all his tasks: published, executable and completed."</string>
-    <string name="Walkthrouth_Competitions_Title">"Contests"</string>
-    <string name="Walkthrouth_CreateOrder_Title">"Create Orders"</string>
-    <string name="Walkthrouth_Orders_Title">"Order feed"</string>
-    <string name="Walkthrouth_Profile_Title">"Profile"</string>
-    <string name="No_Intentet_Connection">"No internet connection"</string>
-    <string name="Video_Failed_To_Upload">"Failed to upload video"</string>
-    <string name="Bytes_Presentation">"bytes"</string>
-    <string name="Kilobytes_Presentation">"KB"</string>
-    <string name="Megabytes_Presentation">"MB"</string>
-    <string name="Gigabytes_Presentation">"GB"</string>
-    <string name="Terabytes_Presentation">"TB"</string>
-    <string name="Subscription_Title_Template">"Subscriptions {0}"</string>
-    <string name="Subscribers_Title_Template">"Subscribers {0}"</string>
-    <string name="Search_Videos">"Videos"</string>
-    <string name="Search_Peoples">"Peoples"</string>
-    <string name="Application_New_Version_Ready">"An important update came out, it seems time to install it."</string>
 
     <!-- Fuzzy -->
-    <string name="Download_Update">"Download update"</string>
-    <string name="Email_Already_Exists">"Current email already exists"</string>
-
-    <!-- Creditcard save -->
-    <string name="WithdrawalView_Passport">"Passport"</string>
-    <string name="Create_Order_Secret_order">"Secret order"</string>
+    <string name="WalkthrouthProfileDescription">"In the profile, the user can track the amount of money in the current account, as well as all his tasks: published, executable and completed."</string>
 
     <!-- Fuzzy -->
-    <string name="Walkthrouth_CreateOrder_Secret_Description">"Secret orders allow you to hide the task text from other users until they take it to work!
+    <string name="CreateOrders">"Create Orders"</string>
+
+    <!-- Fuzzy -->
+    <string name="OrderFeed">"Order feed"</string>
+
+    <!-- Fuzzy -->
+    <string name="NoIntentetConnection">"No internet connection"</string>
+
+    <!-- Fuzzy -->
+    <string name="VideoFailedToUpload">"Failed to upload video"</string>
+
+    <!-- Fuzzy -->
+    <string name="Bytes">"bytes"</string>
+
+    <!-- Fuzzy -->
+    <string name="Kb">"KB"</string>
+
+    <!-- Fuzzy -->
+    <string name="Mb">"MB"</string>
+
+    <!-- Fuzzy -->
+    <string name="Gb">"GB"</string>
+
+    <!-- Fuzzy -->
+    <string name="Tb">"TB"</string>
+
+    <!-- Fuzzy -->
+    <string name="SubscriptionTemplate">"Subscriptions {0}"</string>
+
+    <!-- Fuzzy -->
+    <string name="SubscribersTemplate">"Subscribers {0}"</string>
+
+    <!-- Fuzzy -->
+    <string name="EmailAlreadyExists">"Current email already exists"</string>
+
+    <!-- Fuzzy -->
+    <string name="SecretOrder">"Secret order"</string>
+
+    <!-- Fuzzy -->
+    <string name="WalkthrouthCreateOrderSecretDescription">"Secret orders allow you to hide the task text from other users until they take it to work!
 
 Taking such a task the user will have to complete it or lose the Deposit!"</string>
-    <string name="Publication_Item_Download">"Download"</string>
-    <string name="Competition_Pay_For_Join">"Pay for participation"</string>
-    <string name="Competion_Rules_Template">"To take part in the competition, you need to pay {0} ₽"</string>
+
+    <!-- Fuzzy -->
+    <string name="Download">"Download"</string>
+
+    <!-- Fuzzy -->
+    <string name="PayForParticipation">"Pay for participation"</string>
+
+    <!-- Fuzzy -->
+    <string name="CompetionRulesTemplate">"To take part in the competition, you need to pay {0} ₽"</string>
     <string name="Pay">"Pay"</string>
-    <string name="Error_Something_Went_Wrong_Message">"Oops, something went wrong :("</string>
-    <string name="WithdrawalView_MiddleName">"Middle name"</string>
-    <string name="WithdrawalView_Location">"Location"</string>
-    <string name="WithdrawalView_Nationality">"Nationality"</string>
-    <string name="Withdrawal_Yoomoney_Description">"Funds are withdrawn through the Yoomoney wallet."</string>
-    <string name="Withdrawal_Yoomoney">"Yoomoney"</string>
-    <string name="Withdrawal_Enter_Wallet_Number">"Enter Yoomoney wallet number"</string>
+
+    <!-- Fuzzy -->
+    <string name="ErrorSomethingWentWrongMessage">"Oops, something went wrong :("</string>
+
+    <!-- Fuzzy -->
+    <string name="WithdrawalYoomoneyDescription">"Funds are withdrawn through the Yoomoney wallet."</string>
+
+    <!-- Fuzzy -->
+    <string name="Yoomoney">"Yoomoney"</string>
+
+    <!-- Fuzzy -->
+    <string name="BlockUser">"Block user"</string>
+
+    <!-- Fuzzy -->
+    <string name="BlockedUser">"User {0} is blocked"</string>
+
+    <!-- Fuzzy -->
+    <string name="appName">"OnPlay"</string>
+    <string name="Rate">"Rate"</string>
+    <string name="Popular">"Popular"</string>
+    <string name="Actual">"Actual"</string>
+    <string name="MyFeed">"My Feed"</string>
+
+    <!-- Fuzzy -->
+    <string name="Search">"Search"</string>
+    <string name="EnterEmail">"Enter e-mail"</string>
+
+    <!-- Fuzzy -->
+    <string name="EnterPassword">"Enter password"</string>
+    <string name="ForgotPassword">"Forgot password?"</string>
+
+    <!-- Fuzzy -->
+    <string name="Restore">"Restore"</string>
+    <string name="CreateNewOneAccount">"Don't have an account? Create a new one."</string>
+
+    <!-- Fuzzy -->
+    <string name="EnterSocialNetworks">"Enter social networks:"</string>
+    <string name="Registration">"Registration"</string>
+    <string name="AlreadyRegistered">"Already registered?"</string>
+
+    <!-- Fuzzy -->
+    <string name="LoginIn">"Log in"</string>
+
+    <!-- Fuzzy -->
+    <string name="EnterNickname">"Enter nickname"</string>
+
+    <!-- Fuzzy -->
+    <string name="EnterYourName">"Enter your name"</string>
+
+    <!-- Fuzzy -->
+    <string name="EnterBirthday">"Enter birthday"</string>
+    <string name="EnterPasswordAgain">"Enter password again"</string>
+
+    <!-- Fuzzy -->
+    <string name="SelectSex">"Select sex:"</string>
+
+    <!-- Fuzzy -->
+    <string name="Male">"Male"</string>
+
+    <!-- Fuzzy -->
+    <string name="Female">"Female"</string>
+    <string name="Register">"Register"</string>
+
+    <!-- Fuzzy -->
+    <string name="Congratulations">"Congratulations!"</string>
+
+    <!-- Fuzzy -->
+    <string name="PasswordRecoveryOnMail">"An email was sent to the mail with a link to reset the password."</string>
+    <string name="FeaturedVideos">"Featured Videos"</string>
+    <string name="CustomSubscriptions">"Custom Subscriptions"</string>
+
+    <!-- Fuzzy -->
+    <string name="Faq">"FAQ"</string>
+    <string name="ReferencesOrReviews">"References/reviews"</string>
+    <string name="Settings">"Settings"</string>
+
+    <!-- Fuzzy -->
+    <string name="Withdraw">"Withdrawal"</string>
+    <string name="Performed">"performed"</string>
+
+    <!-- Fuzzy -->
+    <string name="Subscribers">"subscribers"</string>
+    <string name="Subscriptions">"subscriptions"</string>
+    <string name="Ordered">"I ordered"</string>
+
+    <!-- Fuzzy -->
+    <string name="Execute">"I execute"</string>
+    <string name="NewOrder">"New order"</string>
+
+    <!-- Fuzzy -->
+    <string name="Rating">"Rating"</string>
+    <string name="Estimate">"Estimate"</string>
+    <string name="OrderName">"Order Name"</string>
+    <string name="OrderDescription">"Order Description"</string>
+    <string name="TenThousand">"10 000 ₽"</string>
+    <string name="DateOfExecution">"Date of execution"</string>
+    <string name="HideArtist">"Hide artist"</string>
+
+    <!-- Fuzzy -->
+    <string name="OrderMatch">"Does the video order match?"</string>
+
+    <!-- Fuzzy -->
+    <string name="MethodToReplenish">"Choose a method to replenish:"</string>
+
+    <!-- Fuzzy -->
+    <string name="TakeOff">"Take off"</string>
+
+    <!-- Fuzzy -->
+    <string name="SelectMethodToWithdrawal">"Select a method to withdrawal:"</string>
+
+    <!-- Fuzzy -->
+    <string name="Million">"1 000 000 ₽"</string>
+    <string name="ShareThis">"Share this"</string>
+
+    <!-- Fuzzy -->
+    <string name="OnInstagram">"On Instagram"</string>
+
+    <!-- Fuzzy -->
+    <string name="Save">"Save"</string>
+
+    <!-- Fuzzy -->
+    <string name="YourGender">"Your gender"</string>
+
+    <!-- Fuzzy -->
+    <string name="ChangePassword">"Change password"</string>
+    <string name="AboutMe">"About me"</string>
+
+    <!-- Fuzzy -->
+    <string name="ChangeProfilePhoto">"Change profile photo"</string>
+
+    <!-- Fuzzy -->
+    <string name="Viewed">"Viewed"</string>
+
+    <!-- Fuzzy -->
+    <string name="NotViewed">"Not viewed"</string>
+    <string name="LoginToAccount">"Log in"</string>
+    <integer name="com_vk_sdk_AppId">7343996</integer>
+
+    <!-- Fuzzy -->
+    <string name="SentToModerator">"Sent to moderator"</string>
+    <string name="Surname">"Surname"</string>
+    <string name="CardNumber">"Card number"</string>
+    <string name="AttachFile">"Attach file"</string>
+
+    <!-- Fuzzy -->
+    <string name="Participant">"Participant"</string>
+    <string name="PrizePool">"Prize pool"</string>
+
+    <!-- Fuzzy -->
+    <string name="PendingVerifyUser">"Your request is being processed, the waiting time can be up to 24 hours"</string>
+    <string name="Amount">"Amount"</string>
+    <string name="PendingWithdrawal">"Your request for withdrawal of funds is currently being processed."</string>
+
+    <!-- Fuzzy -->
+    <string name="DateOfCreation">"date of creation"</string>
+    <string name="Status">"Status"</string>
+    <string name="Place">"A place"</string>
+    <string name="Resend">"resend"</string>
+    <string name="CommisionWarning">"Please note that operator fees will be added to the recharge amount"</string>
+    <string name="ConfirmAdult">"I confirm that I am 18 years old"</string>
+    <string name="AgreeWith">"I agree with"</string>
+    <string name="TermsAndRules">"Terms &amp;amp; Conditions"</string>
+    <string name="Age">"Age"</string>
+    <string name="TermsAndConditions">"terms and conditions"</string>
+
+    <!-- Fuzzy -->
+    <string name="Prize">"Prize"</string>
+    <string name="Vote">"Vote"</string>
+
+    <!-- Fuzzy -->
+    <string name="Videos">"Videos"</string>
+    <string name="Peoples">"Peoples"</string>
+    <string name="ApplicationNewVersionReady">"An important update came out, it seems time to install it."</string>
+    <string name="DownloadUpdate">"Download update"</string>
+
+    <!-- Creditcard save -->
+    <string name="Passport">"Passport"</string>
+    <string name="MiddleName">"Middle name"</string>
+    <string name="Location">"Location"</string>
+    <string name="Nationality">"Nationality"</string>
+
+    <!-- Fuzzy -->
+    <string name="EnterWalletNumber">"Enter Yoomoney wallet number"</string>
+
+    <!-- Fuzzy -->
+    <string name="CreateOrderPrivacyMessage">"By completing the creation of the order, I confirm the registration with the terms of the public offer, user agreement and privacy policy"</string>
+    <string name="CreateOrderPrivacyLink">"terms of the public offer, user agreement and privacy policy"</string>
+
+    <!-- Fuzzy -->
+    <string name="Orderss">"orders"</string>
+    <string name="CreatingOrder">"Create order"</string>
+
+    <!-- Fuzzy -->
+    <string name="Sex">"Sex"</string>
+    <string name="Revoke">"Revoke"</string>
+
+    <!-- Fuzzy -->
+    <string name="NeedToConfirmYourIdentity">"In order to withdraw funds from your account, you need to confirm your identity by attaching a selfie with a passport in expanded form."</string>
+    <string name="InTheDispute">"In dispute"</string>
+    <string name="ConfirmAgeAndAgreeRules">"Confirm age and agree to the rules"</string>
+    <string name="OneHour">"hour"</string>
+    <string name="LoginWithoutRegistration">"Sign in without registration"</string>
+
+    <!-- Fuzzy -->
+    <string name="CreateContest">"Create a competition"</string>
+
+    <!-- Fuzzy -->
+    <string name="ParticipationFee">"Participation fee"</string>
+
+    <!-- Fuzzy -->
+    <string name="PercentageContributionPrizePool" formatted="false">"% of the contribution to the prize pool"</string>
+
+    <!-- Fuzzy -->
+    <string name="SecretContest">"Secret contest"</string>
+
+    <!-- Fuzzy -->
+    <string name="CollectionBidsFrom">"Collection of bids from"</string>
+
+    <!-- Fuzzy -->
+    <string name="CollectionBidsFor">"Collection of bids for"</string>
+
+    <!-- Fuzzy -->
+    <string name="VotingFrom">"Voting from"</string>
+
+    <!-- Fuzzy -->
+    <string name="VotingFor">"Voting for"</string>
+
+    <!-- Fuzzy -->
+    <string name="Percent" formatted="false">"%"</string>
+    <string name="IncorrectEmailOrPasswordException">"The entered Email or password is incorrect. Try to reset your password or check the spelling of your mail."</string>
+    <string name="PerYear">"PerYear"</string>
+
+    <!-- Fuzzy -->
+    <string name="AllTime">"Per all time"</string>
+    <string name="YouAreNotConfirmedAdultAge">"You are not confirmed that you have adult age"</string>
+    <string name="YouAreNotConfirmedUserAgreement">"You are not approved user agreement"</string>
 </resources>

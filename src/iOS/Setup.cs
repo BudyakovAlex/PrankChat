@@ -7,32 +7,39 @@ using MvvmCross.Binding.Bindings.Target.Construction;
 using MvvmCross.IoC;
 using MvvmCross.Platforms.Ios.Core;
 using PrankChat.Mobile.Core;
-using PrankChat.Mobile.Core.ApplicationServices.Dialogs;
-using PrankChat.Mobile.Core.ApplicationServices.ExternalAuth;
-using PrankChat.Mobile.Core.ApplicationServices.FileSystem;
 using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Ioc;
 using PrankChat.Mobile.Core.Providers.Configuration;
 using PrankChat.Mobile.Core.Providers.Platform;
 using PrankChat.Mobile.Core.Providers.UserSession;
-using PrankChat.Mobile.iOS.ApplicationServices;
-using PrankChat.Mobile.iOS.ApplicationServices.ExternalAuth;
-using PrankChat.Mobile.iOS.ApplicationServices.ExternalAuth.AppleSignIn;
+using PrankChat.Mobile.Core.Services.ExternalAuth;
+using PrankChat.Mobile.Core.Services.FileSystem;
+using PrankChat.Mobile.iOS.Services.ExternalAuth;
+using PrankChat.Mobile.iOS.Services.ExternalAuth.AppleSignIn;
 using PrankChat.Mobile.iOS.Controls;
 using PrankChat.Mobile.iOS.PlatformBusinessServices.FileSystem;
 using PrankChat.Mobile.iOS.Plugins.Video;
-using PrankChat.Mobile.iOS.Presentation.Binding;
-using PrankChat.Mobile.iOS.Providers;
+using PrankChat.Mobile.iOS.Binding;
 using UIKit;
 using WebKit;
+using PrankChat.Mobile.Core.Plugins.UserInteraction;
+using PrankChat.Mobile.iOS.Plugins.UserInteraction;
+using PrankChat.Mobile.iOS.Common;
+using Microsoft.Extensions.Logging;
+using Serilog;
+using Serilog.Extensions.Logging;
+using System;
+using PrankChat.Mobile.iOS.Plugins.Logging;
 
 namespace PrankChat.Mobile.iOS
 {
     public class Setup : MvxIosSetup<App>
     {
-        protected override void InitializeFirstChance()
+        private const string LoggerTag = "Prank_IOS";
+
+        protected override void InitializeFirstChance(IMvxIoCProvider iocProvider)
         {
-            base.InitializeFirstChance();
+            base.InitializeFirstChance(iocProvider);
 
             Mvx.IoCProvider.CallbackWhenRegistered<IEnvironmentConfigurationProvider>(provider =>
             {
@@ -40,12 +47,39 @@ namespace PrankChat.Mobile.iOS
             });
         }
 
-        protected override void InitializeLastChance()
+        public override void InitializeSecondary()
         {
-            base.InitializeLastChance();
+            //NOTE: need to trace errors in console
+            try
+            {
+                base.InitializeSecondary();
+            }
+            catch (Exception exception)
+            {
+                NativeConsoleLogger.Write(LoggerTag, $"{exception.Message} \n\n\n\n{exception.StackTrace}");
+            }
+        }
+
+        protected override ILoggerProvider CreateLogProvider()
+        {
+            return new SerilogLoggerProvider();
+        }
+
+        protected override ILoggerFactory CreateLogFactory()
+        {
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel
+                .Debug()
+                .CreateLogger();
+            return new SerilogLoggerFactory();
+        }
+
+        protected override void InitializeLastChance(IMvxIoCProvider iocProvider)
+        {
+            base.InitializeLastChance(iocProvider);
 
             CompositionRoot.Container.RegisterType<IVideoPlayer, VideoPlayer>();
-            CompositionRoot.Container.RegisterSingleton<IDialogService, DialogService>();
+            CompositionRoot.Container.RegisterSingleton<IUserInteraction, UserInteraction>();
             CompositionRoot.Container.RegisterSingleton<IFileSystemService, FileSystemService>();
             CompositionRoot.Container.RegisterSingleton<IExternalAuthService, ExternalAuthService>();
             CompositionRoot.Container.RegisterSingleton<IUserSessionProvider, UserSessionProvider>();
@@ -57,10 +91,10 @@ namespace PrankChat.Mobile.iOS
 
         protected override void FillTargetFactories(IMvxTargetBindingFactoryRegistry registry)
         {
-            registry.RegisterPropertyInfoBindingFactory(typeof(UIButtonSelectedTargetBinding), typeof(UIButton), UIButtonSelectedTargetBinding.TargetBinding);
-            registry.RegisterCustomBindingFactory<UIImageView>(UIImageViewOrderTypeTargetBinding.TargetBinding, v => new UIImageViewOrderTypeTargetBinding(v));
-            registry.RegisterCustomBindingFactory<UIButton>(UIButtonOrderTypeTargetBinding.TargetBinding, v => new UIButtonOrderTypeTargetBinding(v));
-            registry.RegisterCustomBindingFactory<WKWebView>(WKWebViewHtmlStringTargetBinding.TargetBinding, v => new WKWebViewHtmlStringTargetBinding(v));
+            registry.RegisterCustomBindingFactory<UIButton>(nameof(UIButtonSelectedTargetBinding), v => new UIButtonSelectedTargetBinding(v));
+            registry.RegisterCustomBindingFactory<UIImageView>(nameof(UIImageViewOrderTypeTargetBinding), v => new UIImageViewOrderTypeTargetBinding(v));
+            registry.RegisterCustomBindingFactory<UIButton>(nameof(UIButtonOrderTypeTargetBinding), v => new UIButtonOrderTypeTargetBinding(v));
+            registry.RegisterCustomBindingFactory<WKWebView>(nameof(WKWebViewHtmlStringTargetBinding), v => new WKWebViewHtmlStringTargetBinding(v));
 
             registry.RegisterCustomBindingFactory<FloatPlaceholderTextField>(FloatPlaceholderTextFieldPaddingTargetBinding.StartPadding, view => new FloatPlaceholderTextFieldPaddingTargetBinding(view, FloatPlaceholderTextFieldPaddingTargetBinding.StartPadding));
             registry.RegisterCustomBindingFactory<FloatPlaceholderTextField>(FloatPlaceholderTextFieldPaddingTargetBinding.EndPadding, view => new FloatPlaceholderTextFieldPaddingTargetBinding(view, FloatPlaceholderTextFieldPaddingTargetBinding.EndPadding));

@@ -1,21 +1,6 @@
 ﻿using MvvmCross;
 using MvvmCross.IoC;
-using MvvmCross.Plugin.Messenger;
-using PrankChat.Mobile.Core.ApplicationServices.ErrorHandling;
-using PrankChat.Mobile.Core.ApplicationServices.Mediaes;
-using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Authorization;
-using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Common;
-using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Competitions;
-using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Notifications;
-using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Orders;
-using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Payment;
-using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Publications;
-using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Search;
-using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Users;
-using PrankChat.Mobile.Core.ApplicationServices.Network.Http.Video;
-using PrankChat.Mobile.Core.ApplicationServices.Notifications;
-using PrankChat.Mobile.Core.ApplicationServices.Permissions;
-using PrankChat.Mobile.Core.ApplicationServices.Timer;
+using PrankChat.Mobile.Core.Services.Network.Http.Payment;
 using PrankChat.Mobile.Core.Managers.Authorization;
 using PrankChat.Mobile.Core.Managers.Common;
 using PrankChat.Mobile.Core.Managers.Competitions;
@@ -27,11 +12,25 @@ using PrankChat.Mobile.Core.Managers.Publications;
 using PrankChat.Mobile.Core.Managers.Search;
 using PrankChat.Mobile.Core.Managers.Users;
 using PrankChat.Mobile.Core.Managers.Video;
-using PrankChat.Mobile.Core.Presentation.ViewModels.Abstract;
+using PrankChat.Mobile.Core.ViewModels.Abstract;
 using PrankChat.Mobile.Core.Providers;
 using PrankChat.Mobile.Core.Providers.Configuration;
 using PrankChat.Mobile.Core.Providers.UserSession;
+using PrankChat.Mobile.Core.Services.ErrorHandling;
+using PrankChat.Mobile.Core.Services.Network.Http.Authorization;
+using PrankChat.Mobile.Core.Services.Network.Http.Common;
+using PrankChat.Mobile.Core.Services.Network.Http.Competitions;
+using PrankChat.Mobile.Core.Services.Network.Http.Notifications;
+using PrankChat.Mobile.Core.Services.Network.Http.Publications;
+using PrankChat.Mobile.Core.Services.Network.Http.Search;
+using PrankChat.Mobile.Core.Services.Network.Http.Users;
+using PrankChat.Mobile.Core.Services.Network.Http.Video;
+using PrankChat.Mobile.Core.Services.Notifications;
 using PrankChat.Mobile.Managers.Common;
+using PrankChat.Mobile.Core.Plugins.Timer;
+using PrankChat.Mobile.Core.Providers.Permissions;
+using PrankChat.Mobile.Core.Managers.Media;
+using MvvmCross.Plugin.Messenger;
 
 namespace PrankChat.Mobile.Core.Ioc
 {
@@ -46,6 +45,9 @@ namespace PrankChat.Mobile.Core.Ioc
 
         public void Initialize()
         {
+            //NOTE: do not remove, need to avoid issues with resolve messenger
+            Container.RegisterSingleton<IMvxMessenger, MvxMessengerHub>();
+
             RegisterServices();
             RegisterManagers();
             RegisterProviders();
@@ -63,8 +65,6 @@ namespace PrankChat.Mobile.Core.Ioc
 
         private void RegisterServices()
         {
-            Container.RegisterSingleton<ITimerService>(new TimerService(Container.Resolve<IMvxMessenger>()));
-
             Container.RegisterSingleton<IAuthorizationService, AuthorizationService>();
             Container.RegisterSingleton<IVersionService, VersionService>();
             Container.RegisterSingleton<ICompetitionsService, CompetitionsService>();
@@ -75,10 +75,7 @@ namespace PrankChat.Mobile.Core.Ioc
             Container.RegisterSingleton<ISearchService, SearchService>();
             Container.RegisterSingleton<IUsersService, UsersService>();
             Container.RegisterSingleton<IVideoService, VideoService>();
-
             Container.RegisterSingleton<IErrorHandleService, ErrorHandleService>();
-            Container.RegisterSingleton<IPermissionService, PermissionService>();
-            Container.RegisterSingleton<IMediaService, MediaService>();
         }
 
         private void RegisterManagers()
@@ -94,10 +91,12 @@ namespace PrankChat.Mobile.Core.Ioc
             Container.RegisterSingleton<IPublicationsManager, PublicationsManager>();
             Container.RegisterSingleton<ISearchManager, SearchManager>();
             Container.RegisterSingleton<IVideoManager, VideoManager>();
+            Container.RegisterSingleton<IMediaManager, MediaManager>();
         }
 
         private void RegisterDependencies()
         {
+            Container.RegisterSingleton<ISystemTimer, SystemTimer>();
             Container.RegisterSingleton(Container.IocConstruct<NotificationBadgeViewModel>());
         }
 
@@ -108,6 +107,7 @@ namespace PrankChat.Mobile.Core.Ioc
             Container.RegisterSingleton<IUserSessionProvider, UserSessionProvider>();
             Container.RegisterSingleton<IPushNotificationProvider, PushNotificationProvider>();
             Container.RegisterSingleton<IWalkthroughsProvider, WalkthroughsProvider>();
+            Container.RegisterSingleton<IPermissionProvider, PermissionProvider>();
         }
     }
 }

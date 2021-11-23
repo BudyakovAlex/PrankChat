@@ -1,378 +1,757 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="Close">"Закрыть"</string>
-    <string name="app_name">"PrankChat"</string>
-    <string name="Home_Tab">"Главная"</string>
-    <string name="Rate_Tab">"Оценка"</string>
-    <string name="Orders_Tab">"Заказы"</string>
-    <string name="Profile_Tab">"Профиль"</string>
-    <string name="Popular_Publication_Tab">"Популярное"</string>
-    <string name="Actual_Publication_Tab">"Актуальное"</string>
-    <string name="MyFeed_Publication_Tab">"Моя лента"</string>
-    <string name="Publication_Tab_Filter_Day">"За день"</string>
-    <string name="Publication_Tab_Filter_Week">"За неделю"</string>
-    <string name="Publication_Tab_Filter_Month">"За месяц"</string>
-    <string name="Publication_Tab_Filter_Quarter">"За квартал"</string>
-    <string name="Publication_Tab_Filter_HalfYear">"За полгода"</string>
+
+    <!-- Fuzzy -->
+    <string name="Home">"Главная"</string>
+
+    <!-- Fuzzy -->
+    <string name="Orders">"Заказы"</string>
+
+    <!-- Fuzzy -->
+    <string name="Profile">"Профиль"</string>
+
+    <!-- Fuzzy -->
+    <string name="PerDay">"За день"</string>
+
+    <!-- Fuzzy -->
+    <string name="PerWeek">"За неделю"</string>
+
+    <!-- Fuzzy -->
+    <string name="PerMonth">"За месяц"</string>
+
+    <!-- Fuzzy -->
+    <string name="PerQuarter">"За квартал"</string>
+
+    <!-- Fuzzy -->
+    <string name="PerHalfYear">"За полгода"</string>
     <string name="Cancel">"Отмена"</string>
-    <string name="Search_View_Search_Placeholder">"Поиск"</string>
     <string name="Share">"Поделиться"</string>
-    <string name="Error_Unexpected_Server">"Непредвиденная ошибка на сервере."</string>
-    <string name="Error_Unexpected_Not_Found">"Не удалось получить запрошенные данные."</string>
-    <string name="Error_Unexpected_Network">"Неожиданная сетевая ошибка, попробуйте снова."</string>
-    <string name="LoginView_Email_Placeholder">"Введите email"</string>
-    <string name="LoginView_Password_Placeholder">"Введите пароль"</string>
-    <string name="LoginView_ForgotPassword_Title">"Востановление пароля"</string>
-    <string name="LoginView_ForgotPassword_Button">"Востановить"</string>
-    <string name="LoginView_Continue_Button">"Продолжить"</string>
-    <string name="LoginView_CreateAccount_Button">"Нет аккаунта? Создать новый"</string>
-    <string name="LoginView_Login_Title">"Войти"</string>
-    <string name="LoginView_AltLogin_Title">"Войти через:"</string>
-    <string name="RegistrationView_Title">"Регистрация"</string>
-    <string name="RegistrationView_Email_Placeholder">"Введите email"</string>
-    <string name="RegistrationView_RegisteredYet_Label">"Уже зарегистрированы?"</string>
-    <string name="RegistrationView_Login_Button">"Войти в аккаунт"</string>
-    <string name="RegistrationView_Login_Placeholder">"Введите логин"</string>
-    <string name="RegistrationView_Name_Placeholder">"Введите имя"</string>
-    <string name="RegistrationView_Birthday_Placeholder">"Дата рождения"</string>
-    <string name="RegistrationView_Password_Placeholder">"Введите пароль"</string>
-    <string name="RegistrationView_PasswordRepeat_Placeholder">"Повторите пароль"</string>
-    <string name="RegistrationView_GenderSelect_Title">"Выберите пол:"</string>
-    <string name="RegistrationView_Male_Button">"муж"</string>
-    <string name="RegistrationView_Female_Button">"жен"</string>
-    <string name="RegistrationView_Register_Button">"Зарегистрироваться"</string>
-    <string name="RegistrationView_StepTwo_Title">"Шаг 2"</string>
-    <string name="RegistrationView_StepThree_Title">"Шаг 3"</string>
-    <string name="RegistrationView_Congrats_Title">"Поздравляем!"</string>
-    <string name="RegistrationView_Confirmation_Label">"На почту отправлено письмо с верификацией email адреса. Для завершения регистрации, пожалуйста, подтвердите Ваш email"</string>
-    <string name="RegistrationView_GoToFeed_Button">"Перейти в ленту"</string>
-    <string name="Password_Recovery_View_Title">"Восстановление пароля"</string>
-    <string name="Password_Recovery_View_Email_Placeholder">"Введите email"</string>
-    <string name="Password_Recovery_View_Recovery_Button">"Восстановить"</string>
-    <string name="Password_Recovery_View_Attention">"Внимание!"</string>
-    <string name="Password_Recovery_View_Finish_Text">"Ссылка для восстановления пароля отправлена на почту."</string>
-    <string name="ProfileView_Menu_Favourites">"Избранные видео"</string>
-    <string name="ProfileView_Menu_TaskSubscriptions">"Подписки на заказ"</string>
-    <string name="ProfileView_Menu_Faq">"FAQ"</string>
-    <string name="ProfileView_Menu_Support">"Справки/отзывы"</string>
-    <string name="ProfileView_Menu_Settings">"Настройки"</string>
-    <string name="ProfileView_Menu_LogOut">"Выйти из аккаунта"</string>
-    <string name="ProfileView_Refill">"Пополнить"</string>
-    <string name="ProfileView_Withdrawal">"Вывести"</string>
-    <string name="ProfileView_Orders_Subtitle">"заказов"</string>
-    <string name="ProfileView_Completed_Subtitle">"выполнено"</string>
-    <string name="ProfileView_Subscribers_Subtitle">"подписчики"</string>
-    <string name="ProfileView_Subscriptions_Subtitle">"подписки"</string>
-    <string name="ProfileView_MyOrders_Tab">"Я заказал"</string>
-    <string name="ProfileView_CompletedOrders_Tab">"Я исполняю"</string>
-    <string name="Order_View_Time_Text">"Время заказа:"</string>
-    <string name="Order_View_Price_Text">"Сумма заказа:"</string>
-    <string name="Order_View_Day">"День"</string>
-    <string name="Order_View_Hour">"Часа"</string>
-    <string name="Order_View_Minute">"Минут"</string>
-    <string name="Order_View_Details">"Подробнее"</string>
-    <string name="Order_View_New_Task">"Новый заказ"</string>
-    <string name="Order_View_My_Task">"Мои заказы"</string>
-    <string name="OrdersView_Filter_AllTasks">"Все заказы"</string>
-    <string name="OrdersView_Filter_NewTasks">"Новые заказы"</string>
-    <string name="OrdersView_Filter_CurrentTasks">"Заказ в исполнении"</string>
-    <string name="OrdersView_Filter_MyTasks">"Мои заказы"</string>
-    <string name="RateView_Filter_AllTasks">"Все заказы в споре"</string>
-    <string name="RateView_Filter_MyTasks">"Мои заказы в споре"</string>
-    <string name="RateView_Filter_NewTasks">"Новые заказы в споре"</string>
-    <string name="RateView_Title_Label">"Оценка"</string>
-    <string name="OrdersView_Title_Label">"Заказы"</string>
-    <string name="RateView_Vote_Button">"Оценить"</string>
-    <string name="CreateOrderView_Title">"Создание заказа"</string>
-    <string name="CreateOrderView_Name_Placeholder">"Название заказа"</string>
-    <string name="CreateOrderView_Description_Placeholder">"Описание заказа"</string>
-    <string name="CreateOrderView_Price_Placeholder">"10 000 ₽"</string>
-    <string name="CreateOrderView_CompleteDate_Placeholder">"Дата исполнения"</string>
-    <string name="CreateOrderView_HideExecutor_Button">"Скрыть исполнителя"</string>
-    <string name="CreateOrderView_Create_Button">"Создать заказ"</string>
-    <string name="NotificationView_Title">"Уведомления"</string>
-    <string name="OrderDetailsView_Price_Text">"Сумма заказа:"</string>
-    <string name="OrderDetailsView_Time_Text">"Время заказа:"</string>
-    <string name="OrderDetailsView_Take_Order_Button">"Взять заказ"</string>
-    <string name="OrderDetailsView_Subscribe_Button">"Подписаться"</string>
-    <string name="OrderDetailsView_Unsubscribe_Button">"Отписаться"</string>
-    <string name="OrderDetailsView_Download_Text">"Загрузить видео:"</string>
-    <string name="OrderDetailsView_Execute_Button">"Выполнить"</string>
-    <string name="OrderDetailsView_Cancel_Button">"Отменить"</string>
-    <string name="OrderDetailsView_Took_The_Order_Text">"Исполнитель:"</string>
-    <string name="OrderDetailsView_Yes_Button">"Да"</string>
-    <string name="OrderDetailsView_No_Button">"Нет"</string>
-    <string name="OrderDetailsView_Accept_Button">"Принять"</string>
-    <string name="OrderDetailsView_Argue_Button">"В спор"</string>
-    <string name="OrderDetailsView_Corresponds_To_Video_Text">"Соответствует видео заказу?"</string>
-    <string name="CreateOrderView_PriceTitle_Placeholder">"Цена"</string>
-    <string name="OrderDetailsView_Title">"Заказ"</string>
-    <string name="CashboxView_Title">"Касса"</string>
-    <string name="CashboxView_Fillup_Tab">"Пополнение"</string>
-    <string name="CashboxView_Withdrawal_Tab">"Снятие"</string>
-    <string name="CashboxView_Fillup_Button">"Пополнить"</string>
-    <string name="CashboxView_FillupMethodSelect_Title">"Выберите метод для пополнения:"</string>
-    <string name="CashboxView_WithdrawalAvailable_Title">"Доступно для снятия с учётом комиссии платёжного шлюза (оператора):"</string>
-    <string name="CashboxView_Withdrawal_Button">"Снять"</string>
-    <string name="CashboxView_WithdrawalMethodSelect_Title">"Выберите метод для снятия:"</string>
-    <string name="CashboxView_Price_Placeholder">"1 000 000 ₽"</string>
-    <string name="CommentView_Title">"Комментарии"</string>
-    <string name="Publication_Item_Complain">"Пожаловаться..."</string>
-    <string name="Publication_Item_Copy_Link">"Копировать ссылку"</string>
-    <string name="Publication_Item_Subscribe_To_Author">"Подписаться на автора"</string>
-    <string name="ShareDialog_Title">"Поделиться"</string>
-    <string name="ShareDialog_CopyLink_Label">"Коп. ссылку"</string>
-    <string name="ShareDialog_ShareInstagram_Label">"В Instagram"</string>
-    <string name="ShareDialog_LinkShareTitle">"Поделиться ссылкой"</string>
-    <string name="OrderStatus_New">"На модерации"</string>
-    <string name="OrderStatus_Rejected">"Отменен модератором"</string>
-    <string name="OrderStatus_Cancelled">"Отменен"</string>
-    <string name="OrderStatus_Active">"Новый"</string>
-    <string name="OrderStatus_InWork">"В работе"</string>
-    <string name="OrderStatus_InArbitration">"В споре"</string>
-    <string name="OrderStatus_ProcessCloseArbitration">"Закрытие спора"</string>
-    <string name="OrderStatus_ClosedAfterArbitrationCustomerWin">"Спор выигран"</string>
-    <string name="OrderStatus_ClosedAfterArbitrationExecutorWin">"Спор проигран"</string>
-    <string name="OrderStatus_Finished">"Выполненный"</string>
+
+    <!-- Fuzzy -->
+    <string name="ErrorUnexpectedServer">"Непредвиденная ошибка на сервере."</string>
+
+    <!-- Fuzzy -->
+    <string name="ErrorUnexpectedNetwork">"Неожиданная сетевая ошибка, попробуйте снова."</string>
+
+    <!-- Fuzzy -->
+    <string name="Continue">"Продолжить"</string>
+
+    <!-- Fuzzy -->
+    <string name="StepTwo">"Шаг 2"</string>
+
+    <!-- Fuzzy -->
+    <string name="StepThree">"Шаг 3"</string>
+
+    <!-- Fuzzy -->
+    <string name="GoToFeed">"Перейти в ленту"</string>
+
+    <!-- Fuzzy -->
+    <string name="PasswordRecovery">"Восстановление пароля"</string>
+
+    <!-- Fuzzy -->
+    <string name="SignOut">"Выйти из аккаунта"</string>
+
+    <!-- Fuzzy -->
+    <string name="Replenish">"Пополнить"</string>
+
+    <!-- Fuzzy -->
+    <string name="OrderTime">"Время заказа:"</string>
+
+    <!-- Fuzzy -->
+    <string name="OrderPrice">"Сумма заказа:"</string>
+
+    <!-- Fuzzy -->
+    <string name="Day">"День"</string>
+
+    <!-- Fuzzy -->
+    <string name="Hour">"Часа"</string>
+
+    <!-- Fuzzy -->
+    <string name="Minute">"Минут"</string>
+
+    <!-- Fuzzy -->
+    <string name="MoreDetails">"Подробнее"</string>
+
+    <!-- Fuzzy -->
+    <string name="MyOrders">"Мои заказы"</string>
+
+    <!-- Fuzzy -->
+    <string name="AllOrders">"Все заказы"</string>
+
+    <!-- Fuzzy -->
+    <string name="NewOrders">"Новые заказы"</string>
+
+    <!-- Fuzzy -->
+    <string name="OrderExecuted">"Заказ в исполнении"</string>
+
+    <!-- Fuzzy -->
+    <string name="AllOrdersInDispute">"Все заказы в споре"</string>
+
+    <!-- Fuzzy -->
+    <string name="MyOrdersInDispute">"Мои заказы в споре"</string>
+
+    <!-- Fuzzy -->
+    <string name="NewDisputeOrders">"Новые заказы в споре"</string>
+
+    <!-- Fuzzy -->
+    <string name="CreateOrder">"Создание заказа"</string>
+
+    <!-- Fuzzy -->
+    <string name="Notifications">"Уведомления"</string>
+
+    <!-- Fuzzy -->
+    <string name="TakeAnOrder">"Взять заказ"</string>
+
+    <!-- Fuzzy -->
+    <string name="Subscribe">"Подписаться"</string>
+
+    <!-- Fuzzy -->
+    <string name="Unsubscribe">"Отписаться"</string>
+
+    <!-- Fuzzy -->
+    <string name="UploadVideo">"Загрузить видео:"</string>
+
+    <!-- Fuzzy -->
+    <string name="Run">"Выполнить"</string>
+
+    <!-- Fuzzy -->
+    <string name="Executor">"Исполнитель:"</string>
+
+    <!-- Fuzzy -->
+    <string name="Yes">"Да"</string>
+
+    <!-- Fuzzy -->
+    <string name="No">"Нет"</string>
+
+    <!-- Fuzzy -->
+    <string name="ToAccept">"Принять"</string>
+
+    <!-- Fuzzy -->
+    <string name="InDispute">"В спор"</string>
+
+    <!-- Fuzzy -->
+    <string name="Price">"Цена"</string>
+
+    <!-- Fuzzy -->
+    <string name="Order">"Заказ"</string>
+
+    <!-- Fuzzy -->
+    <string name="Cashbox">"Касса"</string>
+
+    <!-- Fuzzy -->
+    <string name="Replenishment">"Пополнение"</string>
+
+    <!-- Fuzzy -->
+    <string name="Withdrawal">"Снятие"</string>
+
+    <!-- Fuzzy -->
+    <string name="AvailableForRemoval">"Доступно для снятия с учётом комиссии платёжного шлюза (оператора):"</string>
+
+    <!-- Fuzzy -->
+    <string name="Comments">"Комментарии"</string>
+
+    <!-- Fuzzy -->
+    <string name="Complain">"Пожаловаться..."</string>
+
+    <!-- Fuzzy -->
+    <string name="CopyLink">"Копировать ссылку"</string>
+
+    <!-- Fuzzy -->
+    <string name="SubscribeToAuthor">"Подписаться на автора"</string>
+
+    <!-- Fuzzy -->
+    <string name="ShareLink">"Поделиться ссылкой"</string>
+
+    <!-- Fuzzy -->
+    <string name="Moderation">"На модерации"</string>
+
+    <!-- Fuzzy -->
+    <string name="CanceledByModerator">"Отменен модератором"</string>
+
+    <!-- Fuzzy -->
+    <string name="Canceled">"Отменен"</string>
+
+    <!-- Fuzzy -->
+    <string name="New">"Новый"</string>
+
+    <!-- Fuzzy -->
+    <string name="InWork">"В работе"</string>
+
+    <!-- Fuzzy -->
+    <string name="ClosingDispute">"Закрытие спора"</string>
+
+    <!-- Fuzzy -->
+    <string name="DisputeWon">"Спор выигран"</string>
+
+    <!-- Fuzzy -->
+    <string name="DisputeLost">"Спор проигран"</string>
+
+    <!-- Fuzzy -->
+    <string name="Accomplished">"Выполненный"</string>
     <string name="Ok">"Ок"</string>
     <string name="Attention">"Внимание!"</string>
-    <string name="OrderDetailsView_TakeOrderTitle">"Взять заказ"</string>
-    <string name="OrderDetailsView_TakeOrderQuestion">
-      "Для принятия заказа необходимо внести задаток, как гарантию его выполнения:
-      20\%% стоимости для обычных заказов
-      40\%% для секретных заказов "</string>
 
     <!-- Fuzzy -->
-    <string name="Seconds_Short">"сек."</string>
+    <string name="TakeOrderQuestion" formatted="false">"Для принятия заказа необходимо внести задаток, как гарантию его выполнения:
+20 % стоимости для обычных заказов
+40 % для секретных заказов "</string>
 
     <!-- Fuzzy -->
-    <string name="Minutes_Short">"мин."</string>
+    <string name="SecondsShort">"сек."</string>
 
     <!-- Fuzzy -->
-    <string name="Hours_Short">"ч."</string>
+    <string name="MinutesShort">"мин."</string>
 
     <!-- Fuzzy -->
-    <string name="Days_Short">"д."</string>
+    <string name="HoursShort">"ч."</string>
 
     <!-- Fuzzy -->
-    <string name="Weeks_Short">"нед."</string>
+    <string name="DaysShort">"д."</string>
 
     <!-- Fuzzy -->
-    <string name="Count_Thousand">"k"</string>
+    <string name="WeeksShort">"нед."</string>
 
     <!-- Fuzzy -->
-    <string name="Count_Millions">"m"</string>
+    <string name="CountThousand">"k"</string>
+
+    <!-- Fuzzy -->
+    <string name="CountMillions">"m"</string>
 
     <!-- Fuzzy -->
     <string name="Currency">"₽"</string>
 
     <!-- Fuzzy -->
-    <string name="Count_View">"просмотр"</string>
+    <string name="View">"просмотр"</string>
 
     <!-- Fuzzy -->
-    <string name="Count_Views">"просмотров"</string>
+    <string name="Views">"просмотров"</string>
 
     <!-- Fuzzy -->
-    <string name="Count_Of_Viewing">"просмотра"</string>
-    <string name="Year_Short">"г."</string>
-    <string name="OrderStatus_MyOrder">"Мое"</string>
-    <string name="OrderDetails_View_Cancel_Title">"Вы уверены, что хотите отменить заказ?"</string>
-    <string name="ProfileUpdateView_Email_Placeholder">"Email"</string>
-    <string name="ProfileUpdateView_Login_Placeholder">"Логин"</string>
+    <string name="OfViewing">"просмотра"</string>
 
     <!-- Fuzzy -->
-    <string name="ProfileUpdateView_Name_Placeholder">"Имя"</string>
-    <string name="ProfileUpdateView_Birthday_Placeholder">"Дата рождения"</string>
-    <string name="ProfileUpdateView_Button_Save">"Сохранить"</string>
-    <string name="ProfileUpdateView_GenderSelect_Title">"Ваш пол"</string>
+    <string name="YearShort">"г."</string>
 
     <!-- Fuzzy -->
-    <string name="ProfileUpdateView_Title">"ПРОФИЛЬ"</string>
-    <string name="ProfileUpdateView_ChangePassword">"Сменить пароль"</string>
-    <string name="TakePhoto">"Cфотографировать"</string>
-    <string name="PickPhoto">"Выбрать из галереи"</string>
-    <string name="ProfileUpdateView_Description_Placeholder">"О себе"</string>
-    <string name="ProfileUpdateView_PhotoChange_Title">"Сменить фото профиля"</string>
+    <string name="WantToCancelOrder">"Вы уверены, что хотите отменить заказ?"</string>
+
+    <!-- Fuzzy -->
+    <string name="Email">"Email"</string>
+
+    <!-- Fuzzy -->
+    <string name="Login">"Логин"</string>
+
+    <!-- Fuzzy -->
+    <string name="Name">"Имя"</string>
+
+    <!-- Fuzzy -->
+    <string name="Birthday">"Дата рождения"</string>
+
+    <!-- Fuzzy -->
+    <string name="ProfileEditing">"ПРОФИЛЬ"</string>
+
+    <!-- Fuzzy -->
+    <string name="TakePicture">"Cфотографировать"</string>
+
+    <!-- Fuzzy -->
+    <string name="ChooseFromGallery">"Выбрать из галереи"</string>
     <string name="Select">"Выбрать"</string>
-    <string name="CreateOrderView_Choose_Time_Period">"Выберите период действия заказа."</string>
-    <string name="OrderStatus_WaitFinish">"В ожидании"</string>
-    <string name="OrderDetailsView_LoadVideo">"Загрузить видео"</string>
-    <string name="NotificationStatus_Viewed">"Просмотрено"</string>
-    <string name="NotificationStatus_NotViewed">"Непросмотрено"</string>
-    <string name="Validation_Field_Title">"Заголовок"</string>
-    <string name="Validation_Field_Description">"Описание"</string>
-    <string name="Validation_Field_Price">"Цена"</string>
-    <string name="Validation_Field_OrderPeriod">"Период"</string>
-    <string name="Validation_Field_Cost">"Стоимость"</string>
-    <string name="Validation_Field_Login">"Логин"</string>
-    <string name="Validation_Field_Name">"Имя"</string>
-    <string name="Validation_Field_Birthday">"День рождения"</string>
-    <string name="Validation_Field_Gender">"Пол"</string>
-    <string name="Validation_Field_Email">"E-mail"</string>
-    <string name="Validation_Field_Password">"Пароль"</string>
-    <string name="Validation_Field_PasswordRepeat">"Повтор пароля"</string>
-    <string name="Validation_Error_Empty">"{0} не может быть пустым."</string>
-    <string name="Validation_Error_GreaterThanRequired">"{0} не может быть больше чем {1}."</string>
-    <string name="Validation_Error_LowerThanRequired">"{0} не может быть меньше чем {1}."</string>
-    <string name="Validation_Error_NotMatch">"{0} не совпадает с {1}."</string>
-    <string name="Validation_Error_CanNotMatch">"{0} не может быть равно {1}."</string>
-    <string name="Validation_Error_Invalid">"{0} имеет неверный формат."</string>
-    <string name="Demo">"Демо"</string>
-    <string name="com.crashlytics.android.build_id">"e9e6beb9c4284289ac68b9ab76a9ee56"</string>
-    <string name="FinishPasswordRecoveryView_GoToFeed_Button">"Перейти в ленту"</string>
-    <string name="FinishPasswordRecoveryView_GoToLogin_Button">"Войти в аккаунт"</string>
-    <integer name="com_vk_sdk_AppId">7343996</integer>
-    <string name="Count_Days">"Дней"</string>
-    <string name="Count_Hours">"Часов"</string>
-    <string name="Count_Minutes">"Минут"</string>
+
+    <!-- Fuzzy -->
+    <string name="SelectValidityPeriod">"Выберите период действия заказа."</string>
+
+    <!-- Fuzzy -->
+    <string name="Pending">"В ожидании"</string>
+
+    <!-- Fuzzy -->
+    <string name="Headline">"Заголовок"</string>
+
+    <!-- Fuzzy -->
+    <string name="Description">"Описание"</string>
+
+    <!-- Fuzzy -->
+    <string name="Period">"Период"</string>
+
+    <!-- Fuzzy -->
+    <string name="Cost">"Стоимость"</string>
+
+    <!-- Fuzzy -->
+    <string name="Floor">"Пол"</string>
+
+    <!-- Fuzzy -->
+    <string name="Password">"Пароль"</string>
+
+    <!-- Fuzzy -->
+    <string name="PasswordRepeat">"Повтор пароля"</string>
+
+    <!-- Fuzzy -->
+    <string name="CannotBeEmpty">"{0} не может быть пустым."</string>
+
+    <!-- Fuzzy -->
+    <string name="ValidationErrorGreaterThanRequired">"{0} не может быть больше чем {1}."</string>
+
+    <!-- Fuzzy -->
+    <string name="ValidationErrorLowerThanRequired">"{0} не может быть меньше чем {1}."</string>
+
+    <!-- Fuzzy -->
+    <string name="ValidationErrorNotMatch">"{0} не совпадает с {1}."</string>
+
+    <!-- Fuzzy -->
+    <string name="ValidationErrorCanNotMatch">"{0} не может быть равно {1}."</string>
+
+    <!-- Fuzzy -->
+    <string name="ValidationErrorInvalid">"{0} имеет неверный формат."</string>
+
+    <!-- Fuzzy -->
+    <string name="Days">"Дней"</string>
+
+    <!-- Fuzzy -->
+    <string name="Hours">"Часов"</string>
+
+    <!-- Fuzzy -->
+    <string name="Minutes">"Минут"</string>
     <string name="LinkCopied">"Ссылка скопирована"</string>
-    <string name="ComplainSuccessful">"Отправлено модератору"</string>
-    <string name="Competitions_Voting">"Голосование"</string>
-    <string name="Competitions_New">"Новые"</string>
-    <string name="Competitions_Finished">"Итоги"</string>
-    <string name="Competitions_Voting_Term">"До конца голосования:"</string>
-    <string name="Competitions_Finished_Term">"Период проведения конкурса:"</string>
-    <string name="Competitions_See">"Смотреть"</string>
-    <string name="Competitions_More">"Подробнее"</string>
-    <string name="Competitions_Participate">"Принять участие"</string>
-    <string name="Competitions_Prize_Pool">"Призовой фонд турнира:"</string>
-    <string name="Competitions_New_Term">"До начала голосования:"</string>
-    <string name="Competition_Load_Video">"Загрузить видео"</string>
-    <string name="Competition_Rules">"Правила конкурса"</string>
-    <string name="Competition_Results">"Результаты"</string>
-    <string name="WithdrawalView_FirstName_Placeholder">"Имя"</string>
-    <string name="WithdrawalView_LastName_Placeholder">"Фамилия"</string>
-    <string name="WithdrawalView_CardNumber_Placeholder">"Номер карты"</string>
-    <string name="WithdrawalView_AttachFile_Button">"Прикрепить файл"</string>
-    <string name="WithdrawalView_Revoke_Button">"Отозвать"</string>
 
     <!-- Fuzzy -->
-    <string name="Login_Without_Registration">"Войти без регистрации"</string>
+    <string name="Voting">"Голосование"</string>
 
     <!-- Fuzzy -->
-    <string name="Competition_Prize_Pool_Rating">"Рейтинг"</string>
-    <string name="Competition_Prize_Pool_Participant">"Учасник"</string>
-    <string name="Competition_Prize_Pool">"Призовой фонд"</string>
-    <string name="Competitions_Tab">"Конкурсы"</string>
-    <string name="WithdrawalView_Empty_Card_Error">"Карта не может быть пустой."</string>
-    <string name="WithdrawalView_Cancel_Withdrawal_Error">"Не удается отменить транзакцию для вывода средств"</string>
-    <string name="WithdrawalView_Delete_Card_Text">"Удалить карту"</string>
+    <string name="Summary">"Итоги"</string>
+
+    <!-- Fuzzy -->
+    <string name="UntilEndVoting">"До конца голосования:"</string>
+
+    <!-- Fuzzy -->
+    <string name="CompetitionPeriod">"Период проведения конкурса:"</string>
+
+    <!-- Fuzzy -->
+    <string name="Watch">"Смотреть"</string>
+
+    <!-- Fuzzy -->
+    <string name="Participate">"Принять участие"</string>
+
+    <!-- Fuzzy -->
+    <string name="TournamentPrizePool">"Призовой фонд турнира:"</string>
+
+    <!-- Fuzzy -->
+    <string name="BeforeStartVoting">"До начала голосования:"</string>
+
+    <!-- Fuzzy -->
+    <string name="CompetitionRules">"Правила конкурса"</string>
+
+    <!-- Fuzzy -->
+    <string name="Results">"Результаты"</string>
+
+    <!-- Fuzzy -->
+    <string name="Contests">"Конкурсы"</string>
+
+    <!-- Fuzzy -->
+    <string name="EmptyCardError">"Карта не может быть пустой."</string>
+
+    <!-- Fuzzy -->
+    <string name="CancelWithdrawalError">"Не удается отменить транзакцию для вывода средств"</string>
+
+    <!-- Fuzzy -->
+    <string name="DeleteCard">"Удалить карту"</string>
     <string name="Delete">"Удалить"</string>
-    <string name="WithdrawalView_Delete_Card_Question">"Вы уверены что хотите удалить данную карту?"</string>
-    <string name="WithdrawalView_Verify_User_Text">"Для того чтобы вывести средства со своего счета, Вам необходимо подтвердить свою личность прикрепив селфи с паспортом в развернутом виде."</string>
-    <string name="WithdrawalView_Attach_File">"Прикрепить файл"</string>
-    <string name="WithdrawalView_Pendng_Verify_User_Text">"Ваш запрос обрабатывается, время ожидания может составить до 24 часов"</string>
-    <string name="WithdrawalView_Card_Number">"Номер карты"</string>
-    <string name="WithdrawalView_Surname">"Фамилия"</string>
-    <string name="WithdrawalView_Name">"Имя"</string>
-    <string name="WithdrawalView_Cost">"Сумма"</string>
-    <string name="WithdrawalView_Pending_Withdrawal_Text">"В данный момент идет обработка Вашего запроса на вывод средств."</string>
-    <string name="WithdrawalView_Create_Date">"Дата создания"</string>
-    <string name="WithdrawalView_Status_Text">"Статус"</string>
-    <string name="WithdrawalView_Pending">"В ожидании"</string>
-    <string name="WithdrawalView_Withdraw_Text">"Отозвать"</string>
-    <string name="Competiton_Prize_Pool_Place">"Место"</string>
-    <string name="Orders_In_Dispute">"В споре"</string>
-    <string name="OnBoarding_Go_To_Main">"Перейти в ленту"</string>
 
     <!-- Fuzzy -->
-    <string name="OnBoarding_First_Title">"Смотри и наслаждайся"</string>
-    <string name="OnBoarding_Second_Title">"Создай свой первый заказ"</string>
-    <string name="OnBoarding_Third_Title">"Зарабатывай, выполняя заказы"</string>
-    <string name="OnBoarding_Fourth_Title">"Участвуй в бесплатных конкурсах"</string>
-    <string name="OnBoarding_Fifth_Title">"Делай это смешно и под музыку!"</string>
-    <string name="OnBoarding_First_Description">"Авторы PrankChat публикуют только эксклюзивные, самые смешные и безумные видео! Смотри и наслаждайся"</string>
-    <string name="OnBoarding_Second_Description">"Размещай задание, стоимость и срок исполнения, по которому другие пользователи снимут для тебя видео. Получи ролик своей мечты!"</string>
+    <string name="DeleteCardQuestion">"Вы уверены что хотите удалить данную карту?"</string>
 
     <!-- Fuzzy -->
-    <string name="OnBoarding_Third_Description">"Монетизируй свою любовь к творчеству! Снимай ролики для других пользователей и зарабатывай на этом реальные деньги"</string>
-    <string name="OnBoarding_Fourth_Description">"Принимай участие в креативных конкурсах! Сними лучшее видео и выиграй достойный денежный приз! А мы не возьмём с тебя ни копейки"</string>
-    <string name="OnBoarding_Fifth_Description">"Публикуй свое видео и стань известным"</string>
-    <string name="Complaint_Spam">"Это спам"</string>
-    <string name="Complaint_Naked_Content">"Порнография и нагота"</string>
-    <string name="Complaint_Hostile_Utterances">"Оскорбления или травля"</string>
-    <string name="Complaint_Dangerous_Organizations">"Насилие или опасные организации"</string>
-    <string name="Complaint_Rights_Violation">"Нарушение авторских прав"</string>
-    <string name="Complaint_Cheating">"Мошенничество или обман"</string>
-    <string name="Complaint_Complete_Message">"Спасибо, что сообщили нам об этом"</string>
-    <string name="Complaint_Other">"Прочее"</string>
-    <string name="Complaint_Wrong_Name">"Использует чужое имя"</string>
+    <string name="OnBoardingFirstTitle">"Смотри и наслаждайся"</string>
 
     <!-- Fuzzy -->
-    <string name="Complaint_Unacceptable_Content">"Неприемлемый контент"</string>
-    <string name="Complaint_Unacceptable_Information_In_Profile">"Неприемлемая информация в профиле"</string>
-    <string name="Order_Add">"Создать"</string>
-    <string name="Order_Create_Message">"Вы уверены что хотите создать заказ?"</string>
-    <string name="Processing_Video">"Обработка займёт несколько минут"</string>
-    <string name="Profile_Your_Email_Not_Actual">"Ваша почта не подтверждена"</string>
-    <string name="Profile_Email_Confirmation_Sent">"На Вашу почту отправлено письмо с подтверждением"</string>
-    <string name="Profile_Resend_Confirmation">"Отправить повторно"</string>
-    <string name="OrderDetailsView_Video_Uploaded">"У заказчика есть 24 часа на оплату"</string>
-    <string name="Cashbox_Commision_Warning">"Обратите внимание что к сумме пополнения будет добавлена комисия оператора"</string>
-    <string name="Registration_Confirm_Adult">"Подтверждаю, что мне есть 18 лет"</string>
-    <string name="Registration_Agree_With">"Я согласен с"</string>
-    <string name="Registration_Terms_And_Rules">"правилами и условиями"</string>
-    <string name="Validation_Field_Adult_Check">"Возраст"</string>
-    <string name="Validation_Field_Privacy_Check">"Правила и условия"</string>
+    <string name="OnBoardingSecondTitle">"Создай свой первый заказ"</string>
 
     <!-- Fuzzy -->
-    <string name="Registration_Checkmark_Not_Confirmed">"Подтвердите возраст и согласие с правилами"</string>
-    <string name="Not_Confirmed">"{0} не подтверждено"</string>
-    <string name="Competition_Prize">"Приз"</string>
-    <string name="Competition_Votes">"Голоса"</string>
-    <string name="Create_Order_Hour">"час"</string>
-    <string name="Create_Orders_Hours_Plural">"часов"</string>
-    <string name="Create_Orders_Hours_Singular">"часа"</string>
-    <string name="Walkthrouth_Competitions_Description">"Участвуй в конкурсах с денежными призами! Читай условия и скорее размещай своё видео. Победители будут выбраны путём общего голосования и моментально получат на свой счёт призовые деньги. Не забудь позвать своих друзей на голосование, они увеличат твои шансы на победу!
+    <string name="OnBoardingThirdTitle">"Зарабатывай, выполняя заказы"</string>
+
+    <!-- Fuzzy -->
+    <string name="OnBoardingFourthTitle">"Участвуй в бесплатных конкурсах"</string>
+
+    <!-- Fuzzy -->
+    <string name="OnBoardingFifthTitle">"Делай это смешно и под музыку!"</string>
+
+    <!-- Fuzzy -->
+    <string name="OnBoardingFirstDescription">"Авторы OnPlay публикуют только эксклюзивные, самые смешные и безумные видео! Смотри и наслаждайся"</string>
+
+    <!-- Fuzzy -->
+    <string name="OnBoardingSecondDescription">"Размещай задание, стоимость и срок исполнения, по которому другие пользователи снимут для тебя видео. Получи ролик своей мечты!"</string>
+
+    <!-- Fuzzy -->
+    <string name="OnBoardingThirdDescription">"Монетизируй свою любовь к творчеству! Снимай ролики для других пользователей и зарабатывай на этом реальные деньги"</string>
+
+    <!-- Fuzzy -->
+    <string name="OnBoardingFourthDescription">"Принимай участие в креативных конкурсах! Сними лучшее видео и выиграй достойный денежный приз! А мы не возьмём с тебя ни копейки"</string>
+
+    <!-- Fuzzy -->
+    <string name="OnBoardingFifthDescription">"Публикуй свое видео и стань известным"</string>
+
+    <!-- Fuzzy -->
+    <string name="ThisIsSpam">"Это спам"</string>
+
+    <!-- Fuzzy -->
+    <string name="PornographyAndNudity">"Порнография и нагота"</string>
+
+    <!-- Fuzzy -->
+    <string name="InsultingOrBullying">"Оскорбления или травля"</string>
+
+    <!-- Fuzzy -->
+    <string name="ViolenceOrDangerousOrganizations">"Насилие или опасные организации"</string>
+
+    <!-- Fuzzy -->
+    <string name="CopyrighInfringement">"Нарушение авторских прав"</string>
+
+    <!-- Fuzzy -->
+    <string name="FraudOrDeception">"Мошенничество или обман"</string>
+
+    <!-- Fuzzy -->
+    <string name="ThankYouForLettingUsKnow">"Спасибо, что сообщили нам об этом"</string>
+
+    <!-- Fuzzy -->
+    <string name="Other">"Прочее"</string>
+
+    <!-- Fuzzy -->
+    <string name="UsesSomeoneElseName">"Использует чужое имя"</string>
+
+    <!-- Fuzzy -->
+    <string name="InappropriateContent">"Неприемлемый контент"</string>
+
+    <!-- Fuzzy -->
+    <string name="InappropriateProfileInformation">"Неприемлемая информация в профиле"</string>
+
+    <!-- Fuzzy -->
+    <string name="Create">"Создать"</string>
+
+    <!-- Fuzzy -->
+    <string name="OrderCreateMessage">"Вы уверены что хотите создать заказ?"</string>
+
+    <!-- Fuzzy -->
+    <string name="ProcessingVideo">"Обработка займёт несколько минут"</string>
+
+    <!-- Fuzzy -->
+    <string name="ProfileYourEmailNotActual">"Ваша почта не подтверждена"</string>
+
+    <!-- Fuzzy -->
+    <string name="ProfileEmailConfirmationSent">"На Вашу почту отправлено письмо с подтверждением"</string>
+
+    <!-- Fuzzy -->
+    <string name="TwentyFourHoursToPay">"У заказчика есть 24 часа на оплату"</string>
+
+    <!-- Fuzzy -->
+    <string name="NotVerified">"{0} не подтверждено"</string>
+
+    <!-- Fuzzy -->
+    <string name="WalkthrouthCompetitionsDescription">"Участвуй в конкурсах с денежными призами! Читай условия и скорее размещай своё видео. Победители будут выбраны путём общего голосования и моментально получат на свой счёт призовые деньги. Не забудь позвать своих друзей на голосование, они увеличат твои шансы на победу!
 
 Конкурс состоит из трех этапов:
 1) На начальном этапе участники отправляют на конкурс свои видеоролики;
-2) Голосование. Пользователи PrankChat отдают голоса за понравившееся видео;
-3) Итоги. После подведения итогов на счета участников, чьи видео заняли призовые места, перечисляются выигранные деньги."</string>
-    <string name="Walkthrouth_CreateOrder_Description">"Размещай своё задание, по которому другие пользователи снимут для тебя видео. Описывай задачу как можно подробнее, устанавливай срок исполнения и сумму вознаграждения, чтобы получить идеальный ролик."</string>
-    <string name="Walkthrouth_Orders_Description">"Ты можешь взять любой заказ из категории «Новый» и загрузить готовое видео согласно заданию. Чтобы принять заказ, внеси 20\%% от его стоимости в качестве гарантии, что не забросишь его исполнение. Когда заказчик проверит твоё видео и одобрит его, жди оплату на свой счёт. Если же заказчик забыл одобрить заказ, деньги тебе поступят автоматически через 24 часа. 20 \%% от стоимости заказа составляет комиссия PrankChat.
+2) Голосование. Пользователи OnPlay отдают голоса за понравившееся видео;
+3) Итоги. После подведения итогов на счета участников, чьи видео заняли призовые места, перечисляются выигранные деньги.
+
+Apple Inc. не является спонсором проведения конкурсов."</string>
+
+    <!-- Fuzzy -->
+    <string name="WalkthrouthCreateOrderDescription">"Размещай своё задание, по которому другие пользователи снимут для тебя видео. Описывай задачу как можно подробнее, устанавливай срок исполнения и сумму вознаграждения, чтобы получить идеальный ролик."</string>
+
+    <!-- Fuzzy -->
+    <string name="WalkthrouthOrdersDescription" formatted="false">"Ты можешь взять любой заказ из категории «Новый» и загрузить готовое видео согласно заданию. Чтобы принять заказ, внеси 20 % от его стоимости в качестве гарантии, что не забросишь его исполнение. Когда заказчик проверит твоё видео и одобрит его, жди оплату на свой счёт. Если же заказчик забыл одобрить заказ, деньги тебе поступят автоматически через 24 часа. 20 % от стоимости заказа составляет комиссия OnPlay.
 
 В случае, если заказчику не понравилось твоё видео, он может отправить задание в «спор». Там в течение суток независимые пользователи решат, соответствует ли выполненное видео заказу. Если количество положительных голосов превысит количество отрицательных, то жди свои заслуженные премиальные. В обратной ситуации вознаграждение вернётся заказчику."</string>
-    <string name="Walkthrouth_Profile_Description">"В профиле пользователь может отслеживать сумму денежных средств на расчетном счете, а также все свои задания: опубликованные, исполняемые и исполненные."</string>
-    <string name="Walkthrouth_Competitions_Title">"Конкурсы"</string>
-    <string name="Walkthrouth_CreateOrder_Title">"Создание заказов"</string>
-    <string name="Walkthrouth_Orders_Title">"Лента заказов"</string>
-    <string name="Walkthrouth_Profile_Title">"Профиль"</string>
-    <string name="No_Intentet_Connection">"Интернет соединение отсувствует"</string>
-    <string name="Video_Failed_To_Upload">"Ошибка загрузки видео"</string>
-    <string name="Bytes_Presentation">"байт"</string>
-    <string name="Kilobytes_Presentation">"КБ"</string>
-    <string name="Megabytes_Presentation">"МБ"</string>
-    <string name="Gigabytes_Presentation">"ГБ"</string>
-    <string name="Terabytes_Presentation">"ТБ"</string>
-    <string name="Subscription_Title_Template">"Подписки {0}"</string>
-    <string name="Subscribers_Title_Template">"Подписчики {0}"</string>
-    <string name="Search_Videos">"Видео"</string>
-    <string name="Search_Peoples">"Люди"</string>
-    <string name="Application_New_Version_Ready">"Вышло важное обновление, похоже пора его установить."</string>
 
     <!-- Fuzzy -->
-    <string name="Download_Update">"Скачать обновление"</string>
-    <string name="Email_Already_Exists">"Данный эмейл уже зарегистрирован"</string>
+    <string name="WalkthrouthProfileDescription">"В профиле пользователь может отслеживать сумму денежных средств на расчетном счете, а также все свои задания: опубликованные, исполняемые и исполненные."</string>
+
+    <!-- Fuzzy -->
+    <string name="CreateOrders">"Создание заказов"</string>
+
+    <!-- Fuzzy -->
+    <string name="OrderFeed">"Лента заказов"</string>
+
+    <!-- Fuzzy -->
+    <string name="NoIntentetConnection">"Интернет соединение отсутствует"</string>
+
+    <!-- Fuzzy -->
+    <string name="VideoFailedToUpload">"Ошибка загрузки видео"</string>
+
+    <!-- Fuzzy -->
+    <string name="Bytes">"байт"</string>
+
+    <!-- Fuzzy -->
+    <string name="Kb">"КБ"</string>
+
+    <!-- Fuzzy -->
+    <string name="Mb">"МБ"</string>
+
+    <!-- Fuzzy -->
+    <string name="Gb">"ГБ"</string>
+
+    <!-- Fuzzy -->
+    <string name="Tb">"ТБ"</string>
+
+    <!-- Fuzzy -->
+    <string name="SubscriptionTemplate">"Подписки {0}"</string>
+
+    <!-- Fuzzy -->
+    <string name="SubscribersTemplate">"Подписчики {0}"</string>
+
+    <!-- Fuzzy -->
+    <string name="EmailAlreadyExists">"Данный эмейл уже зарегистрирован"</string>
+
+    <!-- Fuzzy -->
+    <string name="SecretOrder">"Секретный заказ"</string>
+
+    <!-- Fuzzy -->
+    <string name="WalkthrouthCreateOrderSecretDescription" formatted="false">"Текст «Секретного заказа» не виден и появляется только при принятии заказа исполнителем. 
+Для принятия заказа необходимо внести 40 % от его общей стоимости как гарантию выполнения заказа. 
+В случае невыполнения в отведенное время заказчик зарабатывает 20 %, поэтому выгодно создавать труднорешаемые и интересные задачи. Задание может быть сложным, но обязательно выполнимым. 
+Если задание невыполнимо, исполнитель может загрузить видео, в котором укажет причину, по которой невозможно снять видео, а заказчик при несогласии отправит задание в спор, где пользователи решат голосованием, кто прав."</string>
+
+    <!-- Fuzzy -->
+    <string name="Download">"Скачать"</string>
+
+    <!-- Fuzzy -->
+    <string name="PayForParticipation">"Оплатить участие"</string>
+
+    <!-- Fuzzy -->
+    <string name="CompetionRulesTemplate">"Чтобы принять участие в конкурсе, Вам необходимо заплатить {0} ₽"</string>
+    <string name="Pay">"Оплатить"</string>
+
+    <!-- Fuzzy -->
+    <string name="ErrorSomethingWentWrongMessage">"Упс, что то пошло не так :("</string>
+
+    <!-- Fuzzy -->
+    <string name="WithdrawalYoomoneyDescription">"Вывод средств осуществляется через кошелек ЮMoney (Яндекс кошелёк)."</string>
+
+    <!-- Fuzzy -->
+    <string name="Yoomoney">"ЮMoney"</string>
+
+    <!-- Fuzzy -->
+    <string name="BlockUser">"Заблокировать пользователя"</string>
+
+    <!-- Fuzzy -->
+    <string name="BlockedUser">"Пользователь {0} заблокирован"</string>
+
+    <!-- Fuzzy -->
+    <string name="appName">"OnPlay"</string>
+    <string name="Rate">"Оценка"</string>
+    <string name="Popular">"Популярное"</string>
+    <string name="Actual">"Актуальное"</string>
+    <string name="MyFeed">"Моя лента"</string>
+
+    <!-- Fuzzy -->
+    <string name="Search">"Поиск"</string>
+    <string name="EnterEmail">"Введите email"</string>
+
+    <!-- Fuzzy -->
+    <string name="EnterPassword">"Введите пароль"</string>
+
+    <!-- Fuzzy -->
+    <string name="ForgotPassword">"Восcтановление пароля"</string>
+
+    <!-- Fuzzy -->
+    <string name="Restore">"Воcстановить"</string>
+    <string name="CreateNewOneAccount">"Нет аккаунта? Создать новый"</string>
+
+    <!-- Fuzzy -->
+    <string name="EnterSocialNetworks">"Войти через:"</string>
+    <string name="Registration">"Регистрация"</string>
+    <string name="AlreadyRegistered">"Уже зарегистрированы?"</string>
+
+    <!-- Fuzzy -->
+    <string name="LoginIn">"Войти"</string>
+
+    <!-- Fuzzy -->
+    <string name="EnterNickname">"Введите логин"</string>
+
+    <!-- Fuzzy -->
+    <string name="EnterYourName">"Введите имя"</string>
+
+    <!-- Fuzzy -->
+    <string name="EnterBirthday">"Дата рождения"</string>
+    <string name="EnterPasswordAgain">"Повторите пароль"</string>
+
+    <!-- Fuzzy -->
+    <string name="SelectSex">"Выберите пол:"</string>
+
+    <!-- Fuzzy -->
+    <string name="Male">"муж"</string>
+
+    <!-- Fuzzy -->
+    <string name="Female">"жен"</string>
+    <string name="Register">"Зарегистрироваться"</string>
+
+    <!-- Fuzzy -->
+    <string name="Congratulations">"Поздравляем!"</string>
+
+    <!-- Fuzzy -->
+    <string name="PasswordRecoveryOnMail">"Ссылка для восстановления пароля отправлена на почту."</string>
+    <string name="FeaturedVideos">"Избранные видео"</string>
+    <string name="CustomSubscriptions">"Подписки на заказ"</string>
+
+    <!-- Fuzzy -->
+    <string name="Faq">"FAQ"</string>
+    <string name="ReferencesOrReviews">"Справки/отзывы"</string>
+    <string name="Settings">"Настройки"</string>
+
+    <!-- Fuzzy -->
+    <string name="Withdraw">"Вывести"</string>
+    <string name="Performed">"выполнено"</string>
+
+    <!-- Fuzzy -->
+    <string name="Subscribers">"подписчики"</string>
+    <string name="Subscriptions">"подписки"</string>
+    <string name="Ordered">"Я заказал"</string>
+
+    <!-- Fuzzy -->
+    <string name="Execute">"Я исполняю"</string>
+    <string name="NewOrder">"Новый заказ"</string>
+
+    <!-- Fuzzy -->
+    <string name="Rating">"Оценка"</string>
+    <string name="Estimate">"Оценить"</string>
+    <string name="OrderName">"Название заказа"</string>
+    <string name="OrderDescription">"Описание заказа"</string>
+    <string name="TenThousand">"10 000 ₽"</string>
+    <string name="DateOfExecution">"Дата исполнения"</string>
+    <string name="HideArtist">"Скрыть исполнителя"</string>
+
+    <!-- Fuzzy -->
+    <string name="OrderMatch">"Соответствует видео заказу?"</string>
+
+    <!-- Fuzzy -->
+    <string name="MethodToReplenish">"Выберите метод для пополнения:"</string>
+
+    <!-- Fuzzy -->
+    <string name="TakeOff">"Снять"</string>
+
+    <!-- Fuzzy -->
+    <string name="SelectMethodToWithdrawal">"Выберите метод для снятия:"</string>
+
+    <!-- Fuzzy -->
+    <string name="Million">"1 000 000 ₽"</string>
+    <string name="ShareThis">"Поделиться"</string>
+    <string name="OnInstagram">"В Instagram"</string>
+    <string name="Save">"Сохранить"</string>
+
+    <!-- Fuzzy -->
+    <string name="YourGender">"Ваш пол"</string>
+
+    <!-- Fuzzy -->
+    <string name="ChangePassword">"Сменить пароль"</string>
+    <string name="AboutMe">"О себе"</string>
+
+    <!-- Fuzzy -->
+    <string name="ChangeProfilePhoto">"Сменить фото профиля"</string>
+
+    <!-- Fuzzy -->
+    <string name="Viewed">"Просмотрено"</string>
+
+    <!-- Fuzzy -->
+    <string name="NotViewed">"Не просмотрено"</string>
+    <string name="LoginToAccount">"Войти в аккаунт"</string>
+    <integer name="com_vk_sdk_AppId">7343996</integer>
+
+    <!-- Fuzzy -->
+    <string name="SentToModerator">"Отправлено модератору"</string>
+    <string name="Surname">"Фамилия"</string>
+    <string name="CardNumber">"Номер карты"</string>
+    <string name="AttachFile">"Прикрепить файл"</string>
+
+    <!-- Fuzzy -->
+    <string name="Participant">"Участник"</string>
+    <string name="PrizePool">"Призовой фонд"</string>
+
+    <!-- Fuzzy -->
+    <string name="PendingVerifyUser">"Ваш запрос обрабатывается, время ожидания может составить до 24 часов"</string>
+    <string name="Amount">"Сумма"</string>
+    <string name="PendingWithdrawal">"В данный момент идет обработка Вашего запроса на вывод средств.\""</string>
+
+    <!-- Fuzzy -->
+    <string name="DateOfCreation">"Дата создания"</string>
+    <string name="Status">"Дата создания"</string>
+    <string name="Place">"Место"</string>
+    <string name="Resend">"Отправить повторно"</string>
+    <string name="CommisionWarning">"Обратите внимание что к сумме пополнения будет добавлена комисия оператора"</string>
+    <string name="ConfirmAdult">"Подтверждаю, что мне есть 18 лет"</string>
+    <string name="AgreeWith">"Я согласен с"</string>
+    <string name="TermsAndRules">"Правила и условия"</string>
+    <string name="Age">"Возраст"</string>
+    <string name="TermsAndConditions">"правилами и условиями"</string>
+
+    <!-- Fuzzy -->
+    <string name="Prize">"Приз"</string>
+    <string name="Vote">"Голоса"</string>
+    <string name="Videos">"Видео"</string>
+
+    <!-- Fuzzy -->
+    <string name="Peoples">"Люди"</string>
+
+    <!-- Fuzzy -->
+    <string name="ApplicationNewVersionReady">"Вышло важное обновление, похоже пора его установить."</string>
+    <string name="DownloadUpdate">"Скачать обновление"</string>
 
     <!-- Creditcard save -->
-    <string name="WithdrawalView_Passport">"Паспорт(серия и номер)"</string>
-    <string name="Create_Order_Secret_order">"Секретный заказ"</string>
+    <string name="Passport">"Паспорт(серия и номер)"</string>
+    <string name="MiddleName">"Отчество"</string>
+    <string name="Location">"Место жительства"</string>
+    <string name="Nationality">"Гражданство"</string>
 
     <!-- Fuzzy -->
-    <string name="Walkthrouth_CreateOrder_Secret_Description">"Текст «Секретного заказа» не виден и появляется только при принятии заказа исполнителем. 
-Для принятия заказа необходимо внести 40/%% от его общей стоимости как гарантию выполнения заказа. 
-В случае невыполнения в отведенное время заказчик зарабатывает 20/%%, поэтому выгодно создавать труднорешаемые и интересные задачи. Задание может быть сложным, но обязательно выполнимым. 
-Если задание невыполнимо, исполнитель может загрузить видео, в котором укажет причину, по которой невозможно снять видео, а заказчик при несогласии отправит задание в спор, где пользователи решат голосованием, кто прав."</string>
-    <string name="Publication_Item_Download">"Скачать"</string>
-    <string name="Competition_Pay_For_Join">"Оплатить участие"</string>
-    <string name="Competion_Rules_Template">"Чтобы принять участие в конкурсе, Вам необходимо заплатить {0} ₽"</string>
-    <string name="Pay">"Оплатить"</string>
-    <string name="Error_Something_Went_Wrong_Message">"Упс, что то пошло не так :("</string>
-    <string name="WithdrawalView_MiddleName">"Отчество"</string>
-    <string name="WithdrawalView_Location">"Место жительства"</string>
-    <string name="WithdrawalView_Nationality">"Гражданство"</string>
-    <string name="Withdrawal_Yoomoney_Description">"Вывод средств осуществляется через кошелек ЮMoney (Яндекс кошелёк)."</string>
-    <string name="Withdrawal_Yoomoney">"ЮMoney"</string>
-    <string name="Withdrawal_Enter_Wallet_Number">"Введите номер кошелька ЮMoney (Яндекс кошелёк)"</string>
+    <string name="EnterWalletNumber">"Введите номер кошелька ЮMoney (Яндекс кошелёк)"</string>
+
+    <!-- Fuzzy -->
+    <string name="CreateOrderPrivacyMessage">"Завершая создание заказа, я подтверждаю оформление с условиями публичной оферты, пользовательского соглашения и политики конфиденциальности"</string>
+    <string name="CreateOrderPrivacyLink">"публичной оферты, пользовательского соглашения и политики конфиденциальности"</string>
+
+    <!-- Fuzzy -->
+    <string name="Orderss">"заказов"</string>
+    <string name="CreatingOrder">"Создать заказ"</string>
+
+    <!-- Fuzzy -->
+    <string name="Sex">"Пол"</string>
+    <string name="Revoke">"Отозвать"</string>
+
+    <!-- Fuzzy -->
+    <string name="NeedToConfirmYourIdentity">"Для того чтобы вывести средства со своего счета, Вам необходимо подтвердить свою личность прикрепив селфи с паспортом в развернутом виде."</string>
+    <string name="InTheDispute">"В споре"</string>
+    <string name="ConfirmAgeAndAgreeRules">"Подтвердите возраст и согласие с правилами"</string>
+    <string name="OneHour">"час"</string>
+    <string name="LoginWithoutRegistration">"Войти без регистрации"</string>
+
+    <!-- Fuzzy -->
+    <string name="CreateContest">"Создать конкурс"</string>
+
+    <!-- Fuzzy -->
+    <string name="ParticipationFee">"Взнос за участие"</string>
+
+    <!-- Fuzzy -->
+    <string name="PercentageContributionPrizePool" formatted="false">"% от взноса в призовой фонд"</string>
+
+    <!-- Fuzzy -->
+    <string name="SecretContest">"Секретный конкурс"</string>
+
+    <!-- Fuzzy -->
+    <string name="CollectionBidsFrom">"Сбор заявок с"</string>
+
+    <!-- Fuzzy -->
+    <string name="CollectionBidsFor">"Сбор заявок по"</string>
+
+    <!-- Fuzzy -->
+    <string name="VotingFrom">"Голосование с"</string>
+
+    <!-- Fuzzy -->
+    <string name="VotingFor">"Голосование по"</string>
+
+    <!-- Fuzzy -->
+    <string name="Percent" formatted="false">"%"</string>
+    <string name="IncorrectEmailOrPasswordException">"Введенный Email или пароль неверный. Попробуйте восстановить пароль или проверьте правильное написание почты."</string>
+    <string name="PerYear">"За год"</string>
+
+    <!-- Fuzzy -->
+    <string name="AllTime">"За все время"</string>
+    <string name="YouAreNotConfirmedAdultAge">"Вы не подтвердили что Вам есть 18 лет"</string>
+    <string name="YouAreNotConfirmedUserAgreement">"Вы не подтвердили согласие с пользовательским соглашением"</string>
 </resources>

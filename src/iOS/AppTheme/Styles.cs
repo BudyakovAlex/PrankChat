@@ -5,8 +5,8 @@ using Foundation;
 using Plugin.DeviceInfo;
 using PrankChat.Mobile.iOS.Controls;
 using System.Linq;
-using PrankChat.Mobile.iOS.Utils.Helpers;
 using UIKit;
+using PrankChat.Mobile.iOS.Extensions;
 
 namespace PrankChat.Mobile.iOS.AppTheme
 {
@@ -14,7 +14,57 @@ namespace PrankChat.Mobile.iOS.AppTheme
     {
         public static void SetNavigationBarStyle(this UINavigationBar navigationBar)
         {
+            if (navigationBar == null)
+            {
+                return;
+            }
+
+            if (UIDevice.CurrentDevice.CheckSystemVersion(15, 0))
+            {
+                var appearance = new UINavigationBarAppearance();
+                appearance.ConfigureWithOpaqueBackground();
+                appearance.BackgroundColor = UIColor.White;
+                appearance.ShadowColor = UIColor.Black.ColorWithAlpha(0.15f);
+                appearance.ShadowImage = new UIImage();
+                navigationBar.StandardAppearance = appearance;
+                navigationBar.ScrollEdgeAppearance = appearance;
+                navigationBar.CompactScrollEdgeAppearance = appearance;
+            }
+
+            navigationBar.BackgroundColor = UIColor.White;
+            navigationBar.ShadowImage = new UIImage();
+            navigationBar.Layer.MasksToBounds = false;
+            navigationBar.Layer.ShadowColor = UIColor.Black.ColorWithAlpha(0.15f).CGColor;
+            navigationBar.Layer.ShadowOpacity = 1f;
+            navigationBar.Layer.ShadowOffset = new CGSize(0, 2f);
+            navigationBar.Layer.ShadowRadius = 10f;
             navigationBar.Translucent = false;
+        }
+
+        public static void SetStyle(this UITabBar tabBar)
+        {
+            if (tabBar == null)
+            {
+                return;
+            }
+
+            if (UIDevice.CurrentDevice.CheckSystemVersion(15, 0))
+            {
+                var appearance = new UITabBarAppearance();
+                appearance.ConfigureWithOpaqueBackground();
+                appearance.BackgroundColor = UIColor.White;
+
+                var tabBarItemAppearance = new UITabBarItemAppearance();
+                tabBarItemAppearance.Normal.IconColor = UIColor.Black;
+
+                appearance.StackedLayoutAppearance = tabBarItemAppearance;
+                tabBar.StandardAppearance = appearance;
+                tabBar.ScrollEdgeAppearance = appearance;
+                tabBar.UnselectedItemTintColor = UIColor.Black;
+                return;
+            }
+
+            tabBar.BarTintColor = UIColor.White;
         }
 
         public static void SetStyle(this UISegmentedControl segmentedControl, params string[] segmentNames)
@@ -51,12 +101,12 @@ namespace PrankChat.Mobile.iOS.AppTheme
             {
                 UIImage image(UIColor color)
                 {
-                    return UIImageUtil.ImageWithColor(color, segmentedControl.Frame.Size);
+                    return color.ImageWithColor(segmentedControl.Frame.Size);
                 }
 
                 UIImage imageDivider(UIColor color)
                 {
-                    return UIImageUtil.ImageWithColor(color, new CGSize(1, segmentedControl.Frame.Height));
+                    return color.ImageWithColor(1, (float)segmentedControl.Frame.Height);
                 }
 
                 // Must set the background image for normal to something (even clear) else the rest won't work.
@@ -90,32 +140,6 @@ namespace PrankChat.Mobile.iOS.AppTheme
             tabBar.BarTintColor = Theme.Color.White;
         }
 
-        public static void SetGradientStyle(this UINavigationBar navigationBar)
-        {
-            var statusBarHeight = UIApplication.SharedApplication.StatusBarFrame.Height;
-            var fullHeight = navigationBar.Frame.Size.Width + statusBarHeight;
-            var gradientContainer = new UIView();
-            gradientContainer.Frame = new CGRect(navigationBar.Frame.Location, new CGSize(navigationBar.Frame.Size.Width, fullHeight));
-            gradientContainer.ClipsToBounds = true;
-
-            var gradient = new CAGradientLayer();
-            gradient.Colors = new CGColor[]
-            {
-                Theme.Color.GradientHeaderStart.CGColor,
-                Theme.Color.GradientHeaderEnd.CGColor
-            };
-
-            gradient.Locations = new Foundation.NSNumber[] { 0, 1 };
-            gradient.StartPoint = new CGPoint(x: 0.25, y: 0.5);
-            gradient.EndPoint = new CGPoint(x: 0.75, y: 0.5);
-            gradient.Transform = CATransform3D.MakeFromAffine(new CGAffineTransform(-0.74f, 0.71f, -0.71f, -0.74f, 1.2f, 0.49f));
-            gradient.Bounds = gradientContainer.Bounds.Inset(-0.5f * gradientContainer.Bounds.Size.Height, -0.5f * gradientContainer.Bounds.Size.Width);
-            gradient.Position = gradientContainer.Center;
-            gradientContainer.Layer.AddSublayer(gradient);
-            navigationBar.SetBackgroundImage(GetNavigationBarBackgroundImage(gradientContainer), UIBarMetrics.Default);
-            navigationBar.BarStyle = UIBarStyle.BlackTranslucent;
-        }
-
         public static void SetTransparentStyle(this UINavigationBar navigationBar)
         {
             var statusBarHeight = UIApplication.SharedApplication.StatusBarFrame.Height;
@@ -138,9 +162,10 @@ namespace PrankChat.Mobile.iOS.AppTheme
         {
             if (CrossDeviceInfo.Current.VersionNumber > new Version(13, 0))
             {
-                searchBar.SearchTextField.BackgroundColor = Theme.Color.White;
                 searchBar.SearchTextField.TextColor = Theme.Color.Text;
+                searchBar.SearchBarStyle = UISearchBarStyle.Prominent;
             }
+
             searchBar.TintColor = Theme.Color.Text;
         }
 
@@ -310,6 +335,17 @@ namespace PrankChat.Mobile.iOS.AppTheme
         }
 
         public static void SetScreenTitleStyle(this UILabel label)
+        {
+            var attributes = new UIStringAttributes
+            {
+                Font = Theme.Font.MediumOfSize(14),
+                ForegroundColor = Theme.Color.Black
+            };
+
+            label.AttributedText = new NSAttributedString(label.Text, attributes);
+        }
+
+        public static void SetWhiteTitleStyle(this UILabel label)
         {
             var attributes = new UIStringAttributes
             {

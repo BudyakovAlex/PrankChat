@@ -1,6 +1,5 @@
 ﻿using System;
-using Foundation;
-using PrankChat.Mobile.Core.ApplicationServices.Notifications;
+using PrankChat.Mobile.Core.Services.Notifications;
 using PrankChat.Mobile.iOS.PlatformBusinessServices.Notifications;
 using UserNotifications;
 
@@ -12,7 +11,7 @@ namespace PrankChat.Mobile.iOS.Delegates
 		{
 			var userInfo = response.Notification.Request.Content.UserInfo;
 			var pushNotificationData = NotificationWrapper.Instance.HandleNotificationPayload(userInfo);
-			NotificationManager.Instance.TryNavigateToView(pushNotificationData?.OrderId);
+			NotificationHandler.Instance.TryNavigateToView(pushNotificationData?.OrderId);
 			completionHandler?.Invoke();
 		}
 

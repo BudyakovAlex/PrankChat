@@ -1,13 +1,13 @@
 ﻿<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape android:shape="rectangle">
-            <solid android:color="@color/deep_purple" />
+          <solid android:color="@color/applicationBlack"/>
         </shape>
     </item>
     <item
-        android:width="140dp"
+        android:width="124dp"
         android:height="118dp"
         android:gravity="center"
-        android:drawable="@drawable/ic_prankchat_icon">
+        android:drawable="@drawable/ic_onplay_icon">
     </item>
 </layer-list>

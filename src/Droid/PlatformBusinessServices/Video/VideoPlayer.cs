@@ -7,13 +7,13 @@ using Android.Views;
 using Microsoft.AppCenter.Crashes;
 using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Data.Enums;
-using PrankChat.Mobile.Core.Infrastructure;
 using PrankChat.Mobile.Core.Wrappers;
 using PrankChat.Mobile.Droid.Controls;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using PrankChat.Mobile.Core.Infrastructure.Extensions;
+using PrankChat.Mobile.Core.Extensions;
+using PrankChat.Mobile.Core.Common;
 
 namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
 {

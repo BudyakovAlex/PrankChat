@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -41,7 +41,7 @@
     <AndroidDexTool>d8</AndroidDexTool>
     <AndroidEnableMultiDex>true</AndroidEnableMultiDex>
     <AndroidUseAapt2>true</AndroidUseAapt2>
-<AndroidHttpClientHandlerType>Xamarin.Android.Net.AndroidClientHandler</AndroidHttpClientHandlerType>
+    <AndroidHttpClientHandlerType>Xamarin.Android.Net.AndroidClientHandler</AndroidHttpClientHandlerType>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>True</DebugSymbols>
@@ -51,9 +51,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AndroidLinkMode>SdkOnly</AndroidLinkMode>
     <AndroidManagedSymbols>true</AndroidManagedSymbols>
     <AndroidUseSharedRuntime>False</AndroidUseSharedRuntime>
-    <AndroidLinkMode>SdkOnly</AndroidLinkMode>
     <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
     <AndroidUseAapt2>true</AndroidUseAapt2>
     <AndroidPackageFormat>apk</AndroidPackageFormat>
@@ -70,151 +70,152 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApplicationServices\ExternalAuthService.cs" />
+    <Compile Include="Services\ExternalAuthService.cs" />
     <Compile Include="Controls\ApplicationSwipeViewPager.cs" />
     <Compile Include="PlatformBusinessServices\Video\Listeners\VideoPlayerOnPreparedListener.cs" />
-    <Compile Include="Presentation\Adapters\ViewHolders\Orders\OrderItemViewHolder.cs" />
-    <Compile Include="Presentation\Bindings\OrderButtonStyleBinding.cs" />
-    <Compile Include="Presentation\Bindings\BackgroundBinding.cs" />
-    <Compile Include="Presentation\Converters\BooleanToResourcePathConverter.cs" />
-    <Compile Include="Presentation\Converters\OrderTypeToViewBackgroundConverter.cs" />
-    <Compile Include="Presentation\Views\Base\BaseFragment.cs" />
-    <Compile Include="Presentation\Views\Base\BaseTabFragment.cs" />
-    <Compile Include="Presentation\Views\Base\BaseView.cs" />
-    <Compile Include="Presentation\Views\LoginView.cs" />
-    <Compile Include="Presentation\Views\MainView.cs" />
-    <Compile Include="Presentation\Views\NotificationView.cs" />
-    <Compile Include="Presentation\Views\Order\CreateOrderView.cs" />
-    <Compile Include="Presentation\Views\Order\OrdersView.cs" />
-    <Compile Include="Presentation\Views\Profile\Cashbox\CashboxView.cs" />
-    <Compile Include="Presentation\Views\Profile\Cashbox\RefillView.cs" />
-    <Compile Include="Presentation\Views\Profile\Cashbox\WithdrawalView.cs" />
-    <Compile Include="Presentation\Views\Profile\ImageCrop\ImageCropView.cs" />
-    <Compile Include="Presentation\Views\Profile\ProfileUpdateView.cs" />
-    <Compile Include="Presentation\Views\Profile\ProfileView.cs" />
-    <Compile Include="Presentation\Views\Publications\PublicationsView.cs" />
-    <Compile Include="Presentation\Views\Registration\RegistrationSecondStepView.cs" />
-    <Compile Include="Presentation\Views\Registration\RegistrationView.cs" />
-    <Compile Include="Presentation\Views\Registration\RegistrationThirdStepView.cs" />
+    <Compile Include="Adapters\ViewHolders\Orders\OrderItemViewHolder.cs" />
+    <Compile Include="Bindings\OrderButtonStyleBinding.cs" />
+    <Compile Include="Bindings\BackgroundBinding.cs" />
+    <Compile Include="Converters\BooleanToResourcePathConverter.cs" />
+    <Compile Include="Converters\OrderTypeToViewBackgroundConverter.cs" />
+    <Compile Include="Views\Base\BaseFragment.cs" />
+    <Compile Include="Views\Base\BaseTabFragment.cs" />
+    <Compile Include="Views\Base\BaseView.cs" />
+    <Compile Include="Views\LoginView.cs" />
+    <Compile Include="Views\MainView.cs" />
+    <Compile Include="Views\NotificationView.cs" />
+    <Compile Include="Views\Order\CreateOrderView.cs" />
+    <Compile Include="Views\Order\OrdersView.cs" />
+    <Compile Include="Views\Profile\Cashbox\CashboxView.cs" />
+    <Compile Include="Views\Profile\Cashbox\RefillView.cs" />
+    <Compile Include="Views\Profile\Cashbox\WithdrawalView.cs" />
+    <Compile Include="Views\Profile\ImageCrop\ImageCropView.cs" />
+    <Compile Include="Views\Profile\ProfileUpdateView.cs" />
+    <Compile Include="Views\Profile\ProfileView.cs" />
+    <Compile Include="Views\Publications\PublicationsView.cs" />
+    <Compile Include="Views\Registration\RegistrationSecondStepView.cs" />
+    <Compile Include="Views\Registration\RegistrationView.cs" />
+    <Compile Include="Views\Registration\RegistrationThirdStepView.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SplashScreen.cs" />
     <Compile Include="Setup.cs" />
     <Compile Include="Utils\Helpers\ColorUtil.cs" />
-    <Compile Include="Presentation\Views\SearchView.cs" />
+    <Compile Include="Views\SearchView.cs" />
     <Compile Include="Controls\ClearEditText.cs" />
     <Compile Include="LinkerPleaseInclude.cs" />
-    <Compile Include="Presentation\Views\PasswordRecovery\PasswordRecoveryView.cs" />
-    <Compile Include="Presentation\Views\PasswordRecovery\FinishPasswordRecoveryView.cs" />
-    <Compile Include="Presentation\Views\Comment\CommentsView.cs" />
-    <Compile Include="Presentation\Views\Publications\PublicationDetailsView.cs" />
-    <Compile Include="Presentation\Views\Order\OrderDetailsView.cs" />
-    <Compile Include="Presentation\Listeners\RecyclerViewScrollListener.cs" />
-    <Compile Include="Presentation\Converters\BooleanToSoundResourceConverter.cs" />
-    <Compile Include="Presentation\Dialogs\ShareDialog.cs" />
+    <Compile Include="Views\PasswordRecovery\PasswordRecoveryView.cs" />
+    <Compile Include="Views\PasswordRecovery\FinishPasswordRecoveryView.cs" />
+    <Compile Include="Views\Comment\CommentsView.cs" />
+    <Compile Include="Views\Publications\PublicationDetailsView.cs" />
+    <Compile Include="Views\Order\OrderDetailsView.cs" />
+    <Compile Include="Listeners\RecyclerViewScrollListener.cs" />
+    <Compile Include="Converters\BooleanToSoundResourceConverter.cs" />
+    <Compile Include="Dialogs\ShareDialog.cs" />
     <Compile Include="PlatformBusinessServices\Video\VideoPlayer.cs" />
-    <Compile Include="Presentation\Dialogs\ArrayDialog.cs" />
+    <Compile Include="Dialogs\ArrayDialog.cs" />
     <Compile Include="Controls\SelectableButton.cs" />
-    <Compile Include="Presentation\Views\WebPageView.cs" />
-    <Compile Include="Presentation\Views\Video\FullScreenVideoView.cs" />
-    <Compile Include="Presentation\Bindings\VideoUrlTargetBinding.cs" />
+    <Compile Include="Views\WebPageView.cs" />
+    <Compile Include="Views\Video\FullScreenVideoView.cs" />
+    <Compile Include="Bindings\VideoUrlTargetBinding.cs" />
     <Compile Include="Controls\CustomMediaControllerView.cs" />
-    <Compile Include="Presentation\Listeners\ViewOnTouchListener.cs" />
-    <Compile Include="Presentation\Listeners\ViewOnClickListener.cs" />
+    <Compile Include="Listeners\ViewOnTouchListener.cs" />
+    <Compile Include="Listeners\ViewOnClickListener.cs" />
     <Compile Include="Controls\ExtendedVideoView.cs" />
-    <Compile Include="Presentation\Listeners\MediaPlayerOnPreparedListener.cs" />
-    <Compile Include="Presentation\Bindings\ViewTouchTargetBinding.cs" />
+    <Compile Include="Listeners\MediaPlayerOnPreparedListener.cs" />
+    <Compile Include="Bindings\ViewTouchTargetBinding.cs" />
     <Compile Include="Presenters\Attributes\ClearStackActivityPresentationAttribute.cs" />
     <Compile Include="Presenters\CustomAndroidViewPresenter.cs" />
-    <Compile Include="ApplicationServices\DialogService.cs" />
-    <Compile Include="Presentation\Views\Base\IToolbarOwner.cs" />
+    <Compile Include="Plugins\UserInteraction\UserInteraction.cs" />
+    <Compile Include="Views\Base\IToolbarOwner.cs" />
     <Compile Include="Extensions\ViewExtensions.cs" />
-    <Compile Include="ApplicationServices\Callbacks\FacebookCallback.cs" />
-    <Compile Include="ApplicationServices\Callbacks\VkontakteCallback.cs" />
+    <Compile Include="Services\Callbacks\FacebookCallback.cs" />
+    <Compile Include="Services\Callbacks\VkontakteCallback.cs" />
     <Compile Include="MainApplication.cs" />
     <Compile Include="Providers\OutlineProvider.cs" />
     <Compile Include="Controls\CircleCachedImageView.cs" />
-    <Compile Include="Presentation\Converters\InvisibleConverter.cs" />
+    <Compile Include="Converters\InvisibleConverter.cs" />
     <Compile Include="PlatformBusinessServices\Notifications\FirebaseMessagingService.cs" />
     <Compile Include="PlatformBusinessServices\Notifications\NotificationActionService.cs" />
     <Compile Include="PlatformBusinessServices\Notifications\NotificationWrapper.cs" />
-    <Compile Include="Presentation\Adapters\RecycleViewBindableAdapter.cs" />
-    <Compile Include="Presentation\Adapters\TemplateSelectors\ITemplateSelector.cs" />
-    <Compile Include="Presentation\Adapters\TemplateSelectors\TemplateSelector.cs" />
-    <Compile Include="Presentation\Adapters\TemplateSelectors\TemplateSelectorItem.cs" />
-    <Compile Include="Presentation\Adapters\ViewHolders\Abstract\INestedCardViewHolder.cs" />
-    <Compile Include="Presentation\Adapters\ViewHolders\Publications\PublicationItemViewHolder.cs" />
-    <Compile Include="Presentation\Adapters\ViewHolders\Abstract\CardViewHolder.cs" />
-    <Compile Include="Presentation\Adapters\ViewHolders\Abstract\CardViewHolder{TViewModel}.cs" />
+    <Compile Include="Adapters\RecycleViewBindableAdapter.cs" />
+    <Compile Include="Adapters\TemplateSelectors\ITemplateSelector.cs" />
+    <Compile Include="Adapters\TemplateSelectors\TemplateSelector.cs" />
+    <Compile Include="Adapters\TemplateSelectors\TemplateSelectorItem.cs" />
+    <Compile Include="Adapters\ViewHolders\Abstract\INestedCardViewHolder.cs" />
+    <Compile Include="Adapters\ViewHolders\Publications\PublicationItemViewHolder.cs" />
+    <Compile Include="Adapters\ViewHolders\Abstract\CardViewHolder.cs" />
+    <Compile Include="Adapters\ViewHolders\Abstract\CardViewHolder{TViewModel}.cs" />
     <Compile Include="Controls\EndlessRecyclerView.cs" />
-    <Compile Include="Presentation\Listeners\EndlessScrollChangedListener.cs" />
-    <Compile Include="Presentation\Listeners\OnLoadMoreListener.cs" />
-    <Compile Include="Presentation\Listeners\MediaPlayerOnInfoListener.cs" />
-    <Compile Include="Presentation\Views\Competitions\CompetitionsView.cs" />
-    <Compile Include="Presentation\Adapters\ViewHolders\Competitions\CompetitionItemViewHolder.cs" />
-    <Compile Include="Presentation\Adapters\ViewHolders\Competitions\CompetitionsSectionViewHolder.cs" />
+    <Compile Include="Listeners\EndlessScrollChangedListener.cs" />
+    <Compile Include="Listeners\OnLoadMoreListener.cs" />
+    <Compile Include="Listeners\MediaPlayerOnInfoListener.cs" />
+    <Compile Include="Views\Competitions\CompetitionsView.cs" />
+    <Compile Include="Adapters\ViewHolders\Competitions\CompetitionItemViewHolder.cs" />
+    <Compile Include="Adapters\ViewHolders\Competitions\CompetitionsSectionViewHolder.cs" />
     <Compile Include="Utils\Helpers\DisplayUtils.cs" />
     <Compile Include="LayoutManagers\CustomLinearLayoutManager.cs" />
     <Compile Include="LayoutManagers\SafeLinearLayoutManager.cs" />
     <Compile Include="Decorators\DecoratorBase.cs" />
     <Compile Include="Decorators\PagerDecorator.cs" />
-    <Compile Include="Presentation\Converters\BoolToGoneConverter.cs" />
-    <Compile Include="Presentation\Converters\CompetitionPhaseToBorderBackgroundConverter.cs" />
-    <Compile Include="Presentation\Converters\CompetitionPhaseToBackgroundConverter.cs" />
-    <Compile Include="Presentation\Converters\CompetitionPhaseToVisibilityConverter.cs" />
-    <Compile Include="Presentation\Converters\BoolToGoneInvertedConverter.cs" />
-    <Compile Include="Presentation\Bindings\BackgroundColorBinding.cs" />
-    <Compile Include="Presentation\Bindings\BackgroundResourceBinding.cs" />
+    <Compile Include="Converters\BoolToGoneConverter.cs" />
+    <Compile Include="Converters\CompetitionPhaseToBorderBackgroundConverter.cs" />
+    <Compile Include="Converters\CompetitionPhaseToBackgroundConverter.cs" />
+    <Compile Include="Converters\CompetitionPhaseToVisibilityConverter.cs" />
+    <Compile Include="Converters\BoolToGoneInvertedConverter.cs" />
+    <Compile Include="Bindings\BackgroundColorBinding.cs" />
+    <Compile Include="Bindings\BackgroundResourceBinding.cs" />
     <Compile Include="Controls\NotificationTextView.cs" />
-    <Compile Include="Presentation\Views\Competitions\CompetitionDetailsView.cs" />
-    <Compile Include="Presentation\Adapters\ViewHolders\Competitions\CompetitionDetailsHeaderViewHolder.cs" />
-    <Compile Include="Presentation\Adapters\ViewHolders\Competitions\CompetitionVideoViewHolder.cs" />
-    <Compile Include="Presentation\Views\Competitions\CompetitionRulesView.cs" />
-    <Compile Include="Presentation\Views\Competitions\CompetitionPrizePoolView.cs" />
-    <Compile Include="Presentation\Adapters\ViewHolders\Competitions\CompetitionPrizePoolItemViewHolder.cs" />
-    <Compile Include="Presentation\Bindings\ImageViewTintColorTargetBinding.cs" />
-    <Compile Include="Presentation\Converters\BoolToResourceConverter.cs" />
-    <Compile Include="Presentation\Bindings\TextColorTargetBinding.cs" />
-    <Compile Include="Presentation\Adapters\ViewHolders\Abstract\Video\VideoCardViewHolder.cs" />
-    <Compile Include="Presentation\Converters\InvertedInvisibleConverter.cs" />
-    <Compile Include="Utils\Constants.cs" />
-    <Compile Include="Presentation\Adapters\ViewHolders\Arbitration\ArbitrationItemViewHolder.cs" />
+    <Compile Include="Views\Competitions\CompetitionDetailsView.cs" />
+    <Compile Include="Adapters\ViewHolders\Competitions\CompetitionDetailsHeaderViewHolder.cs" />
+    <Compile Include="Adapters\ViewHolders\Competitions\CompetitionVideoViewHolder.cs" />
+    <Compile Include="Views\Competitions\CompetitionRulesView.cs" />
+    <Compile Include="Views\Competitions\CompetitionPrizePoolView.cs" />
+    <Compile Include="Adapters\ViewHolders\Competitions\CompetitionPrizePoolItemViewHolder.cs" />
+    <Compile Include="Bindings\ImageViewTintColorTargetBinding.cs" />
+    <Compile Include="Converters\BoolToResourceConverter.cs" />
+    <Compile Include="Bindings\TextColorTargetBinding.cs" />
+    <Compile Include="Adapters\ViewHolders\Abstract\Video\VideoCardViewHolder.cs" />
+    <Compile Include="Converters\InvertedInvisibleConverter.cs" />
+    <Compile Include="Common\Constants.cs" />
+    <Compile Include="Adapters\ViewHolders\Arbitration\ArbitrationItemViewHolder.cs" />
     <Compile Include="Extensions\ActivityExtensions.cs" />
-    <Compile Include="Presentation\Bindings\PaddingTargetBinding.cs" />
-    <Compile Include="Presentation\Views\Onboarding\OnboardingView.cs" />
-    <Compile Include="Presentation\Adapters\ViewHolders\Onboarding\OnboardingItemViewHolder.cs" />
+    <Compile Include="Bindings\PaddingTargetBinding.cs" />
+    <Compile Include="Views\Onboarding\OnboardingView.cs" />
+    <Compile Include="Adapters\ViewHolders\Onboarding\OnboardingItemViewHolder.cs" />
     <Compile Include="Controls\WebView\CustomWebViewClient.cs" />
     <Compile Include="Controls\WebView\BindableWebView.cs" />
-    <Compile Include="Presentation\Adapters\ArrayDialogRecyclerViewAdapter.cs" />
-    <Compile Include="Presentation\Adapters\ViewHolders\Dialogs\ArrayDialogItemViewHolder.cs" />
+    <Compile Include="Adapters\ArrayDialogRecyclerViewAdapter.cs" />
+    <Compile Include="Adapters\ViewHolders\Dialogs\ArrayDialogItemViewHolder.cs" />
     <Compile Include="Controls\AutoFitTextureView.cs" />
-    <Compile Include="Presentation\Views\Walthroughs\WalthroughView.cs" />
-    <Compile Include="Presentation\Adapters\ViewHolders\Comments\CommentViewHolder.cs" />
+    <Compile Include="Views\Walthroughs\WalthroughView.cs" />
+    <Compile Include="Adapters\ViewHolders\Comments\CommentViewHolder.cs" />
     <Compile Include="Controls\CircleProgressBar.cs" />
-    <Compile Include="Presentation\Adapters\ViewHolders\Notifications\NotificationItemViewHolder.cs" />
-    <Compile Include="Presentation\Adapters\ViewHolders\Search\ProfileSearchItemViewHolder.cs" />
-    <Compile Include="Presentation\Views\MaintananceView.cs" />
-    <Compile Include="Presentation\Views\Subscriptions\SubscriptionsView.cs" />
-    <Compile Include="Presentation\Adapters\ViewHolders\Subscriptions\SubscriptionItemViewHolder.cs" />
-    <Compile Include="Presentation\Bindings\TabLayoutTabTextBinding.cs" />
-    <Compile Include="Presentation\Views\Profile\UserProfileView.cs" />
-    <Compile Include="Presentation\Views\Base\IScrollableView.cs" />
-    <Compile Include="Presentation\Views\Base\IRefreshableView.cs" />
-    <Compile Include="Presentation\Views\Base\BaseRefreshableTabFragment.cs" />
+    <Compile Include="Adapters\ViewHolders\Notifications\NotificationItemViewHolder.cs" />
+    <Compile Include="Adapters\ViewHolders\Search\ProfileSearchItemViewHolder.cs" />
+    <Compile Include="Views\MaintananceView.cs" />
+    <Compile Include="Views\Subscriptions\SubscriptionsView.cs" />
+    <Compile Include="Adapters\ViewHolders\Subscriptions\SubscriptionItemViewHolder.cs" />
+    <Compile Include="Bindings\TabLayoutTabTextBinding.cs" />
+    <Compile Include="Views\Profile\UserProfileView.cs" />
+    <Compile Include="Views\Base\IScrollableView.cs" />
+    <Compile Include="Views\Base\IRefreshableView.cs" />
+    <Compile Include="Views\Base\BaseRefreshableTabFragment.cs" />
     <Compile Include="Controls\ExtendedTabLayout.cs" />
     <Compile Include="PlatformBusinessServices\Video\Listeners\VideoRecyclerViewScrollListener.cs" />
-    <Compile Include="Presentation\Adapters\ViewHolders\Abstract\Video\IVideoViewHolder.cs" />
+    <Compile Include="Adapters\ViewHolders\Abstract\Video\IVideoViewHolder.cs" />
     <Compile Include="Extensions\MvxFluentBindingExtensions.cs" />
     <Compile Include="Providers\PlatformPathsProvider.cs" />
     <Compile Include="Extensions\BindingExtensions.cs" />
     <Compile Include="PlatformBusinessServices\FileSystem\FileSystemService.cs" />
-    <Compile Include="Presentation\Spans\LinkSpan.cs" />
+    <Compile Include="Spans\LinkSpan.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
     <None Include="Properties\AndroidManifest.xml" />
     <None Include="Assets\AboutAssets.txt" />
     <AndroidAsset Include="Assets\ripple_animation.json" />
+    <None Include="LinkerConfig.xml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\colors.xml" />
@@ -292,7 +293,7 @@
       <Generator>
       </Generator>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\fragment_finish_password_recovery.xml">
+    <AndroidResource Include="Resources\layout\activity_finish_password_recovery.xml">
       <SubType>
       </SubType>
       <Generator>
@@ -622,12 +623,6 @@
       <Generator>
       </Generator>
     </AndroidResource>
-    <AndroidResource Include="Resources\drawable\ic_prankchat_icon.xml">
-      <SubType>
-      </SubType>
-      <Generator>
-      </Generator>
-    </AndroidResource>
     <AndroidResource Include="Resources\drawable\bg_competition_blue.xml">
       <SubType>
       </SubType>
@@ -917,195 +912,285 @@
       </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable\my_order_completed_background.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\cell_array_dialog.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable\ic_fullscreen.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable\ic_order_tag_type_in_moderation.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable\ic_order_tag_type_new.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable\ic_order_tag_type_new_not_mine.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable\ic_order_tag_type_wait.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable\ic_order_tag_type_finished.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable\ic_order_tag_type_in_arbitration.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable\ic_order_tag_type_in_work.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable\ic_info.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\activity_walkthrouth.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\menu\create_order_menu.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\values-en\strings.xml" />
     <AndroidResource Include="Resources\drawable\ic_logout.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable\ic_comments.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\uploading_progress_overlay_layout.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable\ic_circle_clear.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable\ic_notification_with_bage.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\activity_search.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\activity_maintanance.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_maintanance.png">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_maintanance.png">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-hdpi\ic_maintanance.png">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-mdpi\ic_maintanance.png">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-xhdpi\ic_maintanance.png">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\activity_user_profile.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\activity_subscriptions.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\cell_subscription.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable\ic_check_mark.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable\ic_like.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable\ic_dislike.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable\ic_like_hollow.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable\ic_dislike_hollow.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-v24\bg_competition_blue.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-v24\bg_competition_gray.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-v24\bg_competition_orange.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-v24\bg_onboarding_indicator.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-v24\bg_payment.xml" />
     <AndroidResource Include="Resources\drawable-v24\bg_payment_selected.xml" />
     <AndroidResource Include="Resources\drawable-v24\bg_splash_screen.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-v24\bg_white_with_corners.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-v24\border_accent.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-v24\border_accent_load_video.xml" />
     <AndroidResource Include="Resources\drawable-v24\border_full_screen_video_profile_photo.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-v24\border_grey.xml" />
     <AndroidResource Include="Resources\drawable-v24\border_white.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-v24\button_accent_background.xml" />
     <AndroidResource Include="Resources\drawable-v24\button_white_bordered_background.xml" />
     <AndroidResource Include="Resources\drawable-v24\button_white_secondary_background.xml" />
     <AndroidResource Include="Resources\drawable-v24\competition_like_button_selector.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-v24\gradient_action_bar_background.xml" />
     <AndroidResource Include="Resources\drawable-v24\gradient_background.xml" />
     <AndroidResource Include="Resources\drawable-v24\gradient_oval.xml" />
     <AndroidResource Include="Resources\drawable-v24\ic_accent_thumbs_down.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-v24\ic_accent_thumbs_up.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-v24\ic_back_arrow.xml" />
     <AndroidResource Include="Resources\drawable-v24\ic_banner_mastercard.xml" />
@@ -1117,134 +1202,187 @@
     <AndroidResource Include="Resources\drawable-v24\ic_calendar.xml" />
     <AndroidResource Include="Resources\drawable-v24\ic_calendar_accent.xml" />
     <AndroidResource Include="Resources\drawable-v24\ic_card.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-v24\ic_change_profile.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-v24\ic_check_mark.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-v24\ic_checkbox_checked.xml" />
     <AndroidResource Include="Resources\drawable-v24\ic_checkbox_unchecked.xml" />
     <AndroidResource Include="Resources\drawable-v24\ic_circle_clear.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-v24\ic_clear.xml" />
     <AndroidResource Include="Resources\drawable-v24\ic_comment.xml" />
     <AndroidResource Include="Resources\drawable-v24\ic_comments.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-v24\ic_competitions.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-v24\ic_copy.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-v24\ic_copy_link.xml" />
     <AndroidResource Include="Resources\drawable-v24\ic_create_order.xml" />
     <AndroidResource Include="Resources\drawable-v24\ic_dislike.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-v24\ic_dislike_hollow.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-v24\ic_download.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-v24\ic_facebook.xml" />
     <AndroidResource Include="Resources\drawable-v24\ic_filter_arrow.xml" />
     <AndroidResource Include="Resources\drawable-v24\ic_fullscreen.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-v24\ic_gmail.xml" />
     <AndroidResource Include="Resources\drawable-v24\ic_have_notification.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-v24\ic_home.xml" />
     <AndroidResource Include="Resources\drawable-v24\ic_image_background.xml" />
     <AndroidResource Include="Resources\drawable-v24\ic_info.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
-    <AndroidResource Include="Resources\drawable-v24\ic_launcher_background.xml" />
-    <AndroidResource Include="Resources\drawable-v24\ic_launcher_foreground.xml" />
     <AndroidResource Include="Resources\drawable-v24\ic_like.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-v24\ic_like_hollow.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-v24\ic_logo.xml" />
     <AndroidResource Include="Resources\drawable-v24\ic_logout.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-v24\ic_mdi_pause_circle_outline.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-v24\ic_mdi_play_circle_outline.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-v24\ic_menu.xml" />
     <AndroidResource Include="Resources\drawable-v24\ic_more.xml" />
     <AndroidResource Include="Resources\drawable-v24\ic_more_white.xml">
-      <SubType></SubType>
+      <SubType>
+      </SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-v24\ic_mute.xml" />
     <AndroidResource Include="Resources\drawable-v24\ic_notification.xml" />
     <AndroidResource Include="Resources\drawable-v24\ic_notification_user.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-v24\ic_notification_with_bage.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-v24\ic_odnoklassniki.xml" />
     <AndroidResource Include="Resources\drawable-v24\ic_order_tag_type_finished.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-v24\ic_order_tag_type_in_arbitration.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-v24\ic_order_tag_type_in_moderation.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-v24\ic_order_tag_type_in_work.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-v24\ic_order_tag_type_new.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-v24\ic_order_tag_type_new_not_mine.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-v24\ic_order_tag_type_wait.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-v24\ic_orders.xml" />
     <AndroidResource Include="Resources\drawable-v24\ic_payment_alphabank.xml" />
@@ -1260,26 +1398,30 @@
     <AndroidResource Include="Resources\drawable-v24\ic_payment_yandexmoney.xml" />
     <AndroidResource Include="Resources\drawable-v24\ic_payment_yandexmoney_selected.xml" />
     <AndroidResource Include="Resources\drawable-v24\ic_plus.xml">
-      <SubType></SubType>
-      <Generator></Generator>
-    </AndroidResource>
-    <AndroidResource Include="Resources\drawable-v24\ic_prankchat_icon.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-v24\ic_profile.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-v24\ic_question.xml" />
     <AndroidResource Include="Resources\drawable-v24\ic_question_black.xml" />
     <AndroidResource Include="Resources\drawable-v24\ic_radio_button_off.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-v24\ic_radio_button_on.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-v24\ic_rate.xml" />
     <AndroidResource Include="Resources\drawable-v24\ic_search.xml" />
@@ -1290,97 +1432,141 @@
     <AndroidResource Include="Resources\drawable-v24\ic_share_instagram.xml" />
     <AndroidResource Include="Resources\drawable-v24\ic_share_up.xml" />
     <AndroidResource Include="Resources\drawable-v24\ic_sound.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-v24\ic_thumbs_down.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-v24\ic_thumbs_up.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-v24\ic_vk.xml" />
     <AndroidResource Include="Resources\drawable-v24\ic_warning.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-v24\ic_without_sound.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-v24\img_navigation_arrow_left.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-v24\img_navigation_arrow_right.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-v24\my_order_background.xml" />
     <AndroidResource Include="Resources\drawable-v24\my_order_completed_background.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-v24\not_moderated_order_background.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-v24\not_moderated_order_border.xml" />
     <AndroidResource Include="Resources\drawable-v24\not_moderated_order_card.xml" />
     <AndroidResource Include="Resources\drawable-v24\not_my_order_background.xml" />
     <AndroidResource Include="Resources\drawable-v24\notification_dot.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-v24\radio_button_background.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-v24\rounded_edittext.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-v24\selectable_button_selector.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-v24\shadow.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable\ic_competition_cup.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable\ic_order_hidden.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable\ic_radio_button_on.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable\ic_order_paid.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable\button_competition_secondary.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable-v24\button_competition_secondary.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable\ic_yoomoney.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\drawable\ic_yoomoney_account.xml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
@@ -1390,13 +1576,13 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Acr.UserDialogs">
-      <Version>7.1.0.481</Version>
+      <Version>7.2.0.534</Version>
     </PackageReference>
     <PackageReference Include="Com.Airbnb.Android.Lottie">
       <Version>3.5.0</Version>
     </PackageReference>
     <PackageReference Include="MvvmCross">
-      <Version>7.1.2</Version>
+      <Version>8.0.2</Version>
     </PackageReference>
     <PackageReference Include="Xam.Plugins.ImageCropper">
       <Version>1.2.0</Version>
@@ -1411,13 +1597,13 @@
       <Version>1.6.1</Version>
     </PackageReference>
     <PackageReference Include="MvvmCross.Plugin.Messenger">
-      <Version>7.1.2</Version>
+      <Version>8.0.2</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Google.Android.Material">
       <Version>1.2.1.1</Version>
     </PackageReference>
     <PackageReference Include="MvvmCross.Plugin.Visibility">
-      <Version>7.1.2</Version>
+      <Version>8.0.2</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.AndroidX.PercentLayout">
       <Version>1.0.0.7</Version>
@@ -1471,7 +1657,7 @@
       <Version>1.6.6</Version>
     </PackageReference>
     <PackageReference Include="MvvmCross.Plugin.WebBrowser">
-      <Version>7.1.2</Version>
+      <Version>8.0.2</Version>
     </PackageReference>
     <PackageReference Include="Xam.Plugin.Badge">
       <Version>1.0.0</Version>
@@ -1483,13 +1669,13 @@
       <Version>28.0.0.3</Version>
     </PackageReference>
     <PackageReference Include="MvvmCross.DroidX.Material">
-      <Version>7.1.2</Version>
+      <Version>8.0.2</Version>
     </PackageReference>
     <PackageReference Include="MvvmCross.DroidX.RecyclerView">
-      <Version>7.1.2</Version>
+      <Version>8.0.2</Version>
     </PackageReference>
     <PackageReference Include="MvvmCross.DroidX.SwipeRefreshLayout">
-      <Version>7.1.2</Version>
+      <Version>8.0.2</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.VKontakte.Android">
       <Version>1.6.7</Version>
@@ -1501,13 +1687,25 @@
       <Version>1.0.4</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.AppCenter">
-      <Version>4.1.0</Version>
+      <Version>4.4.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.AppCenter.Crashes">
-      <Version>4.1.0</Version>
+      <Version>4.4.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.AppCenter.Analytics">
-      <Version>4.1.0</Version>
+      <Version>4.4.0</Version>
+    </PackageReference>
+    <PackageReference Include="Serilog">
+      <Version>2.10.0</Version>
+    </PackageReference>
+    <PackageReference Include="Serilog.Extensions.Logging">
+      <Version>3.1.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions">
+      <Version>6.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Logging">
+      <Version>6.0.0</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
@@ -1541,7 +1739,7 @@
     <AndroidResource Include="Resources\layout\notifications_layout.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\fragment_password_recovery.xml" />
+    <AndroidResource Include="Resources\layout\activity_password_recovery.xml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\fragment_profile.xml" />
@@ -1713,23 +1911,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Utils\Extensions\" />
-    <Folder Include="Presentation\Adapters\ViewHolders\Dialogs\" />
-    <Folder Include="Presentation\Views\Walthroughs\" />
-    <Folder Include="Resources\values-en\" />
-    <Folder Include="Presentation\Adapters\ViewHolders\Comments\" />
-    <Folder Include="Presentation\Adapters\ViewHolders\Notifications\" />
-    <Folder Include="Presentation\Adapters\ViewHolders\Search\" />
-    <Folder Include="Presentation\Views\Subscriptions\" />
-    <Folder Include="Presentation\Adapters\ViewHolders\Subscriptions\" />
-    <Folder Include="Resources\drawable-v24\" />
-    <Folder Include="PlatformBusinessServices\FileSystem\" />
-    <Folder Include="Presentation\Spans\" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\button_white_bordered_background.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\button_accent_background.xml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\menu\profile_menu.xml" />
@@ -1889,13 +2073,33 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_launcher_foreground.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_launcher_foreground.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_launcher_background.xml" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable\border_accent_load_video.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_onplay_icon.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-v24\ic_onplay_icon.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_launcher_foreground.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_launcher_background.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-v24\ic_launcher_foreground.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-v24\ic_launcher_background.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

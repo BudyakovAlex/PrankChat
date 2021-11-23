@@ -1,10 +1,10 @@
 ﻿using Microsoft.AppCenter.Crashes;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using PrankChat.Mobile.Core.Common;
 using PrankChat.Mobile.Core.Data.Models.Configurations;
-using PrankChat.Mobile.Core.Infrastructure;
+using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.Models.Data;
-using PrankChat.Mobile.Core.Presentation.Localization;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -51,20 +51,20 @@ namespace PrankChat.Mobile.Core.Providers.Configuration
         {
             Periods = new List<Period>()
             {
-                new Period(1, $"1 {Resources.Create_Order_Hour}"),
-                new Period(2, $"2 {Resources.Create_Orders_Hours_Singular}"),
-                new Period(4, $"4 {Resources.Create_Orders_Hours_Singular}"),
-                new Period(6, $"6 {Resources.Create_Orders_Hours_Plural}"),
-                new Period(8, $"8 {Resources.Create_Orders_Hours_Plural}"),
-                new Period(12, $"12 {Resources.Create_Orders_Hours_Plural}"),
-                new Period(16, $"16 {Resources.Create_Orders_Hours_Plural}"),
-                new Period(20, $"20 {Resources.Create_Orders_Hours_Plural}"),
-                new Period(24, $"24 {Resources.Create_Orders_Hours_Singular}"),
-                new Period(32, $"32 {Resources.Create_Orders_Hours_Singular}"),
-                new Period(36, $"36 {Resources.Create_Orders_Hours_Plural}"),
-                new Period(40, $"40 {Resources.Create_Orders_Hours_Plural}"),
-                new Period(44, $"44 {Resources.Create_Orders_Hours_Singular}"),
-                new Period(48, $"48 {Resources.Create_Orders_Hours_Plural}"),
+                new Period(1, $"1 {Resources.Hour}"),
+                new Period(2, $"2 {Resources.Hours}"),
+                new Period(4, $"4 {Resources.Hours}"),
+                new Period(6, $"6 {Resources.Hours}"),
+                new Period(8, $"8 {Resources.Hours}"),
+                new Period(12, $"12 {Resources.Hours}"),
+                new Period(16, $"16 {Resources.Hours}"),
+                new Period(20, $"20 {Resources.Hours}"),
+                new Period(24, $"24 {Resources.Hours}"),
+                new Period(32, $"32 {Resources.Hours}"),
+                new Period(36, $"36 {Resources.Hours}"),
+                new Period(40, $"40 {Resources.Hours}"),
+                new Period(44, $"44 {Resources.Hours}"),
+                new Period(48, $"48 {Resources.Hours}"),
             };
         }
 

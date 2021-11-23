@@ -21,7 +21,7 @@ namespace PrankChat.Mobile.Core.Managers.Users
 
         Task<User> SendAvatarAsync(string path);
 
-        Task ComplainUserAsync(int userId, string title, string description);
+        Task<bool> ComplainUserAsync(int userId, string title, string description);
 
         Task<User> GetUserAsync(int userId);
 

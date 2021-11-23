@@ -1,20 +1,19 @@
 ﻿using Firebase.CloudMessaging;
 using Foundation;
 using MvvmCross;
-using MvvmCross.Logging;
 using MvvmCross.Plugin.Messenger;
 using Newtonsoft.Json;
-using PrankChat.Mobile.Core.ApplicationServices.Notifications;
-using PrankChat.Mobile.Core.Infrastructure;
-using PrankChat.Mobile.Core.Infrastructure.Extensions;
 using PrankChat.Mobile.Core.Models.Data;
-using PrankChat.Mobile.Core.Presentation.Messages;
+using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Providers.UserSession;
+using PrankChat.Mobile.Core.Services.Notifications;
 using PrankChat.Mobile.iOS.Delegates;
 using System;
 using System.Diagnostics;
 using UserNotifications;
 using Xamarin.Essentials;
+using PrankChat.Mobile.Core.Messages;
+using PrankChat.Mobile.Core.Common;
 
 namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Notifications
 {
@@ -34,8 +33,7 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Notifications
             }
             catch (Exception ex)
             {
-                var log = Mvx.IoCProvider.Resolve<IMvxLog>();
-                log.ErrorException("Can not resolve IPushNotificationService", ex);
+                this.Logger().LogError(ex, "Can not resolve IPushNotificationService");
             }
         }
 
@@ -75,7 +73,7 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Notifications
             }
 
             var pushNotificationData = HandleNotificationPayload(userInfo);
-            NotificationManager.Instance.TryNavigateToView(pushNotificationData?.OrderId);
+            NotificationHandler.Instance.TryNavigateToView(pushNotificationData?.OrderId);
         }
 
         public PushNotification HandleNotificationPayload(NSDictionary userInfo)
@@ -90,14 +88,14 @@ namespace PrankChat.Mobile.iOS.PlatformBusinessServices.Notifications
 
             if (!(userInfo["aps"] is NSDictionary apsDictionary))
             {
-                return NotificationManager.Instance.GenerateNotificationData(key?.ToString(), value?.ToString(), string.Empty, string.Empty);
+                return NotificationHandler.Instance.GenerateNotificationData(key?.ToString(), value?.ToString(), string.Empty, string.Empty);
             }
 
             var alertDictionary = apsDictionary["alert"] as NSDictionary;
             alertDictionary.TryGetValue(new NSString("title"), out var title);
             alertDictionary.TryGetValue(new NSString("body"), out var body);
 
-            return NotificationManager.Instance.GenerateNotificationData(key?.ToString(), value?.ToString(), title?.ToString(), body?.ToString());
+            return NotificationHandler.Instance.GenerateNotificationData(key?.ToString(), value?.ToString(), title?.ToString(), body?.ToString());
         }
 
         private User ExtractUserSession()

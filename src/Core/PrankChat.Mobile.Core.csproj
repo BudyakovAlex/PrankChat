@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
@@ -13,24 +13,25 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="NETStandard.Library" version="2.0.3" Version="2.0.3" />
-    <PackageReference Include="Acr.UserDialogs" Version="7.1.0.481" />
-    <PackageReference Include="MvvmCross" Version="7.1.2" />
-    <PackageReference Include="MvvmCross.Plugin.Messenger" Version="7.1.2" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="RestSharp" Version="106.11.7" />
+    <PackageReference Include="Acr.UserDialogs" Version="7.2.0.534" />
+    <PackageReference Include="MvvmCross" Version="8.0.2" />
+    <PackageReference Include="MvvmCross.Plugin.Messenger" Version="8.0.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="RestSharp" Version="106.13.0" />
     <PackageReference Include="Xamarin.FFImageLoading" Version="2.4.11.982" />
     <PackageReference Include="Xamarin.FFImageLoading.Transformations" Version="2.4.11.982" />
     <PackageReference Include="Xam.Plugin.DeviceInfo" Version="4.1.1" />
     <PackageReference Include="Xam.Plugin.Media" Version="5.0.1" />
-    <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
     <PackageReference Include="CreditCardValidator" Version="2.0.1" />
-    <PackageReference Include="MvvmCross.Plugin.WebBrowser" Version="7.1.2" />
+    <PackageReference Include="MvvmCross.Plugin.WebBrowser" Version="8.0.2" />
     <PackageReference Include="MimeTypesMap" Version="1.0.8" />
     <PackageReference Include="Xam.Plugin.Badge" Version="1.0.0" />
     <PackageReference Include="System.Reactive" Version="5.0.0" />
-    <PackageReference Include="Microsoft.AppCenter" Version="4.1.0" />
-    <PackageReference Include="Microsoft.AppCenter.Crashes" Version="4.1.0" />
-    <PackageReference Include="Microsoft.AppCenter.Analytics" Version="4.1.0" />
+    <PackageReference Include="Microsoft.AppCenter" Version="4.4.0" />
+    <PackageReference Include="Microsoft.AppCenter.Crashes" Version="4.4.0" />
+    <PackageReference Include="Microsoft.AppCenter.Analytics" Version="4.4.0" />
+    <PackageReference Include="Serilog" Version="2.10.0" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="AppConfig.json">
@@ -38,11 +39,11 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-     <EmbeddedResource Update="Presentation\Localization\Resources.resx">
+     <EmbeddedResource Update="Localization\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Update="Presentation\Localization\Resources.Designer.cs">
+    <Compile Update="Localization\Resources.Designer.cs">
       <DependentUpon>Resources.resx</DependentUpon>
       <Autogen>True</Autogen>
       <DesignTime>True</DesignTime>
@@ -57,61 +58,30 @@
     <Folder Include="Managers\Orders\" />
     <Folder Include="Managers\Payment\" />
     <Folder Include="Managers\Competitions\" />
-    <Folder Include="Presentation\Navigation\" />
-    <Folder Include="Presentation\Navigation\Parameters\" />
     <Folder Include="Data\Enums\" />
-    <Folder Include="Presentation\ViewModels\Search\" />
-    <Folder Include="Presentation\ViewModels\Publication\Items\" />
-    <Folder Include="Presentation\ViewModels\PasswordRecovery\" />
-    <Folder Include="Presentation\ViewModels\Order\Items\" />
-    <Folder Include="Presentation\ViewModels\Search\Items\" />
-    <Folder Include="Presentation\ViewModels\Notification\" />
-    <Folder Include="Presentation\ViewModels\Notification\Items\" />
-    <Folder Include="Presentation\ViewModels\Comment\" />
-    <Folder Include="Presentation\ViewModels\Comment\Items\" />
-    <Folder Include="Presentation\ViewModels\Profile\" />
-    <Folder Include="Presentation\ViewModels\Profile\Cashbox\" />
-    <Folder Include="Presentation\ViewModels\Dialogs\" />
     <Folder Include="Exceptions\Network\" />
-    <Folder Include="ApplicationServices\Timer\" />
-    <Folder Include="ApplicationServices\Dialogs\" />
-    <Folder Include="Presentation\ViewModels\Video\" />
-    <Folder Include="Commands\" />
-    <Folder Include="ApplicationServices\Notifications\" />
     <Folder Include="Data\Models\Shared\" />
-    <Folder Include="Providers\" />
-    <Folder Include="Presentation\ViewModels\Walthroughs\" />
-    <Folder Include="ApplicationServices\Network\Builders\" />
-    <Folder Include="ApplicationServices\Network\Contents\" />
-    <Folder Include="Presentation\ViewModels\Subscriptions\" />
-    <Folder Include="Presentation\ViewModels\Order\Sections\" />
-    <Folder Include="Wrappers\" />
-    <Folder Include="Presentation\ViewModels\Order\Sections\Abstract\" />
     <Folder Include="Data\Enums\FilterTypes\" />
     <Folder Include="Providers\UserSession\" />
     <Folder Include="Managers\Navigation\" />
     <Folder Include="Ioc\" />
-    <Folder Include="Presentation\ViewModels\Abstract\" />
-    <Folder Include="Presentation\ViewModels\Profile\Abstract\" />
-    <Folder Include="Presentation\ViewModels\Common\" />
-    <Folder Include="Presentation\ViewModels\Subscriptions\Items\" />
-    <Folder Include="Presentation\ViewModels\Common\Abstract\" />
     <Folder Include="Data\Models\Configurations\" />
     <Folder Include="Providers\Configuration\" />
-    <Folder Include="Plugins\" />
     <Folder Include="Plugins\Video\" />
-    <Folder Include="Presentation\ViewModels\Order\Items\Abstract\" />
-    <Folder Include="Infrastructure\Extensions\DateFilter\" />
     <Folder Include="Providers\Platform\" />
-    <Folder Include="ApplicationServices\FileSystem\" />
     <Folder Include="Data\Models\User\" />
     <Folder Include="Data\Dtos\Users\" />
-    <Folder Include="Infrastructure\Extensions\MvvmCross\" />
+    <Folder Include="Managers\Navigation\Arguments\" />
+    <Folder Include="Managers\Navigation\Arguments\NavigationParameters\" />
+    <Folder Include="Managers\Navigation\Arguments\NavigationResults\" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="AppConfig.json" />
     <None Remove="Data\Models\User\" />
     <None Remove="Data\Dtos\Users\" />
-    <None Remove="Infrastructure\Extensions\MvvmCross\" />
+    <None Remove="Managers\Navigation\Arguments\" />
+    <None Remove="Managers\Navigation\Arguments\Parameters\" />
+    <None Remove="Managers\Navigation\Arguments\NavigationResults\" />
+    <None Remove="Serilog" />
   </ItemGroup>
 </Project>

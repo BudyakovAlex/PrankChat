@@ -1,5 +1,7 @@
 ﻿using MvvmCross.Navigation;
 using MvvmCross.ViewModels;
+using PrankChat.Mobile.Core.Managers.Navigation.Arguments.NavigationParameters;
+using PrankChat.Mobile.Core.Managers.Navigation.Arguments.NavigationResults;
 using System;
 using System.Threading.Tasks;
 
@@ -7,19 +9,19 @@ namespace PrankChat.Mobile.Core.Managers.Navigation
 {
     public class NavigationManager : INavigationManager
     {
-        private readonly IMvxNavigationService _navigationService;
+        private readonly IMvxNavigationService navigationService;
 
         public NavigationManager(IMvxNavigationService navigationService)
         {
-            _navigationService = navigationService;
+            this.navigationService = navigationService;
 
-            _navigationService.BeforeNavigate += OnBeforeNavigation;
-            _navigationService.BeforeClose += OnBeforeNavigation;
-            _navigationService.BeforeChangePresentation += OnBeforeNavigation;
+            this.navigationService.WillNavigate += OnWillNavigate;
+            this.navigationService.WillClose += OnWillNavigate;
+            this.navigationService.WillChangePresentation += OnWillNavigate;
 
-            _navigationService.AfterNavigate += OnAfterNavigation;
-            _navigationService.AfterClose += OnAfterNavigation;
-            _navigationService.AfterChangePresentation += OnAfterNavigation;
+            this.navigationService.DidNavigate += OnDidNavigate;
+            this.navigationService.DidClose += OnDidNavigate;
+            this.navigationService.DidChangePresentation += OnDidNavigate;
         }
 
         public event EventHandler<bool> IsNavigatingChanged;
@@ -28,41 +30,43 @@ namespace PrankChat.Mobile.Core.Managers.Navigation
 
         public Task<bool> NavigateAsync<TViewModel>() where TViewModel : IMvxViewModel
         {
-            return _navigationService.Navigate<TViewModel>();
+            return navigationService.Navigate<TViewModel>();
         }
 
-        public Task<TResult> NavigateAsync<TViewModel, TResult>() where TViewModel : IMvxViewModelResult<TResult>
+        public async Task<TResult> NavigateAsync<TViewModel, TResult>() where TViewModel : IMvxViewModelResult<GenericNavigationResult<TResult>>
         {
-            return _navigationService.Navigate<TViewModel, TResult>();
+            var result = await navigationService.Navigate<TViewModel, GenericNavigationResult<TResult>>();
+            return result.Result;
         }
 
-        public Task<bool> NavigateAsync<TViewModel, TParameter>(TParameter parameter) where TViewModel : IMvxViewModel<TParameter>
+        public Task<bool> NavigateAsync<TViewModel, TParameter>(TParameter parameter) where TViewModel : IMvxViewModel<GenericNavigationParams<TParameter>>
         {
-            return _navigationService.Navigate<TViewModel, TParameter>(parameter);
+            return navigationService.Navigate<TViewModel, GenericNavigationParams<TParameter>>(new GenericNavigationParams<TParameter>(parameter));
         }
 
-        public Task<TResult> NavigateAsync<TViewModel, TParameter, TResult>(TParameter parameter) where TViewModel : IMvxViewModel<TParameter, TResult>
+        public async Task<TResult> NavigateAsync<TViewModel, TParameter, TResult>(TParameter parameter) where TViewModel : IMvxViewModel<GenericNavigationParams<TParameter>, GenericNavigationResult<TResult>>
         {
-            return _navigationService.Navigate<TViewModel, TParameter, TResult>(parameter);
+            var result = await navigationService.Navigate<TViewModel, GenericNavigationParams<TParameter>, GenericNavigationResult<TResult>>(new GenericNavigationParams<TParameter>(parameter));
+            return result.Result;
         }
 
         public Task<bool> CloseAsync(IMvxViewModel viewModel)
         {
-            return _navigationService.Close(viewModel);
+            return navigationService.Close(viewModel);
         }
 
-        public Task<bool> CloseAsync<TResult>(IMvxViewModelResult<TResult> viewModel, TResult result)
+        public Task<bool> CloseAsync<TResult>(IMvxViewModelResult<GenericNavigationResult<TResult>> viewModel, TResult result)
         {
-            return _navigationService.Close(viewModel, result);
+            return navigationService.Close(viewModel, new GenericNavigationResult<TResult>(result));
         }
 
-        private void OnBeforeNavigation(object sender, object e)
+        private void OnWillNavigate(object sender, object e)
         {
             IsNavigating = true;
             IsNavigatingChanged?.Invoke(this, IsNavigating);
         }
 
-        private void OnAfterNavigation(object sender, object e)
+        private void OnDidNavigate(object sender, object e)
         {
             IsNavigating = false;
             IsNavigatingChanged?.Invoke(this, IsNavigating);

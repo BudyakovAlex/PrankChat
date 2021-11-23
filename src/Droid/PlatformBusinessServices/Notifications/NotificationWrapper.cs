@@ -6,7 +6,7 @@ using Android.OS;
 using AndroidX.Core.App;
 using MvvmCross;
 using MvvmCross.Logging;
-using PrankChat.Mobile.Core.Infrastructure;
+using PrankChat.Mobile.Core.Common;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
 
@@ -21,27 +21,26 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications
 
         public void Initialize()
         {
-            if (IsPlayServicesAvailable())
+            if (CheckIsPlayServicesAvailable())
             {
                 CreateNotificationChannel();
             }
         }
 
-        private bool IsPlayServicesAvailable()
+        private bool CheckIsPlayServicesAvailable()
         {
             var resultCode = GoogleApiAvailability.Instance.IsGooglePlayServicesAvailable(Application.Context);
             if (resultCode != ConnectionResult.Success)
             {
-                if (GoogleApiAvailability.Instance.IsUserResolvableError(resultCode))
-                {
-                    Mvx.IoCProvider.Resolve<IMvxLog>().Error(GoogleApiAvailability.Instance.GetErrorString(resultCode), nameof(NotificationWrapper));
-                }
-                else
-                {
-                    Mvx.IoCProvider.Resolve<IMvxLog>().Error("This device is not supported", nameof(NotificationWrapper));
-                }
+                var errorMessage = GoogleApiAvailability.Instance.IsUserResolvableError(resultCode)
+                    ? GoogleApiAvailability.Instance.GetErrorString(resultCode)
+                    : "Firebase is not supported for this device";
+
+                System.Diagnostics.Debug.WriteLine(errorMessage);
+
                 return false;
             }
+
             return true;
         }
 
@@ -90,7 +89,7 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications
                 bundleCollection.Count == 0)
                 return null;
 
-            var orderIdString = bundle.Get(Utils.Constants.PushNotificationKey.OrderId)?.ToString();
+            var orderIdString = bundle.Get(Common.Constants.PushNotificationKey.OrderId)?.ToString();
             if (!string.IsNullOrEmpty(orderIdString))
             {
                 int.TryParse(orderIdString, out var orderId);
@@ -102,7 +101,7 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications
             var title = bundle.Get("title")?.ToString();
             var body = bundle.Get("body")?.ToString();
 
-            var pushNotificationData = Core.ApplicationServices.Notifications.NotificationManager.Instance.GenerateNotificationData(key, value, title, body);
+            var pushNotificationData = Core.Services.Notifications.NotificationHandler.Instance.GenerateNotificationData(key, value, title, body);
             if (pushNotificationData?.Type == NotificationType.OrderEvent)
             {
                 return pushNotificationData.OrderId;
@@ -152,7 +151,7 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications
             var intent = new Intent(Application.Context, typeof(NotificationActionService));
 
             var extras = new Bundle();
-            extras.PutString(Utils.Constants.PushNotificationKey.OrderId, pushNotificationData.OrderId.ToString());
+            extras.PutString(Common.Constants.PushNotificationKey.OrderId, pushNotificationData.OrderId.ToString());
 
             intent.PutExtras(extras);
             var requestCode = new Java.Util.Random().NextInt();
