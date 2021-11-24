@@ -9,6 +9,8 @@ using Android.Widget;
 using PrankChat.Mobile.Droid.Extensions;
 using Android.Graphics;
 using PrankChat.Mobile.Droid.Utils.Helpers;
+using AndroidX.Core.Content.Resources;
+using Android.App;
 
 namespace PrankChat.Mobile.Droid.Controls
 {
@@ -40,13 +42,15 @@ namespace PrankChat.Mobile.Droid.Controls
 
         private void Init(IAttributeSet attrs = null)
         {
+            var colorValue = ResourcesCompat.GetColor(Application.Context.Resources, Resource.Color.search_border, null);
+            var color = new Color(colorValue);
             this.AddBorder(
                 DisplayUtils.DpToPx(borderRadius),
                 DisplayUtils.DpToPx(borderRadius),
                 DisplayUtils.DpToPx(borderRadius),
                 DisplayUtils.DpToPx(borderRadius),
                 DisplayUtils.DpToPx(borderWidth),
-                Color.ParseColor("#A1A1A1"),
+                color,
                 Color.Transparent);
             clearButton = ContextCompat.GetDrawable(Android.App.Application.Context, Resource.Drawable.ic_clear);
             clearButton.SetBounds(0, 0, clearButton.IntrinsicWidth, clearButton.IntrinsicHeight);
