@@ -478,14 +478,8 @@
 		<PackageReference Include="VideoLAN.LibVLC.iOS">
 			<Version>3.3.17</Version>
 		</PackageReference>
-		<PackageReference Include="VLC.Native">
-			<Version>3.0.8</Version>
-		</PackageReference>
 		<PackageReference Include="LibVLCSharp">
 			<Version>3.6.1</Version>
-		</PackageReference>
-		<PackageReference Include="Vlc.DotNet.Core">
-			<Version>3.1.0</Version>
 		</PackageReference>
 		<PackageReference Include="Serilog">
 			<Version>2.10.0</Version>
