@@ -85,6 +85,8 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
             set => SetProperty(ref _isRefreshing, value);
         }
 
+        protected override bool DefaultResult => _isReloadNeeded;
+
         public MvxObservableCollection<BaseViewModel> Items { get; }
 
         public IMvxAsyncCommand RefreshDataCommand { get; }
@@ -105,16 +107,6 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
         public override Task InitializeAsync()
         {
             return LoadMoreItemsCommand.ExecuteAsync();
-        }
-
-        public override void ViewDestroy(bool viewFinishing = true)
-        {
-            if (viewFinishing && CloseCompletionSource != null && !CloseCompletionSource.Task.IsCompleted && !CloseCompletionSource.Task.IsFaulted)
-            {
-                CloseCompletionSource?.SetResult(_isReloadNeeded);
-            }
-
-            base.ViewDestroy(viewFinishing);
         }
 
         protected override async Task<int> LoadMoreItemsAsync(int page = 1, int pageSize = 20)
