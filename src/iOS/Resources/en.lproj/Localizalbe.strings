@@ -108,7 +108,7 @@
 "Unsubscribe" = "Unsubscribe";
 
 /*Fuzzy*/
-"UploadVideo" = "Upload video:";
+"UploadVideo" = "Upload video";
 
 /*Fuzzy*/
 "Run" = "Run";
@@ -738,3 +738,4 @@
 "AllTime" = "Per all time";
 "YouAreNotConfirmedAdultAge" = "You are not confirmed that you have adult age";
 "YouAreNotConfirmedUserAgreement" = "You are not approved user agreement";
+"VideoIsDownloadedTemplate" = "Video {0} downloaded";
