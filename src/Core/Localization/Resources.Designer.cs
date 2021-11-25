@@ -1810,5 +1810,11 @@ namespace PrankChat.Mobile.Core.Localization {
                 return ResourceManager.GetString("YouAreNotConfirmedUserAgreement", resourceCulture);
             }
         }
+        
+        public static string VideoIsDownloadedTemplate {
+            get {
+                return ResourceManager.GetString("VideoIsDownloadedTemplate", resourceCulture);
+            }
+        }
     }
 }

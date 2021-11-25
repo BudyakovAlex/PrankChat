@@ -267,7 +267,7 @@
     <comment>Fuzzy</comment>
   </data>
   <data name="UploadVideo" xml:space="preserve">
-    <value>Upload video:</value>
+    <value>Upload video</value>
     <comment>Fuzzy</comment>
   </data>
   <data name="Run" xml:space="preserve">
@@ -1234,5 +1234,8 @@ Taking such a task the user will have to complete it or lose the Deposit!</value
   </data>
   <data name="YouAreNotConfirmedUserAgreement" xml:space="preserve">
     <value>You are not approved user agreement</value>
+  </data>
+  <data name="VideoIsDownloadedTemplate" xml:space="preserve">
+    <value>Video {0} downloaded</value>
   </data>
 </root>

@@ -110,7 +110,7 @@
     <string name="Unsubscribe">"Отписаться"</string>
 
     <!-- Fuzzy -->
-    <string name="UploadVideo">"Загрузить видео:"</string>
+    <string name="UploadVideo">"Загрузить видео"</string>
 
     <!-- Fuzzy -->
     <string name="Run">"Выполнить"</string>
@@ -754,4 +754,7 @@ Apple Inc. не является спонсором проведения кон�
     <string name="AllTime">"За все время"</string>
     <string name="YouAreNotConfirmedAdultAge">"Вы не подтвердили что Вам есть 18 лет"</string>
     <string name="YouAreNotConfirmedUserAgreement">"Вы не подтвердили согласие с пользовательским соглашением"</string>
+
+    <!-- Fuzzy -->
+    <string name="VideoIsDownloadedTemplate">"Видео {0} скачано"</string>
 </resources>

@@ -10,7 +10,7 @@
         <item name="windowNoTitle">true</item>
         <item name="android:colorControlHighlight">@color/accent</item>
         <item name="android:statusBarColor">@color/applicationWhite</item>
-        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightStatusBar">false</item>
         <item name="android:includeFontPadding">false</item>
 
         <!-- TextEdit Hint Color Workaround-->
@@ -34,7 +34,7 @@
     <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
       <item name="android:textSize">16dp</item>
     </style>
-  
+
     <style name="Theme.PrankChat.OnBoarding" parent="Theme.PrankChat.Base.Dark">
         <!-- TextEdit Hint Color Workaround-->
         <item name="colorControlNormal">@color/accent</item>

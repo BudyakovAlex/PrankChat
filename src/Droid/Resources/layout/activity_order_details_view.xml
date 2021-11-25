@@ -234,30 +234,15 @@
 					android:layout_gravity="center_horizontal"
 					android:layout_marginTop="26dp"
 					android:text="@string/Unsubscribe"/>
-				<LinearLayout
-                    android:id="@+id/video_load_linear_layout"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:layout_marginTop="26dp"
-					android:orientation="vertical">
 
-					<TextView
-						android:layout_width="match_parent"
-						android:layout_height="wrap_content"
-						android:gravity="center_horizontal"
-						android:textColor="@color/inactive"
-						android:textSize="12dp"
-						android:text="@string/UploadVideo"/>
-
-					<com.google.android.material.button.MaterialButton
-                        android:id="@+id/load_video_material_button"
-						style="@style/Theme.PrankChat.Button.Accent"
-						android:layout_width="wrap_content"
-						android:layout_height="36dp"
-						android:layout_gravity="center_horizontal"
-						android:layout_marginTop="14.5dp"
-						android:text="@string/UploadVideo"/>
-				</LinearLayout>
+				<com.google.android.material.button.MaterialButton
+                    android:id="@+id/load_video_material_button"
+					style="@style/Theme.PrankChat.Button.Accent"
+					android:layout_width="wrap_content"
+					android:layout_height="36dp"
+					android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="26dp"
+					android:text="@string/UploadVideo"/>
 
 				<com.google.android.material.button.MaterialButton
                     android:id="@+id/execute_button"
