@@ -39,6 +39,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
             SelectPeriodCollectionBidsToCommand = this.CreateCommand(SelectPeriodCollectionBidsToAsync);
             SelectPeriodVotingFromCommand = this.CreateCommand(SelectPeriodVotingFromAsync);
             SelectPeriodVotingToCommand = this.CreateCommand(SelectPeriodVotingToAsync);
+            ShowSettingTableParticipantsCommand = this.CreateCommand(ShowSettingTableParticipantsAsync);
         }
 
         public IMvxAsyncCommand CreateCommand { get; }
@@ -48,6 +49,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
         public IMvxAsyncCommand SelectPeriodCollectionBidsToCommand { get; }
         public IMvxAsyncCommand SelectPeriodVotingFromCommand { get; }
         public IMvxAsyncCommand SelectPeriodVotingToCommand { get; }
+        public IMvxAsyncCommand ShowSettingTableParticipantsCommand { get; }
 
         private string _name;
         public string Name
@@ -69,7 +71,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
             get => _collectionBidsFrom;
             set
             {
-                if(value == null)
+                if (value == null)
                 {
                     return;
                 }
@@ -215,5 +217,10 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
 
         private Task ShowPrivacyPolicyAsync() =>
             Xamarin.Essentials.Browser.OpenAsync(RestConstants.PolicyEndpoint);
+
+        private async Task ShowSettingTableParticipantsAsync()
+        {
+            await NavigationManager.NavigateAsync<SettingsTableParticipantsViewModel>();
+        }
     }
 }

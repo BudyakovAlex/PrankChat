@@ -111,6 +111,7 @@ namespace PrankChat.Mobile.iOS.Views.Competition
             bindingSet.Bind(CreateContestButton.Tap()).For(v => v.Command).To(vm => vm.CreateCommand);
             bindingSet.Bind(SecretContestButton).For(v => v.IsChecked).To(vm => vm.IsExecutorHidden).TwoWay();
             bindingSet.Bind(InfoImageView.Tap()).For(v => v.Command).To(vm => vm.ShowWalkthrouthSecretCommand);
+            bindingSet.Bind(SettingTableOfParticipantView.Tap()).For(v => v.Command).To(vm => vm.ShowSettingTableParticipantsCommand);
         }
 
         protected override void RegisterKeyboardDismissResponders(List<UIView> views)

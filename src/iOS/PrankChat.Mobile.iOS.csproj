@@ -408,6 +408,11 @@
     <Compile Include="Controls\DoneAccessoryView.cs" />
     <Compile Include="Extensions\UITextFieldExtensions.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />
+    <InterfaceDefinition Include="Views\Competition\SettingsTableParticipantsView.xib" />
+    <Compile Include="Views\Competition\SettingsTableParticipantsView.cs" />
+    <Compile Include="Views\Competition\SettingsTableParticipantsView.designer.cs">
+      <DependentUpon>SettingsTableParticipantsView.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
