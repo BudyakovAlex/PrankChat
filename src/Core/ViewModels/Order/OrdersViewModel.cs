@@ -35,8 +35,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Order
             new Dictionary<ArbitrationOrderFilterType, string>
             {
                 { ArbitrationOrderFilterType.All, Resources.AllOrdersInDispute },
-                { ArbitrationOrderFilterType.New, Resources.NewDisputeOrders },
-                { ArbitrationOrderFilterType.My, Resources.MyOrdersInDispute },
+                { ArbitrationOrderFilterType.My, Resources.MyOrdersInDispute }
             };
 
         private readonly Dictionary<OrderFilterType, string> _orderFilterTypeTitleMap =

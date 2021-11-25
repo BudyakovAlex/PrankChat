@@ -223,10 +223,13 @@ namespace PrankChat.Mobile.Core.ViewModels.Publication.Items
             Messenger.Publish(new ReloadPublicationsMessage(this));
         }
 
-        private Task DownloadVideoAsync()
+        private async Task DownloadVideoAsync()
         {
             var videoFileName = Video.Title.ReplaceSpacesWithUnderscores().ToLower();
-            return VideoManager.DownloadVideoAsync(Video.MarkedStreamUri, videoFileName);
+            await VideoManager.DownloadVideoAsync(Video.MarkedStreamUri, videoFileName);
+
+            var downloadedVideoMessage = string.Format(Resources.VideoIsDownloadedTemplate, VideoName);
+            UserInteraction.ShowToast(downloadedVideoMessage, ToastType.Positive);
         }
 
         private async Task ComplaintAsync()

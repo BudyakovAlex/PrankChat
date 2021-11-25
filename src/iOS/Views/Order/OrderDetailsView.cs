@@ -194,7 +194,6 @@ namespace PrankChat.Mobile.iOS.Views.Order
             daysTitleLabel.SetSmallTitleStyle(Resources.Day, 10);
             hourTitleLabel.SetSmallTitleStyle(Resources.Hour, 10);
             minutesTitleLabel.SetSmallTitleStyle(Resources.Minute, 10);
-            downloadVideotextLabel.SetSmallTitleStyle(Resources.UploadVideo);
             tookOrderTextLabel.SetSmallTitleStyle(Resources.Executor);
             executorNameLabel.SetTitleStyle();
             startDateLabel.SetSmallSubtitleStyle();

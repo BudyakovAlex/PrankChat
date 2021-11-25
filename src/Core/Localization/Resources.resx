@@ -267,7 +267,7 @@
     <comment>Fuzzy</comment>
   </data>
   <data name="UploadVideo" xml:space="preserve">
-    <value>Загрузить видео:</value>
+    <value>Загрузить видео</value>
     <comment>Fuzzy</comment>
   </data>
   <data name="Run" xml:space="preserve">
@@ -1235,5 +1235,9 @@ Apple Inc. не является спонсором проведения кон�
   </data>
   <data name="YouAreNotConfirmedUserAgreement" xml:space="preserve">
     <value>Вы не подтвердили согласие с пользовательским соглашением</value>
+  </data>
+  <data name="VideoIsDownloadedTemplate" xml:space="preserve">
+    <value>Видео {0} скачано</value>
+    <comment>Fuzzy</comment>
   </data>
 </root>

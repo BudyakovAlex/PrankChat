@@ -32,7 +32,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition.Items
 
         private string GetActionTitile()
         {
-            if (CanJoinToPaidCompetition)
+            if (Competition.CanJoin && Competition.EntryTax.HasValue)
             {
                 return Resources.PayForParticipation;
             }

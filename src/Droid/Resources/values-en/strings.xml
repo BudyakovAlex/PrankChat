@@ -110,7 +110,7 @@
     <string name="Unsubscribe">"Unsubscribe"</string>
 
     <!-- Fuzzy -->
-    <string name="UploadVideo">"Upload video:"</string>
+    <string name="UploadVideo">"Upload video"</string>
 
     <!-- Fuzzy -->
     <string name="Run">"Run"</string>
@@ -753,4 +753,5 @@ Taking such a task the user will have to complete it or lose the Deposit!"</stri
     <string name="AllTime">"Per all time"</string>
     <string name="YouAreNotConfirmedAdultAge">"You are not confirmed that you have adult age"</string>
     <string name="YouAreNotConfirmedUserAgreement">"You are not approved user agreement"</string>
+    <string name="VideoIsDownloadedTemplate">"Video {0} downloaded"</string>
 </resources>
