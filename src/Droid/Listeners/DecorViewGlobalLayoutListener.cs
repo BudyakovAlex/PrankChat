@@ -6,10 +6,10 @@ namespace PrankChat.Mobile.Droid.Listeners
 {
     public class DecorViewGlobalLayoutListener : Java.Lang.Object, ViewTreeObserver.IOnGlobalLayoutListener
     {
+        private readonly View _decorView;
+
         private int _maxHeight;
         private bool _keyboardShowed;
-
-        public View _decorView;
 
         public DecorViewGlobalLayoutListener(View decorView)
         {
