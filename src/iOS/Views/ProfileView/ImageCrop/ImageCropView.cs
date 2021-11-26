@@ -20,12 +20,13 @@ namespace PrankChat.Mobile.iOS.Views.ProfileView
 
             var selector = new CropViewDelegate(ViewModel);
             var safeArea = UIApplication.SharedApplication.KeyWindow.SafeAreaInsets;
+            var calculatedCropViewSize = View.Bounds.Size.Height - safeArea.Top - safeArea.Bottom;
             _pickerViewController = new TOCropViewController(TOCropViewCroppingStyle.Circular, image);
             _pickerViewController.Delegate = selector;
             _pickerViewController.View.Frame =
                 new CGRect(
                     new CGPoint(0, safeArea.Top),
-                    new CGSize(View.Bounds.Size.Width, View.Bounds.Size.Height - safeArea.Top - safeArea.Bottom));
+                    new CGSize(View.Bounds.Size.Width, calculatedCropViewSize));
             View.BackgroundColor = _pickerViewController.View.BackgroundColor;
             View.Add(_pickerViewController.View);
         }
