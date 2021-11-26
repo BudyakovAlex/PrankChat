@@ -22,7 +22,10 @@ namespace PrankChat.Mobile.iOS.Views.ProfileView
             var safeArea = UIApplication.SharedApplication.KeyWindow.SafeAreaInsets;
             _pickerViewController = new TOCropViewController(TOCropViewCroppingStyle.Circular, image);
             _pickerViewController.Delegate = selector;
-            _pickerViewController.View.Frame = new CGRect(new CGPoint(0, safeArea.Top), new CGSize(View.Bounds.Size.Width, View.Bounds.Size.Height - safeArea.Top - safeArea.Bottom));
+            _pickerViewController.View.Frame =
+                new CGRect(
+                    new CGPoint(0, safeArea.Top),
+                    new CGSize(View.Bounds.Size.Width, View.Bounds.Size.Height - safeArea.Top - safeArea.Bottom));
             View.BackgroundColor = _pickerViewController.View.BackgroundColor;
             View.Add(_pickerViewController.View);
         }
