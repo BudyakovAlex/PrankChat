@@ -209,6 +209,7 @@
     <Compile Include="Extensions\BindingExtensions.cs" />
     <Compile Include="PlatformBusinessServices\FileSystem\FileSystemService.cs" />
     <Compile Include="Spans\LinkSpan.cs" />
+    <Compile Include="Listeners\DecorViewGlobalLayoutListener.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
