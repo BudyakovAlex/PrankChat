@@ -51,6 +51,8 @@ namespace PrankChat.Mobile.Core.ViewModels.Abstract
 
         public virtual bool IsBusy => ExecutionStateWrapper.IsBusy;
 
+        public bool IsNotBusy => !IsBusy;
+
         public virtual SafeExecutionWrapper SafeExecutionWrapper { get; }
 
         protected INavigationManager NavigationManager => Mvx.IoCProvider.Resolve<INavigationManager>();
@@ -73,7 +75,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Abstract
 
         protected virtual void OnIsBusyChanged(object sender, bool value)
         {
-            RaisePropertyChanged(nameof(IsBusy));
+            RaisePropertiesChanged(nameof(IsBusy), nameof(IsNotBusy));
         }
 
         protected virtual void Dispose(bool disposing)

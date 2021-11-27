@@ -1,4 +1,9 @@
-﻿using MvvmCross.Commands;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Linq;
+using System.Threading.Tasks;
+using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.Common;
 using PrankChat.Mobile.Core.Extensions;
@@ -9,17 +14,13 @@ using PrankChat.Mobile.Core.Messages;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.FilterTypes;
 using PrankChat.Mobile.Core.Models.Enums;
+using PrankChat.Mobile.Core.Providers;
 using PrankChat.Mobile.Core.ViewModels.Arbitration.Items;
 using PrankChat.Mobile.Core.ViewModels.Common;
 using PrankChat.Mobile.Core.ViewModels.Common.Abstract;
 using PrankChat.Mobile.Core.ViewModels.Order.Items;
 using PrankChat.Mobile.Core.ViewModels.Order.Items.Abstract;
-using PrankChat.Mobile.Core.Providers;
 using PrankChat.Mobile.Core.Wrappers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.ViewModels.Order
 {
@@ -68,6 +69,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Order
                 (wrapper, handler) => wrapper.IsBusyChanged -= handler).DisposeWith(Disposables);
 
             Items = new MvxObservableCollection<BaseOrderItemViewModel>();
+            Items.SubscribeToCollectionChanged(OnCollectionChanged).DisposeWith(Disposables);
 
             OpenFilterCommand = this.CreateCommand(OpenFilterAsync);
             ShowWalkthrouthCommand = this.CreateCommand(ShowWalkthrouthAsync);
@@ -78,6 +80,8 @@ namespace PrankChat.Mobile.Core.ViewModels.Order
         }
 
         public override bool IsBusy => base.IsBusy || _loadDataStateWrapper.IsBusy;
+
+        public bool IsEmpty => Items.IsEmpty();
 
         public MvxObservableCollection<BaseOrderItemViewModel> Items { get; }
 
@@ -175,6 +179,9 @@ namespace PrankChat.Mobile.Core.ViewModels.Order
 
             Items.OfType<IDisposable>().ForEach(disposable => disposable.Dispose());
         }
+
+        private void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e) =>
+            RaisePropertyChanged(nameof(IsEmpty));
 
         private async Task DebounceRefreshDataAsync()
         {

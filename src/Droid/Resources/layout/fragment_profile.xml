@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/content"
@@ -9,20 +8,20 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
-        android:background="@color/applicationWhite"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/applicationWhite">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
-            app:layout_scrollFlags="scroll|enterAlwaysCollapsed"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:layout_scrollFlags="scroll|enterAlwaysCollapsed">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/header_constraint_layout"
                 android:layout_width="match_parent"
-                app:layout_collapseMode="parallax"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:layout_collapseMode="parallax">
 
                 <PrankChat.Mobile.Droid.Controls.CircleCachedImageView
                     android:id="@+id/profile_photo"
@@ -87,8 +86,8 @@
                     style="@style/Theme.PrankChat.Button.White"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:background="@null"
                     android:layout_marginEnd="16dp"
+                    android:background="@null"
                     android:padding="0dp"
                     android:text="@string/Withdraw"
                     android:textSize="13dp"
@@ -240,14 +239,22 @@
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
-  <mvvmcross.droidx.MvxSwipeRefreshLayout
-      android:id="@+id/swipe_refresh_layout"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      app:layout_behavior="@string/appbar_scrolling_view_behavior">
-        <PrankChat.Mobile.Droid.Controls.EndlessRecyclerView
-            android:id="@+id/profile_publication_recycler_view"
+    <mvvmcross.droidx.MvxSwipeRefreshLayout
+        android:id="@+id/swipe_refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <ViewSwitcher
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent">
+
+            <PrankChat.Mobile.Droid.Controls.EndlessRecyclerView
+                android:id="@+id/profile_publication_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <include layout="@layout/layout_empty_view" />
+        </ViewSwitcher>
     </mvvmcross.droidx.MvxSwipeRefreshLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

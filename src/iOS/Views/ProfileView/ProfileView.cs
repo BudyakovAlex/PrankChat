@@ -1,21 +1,24 @@
-﻿using CoreGraphics;
+﻿using System;
+using CoreGraphics;
 using MvvmCross.Binding.BindingContext;
+using MvvmCross.Binding.Combiners;
 using MvvmCross.Platforms.Ios.Binding;
 using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using MvvmCross.Platforms.Ios.Views;
+using PrankChat.Mobile.Core.Extensions.MvvmCross;
 using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.ViewModels.Profile;
 using PrankChat.Mobile.iOS.AppTheme;
-using PrankChat.Mobile.iOS.Infrastructure.Helpers;
+using PrankChat.Mobile.iOS.Common;
+using PrankChat.Mobile.iOS.Controls;
 using PrankChat.Mobile.iOS.Converters;
+using PrankChat.Mobile.iOS.Infrastructure.Helpers;
 using PrankChat.Mobile.iOS.Views.Base;
 using PrankChat.Mobile.iOS.Views.Order;
-using System;
 using UIKit;
 using Xamarin.Essentials;
-using PrankChat.Mobile.iOS.Common;
 
 namespace PrankChat.Mobile.iOS.Views.ProfileView
 {
@@ -23,10 +26,12 @@ namespace PrankChat.Mobile.iOS.Views.ProfileView
     public partial class ProfileView : BaseRefreshableTabbedViewController<ProfileViewModel>, IScrollableView
     {
         private MvxUIRefreshControl _refreshControl;
+        private EmptyView _emptyView;
         private UIBarButtonItem _notificationBarItem;
         private OrdersTableSource _source;
 
         private bool _hasDescription;
+
         public bool HasDescription
         {
             get => _hasDescription;
@@ -55,6 +60,10 @@ namespace PrankChat.Mobile.iOS.Views.ProfileView
             var topOffset = 10 + headerContainerView.Frame.Height;
             tableView.ContentInset = new UIEdgeInsets(topOffset, 0, 0, 0);
             tableView.SetContentOffset(new CGPoint(0, -topOffset), false);
+
+            _emptyView.Bounds = tableView.Bounds.Inset(0, topOffset - 80);
+            _emptyView.SetNeedsLayout();
+            _emptyView.LayoutIfNeeded();
         }
 
         protected override void Bind()
@@ -80,6 +89,18 @@ namespace PrankChat.Mobile.iOS.Views.ProfileView
             bindingSet.Bind(subscriptionsView).For(v => v.BindTap()).To(vm => vm.ShowSubscriptionsCommand);
             bindingSet.Bind(_notificationBarItem).For(v => v.Image).To(vm => vm.NotificationBadgeViewModel.HasUnreadNotifications)
                 .WithConversion<BoolToNotificationImageConverter>();
+
+            bindingSet.Bind(_emptyView)
+                .For(v => v.BindVisible())
+                .ByCombining(new MvxAndValueCombiner(),
+                    vm => vm.IsEmpty,
+                    vm => vm.IsNotBusy,
+                    vm => vm.IsInitialized);
+
+            bindingSet.Bind(_emptyView)
+                .For(v => v.Title)
+                .To(vm => vm.SelectedOrderType)
+                .WithConversion((ProfileOrderType orderType) => "some text 1");
         }
 
         protected override void SetupControls()
@@ -87,6 +108,7 @@ namespace PrankChat.Mobile.iOS.Views.ProfileView
             DefinesPresentationContext = true;
 
             InitializeTableView();
+            CreateEmptyView();
 
             _notificationBarItem = NavigationItemHelper.CreateBarButton(ImageNames.IconNotification, ViewModel.ShowNotificationCommand);
             NavigationItem?.SetRightBarButtonItems(
@@ -115,6 +137,13 @@ namespace PrankChat.Mobile.iOS.Views.ProfileView
             rootScrollView.RefreshControl = _refreshControl;
             
             NavigationItem.LeftBarButtonItem = NavigationItemHelper.CreateBarLogoButton();
+        }
+
+        private void CreateEmptyView()
+        {
+            _emptyView = EmptyView
+                .Create(string.Empty, ImageNames.ImageEmptyState)
+                .AttachToTableViewAsBackgroundView(tableView);
         }
 
         protected override void RefreshData()
@@ -147,8 +176,8 @@ namespace PrankChat.Mobile.iOS.Views.ProfileView
         private void OnTableViewScrolled()
         {
             var headerScrollOffset = (tableView.ContentOffset.Y + tableView.ContentInset.Top) * 0.7f;
-            var headerClearOffset = -Math.Min(Math.Max(0, headerScrollOffset), headerContainerView.Frame.Height);
-            headerContainerTopConstraint.Constant = (float)headerClearOffset;
+            var headerClearOffset = (float)-Math.Min(Math.Max(0, headerScrollOffset), headerContainerView.Frame.Height);
+            headerContainerTopConstraint.Constant = headerClearOffset;
         }
     }
 }

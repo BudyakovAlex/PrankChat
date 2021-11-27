@@ -22,6 +22,7 @@ using PrankChat.Mobile.Core.Providers;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Collections.Specialized;
 
 namespace PrankChat.Mobile.Core.ViewModels.Profile
 {
@@ -42,6 +43,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Profile
             _walkthroughsProvider = walkthroughsProvider;
 
             Items = new MvxObservableCollection<OrderItemViewModel>();
+            Items.SubscribeToCollectionChanged(OnCollectionChanged).DisposeWith(Disposables);
 
             ShowWithdrawalCommand = this.CreateCommand(ShowWithdrawalAsync);
             ShowRefillCommand = this.CreateCommand(ShowRefillAsync);
@@ -54,6 +56,8 @@ namespace PrankChat.Mobile.Core.ViewModels.Profile
             Messenger.SubscribeOnMainThread<OrderChangedMessage>(OnOrdersChanged).DisposeWith(Disposables);
             Messenger.SubscribeOnMainThread<SubscriptionChangedMessage>((msg) => LoadProfileCommand.Execute()).DisposeWith(Disposables);
         }
+
+        public bool IsEmpty => Items.IsEmpty();
 
         private ProfileOrderType _selectedOrderType;
         public ProfileOrderType SelectedOrderType
@@ -125,6 +129,9 @@ namespace PrankChat.Mobile.Core.ViewModels.Profile
 
             return Task.CompletedTask;
         }
+
+        private void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e) =>
+            RaisePropertyChanged(nameof(IsEmpty));
 
         private void OnSelectedOrderTypeChanged()
         {
