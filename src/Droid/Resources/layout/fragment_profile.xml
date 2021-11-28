@@ -245,7 +245,7 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <ViewSwitcher
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -255,6 +255,6 @@
                 android:layout_height="match_parent" />
 
             <include layout="@layout/layout_empty_view" />
-        </ViewSwitcher>
+        </FrameLayout>
     </mvvmcross.droidx.MvxSwipeRefreshLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -4,7 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/applicationWhite">
+    android:focusable="false"
+    android:clickable="false"
+    android:id="@+id/empty_view"
+    android:background="@color/applicationTransparent">
 
     <TextView
         android:id="@+id/title_text_view"
