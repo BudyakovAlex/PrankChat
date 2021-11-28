@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using Badge.Plugin;
-using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.Common;
 using PrankChat.Mobile.Core.Managers.Notifications;
 using PrankChat.Mobile.Core.Messages;
@@ -17,8 +16,6 @@ namespace PrankChat.Mobile.Core.ViewModels.Notification
 
         public NotificationViewModel(INotificationsManager notificationsManager) : base(Constants.Pagination.DefaultPaginationSize)
         {
-            Items = new MvxObservableCollection<NotificationItemViewModel>();
-
             _notificationsManager = notificationsManager;
         }
 
