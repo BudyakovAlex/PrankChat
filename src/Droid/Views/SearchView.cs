@@ -127,7 +127,7 @@ namespace PrankChat.Mobile.Droid.Views
         {
             _emptyView = FindViewById<View>(Resource.Id.empty_view);
             _emptyViewTitleTextView = _emptyView.FindViewById<TextView>(Resource.Id.title_text_view);
-            _emptyViewTitleTextView.Text = Core.Localization.Resources.PublicationsNotFound;
+            _emptyViewTitleTextView.Text = Core.Localization.Resources.PeoplesNotFound;
         }
     }
 }
