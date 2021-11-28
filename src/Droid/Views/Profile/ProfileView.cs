@@ -20,6 +20,7 @@ using PrankChat.Mobile.Droid.Adapters.TemplateSelectors;
 using PrankChat.Mobile.Droid.Adapters.ViewHolders.Orders;
 using PrankChat.Mobile.Droid.Converters;
 using PrankChat.Mobile.Droid.Views.Base;
+using MvvmCross.Binding.Combiners;
 
 namespace PrankChat.Mobile.Droid.Views.Profile
 {
@@ -41,6 +42,7 @@ namespace PrankChat.Mobile.Droid.Views.Profile
         private MaterialButton _profileRefillButton;
         private MaterialButton _profileWithdrawalButton;
         private MvxSwipeRefreshLayout _mvxSwipeRefreshLayout;
+        private View _emptyView;
 
         protected override string TitleActionBar => Core.Localization.Resources.Profile;
 
@@ -87,15 +89,24 @@ namespace PrankChat.Mobile.Droid.Views.Profile
             bindingSet.Bind(_profileWithdrawalButton).For(v => v.BindClick()).To(vm => vm.ShowWithdrawalCommand);
             bindingSet.Bind(_subscribersViewConstraintLayout).For(v => v.BindClick()).To(vm => vm.ShowSubscribersCommand);
             bindingSet.Bind(_descriptionTextView).For(v => v.BindClick()).To(vm => vm.Description);
-            bindingSet.Bind(_descriptionTextView).For(v => v.Visibility).To(vm => vm.HasDescription)
+            bindingSet.Bind(_descriptionTextView)
+                .For(v => v.Visibility)
+                .To(vm => vm.HasDescription)
                 .WithConversion<BoolToGoneConverter>();
             bindingSet.Bind(_mvxSwipeRefreshLayout).For(v => v.Refreshing).To(vm => vm.IsBusy);
             bindingSet.Bind(_mvxSwipeRefreshLayout).For(v => v.RefreshCommand).To(vm => vm.LoadProfileCommand);
+            bindingSet.Bind(_emptyView)
+               .For(v => v.BindVisible())
+               .ByCombining(new MvxAndValueCombiner(),
+                  vm => vm.IsEmpty,
+                  vm => vm.IsNotBusy,
+                  vm => vm.IsInitialized);
         }
 
         protected override void SetViewProperties(View view)
         {
             base.SetViewProperties(view);
+            InitializeEmptyView(view);
 
             _endlessRecyclerView = view.FindViewById<EndlessRecyclerView>(Resource.Id.profile_publication_recycler_view);
 
@@ -127,5 +138,12 @@ namespace PrankChat.Mobile.Droid.Views.Profile
 
         protected override void RefreshData() =>
             ViewModel?.LoadProfileCommand.Execute();
+
+        private void InitializeEmptyView(View view)
+        {
+            _emptyView = view.FindViewById<View>(Resource.Id.empty_view);
+            var emptyViewTitleTextView = _emptyView.FindViewById<TextView>(Resource.Id.title_text_view);
+            emptyViewTitleTextView.Text = Core.Localization.Resources.OrdersListIsEmpty;
+        }
     }
 }

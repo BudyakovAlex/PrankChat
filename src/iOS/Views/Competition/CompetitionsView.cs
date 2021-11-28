@@ -14,6 +14,7 @@ using PrankChat.Mobile.iOS.Common;
 using PrankChat.Mobile.iOS.Controls;
 using MvvmCross.Platforms.Ios.Binding;
 using MvvmCross.Binding.Combiners;
+using PrankChat.Mobile.Core.Localization;
 
 namespace PrankChat.Mobile.iOS.Views.Competition
 {
@@ -98,7 +99,7 @@ namespace PrankChat.Mobile.iOS.Views.Competition
         private void CreateEmptyView()
         {
             _emptyView = EmptyView
-                .Create("sdaas das das as d adsd", ImageNames.ImageEmptyState)
+                .Create(Resources.CompetitionsListIsEmpty, ImageNames.ImageEmptyState)
                 .AttachToTableViewAsBackgroundView(tableView);
         }
     }

@@ -739,3 +739,13 @@
 "YouAreNotConfirmedAdultAge" = "You are not confirmed that you have adult age";
 "YouAreNotConfirmedUserAgreement" = "You are not approved user agreement";
 "VideoIsDownloadedTemplate" = "Video {0} downloaded";
+"PublicationListIsEmpty" = "No publications yet";
+"CompetitionsListIsEmpty" = "No competitions yet";
+"OrdersListIsEmpty" = "No orders yet";
+"NotificationsListIsEmpty" = "No notifications yet";
+"SubscribersListIsEmpty" = "No subscribers yet";
+"SubscriptionsListIsEmpty" = "No subscriptions yet";
+"CommentsListIsEmpty" = "No comments yet";
+"PublicationsNotFound" = "Publications not found";
+"PeoplesNotFound" = "Peoples not found";
+"OrdersNotFound" = "Orders not found";

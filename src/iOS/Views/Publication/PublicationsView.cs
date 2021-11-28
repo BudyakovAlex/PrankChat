@@ -130,7 +130,7 @@ namespace PrankChat.Mobile.iOS.Views.Publication
         private void CreateEmptyView()
         {
             _emptyView = EmptyView
-                .Create("sdaas das das as d adsd", ImageNames.ImageEmptyState)
+                .Create(Resources.PublicationListIsEmpty, ImageNames.ImageEmptyState)
                 .AttachToTableViewAsBackgroundView(tableView);
         }
     }

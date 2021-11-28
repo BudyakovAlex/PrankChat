@@ -72,7 +72,7 @@ namespace PrankChat.Mobile.iOS.Views.NotificationView
         private void CreateEmptyView()
         {
             _emptyView = EmptyView
-                .Create("sdaas das das as d adsd", ImageNames.ImageEmptyState)
+                .Create(Resources.NotificationsListIsEmpty, ImageNames.ImageEmptyState)
                 .AttachToTableViewAsBackgroundView(tableView);
         }
     }

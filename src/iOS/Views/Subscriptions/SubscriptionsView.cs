@@ -3,6 +3,8 @@ using MvvmCross.Binding.Combiners;
 using MvvmCross.Platforms.Ios.Binding;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using MvvmCross.Platforms.Ios.Views;
+using PrankChat.Mobile.Core.Extensions.MvvmCross;
+using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.ViewModels.Subscriptions.Items;
 using PrankChat.Mobile.iOS.Common;
@@ -65,6 +67,13 @@ namespace PrankChat.Mobile.iOS.Views.Subscriptions
                   vm => vm.IsEmpty,
                   vm => vm.IsNotBusy,
                   vm => vm.IsInitialized);
+            bindingSet.Bind(_emptyView)
+                .For(v => v.Title)
+                .To(vm => vm.SelectedTabType)
+                .WithConversion((SubscriptionTabType subscriptionTabType) =>
+                    subscriptionTabType == SubscriptionTabType.Subscribers
+                    ? Resources.SubscribersListIsEmpty
+                    : Resources.SubscriptionsListIsEmpty);
         }
 
         private void InitializeTabView()
@@ -92,7 +101,7 @@ namespace PrankChat.Mobile.iOS.Views.Subscriptions
         private void CreateEmptyView()
         {
             _emptyView = EmptyView
-                .Create("sdaas das das as d adsd", ImageNames.ImageEmptyState)
+                .Create(string.Empty, ImageNames.ImageEmptyState)
                 .AttachToTableViewAsBackgroundView(TableView);
         }
     }

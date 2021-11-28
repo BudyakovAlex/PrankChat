@@ -116,7 +116,7 @@ namespace PrankChat.Mobile.iOS.Views.Comment
         private void CreateEmptyView()
         {
             _emptyView = EmptyView
-                .Create("sdaas das das as d adsd", ImageNames.ImageEmptyState)
+                .Create(Resources.CommentsListIsEmpty, ImageNames.ImageEmptyState)
                 .AttachToTableViewAsBackgroundView(tableView);
         }
     }

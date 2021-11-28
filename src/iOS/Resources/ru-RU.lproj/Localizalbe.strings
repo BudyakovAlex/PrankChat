@@ -741,3 +741,13 @@
 
 /*Fuzzy*/
 "VideoIsDownloadedTemplate" = "Видео {0} скачано";
+"PublicationListIsEmpty" = "Список публикаций пуст";
+"CompetitionsListIsEmpty" = "Список конкурсов пуст";
+"OrdersListIsEmpty" = "Список заказов пуст";
+"NotificationsListIsEmpty" = "";
+"SubscribersListIsEmpty" = "Список подписчиков пуст";
+"SubscriptionsListIsEmpty" = "Список подписок пуст";
+"CommentsListIsEmpty" = "Список комментариев пуст";
+"PublicationsNotFound" = "Публикаций не найдено";
+"PeoplesNotFound" = "Людей не найдено";
+"OrdersNotFound" = "Заказов не найдено";

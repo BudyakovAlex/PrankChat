@@ -169,15 +169,15 @@ namespace PrankChat.Mobile.iOS.Views.Search
         private void CreateEmptyViews()
         {
             _peoplesEmptyView = EmptyView
-                .Create("sdaas das das as d adsd", ImageNames.ImageEmptyState)
+                .Create(Resources.PeoplesNotFound, ImageNames.ImageEmptyState)
                 .AttachToTableViewAsBackgroundView(peoplesTableView);
 
             _videosEmptyView = EmptyView
-              .Create("sdaas das das as d adsd", ImageNames.ImageEmptyState)
+              .Create(Resources.PublicationsNotFound, ImageNames.ImageEmptyState)
               .AttachToTableViewAsBackgroundView(videosTableView);
 
             _ordersEmptyView = EmptyView
-              .Create("sdaas das das as d adsd", ImageNames.ImageEmptyState)
+              .Create(Resources.OrdersNotFound, ImageNames.ImageEmptyState)
               .AttachToTableViewAsBackgroundView(ordersTableView);
         }
     }

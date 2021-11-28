@@ -157,7 +157,7 @@ namespace PrankChat.Mobile.iOS.Views.Order
         private void CreateEmptyView()
         {
             _emptyView = EmptyView
-                .Create("sdaas das das as d adsd", ImageNames.ImageEmptyState)
+                .Create(Resources.OrdersListIsEmpty, ImageNames.ImageEmptyState)
                 .AttachToTableViewAsBackgroundView(tableView);
         }
     }

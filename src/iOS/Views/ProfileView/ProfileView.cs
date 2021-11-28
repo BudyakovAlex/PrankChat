@@ -96,11 +96,6 @@ namespace PrankChat.Mobile.iOS.Views.ProfileView
                     vm => vm.IsEmpty,
                     vm => vm.IsNotBusy,
                     vm => vm.IsInitialized);
-
-            bindingSet.Bind(_emptyView)
-                .For(v => v.Title)
-                .To(vm => vm.SelectedOrderType)
-                .WithConversion((ProfileOrderType orderType) => "some text 1");
         }
 
         protected override void SetupControls()
@@ -142,7 +137,7 @@ namespace PrankChat.Mobile.iOS.Views.ProfileView
         private void CreateEmptyView()
         {
             _emptyView = EmptyView
-                .Create(string.Empty, ImageNames.ImageEmptyState)
+                .Create(Resources.OrdersListIsEmpty, ImageNames.ImageEmptyState)
                 .AttachToTableViewAsBackgroundView(tableView);
         }
 
