@@ -1,9 +1,11 @@
 ﻿using MvvmCross.Binding.BindingContext;
+using MvvmCross.Binding.Combiners;
 using MvvmCross.Platforms.Ios.Binding;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using MvvmCross.Platforms.Ios.Views;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.ViewModels.Subscriptions.Items;
+using PrankChat.Mobile.iOS.Common;
 using PrankChat.Mobile.iOS.Controls;
 using PrankChat.Mobile.iOS.SourcesAndDelegates;
 using PrankChat.Mobile.iOS.Views.Base;
@@ -20,6 +22,7 @@ namespace PrankChat.Mobile.iOS.Views.Subscriptions
         private TableViewSource _source;
         private MvxUIRefreshControl _refreshControl;
         private SubscriptionTabType _tabType;
+        private EmptyView _emptyView;
 
         public SubscriptionTabType TabType
         {
@@ -39,6 +42,7 @@ namespace PrankChat.Mobile.iOS.Views.Subscriptions
 
             InitializeTabView();
             InitializeTableView();
+            CreateEmptyView();
         }
 
         protected override void Bind()
@@ -55,6 +59,12 @@ namespace PrankChat.Mobile.iOS.Views.Subscriptions
             bindingSet.Bind(_source).For(v => v.LoadMoreItemsCommand).To(vm => vm.LoadMoreItemsCommand);
             bindingSet.Bind(_refreshControl).For(v => v.IsRefreshing).To(vm => vm.IsBusy);
             bindingSet.Bind(_refreshControl).For(v => v.RefreshCommand).To(vm => vm.LoadDataCommand);
+            bindingSet.Bind(_emptyView)
+                .For(v => v.BindVisible())
+                .ByCombining(new MvxAndValueCombiner(),
+                  vm => vm.IsEmpty,
+                  vm => vm.IsNotBusy,
+                  vm => vm.IsInitialized);
         }
 
         private void InitializeTabView()
@@ -77,6 +87,13 @@ namespace PrankChat.Mobile.iOS.Views.Subscriptions
             TableView.Source = _source;
             TableView.RowHeight = SubscriptionItemCell.Height;
             TableView.ContentInset = new UIEdgeInsets(8f, 0f, 8f, 0f);
+        }
+
+        private void CreateEmptyView()
+        {
+            _emptyView = EmptyView
+                .Create("sdaas das das as d adsd", ImageNames.ImageEmptyState)
+                .AttachToTableViewAsBackgroundView(TableView);
         }
     }
 }

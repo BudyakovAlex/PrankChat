@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Linq;
 using System.Threading.Tasks;
 using MvvmCross.Commands;
-using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.Common;
 using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Localization;
@@ -24,7 +22,7 @@ using PrankChat.Mobile.Core.Wrappers;
 
 namespace PrankChat.Mobile.Core.ViewModels.Order
 {
-    public class OrdersViewModel : PaginationViewModel
+    public class OrdersViewModel : PaginationViewModel<BaseOrderItemViewModel>
     {
         private readonly IVideoManager _videoManager;
         private readonly IOrdersManager _ordersManager;
@@ -68,9 +66,6 @@ namespace PrankChat.Mobile.Core.ViewModels.Order
                 (wrapper, handler) => wrapper.IsBusyChanged += handler,
                 (wrapper, handler) => wrapper.IsBusyChanged -= handler).DisposeWith(Disposables);
 
-            Items = new MvxObservableCollection<BaseOrderItemViewModel>();
-            Items.SubscribeToCollectionChanged(OnCollectionChanged).DisposeWith(Disposables);
-
             OpenFilterCommand = this.CreateCommand(OpenFilterAsync);
             ShowWalkthrouthCommand = this.CreateCommand(ShowWalkthrouthAsync);
             LoadDataCommand = this.CreateCommand(() => _loadDataStateWrapper.WrapAsync(LoadDataAsync), useIsBusyWrapper: false);
@@ -80,10 +75,6 @@ namespace PrankChat.Mobile.Core.ViewModels.Order
         }
 
         public override bool IsBusy => base.IsBusy || _loadDataStateWrapper.IsBusy;
-
-        public bool IsEmpty => Items.IsEmpty();
-
-        public MvxObservableCollection<BaseOrderItemViewModel> Items { get; }
 
         public string ActiveFilterName => TabType == OrdersTabType.Order ? _activeOrderFilterName : _activeArbitrationFilterName;
 
@@ -179,9 +170,6 @@ namespace PrankChat.Mobile.Core.ViewModels.Order
 
             Items.OfType<IDisposable>().ForEach(disposable => disposable.Dispose());
         }
-
-        private void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e) =>
-            RaisePropertyChanged(nameof(IsEmpty));
 
         private async Task DebounceRefreshDataAsync()
         {

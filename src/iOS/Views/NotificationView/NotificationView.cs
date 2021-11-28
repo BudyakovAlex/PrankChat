@@ -1,10 +1,14 @@
 ﻿using MvvmCross.Binding;
 using MvvmCross.Binding.BindingContext;
+using MvvmCross.Binding.Combiners;
+using MvvmCross.Platforms.Ios.Binding;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using MvvmCross.Platforms.Ios.Views;
 using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.ViewModels.Notification;
 using PrankChat.Mobile.iOS.AppTheme;
+using PrankChat.Mobile.iOS.Common;
+using PrankChat.Mobile.iOS.Controls;
 using PrankChat.Mobile.iOS.Infrastructure;
 using PrankChat.Mobile.iOS.Views.Base;
 using PrankChat.Mobile.iOS.Views.Order;
@@ -17,22 +21,32 @@ namespace PrankChat.Mobile.iOS.Views.NotificationView
     {
         private MvxUIRefreshControl _refreshControl;
         private NotificationTableSource _notificationTableSource;
+        private EmptyView _emptyView;
 
         protected override void Bind()
 		{
 			using var bindingSet = this.CreateBindingSet<NotificationView, NotificationViewModel>();
 
             bindingSet.Bind(_notificationTableSource).To(vm => vm.Items);
-            bindingSet.Bind(_refreshControl).For(v => v.IsRefreshing).To(vm => vm.IsBusy)
-                      .Mode(MvxBindingMode.TwoWay);
+            bindingSet.Bind(_refreshControl)
+                .For(v => v.IsRefreshing)
+                .To(vm => vm.IsBusy)
+                .Mode(MvxBindingMode.TwoWay);
             bindingSet.Bind(_refreshControl).For(v => v.RefreshCommand).To(vm => vm.ReloadItemsCommand);
             bindingSet.Bind(_notificationTableSource).For(v => v.LoadMoreItemsCommand).To(vm => vm.LoadMoreItemsCommand);
-		}
+            bindingSet.Bind(_emptyView)
+                .For(v => v.BindVisible())
+                .ByCombining(new MvxAndValueCombiner(),
+                  vm => vm.IsEmpty,
+                  vm => vm.IsNotBusy,
+                  vm => vm.IsInitialized);
+        }
 
 		protected override void SetupControls()
 		{
             Title = Resources.Notifications;
             InitializeTableView();
+            CreateEmptyView();
         }
 
         private void InitializeTableView()
@@ -53,6 +67,13 @@ namespace PrankChat.Mobile.iOS.Views.NotificationView
 
             _refreshControl = new MvxUIRefreshControl();
             tableView.RefreshControl = _refreshControl;
+        }
+
+        private void CreateEmptyView()
+        {
+            _emptyView = EmptyView
+                .Create("sdaas das das as d adsd", ImageNames.ImageEmptyState)
+                .AttachToTableViewAsBackgroundView(tableView);
         }
     }
 }
