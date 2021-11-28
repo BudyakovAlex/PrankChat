@@ -754,4 +754,14 @@ Taking such a task the user will have to complete it or lose the Deposit!"</stri
     <string name="YouAreNotConfirmedAdultAge">"You are not confirmed that you have adult age"</string>
     <string name="YouAreNotConfirmedUserAgreement">"You are not approved user agreement"</string>
     <string name="VideoIsDownloadedTemplate">"Video {0} downloaded"</string>
+    <string name="PublicationListIsEmpty">"No publications yet"</string>
+    <string name="CompetitionsListIsEmpty">"No competitions yet"</string>
+    <string name="OrdersListIsEmpty">"No orders yet"</string>
+    <string name="NotificationsListIsEmpty">"No notifications yet"</string>
+    <string name="SubscribersListIsEmpty">"No subscribers yet"</string>
+    <string name="SubscriptionsListIsEmpty">"No subscriptions yet"</string>
+    <string name="CommentsListIsEmpty">"No comments yet"</string>
+    <string name="PublicationsNotFound">"Publications not found"</string>
+    <string name="PeoplesNotFound">"Peoples not found"</string>
+    <string name="OrdersNotFound">"Orders not found"</string>
 </resources>

@@ -1,22 +1,25 @@
 ﻿using Android.App;
 using Android.Content.PM;
 using Android.OS;
+using Android.Views;
 using Android.Widget;
 using AndroidX.RecyclerView.Widget;
 using Google.Android.Material.Tabs;
 using MvvmCross.Binding.BindingContext;
+using MvvmCross.Binding.Combiners;
 using MvvmCross.DroidX;
+using MvvmCross.Platforms.Android.Binding;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.ViewModels.Subscriptions.Items;
-using PrankChat.Mobile.Droid.Controls;
-using PrankChat.Mobile.Droid.LayoutManagers;
 using PrankChat.Mobile.Droid.Adapters;
 using PrankChat.Mobile.Droid.Adapters.TemplateSelectors;
 using PrankChat.Mobile.Droid.Adapters.ViewHolders.Subscriptions;
-using PrankChat.Mobile.Droid.Views.Base;
+using PrankChat.Mobile.Droid.Controls;
 using PrankChat.Mobile.Droid.Extensions;
+using PrankChat.Mobile.Droid.LayoutManagers;
+using PrankChat.Mobile.Droid.Views.Base;
 
 namespace PrankChat.Mobile.Droid.Views.Subscriptions
 {
@@ -30,6 +33,8 @@ namespace PrankChat.Mobile.Droid.Views.Subscriptions
         private TextView _titleTextView;
         private RecycleViewBindableAdapter _adapter;
         private MvxSwipeRefreshLayout _subscriptionsSwipeRefreshLayout;
+        private View _emptyView;
+        private TextView _emptyViewTitleTextView;
 
         protected override string TitleActionBar => Core.Localization.Resources.Subscriptions;
 
@@ -64,6 +69,7 @@ namespace PrankChat.Mobile.Droid.Views.Subscriptions
         protected override void SetViewProperties()
         {
             base.SetViewProperties();
+            InitializeEmptyView();
 
             _recyclerView = FindViewById<EndlessRecyclerView>(Resource.Id.recycler_view);
             var layoutManager = new SafeLinearLayoutManager(this, LinearLayoutManager.Vertical, false);
@@ -101,6 +107,12 @@ namespace PrankChat.Mobile.Droid.Views.Subscriptions
             bindingSet.Bind(_recyclerView).For(v => v.LoadMoreItemsCommand).To(vm => vm.LoadMoreItemsCommand);
             bindingSet.Bind(_subscriptionsSwipeRefreshLayout).For(v => v.Refreshing).To(vm => vm.IsBusy);
             bindingSet.Bind(_subscriptionsSwipeRefreshLayout).For(v => v.RefreshCommand).To(vm => vm.LoadDataCommand);
+            bindingSet.Bind(_emptyView)
+               .For(v => v.BindVisible())
+               .ByCombining(new MvxAndValueCombiner(),
+                 vm => vm.IsEmpty,
+                 vm => vm.IsNotBusy,
+                 vm => vm.IsInitialized);
         }
 
         public void OnTabReselected(TabLayout.Tab tab)
@@ -114,10 +126,20 @@ namespace PrankChat.Mobile.Droid.Views.Subscriptions
                 : SubscriptionTabType.Subscriptions;
 
             ViewModel.SelectedTabType = tabType;
+            _emptyViewTitleTextView.Text = tabType == SubscriptionTabType.Subscribers
+                ? Core.Localization.Resources.SubscribersListIsEmpty
+                : Core.Localization.Resources.SubscriptionsListIsEmpty;
         }
 
         public void OnTabUnselected(TabLayout.Tab tab)
         {
+        }
+
+        private void InitializeEmptyView()
+        {
+            _emptyView = FindViewById<View>(Resource.Id.empty_view);
+            _emptyViewTitleTextView = _emptyView.FindViewById<TextView>(Resource.Id.title_text_view);
+            _emptyViewTitleTextView.Text = Core.Localization.Resources.SubscribersListIsEmpty;
         }
     }
 }

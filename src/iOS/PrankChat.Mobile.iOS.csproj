@@ -404,6 +404,7 @@
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<Compile Include="Plugins\Logging\NativeConsoleLogger.cs" />
+		<Compile Include="Controls\EmptyView .cs" />
 	</ItemGroup>
 	<ItemGroup>
 		<Reference Include="System" />
@@ -1172,6 +1173,8 @@
 		<ImageAsset Include="Assets.xcassets\ic_notification_with_bage.imageset\ic_notification_with_bage.pdf" />
 		<ImageAsset Include="Assets.xcassets\ic_search.imageset\Shape.pdf" />
 		<ImageAsset Include="Assets.xcassets\ic_info.imageset\ic_info.pdf" />
+		<ImageAsset Include="Assets.xcassets\img_empty_state.imageset\Contents.json" />
+		<ImageAsset Include="Assets.xcassets\img_empty_state.imageset\img_empty_state.pdf" />
 	</ItemGroup>
 	<ItemGroup>
 		<Folder Include="Assets.xcassets\bg_onboarding_fifth_slide.imageset\" />
@@ -1233,6 +1236,7 @@
 		<Folder Include="Assets.xcassets\OrderTagTypeWait.imageset\" />
 		<Folder Include="Assets.xcassets\ic_onplay.imageset\" />
 		<Folder Include="Plugins\Logging\" />
+		<Folder Include="Assets.xcassets\img_empty_state.imageset\" />
 	</ItemGroup>
 	<Choose>
 		<When Condition="'$(MtouchLink)'=='Full' Or '$(MtouchLink)'=='SdkOnly'">

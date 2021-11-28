@@ -71,5 +71,6 @@ namespace PrankChat.Mobile.iOS.Common
         public const string BackgroundOrderTypeMyInModeration = "bg_order_type_my_in_moderation";
         public const string BackgroundOrderTypeNotMy = "bg_order_type_not_my";
         public const string BackgroundOrderTypeMyCompleted = "bg_order_type_my_completed";
+        public const string ImageEmptyState = "img_empty_state";
     }
 }

@@ -1240,4 +1240,34 @@ Apple Inc. не является спонсором проведения кон�
     <value>Видео {0} скачано</value>
     <comment>Fuzzy</comment>
   </data>
+  <data name="PublicationListIsEmpty" xml:space="preserve">
+    <value>Список публикаций пуст</value>
+  </data>
+  <data name="CompetitionsListIsEmpty" xml:space="preserve">
+    <value>Список конкурсов пуст</value>
+  </data>
+  <data name="OrdersListIsEmpty" xml:space="preserve">
+    <value>Список заказов пуст</value>
+  </data>
+  <data name="NotificationsListIsEmpty" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="SubscribersListIsEmpty" xml:space="preserve">
+    <value>Список подписчиков пуст</value>
+  </data>
+  <data name="SubscriptionsListIsEmpty" xml:space="preserve">
+    <value>Список подписок пуст</value>
+  </data>
+  <data name="CommentsListIsEmpty" xml:space="preserve">
+    <value>Список комментариев пуст</value>
+  </data>
+  <data name="PublicationsNotFound" xml:space="preserve">
+    <value>Публикаций не найдено</value>
+  </data>
+  <data name="PeoplesNotFound" xml:space="preserve">
+    <value>Людей не найдено</value>
+  </data>
+  <data name="OrdersNotFound" xml:space="preserve">
+    <value>Заказов не найдено</value>
+  </data>
 </root>

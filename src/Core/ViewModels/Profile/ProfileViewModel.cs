@@ -41,8 +41,6 @@ namespace PrankChat.Mobile.Core.ViewModels.Profile
             _ordersManager = ordersManager;
             _walkthroughsProvider = walkthroughsProvider;
 
-            Items = new MvxObservableCollection<OrderItemViewModel>();
-
             ShowWithdrawalCommand = this.CreateCommand(ShowWithdrawalAsync);
             ShowRefillCommand = this.CreateCommand(ShowRefillAsync);
             ShowSubscriptionsCommand = this.CreateCommand(ShowSubscriptionsAsync);
@@ -96,8 +94,6 @@ namespace PrankChat.Mobile.Core.ViewModels.Profile
             get => _subscriptionsValue;
             set => SetProperty(ref _subscriptionsValue, value);
         }
-
-        public MvxObservableCollection<OrderItemViewModel> Items { get; }
 
         public IMvxAsyncCommand ShowWalkthrouthCommand { get; }
 

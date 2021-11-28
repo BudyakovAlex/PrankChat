@@ -27,7 +27,7 @@ using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.ViewModels.Competition
 {
-    public class CompetitionDetailsViewModel : PaginationViewModel<Models.Data.Competition, bool>
+    public class CompetitionDetailsViewModel : PaginationViewModel<Models.Data.Competition, bool, BaseViewModel>
     {
         private readonly ICompetitionsManager _competitionsManager;
         private readonly IVideoManager _videoManager;
@@ -49,8 +49,6 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
             _competitionsManager = competitionsManager;
             _videoManager = videoManager;
             _mediaManager = mediaManager;
-
-            Items = new MvxObservableCollection<BaseViewModel>();
 
             Messenger.SubscribeOnMainThread<ReloadCompetitionMessage>(OnReloadData).DisposeWith(Disposables);
 
@@ -86,8 +84,6 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
         }
 
         protected override bool DefaultResult => _isReloadNeeded;
-
-        public MvxObservableCollection<BaseViewModel> Items { get; }
 
         public IMvxAsyncCommand RefreshDataCommand { get; }
 

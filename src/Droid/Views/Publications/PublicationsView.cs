@@ -26,6 +26,7 @@ using PrankChat.Mobile.Droid.Views.Base;
 using System;
 using System.Threading.Tasks;
 using static Google.Android.Material.Tabs.TabLayout;
+using MvvmCross.Binding.Combiners;
 
 namespace PrankChat.Mobile.Droid.Views.Publications
 {
@@ -52,6 +53,7 @@ namespace PrankChat.Mobile.Droid.Views.Publications
         private View _filterDividerView;
 
         private MvxInteraction _itemsChangedInteraction;
+        private View _emptyView;
 
         public PublicationsView() : base(Resource.Layout.publications_layout)
         {
@@ -77,6 +79,7 @@ namespace PrankChat.Mobile.Droid.Views.Publications
         protected override void SetViewProperties(View view)
         {
             base.SetViewProperties(view);
+            InitializeEmptyView(view);
 
             _swipeRefreshLayout = view.FindViewById<MvxSwipeRefreshLayout>(Resource.Id.swipe_refresh);
             _filterTitleTextView = view.FindViewById<TextView>(Resource.Id.filter_button_title);
@@ -124,11 +127,22 @@ namespace PrankChat.Mobile.Droid.Views.Publications
             bindingSet.Bind(_publicationRecyclerView).For(v => v.ItemsSource).To(vm => vm.Items);
             bindingSet.Bind(this).For(v => v.ItemsChangedInteraction).To(vm => vm.ItemsChangedInteraction).OneWay();
             bindingSet.Bind(_publicationRecyclerView).For(v => v.LoadMoreItemsCommand).To(vm => vm.LoadMoreItemsCommand);
-            bindingSet.Bind(_loadingOverlay).For(v => v.Visibility).To(vm => vm.IsRefreshingData)
-                      .WithConversion<BoolToGoneConverter>();
+            bindingSet.Bind(_loadingOverlay)
+                .For(v => v.Visibility)
+                .To(vm => vm.IsRefreshingData)
+                .WithConversion<BoolToGoneConverter>();
 
-            bindingSet.Bind(_publicationTypeTabLayout).For(v => v.IsSelectionEnabled).To(vm => vm.IsRefreshingData)
-                      .WithConversion<MvxInvertedBooleanConverter>();
+            bindingSet.Bind(_publicationTypeTabLayout)
+                .For(v => v.IsSelectionEnabled)
+                .To(vm => vm.IsRefreshingData)
+                .WithConversion<MvxInvertedBooleanConverter>();
+
+            bindingSet.Bind(_emptyView)
+               .For(v => v.BindVisible())
+               .ByCombining(new MvxAndValueCombiner(),
+                 vm => vm.IsEmpty,
+                 vm => vm.IsNotRefreshingData,
+                 vm => vm.IsInitialized);
         }
 
         protected override void RefreshData() =>
@@ -190,6 +204,13 @@ namespace PrankChat.Mobile.Droid.Views.Publications
             }
 
             tabTextView.SetTypeface(_unselectedTypeface, typefaceStyle);
+        }
+
+        private void InitializeEmptyView(View view)
+        {
+            _emptyView = view.FindViewById<View>(Resource.Id.empty_view);
+            var emptyViewTitleTextView = _emptyView.FindViewById<TextView>(Resource.Id.title_text_view);
+            emptyViewTitleTextView.Text = Core.Localization.Resources.PublicationListIsEmpty;
         }
     }
 }

@@ -2,12 +2,16 @@
 using MvvmCross.Base;
 using MvvmCross.Binding;
 using MvvmCross.Binding.BindingContext;
+using MvvmCross.Binding.Combiners;
+using MvvmCross.Platforms.Ios.Binding;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using MvvmCross.Platforms.Ios.Views;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.ViewModels.Comment;
 using PrankChat.Mobile.iOS.AppTheme;
+using PrankChat.Mobile.iOS.Common;
+using PrankChat.Mobile.iOS.Controls;
 using PrankChat.Mobile.iOS.SourcesAndDelegates;
 using PrankChat.Mobile.iOS.Views.Base;
 using System;
@@ -19,8 +23,8 @@ namespace PrankChat.Mobile.iOS.Views.Comment
 	public partial class CommentsView : BaseViewController<CommentsViewModel>
 	{
         private MvxUIRefreshControl _refreshControl;
-
         private CommentsTableSource _commentTableSource;
+        private EmptyView _emptyView;
 
         public override bool CanHandleKeyboardNotifications => true;
 
@@ -54,16 +58,27 @@ namespace PrankChat.Mobile.iOS.Views.Comment
             bindingSet.Bind(_refreshControl).For(v => v.IsRefreshing).To(vm => vm.IsBusy);
             bindingSet.Bind(this).For(v => v.ScrollInteraction).To(vm => vm.ScrollInteraction);
             bindingSet.Bind(_refreshControl).For(v => v.RefreshCommand).To(vm => vm.ReloadItemsCommand);
-            bindingSet.Bind(profileImageView).For(v => v.ImagePath).To(vm => vm.ProfilePhotoUrl)
-                      .Mode(MvxBindingMode.OneTime);
-            bindingSet.Bind(profileImageView).For(v => v.PlaceholderText).To(vm => vm.ProfileShortName)
-                      .Mode(MvxBindingMode.OneTime);
+            bindingSet.Bind(profileImageView)
+                .For(v => v.ImagePath)
+                .To(vm => vm.ProfilePhotoUrl)
+                .Mode(MvxBindingMode.OneTime);
+            bindingSet.Bind(profileImageView)
+                .For(v => v.PlaceholderText)
+                .To(vm => vm.ProfileShortName)
+                .Mode(MvxBindingMode.OneTime);
+            bindingSet.Bind(_emptyView)
+                .For(v => v.BindVisible())
+                .ByCombining(new MvxAndValueCombiner(),
+                  vm => vm.IsEmpty,
+                  vm => vm.IsNotBusy,
+                  vm => vm.IsInitialized);
         }
 
 		protected override void SetupControls()
 		{
             Title = Resources.Comments;
             InitializeTableView();
+            CreateEmptyView();
 
             commentTextView.SetBorderlessStyle(string.Empty, Theme.Color.CommentBorder);
 
@@ -96,6 +111,13 @@ namespace PrankChat.Mobile.iOS.Views.Comment
         private void OnInteractionRequested(object sender, MvxValueEventArgs<int> e)
         {
             tableView.ScrollToRow(NSIndexPath.FromItemSection(e.Value, 0), UITableViewScrollPosition.Bottom, true);
+        }
+
+        private void CreateEmptyView()
+        {
+            _emptyView = EmptyView
+                .Create(Resources.CommentsListIsEmpty, ImageNames.ImageEmptyState)
+                .AttachToTableViewAsBackgroundView(tableView);
         }
     }
 }
