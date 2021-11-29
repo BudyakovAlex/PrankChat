@@ -1816,5 +1816,65 @@ namespace PrankChat.Mobile.Core.Localization {
                 return ResourceManager.GetString("VideoIsDownloadedTemplate", resourceCulture);
             }
         }
+        
+        public static string PublicationListIsEmpty {
+            get {
+                return ResourceManager.GetString("PublicationListIsEmpty", resourceCulture);
+            }
+        }
+        
+        public static string CompetitionsListIsEmpty {
+            get {
+                return ResourceManager.GetString("CompetitionsListIsEmpty", resourceCulture);
+            }
+        }
+        
+        public static string OrdersListIsEmpty {
+            get {
+                return ResourceManager.GetString("OrdersListIsEmpty", resourceCulture);
+            }
+        }
+        
+        public static string NotificationsListIsEmpty {
+            get {
+                return ResourceManager.GetString("NotificationsListIsEmpty", resourceCulture);
+            }
+        }
+        
+        public static string SubscribersListIsEmpty {
+            get {
+                return ResourceManager.GetString("SubscribersListIsEmpty", resourceCulture);
+            }
+        }
+        
+        public static string SubscriptionsListIsEmpty {
+            get {
+                return ResourceManager.GetString("SubscriptionsListIsEmpty", resourceCulture);
+            }
+        }
+        
+        public static string CommentsListIsEmpty {
+            get {
+                return ResourceManager.GetString("CommentsListIsEmpty", resourceCulture);
+            }
+        }
+        
+        public static string PublicationsNotFound {
+            get {
+                return ResourceManager.GetString("PublicationsNotFound", resourceCulture);
+            }
+        }
+        
+        public static string PeoplesNotFound {
+            get {
+                return ResourceManager.GetString("PeoplesNotFound", resourceCulture);
+            }
+        }
+        
+        public static string OrdersNotFound {
+            get {
+                return ResourceManager.GetString("OrdersNotFound", resourceCulture);
+            }
+        }
     }
 }

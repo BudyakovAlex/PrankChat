@@ -14,6 +14,9 @@ using PrankChat.Mobile.iOS.Views.Base;
 using UIKit;
 using Xamarin.Essentials;
 using PrankChat.Mobile.iOS.Common;
+using PrankChat.Mobile.iOS.Controls;
+using MvvmCross.Platforms.Ios.Binding;
+using MvvmCross.Binding.Combiners;
 
 namespace PrankChat.Mobile.iOS.Views.Order
 {
@@ -22,6 +25,7 @@ namespace PrankChat.Mobile.iOS.Views.Order
     {
         private MvxUIRefreshControl _refreshControl;
         private UIBarButtonItem _notificationBarItem;
+        private EmptyView _emptyView;
 
         public OrdersTableSource OrdersTableSource { get; private set; }
 
@@ -37,8 +41,18 @@ namespace PrankChat.Mobile.iOS.Views.Order
             bindingSet.Bind(_refreshControl).For(v => v.IsRefreshing).To(vm => vm.IsBusy);
             bindingSet.Bind(_refreshControl).For(v => v.RefreshCommand).To(vm => vm.ReloadItemsCommand);
             bindingSet.Bind(OrdersTableSource).For(v => v.LoadMoreItemsCommand).To(vm => vm.LoadMoreItemsCommand);
-            bindingSet.Bind(_notificationBarItem).For(v => v.Image).To(vm => vm.NotificationBadgeViewModel.HasUnreadNotifications).WithConversion<BoolToNotificationImageConverter>();
-		}
+            bindingSet.Bind(_notificationBarItem)
+                .For(v => v.Image)
+                .To(vm => vm.NotificationBadgeViewModel.HasUnreadNotifications)
+                .WithConversion<BoolToNotificationImageConverter>();
+
+            bindingSet.Bind(_emptyView)
+               .For(v => v.BindVisible())
+               .ByCombining(new MvxAndValueCombiner(),
+                   vm => vm.IsEmpty,
+                   vm => vm.IsNotBusy,
+                   vm => vm.IsInitialized);
+        }
 
 		protected override void SetupControls()
 		{
@@ -61,6 +75,7 @@ namespace PrankChat.Mobile.iOS.Views.Order
             ratingTabLabel.Text = Resources.InDispute;
 
             ApplySelectedTabStyle(0);
+            CreateEmptyView();
         }
 
         protected override void RefreshData()
@@ -137,6 +152,13 @@ namespace PrankChat.Mobile.iOS.Views.Order
                 ratingTabLabel.SetMainTitleStyle();
                 orderTabLabel.SetTitleStyle();
             }
+        }
+
+        private void CreateEmptyView()
+        {
+            _emptyView = EmptyView
+                .Create(Resources.OrdersListIsEmpty, ImageNames.ImageEmptyState)
+                .AttachToTableViewAsBackgroundView(tableView);
         }
     }
 }

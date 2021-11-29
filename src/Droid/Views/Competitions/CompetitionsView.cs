@@ -1,9 +1,12 @@
 ﻿using Android.Runtime;
 using Android.Views;
+using Android.Widget;
 using AndroidX.RecyclerView.Widget;
 using MvvmCross.Binding.BindingContext;
+using MvvmCross.Binding.Combiners;
 using MvvmCross.DroidX;
 using MvvmCross.DroidX.RecyclerView;
+using MvvmCross.Platforms.Android.Binding;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 using PrankChat.Mobile.Core.ViewModels;
@@ -22,6 +25,7 @@ namespace PrankChat.Mobile.Droid.Views.Competitions
         private RecycleViewBindableAdapter _adapter;
         private MvxSwipeRefreshLayout _refreshView;
         private MvxRecyclerView _competitionsRecyclerView;
+        private View _emptyView;
 
         public CompetitionsView() : base(Resource.Layout.fragment_competitions)
         {
@@ -35,6 +39,7 @@ namespace PrankChat.Mobile.Droid.Views.Competitions
         protected override void SetViewProperties(View view)
         {
             base.SetViewProperties(view);
+            InitializeEmptyView(view);
 
             _refreshView = view.FindViewById<MvxSwipeRefreshLayout>(Resource.Id.swipe_refresh);
 
@@ -57,6 +62,19 @@ namespace PrankChat.Mobile.Droid.Views.Competitions
             bindingSet.Bind(_adapter).For(v => v.ItemsSource).To(vm => vm.Items);
             bindingSet.Bind(_refreshView).For(v => v.Refreshing).To(vm => vm.IsBusy);
             bindingSet.Bind(_refreshView).For(v => v.RefreshCommand).To(vm => vm.LoadDataCommand);
+            bindingSet.Bind(_emptyView)
+              .For(v => v.BindVisible())
+              .ByCombining(new MvxAndValueCombiner(),
+                  vm => vm.IsEmpty,
+                  vm => vm.IsNotBusy,
+                  vm => vm.IsInitialized);
+        }
+
+        private void InitializeEmptyView(View view)
+        {
+            _emptyView = view.FindViewById<View>(Resource.Id.empty_view);
+            var emptyViewTitleTextView = _emptyView.FindViewById<TextView>(Resource.Id.title_text_view);
+            emptyViewTitleTextView.Text = Core.Localization.Resources.CompetitionsListIsEmpty;
         }
     }
 }

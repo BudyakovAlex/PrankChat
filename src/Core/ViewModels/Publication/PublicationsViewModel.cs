@@ -1,4 +1,9 @@
-﻿using FFImageLoading;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using FFImageLoading;
 using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.Common;
@@ -17,15 +22,10 @@ using PrankChat.Mobile.Core.ViewModels.Publication.Items;
 using PrankChat.Mobile.Core.ViewModels.Registration;
 using PrankChat.Mobile.Core.ViewModels.Results;
 using PrankChat.Mobile.Core.Wrappers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.ViewModels.Publication
 {
-    public class PublicationsViewModel : PaginationViewModel, IVideoListViewModel
+    public class PublicationsViewModel : PaginationViewModel<PublicationItemViewModel>, IVideoListViewModel
     {
         private readonly IPublicationsManager _publicationsManager;
         private readonly IVideoManager _videoManager;
@@ -40,12 +40,12 @@ namespace PrankChat.Mobile.Core.ViewModels.Publication
         {
             _publicationsManager = publicationsManager;
             _videoManager = videoManager;
-            _usersManager = usersManager; 
-            Items = new MvxObservableCollection<PublicationItemViewModel>();
+            _usersManager = usersManager;
+
             _refreshDataExecutionStateWrapper = new ExecutionStateWrapper();
 
             _refreshDataExecutionStateWrapper.SubscribeToEvent<ExecutionStateWrapper, bool>(
-                (_, __) => RaisePropertyChanged(nameof(IsRefreshingData)),
+                (_, __) => RaisePropertiesChanged(nameof(IsRefreshingData), nameof(IsNotRefreshingData)),
                 (wrapper, handler) => wrapper.IsBusyChanged += handler,
                 (wrapper, handler) => wrapper.IsBusyChanged -= handler).DisposeWith(Disposables);
 
@@ -63,6 +63,8 @@ namespace PrankChat.Mobile.Core.ViewModels.Publication
         }
 
         public bool IsRefreshingData => _refreshDataExecutionStateWrapper.IsBusy;
+
+        public bool IsNotRefreshingData => !IsRefreshingData;
 
         public MvxInteraction ItemsChangedInteraction { get; }
 
@@ -85,8 +87,6 @@ namespace PrankChat.Mobile.Core.ViewModels.Publication
             get => _currentlyPlayingItem;
             set => SetProperty(ref _currentlyPlayingItem, value);
         }
-
-        public MvxObservableCollection<PublicationItemViewModel> Items { get; }
 
         public IMvxAsyncCommand OpenFilterCommand { get; }
 

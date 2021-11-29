@@ -8,11 +8,12 @@ using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.Managers.Users;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.ViewModels.Common;
+using PrankChat.Mobile.Core.ViewModels.Order.Items;
 using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.ViewModels.Profile.Abstract
 {
-    public abstract class BaseProfileViewModel : PaginationViewModel
+    public abstract class BaseProfileViewModel : PaginationViewModel<OrderItemViewModel>
     {
         private readonly Timer _timer;
 

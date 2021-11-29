@@ -4,7 +4,7 @@ using PrankChat.Mobile.Core.Managers.Navigation.Arguments.NavigationResults;
 
 namespace PrankChat.Mobile.Core.ViewModels.Common
 {
-    public abstract class PaginationViewModel<TParameter, TResult> : PaginationViewModelResult<TResult>, IMvxViewModel<GenericNavigationParams<TParameter>, GenericNavigationResult<TResult>>
+    public abstract class PaginationViewModel<TParameter, TResult, TItem> : PaginationViewModelResult<TResult, TItem>, IMvxViewModel<GenericNavigationParams<TParameter>, GenericNavigationResult<TResult>>
     {
         protected PaginationViewModel(int paginationSize)
             : base(paginationSize)

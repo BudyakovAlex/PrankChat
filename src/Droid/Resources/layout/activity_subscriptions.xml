@@ -50,6 +50,15 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/separator" />
+
+            <include
+                android:id="@+id/empty_view"
+                android:layout_width="0dp"
+                android:layout_height="0dp" layout="@layout/layout_empty_view"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/separator"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </mvvmcross.droidx.MvxSwipeRefreshLayout>

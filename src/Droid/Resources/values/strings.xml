@@ -757,4 +757,14 @@ Apple Inc. не является спонсором проведения кон�
 
     <!-- Fuzzy -->
     <string name="VideoIsDownloadedTemplate">"Видео {0} скачано"</string>
+    <string name="PublicationListIsEmpty">"Список публикаций пуст"</string>
+    <string name="CompetitionsListIsEmpty">"Список конкурсов пуст"</string>
+    <string name="OrdersListIsEmpty">"Список заказов пуст"</string>
+    <string name="NotificationsListIsEmpty"></string>
+    <string name="SubscribersListIsEmpty">"Список подписчиков пуст"</string>
+    <string name="SubscriptionsListIsEmpty">"Список подписок пуст"</string>
+    <string name="CommentsListIsEmpty">"Список комментариев пуст"</string>
+    <string name="PublicationsNotFound">"Публикаций не найдено"</string>
+    <string name="PeoplesNotFound">"Людей не найдено"</string>
+    <string name="OrdersNotFound">"Заказов не найдено"</string>
 </resources>

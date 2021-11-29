@@ -14,6 +14,10 @@ using PrankChat.Mobile.Droid.Adapters;
 using PrankChat.Mobile.Droid.Adapters.TemplateSelectors;
 using PrankChat.Mobile.Droid.Adapters.ViewHolders.Notifications;
 using PrankChat.Mobile.Droid.Views.Base;
+using Android.Views;
+using Android.Widget;
+using MvvmCross.Platforms.Android.Binding;
+using MvvmCross.Binding.Combiners;
 
 namespace PrankChat.Mobile.Droid.Views
 {
@@ -24,6 +28,7 @@ namespace PrankChat.Mobile.Droid.Views
         private MvxSwipeRefreshLayout _refreshView;
         private EndlessRecyclerView _recyclerView;
         private RecycleViewBindableAdapter _adapter;
+        private View _emptyView;
 
         protected override bool HasBackButton => true;
 
@@ -38,6 +43,7 @@ namespace PrankChat.Mobile.Droid.Views
 
         protected override void SetViewProperties()
         {
+            InitializeEmptyView();
             _refreshView = FindViewById<MvxSwipeRefreshLayout>(Resource.Id.swipe_refresh);
 
             _recyclerView = FindViewById<EndlessRecyclerView>(Resource.Id.recycler_view);
@@ -60,6 +66,19 @@ namespace PrankChat.Mobile.Droid.Views
             bindingSet.Bind(_refreshView).For(v => v.Refreshing).To(vm => vm.IsBusy);
             bindingSet.Bind(_refreshView).For(v => v.RefreshCommand).To(vm => vm.ReloadItemsCommand);
             bindingSet.Bind(_recyclerView).For(v => v.LoadMoreItemsCommand).To(vm => vm.LoadMoreItemsCommand);
+            bindingSet.Bind(_emptyView)
+                .For(v => v.BindVisible())
+                .ByCombining(new MvxAndValueCombiner(),
+                  vm => vm.IsEmpty,
+                  vm => vm.IsNotBusy,
+                  vm => vm.IsInitialized);
+        }
+
+        private void InitializeEmptyView()
+        {
+            _emptyView = FindViewById<View>(Resource.Id.empty_view);
+            var emptyViewTitleTextView = _emptyView.FindViewById<TextView>(Resource.Id.title_text_view);
+            emptyViewTitleTextView.Text = Core.Localization.Resources.NotificationsListIsEmpty;
         }
     }
 }

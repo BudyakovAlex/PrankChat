@@ -1,5 +1,8 @@
-﻿using MvvmCross.Commands;
-using MvvmCross.ViewModels;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using MvvmCross.Commands;
 using PrankChat.Mobile.Core.Common;
 using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Localization;
@@ -9,21 +12,17 @@ using PrankChat.Mobile.Core.Messages;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.FilterTypes;
 using PrankChat.Mobile.Core.Models.Enums;
+using PrankChat.Mobile.Core.Providers;
 using PrankChat.Mobile.Core.ViewModels.Arbitration.Items;
 using PrankChat.Mobile.Core.ViewModels.Common;
 using PrankChat.Mobile.Core.ViewModels.Common.Abstract;
 using PrankChat.Mobile.Core.ViewModels.Order.Items;
 using PrankChat.Mobile.Core.ViewModels.Order.Items.Abstract;
-using PrankChat.Mobile.Core.Providers;
 using PrankChat.Mobile.Core.Wrappers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.ViewModels.Order
 {
-    public class OrdersViewModel : PaginationViewModel
+    public class OrdersViewModel : PaginationViewModel<BaseOrderItemViewModel>
     {
         private readonly IVideoManager _videoManager;
         private readonly IOrdersManager _ordersManager;
@@ -67,8 +66,6 @@ namespace PrankChat.Mobile.Core.ViewModels.Order
                 (wrapper, handler) => wrapper.IsBusyChanged += handler,
                 (wrapper, handler) => wrapper.IsBusyChanged -= handler).DisposeWith(Disposables);
 
-            Items = new MvxObservableCollection<BaseOrderItemViewModel>();
-
             OpenFilterCommand = this.CreateCommand(OpenFilterAsync);
             ShowWalkthrouthCommand = this.CreateCommand(ShowWalkthrouthAsync);
             LoadDataCommand = this.CreateCommand(() => _loadDataStateWrapper.WrapAsync(LoadDataAsync), useIsBusyWrapper: false);
@@ -78,8 +75,6 @@ namespace PrankChat.Mobile.Core.ViewModels.Order
         }
 
         public override bool IsBusy => base.IsBusy || _loadDataStateWrapper.IsBusy;
-
-        public MvxObservableCollection<BaseOrderItemViewModel> Items { get; }
 
         public string ActiveFilterName => TabType == OrdersTabType.Order ? _activeOrderFilterName : _activeArbitrationFilterName;
 

@@ -1,5 +1,7 @@
-﻿using MvvmCross.Commands;
-using MvvmCross.ViewModels;
+﻿using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using MvvmCross.Commands;
 using PrankChat.Mobile.Core.Common;
 using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Managers.Orders;
@@ -13,13 +15,10 @@ using PrankChat.Mobile.Core.ViewModels.Common.Abstract;
 using PrankChat.Mobile.Core.ViewModels.Order.Items;
 using PrankChat.Mobile.Core.ViewModels.Parameters;
 using PrankChat.Mobile.Core.ViewModels.Subscriptions.Items;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.ViewModels.Profile
 {
-    public class UserProfileViewModel : PaginationViewModel<int, bool>
+    public class UserProfileViewModel : PaginationViewModel<int, bool, OrderItemViewModel>
     {
         private readonly IUsersManager _usersManager;
         private readonly IOrdersManager _ordersManager;
@@ -40,14 +39,13 @@ namespace PrankChat.Mobile.Core.ViewModels.Profile
             _ordersManager = ordersManager;
             _videoManager = videoManager;
 
-            Items = new MvxObservableCollection<OrderItemViewModel>();
-            CloseCompletionSource = new TaskCompletionSource<object>();
-
             RefreshUserDataCommand = this.CreateCommand(RefreshUserDataAsync);
             SubscribeCommand = this.CreateCommand(Subscribe);
             ShowSubscriptionsCommand = this.CreateCommand(ShowSubscriptionsAsync);
             ShowSubscribersCommand = this.CreateCommand(ShowSubscribersAsync);
         }
+
+        protected override bool DefaultResult => _isReloadNeeded; 
 
         private ProfileOrderType _selectedOrderType;
         public ProfileOrderType SelectedOrderType
@@ -70,8 +68,6 @@ namespace PrankChat.Mobile.Core.ViewModels.Profile
         public IMvxAsyncCommand ShowSubscribersCommand { get; }
 
         public IMvxCommand SubscribeCommand { get; }
-
-        public MvxObservableCollection<OrderItemViewModel> Items { get; }
 
         public string ProfileShortLogin => Login.ToShortenName();
 
@@ -124,32 +120,8 @@ namespace PrankChat.Mobile.Core.ViewModels.Profile
             _userId = parameter;
         }
 
-        public override void ViewDestroy(bool viewFinishing = true)
-        {
-            if (viewFinishing &&
-                CloseCompletionSource != null &&
-                !CloseCompletionSource.Task.IsCompleted &&
-                !CloseCompletionSource.Task.IsFaulted)
-            {
-                CloseCompletionSource?.TrySetResult(_isReloadNeeded);
-            }
-
-            base.ViewDestroy(viewFinishing);
-        }
-
         public override Task InitializeAsync() =>
             Task.WhenAll(base.InitializeAsync(), RefreshUserDataAsync());
-
-        protected override async Task CloseAsync(bool? isPlatform)
-        {
-            var isCloseDeclined = isPlatform == true && !await ConfirmPlatformCloseAsync();
-            if (isCloseDeclined)
-            {
-                return;
-            }
-
-            await NavigationManager.CloseAsync(this, _isReloadNeeded);
-        }
 
         protected virtual void Subscribe()
         {
@@ -189,8 +161,8 @@ namespace PrankChat.Mobile.Core.ViewModels.Profile
         private BaseVideoItemViewModel[] GetFullScreenVideos()
         {
             return Items.Where(item => item.VideoItemViewModel != null)
-                        .Select(item => item.VideoItemViewModel)
-                        .ToArray();
+                .Select(item => item.VideoItemViewModel)
+                .ToArray();
         }
 
         private async Task ShowSubscribersAsync()

@@ -1569,6 +1569,14 @@
       <Generator>
       </Generator>
     </AndroidResource>
+    <AndroidResource Include="Resources\layout\layout_empty_view.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\img_empty_state.xml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\ic_orders.xml">
