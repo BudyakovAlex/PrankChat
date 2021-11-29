@@ -49,7 +49,7 @@ namespace PrankChat.Mobile.iOS.Views.Order
 
             #region LoadVideo
 
-            bindingSet.Bind(downloadButton).For(v => v.BindTap()).To(vm => vm.VideoSectionViewModel.LoadVideoCommand);
+            bindingSet.Bind(downloadButton).For(v => v.BindTouchUpInside()).To(vm => vm.VideoSectionViewModel.LoadVideoCommand);
             bindingSet.Bind(downloadButton).For(v => v.BindVisible()).To(vm => vm.VideoSectionViewModel.IsVideoLoadAvailable);
             bindingSet.Bind(downloadView).For(v => v.BindVisible()).To(vm => vm.VideoSectionViewModel.IsVideoLoadAvailable);
 
