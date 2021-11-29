@@ -169,38 +169,24 @@ namespace PrankChat.Mobile.Core.ViewModels.Order
             return Task.WhenAll(base.InitializeAsync(), LoadOrderDetailsAsync());
         }
 
-        private async Task HandleTimerTickAsync()
+        private Task HandleTimerTickAsync()
         {
             _timerThicksCount++;
             if (_timerThicksCount < 5)
             {
-                return;
+                return Task.CompletedTask;
             }
 
             _timerThicksCount = 0;
-            try
-            {
-                var refreshedOrder = await _ordersManager.GetOrderDetailsAsync(_orderId);
-                if (refreshedOrder is null)
-                {
-                    return;
-                }
-
-                Order = refreshedOrder;
-                VideoSectionViewModel.RefreshFullScreenVideo();
-                await RaiseAllPropertiesChanged();
-
-                IsNoSelected = SelectedArbitration == ArbitrationValueType.Negative;
-                IsYesSelected = SelectedArbitration == ArbitrationValueType.Positive;
-            }
-            catch (Exception ex)
-            {
-                ErrorHandleService.HandleException(ex);
-                ErrorHandleService.LogError(this, "Error on loading order page.");
-            }
+            return UpdateOrderAsync();
         }
 
-        private async Task LoadOrderDetailsAsync()
+        private Task LoadOrderDetailsAsync()
+        {
+            return UpdateOrderAsync();
+        }
+
+        private async Task UpdateOrderAsync()
         {
             try
             {

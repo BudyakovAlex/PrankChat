@@ -4,6 +4,7 @@ using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Plugins.UserInteraction;
 using PrankChat.Mobile.Core.Providers.Permissions;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.Managers.Media
 {
@@ -31,7 +32,7 @@ namespace PrankChat.Mobile.Core.Managers.Media
             }
 
             await InitializeAsync();
-            return await CrossMedia.Current.PickPhotoAsync();
+            return await MainThread.InvokeOnMainThreadAsync(() => CrossMedia.Current.PickPhotoAsync());
         }
 
         public async Task<MediaFile> TakePhotoAsync()
@@ -50,7 +51,7 @@ namespace PrankChat.Mobile.Core.Managers.Media
                 SaveToAlbum = true,
                 SaveMetaData = false,
             };
-            return await CrossMedia.Current.TakePhotoAsync(option);
+            return await MainThread.InvokeOnMainThreadAsync(() => CrossMedia.Current.TakePhotoAsync(option));
         }
 
         public async Task<MediaFile> PickVideoAsync()
@@ -65,22 +66,25 @@ namespace PrankChat.Mobile.Core.Managers.Media
                 }
 
                 await InitializeAsync();
-                return await CrossMedia.Current.PickVideoAsync();
+                return await MainThread.InvokeOnMainThreadAsync(() => CrossMedia.Current.PickVideoAsync());
             }
-            catch
+            catch (System.Exception ex)
             {
                 return null;
             }
         }
 
-        private async Task InitializeAsync()
+        private Task InitializeAsync()
         {
             if (_isCrossMediaInitialized)
             {
-                return;
+                return Task.CompletedTask;
             }
 
-            _isCrossMediaInitialized = await CrossMedia.Current.Initialize();
+            return MainThread.InvokeOnMainThreadAsync(async () =>
+            {
+                _isCrossMediaInitialized = await CrossMedia.Current.Initialize();
+            });
         }
     }
 }
