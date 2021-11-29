@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using Foundation;
 
 namespace PrankChat.Mobile.iOS.Plugins.HttpClient.Builders
@@ -13,6 +12,8 @@ namespace PrankChat.Mobile.iOS.Plugins.HttpClient.Builders
         private const string ContentDespositionKey = "Content-Disposition";
         private const string DispositionTypeFormData = "form-data";
         private const string NewLine = "\r\n";
+        private static string ContentDispositionDefaultTemplate = $@"{ContentDespositionKey}: {DispositionTypeFormData}; name=""{{0}}""{NewLine}";
+        private static string ContentDispositionFileTemplate = $@"{ContentDespositionKey}: {DispositionTypeFormData}; filename={{0}}; name={{1}}{NewLine}";
 
         private static FormDataBuilder _instance;
 
@@ -33,7 +34,7 @@ namespace PrankChat.Mobile.iOS.Plugins.HttpClient.Builders
         {
             _multipartFormDataContent.AppendData($"{GetRequestBoundary()}{NewLine}");
             _multipartFormDataContent.AppendData($"{ContentTypeKey}: {ContentTypeAppJson}{NewLine}");
-            _multipartFormDataContent.AppendData($"{ContentDespositionKey}: {DispositionTypeFormData}; name=\"{name}\"{NewLine}");
+            _multipartFormDataContent.AppendData(string.Format(ContentDispositionDefaultTemplate, name));
             _multipartFormDataContent.AppendData(NewLine);
             _multipartFormDataContent.AppendData($"{value}{NewLine}");
             return _instance;
@@ -42,7 +43,7 @@ namespace PrankChat.Mobile.iOS.Plugins.HttpClient.Builders
         public FormDataBuilder AttachFileContent(string name, string filePath)
         {
             _multipartFormDataContent.AppendData($"{NewLine}{GetRequestBoundary()}{NewLine}");
-            _multipartFormDataContent.AppendData($"{ContentDespositionKey}: {DispositionTypeFormData}; filename={Path.GetFileName(filePath)}; name={name}{NewLine}");
+            _multipartFormDataContent.AppendData(string.Format(ContentDispositionFileTemplate, Path.GetFileName(filePath), name));
             _multipartFormDataContent.AppendData(NewLine);
 
             var fileData = NSData.FromFile(filePath);

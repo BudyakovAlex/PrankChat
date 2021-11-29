@@ -51,7 +51,7 @@ namespace PrankChat.Mobile.Core.Managers.Video
             return response.Map();
         }
 
-        public async Task<Models.Data.Video> SendVideoAsync2(
+        public async Task<Models.Data.Video> SendVideoWithNativeHandlerAsync(
             int orderId,
             string path,
             string title,
@@ -59,7 +59,7 @@ namespace PrankChat.Mobile.Core.Managers.Video
             Action<double, double> onChangedProgressAction = null,
             CancellationToken cancellationToken = default)
         {
-            var response = await _videoService.SendVideoAsync2(orderId, path, title, description, onChangedProgressAction, cancellationToken);
+            var response = await _videoService.SendVideoWithNativeHandlerAsync(orderId, path, title, description, onChangedProgressAction, cancellationToken);
             return response.Map();
         }
 

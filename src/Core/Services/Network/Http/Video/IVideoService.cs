@@ -10,7 +10,7 @@ namespace PrankChat.Mobile.Core.Services.Network.Http.Video
     {
         Task<VideoDto> SendVideoAsync(int orderId, string path, string title, string description, Action<double, double> onChangedProgressAction = null, CancellationToken cancellationToken = default);
 
-        Task<VideoDto> SendVideoAsync2(int orderId, string path, string title, string description, Action<double, double> onChangedProgressAction = null, CancellationToken cancellationToken = default);
+        Task<VideoDto> SendVideoWithNativeHandlerAsync(int orderId, string path, string title, string description, Action<double, double> onChangedProgressAction = null, CancellationToken cancellationToken = default);
 
         Task<long?> IncrementVideoViewsAsync(int videoId);
 

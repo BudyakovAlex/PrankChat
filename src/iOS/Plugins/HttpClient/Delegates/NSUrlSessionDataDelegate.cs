@@ -7,6 +7,7 @@ namespace PrankChat.Mobile.iOS.Plugins.HttpClient.Delegates
 {
     public class UploadVideoUrlSessionDataDelegate : NSObject, INSUrlSessionDataDelegate
     {
+        private const string TagNativeConsole = "PRANKCHAT";
         private readonly TaskCompletionSource<string> _taskCompletionSource;
         private readonly Action<double, double> _onChangedProgressAction;
 
@@ -22,20 +23,20 @@ namespace PrankChat.Mobile.iOS.Plugins.HttpClient.Delegates
         public void DidReceiveData(NSUrlSession session, NSUrlSessionDataTask dataTask, NSData data)
         {
             _receiveData = data;
-            NativeConsoleLogger.Write("PRANKCHAT", $"didReceiveData    {data}");
+            NativeConsoleLogger.Write(TagNativeConsole, $"didReceiveData    {data}");
         }
 
         [Export("URLSession:task:didSendBodyData:totalBytesSent:totalBytesExpectedToSend:")]
         public void DidSendBodyData(NSUrlSession session, NSUrlSessionTask task, long bytesSent, long totalBytesSent, long totalBytesExpectedToSend)
         {
             _onChangedProgressAction?.Invoke(totalBytesSent, totalBytesExpectedToSend);
-            NativeConsoleLogger.Write("PRANKCHAT", $"didSendBody   {bytesSent}   {totalBytesSent}    {totalBytesExpectedToSend}");
+            NativeConsoleLogger.Write(TagNativeConsole, $"didSendBody   {bytesSent}   {totalBytesSent}    {totalBytesExpectedToSend}");
         }
 
         [Export("URLSession:task:didCompleteWithError:")]
         public void DidCompleteWithError(NSUrlSession session, NSUrlSessionTask task, NSError error)
         {
-            NativeConsoleLogger.Write("PRANKCHAT", $"didCompleteWithError    {error}");
+            NativeConsoleLogger.Write(TagNativeConsole, $"didCompleteWithError    {error}");
 
             if (_receiveData != null)
             {

@@ -61,7 +61,7 @@ namespace PrankChat.Mobile.Core.Services.Network.Http.Video
             return videoMetadataApiModel?.Data;
         }
 
-        public async Task<VideoDto> SendVideoAsync2(
+        public async Task<VideoDto> SendVideoWithNativeHandlerAsync(
             int orderId,
             string path,
             string title,

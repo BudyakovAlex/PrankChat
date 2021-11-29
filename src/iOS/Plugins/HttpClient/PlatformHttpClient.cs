@@ -50,6 +50,7 @@ namespace PrankChat.Mobile.iOS.Plugins.HttpClient
             var urlString = string.Format(UrlStringTemplate, environment.ApiUrl, version.Major);
 
             // Create body content string.
+            // TODO: Refactoring this code.
             var body = FormDataBuilder
                            .Create()
                            .AttachStringContent("order_id", uploadVideoDto.OrderId.ToString())
