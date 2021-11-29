@@ -3,6 +3,7 @@ using CoreGraphics;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Binding.Combiners;
 using MvvmCross.Platforms.Ios.Binding;
+using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
 using MvvmCross.Platforms.Ios.Views;
 using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.Localization;
@@ -48,7 +49,7 @@ namespace PrankChat.Mobile.iOS.Views.Order
 
             #region LoadVideo
 
-            bindingSet.Bind(downloadButton).To(vm => vm.VideoSectionViewModel.LoadVideoCommand);
+            bindingSet.Bind(downloadButton).For(v => v.BindTap()).To(vm => vm.VideoSectionViewModel.LoadVideoCommand);
             bindingSet.Bind(downloadButton).For(v => v.BindVisible()).To(vm => vm.VideoSectionViewModel.IsVideoLoadAvailable);
             bindingSet.Bind(downloadView).For(v => v.BindVisible()).To(vm => vm.VideoSectionViewModel.IsVideoLoadAvailable);
 

@@ -130,7 +130,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Order.Sections
             IsUploading = true;
             _cancellationTokenSource = new CancellationTokenSource();
 
-            var video = await _videoManager.SendVideoAsync(Order.Id,
+            var video = await _videoManager.SendVideoAsync2(Order.Id,
                                                            file.Path,
                                                            Order?.Title,
                                                            Order?.Description,
