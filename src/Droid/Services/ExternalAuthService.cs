@@ -26,7 +26,7 @@ namespace PrankChat.Mobile.Droid.Services
             _mvxAndroidCurrentTopActivity = mvxAndroidCurrentTopActivity;
 
             FacebookSdk.ApplicationId = FacebookAppId;
-            FacebookSdk.SdkInitialize(Application.Context.ApplicationContext, 0, this);
+            FacebookSdk.SdkInitialize(Application.Context.ApplicationContext, this);
         }
 
         public async Task<string> LoginWithFacebookAsync()
