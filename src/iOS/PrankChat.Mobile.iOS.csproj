@@ -404,7 +404,10 @@
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<Compile Include="Plugins\Logging\NativeConsoleLogger.cs" />
+		<Compile Include="Plugins\HttpClient\PlatformHttpClient.cs" />
 		<Compile Include="Controls\EmptyView .cs" />
+		<Compile Include="Plugins\HttpClient\Delegates\NSUrlSessionDataDelegate.cs" />
+		<Compile Include="Plugins\HttpClient\Builders\FormDataBuilder.cs" />
 	</ItemGroup>
 	<ItemGroup>
 		<Reference Include="System" />
@@ -1236,7 +1239,10 @@
 		<Folder Include="Assets.xcassets\OrderTagTypeWait.imageset\" />
 		<Folder Include="Assets.xcassets\ic_onplay.imageset\" />
 		<Folder Include="Plugins\Logging\" />
+		<Folder Include="Plugins\HttpClient\" />
 		<Folder Include="Assets.xcassets\img_empty_state.imageset\" />
+		<Folder Include="Plugins\HttpClient\Delegates\" />
+		<Folder Include="Plugins\HttpClient\Builders\" />
 	</ItemGroup>
 	<Choose>
 		<When Condition="'$(MtouchLink)'=='Full' Or '$(MtouchLink)'=='SdkOnly'">

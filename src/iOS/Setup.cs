@@ -30,6 +30,8 @@ using Serilog;
 using Serilog.Extensions.Logging;
 using System;
 using PrankChat.Mobile.iOS.Plugins.Logging;
+using PrankChat.Mobile.iOS.Plugins.HttpClient;
+using PrankChat.Mobile.Core.Services.Network;
 
 namespace PrankChat.Mobile.iOS
 {
@@ -85,6 +87,7 @@ namespace PrankChat.Mobile.iOS
             CompositionRoot.Container.RegisterSingleton<IUserSessionProvider, UserSessionProvider>();
             CompositionRoot.Container.RegisterSingleton<IAppleSignInService, AppleSignInService>();
             CompositionRoot.Container.RegisterSingleton<IPlatformPathsProvider, PlatformPathsProvider>();
+            CompositionRoot.Container.RegisterSingleton<IPlatformHttpClient, PlatformHttpClient>();
 
             AVAudioSession.SharedInstance().SetCategory(AVAudioSessionCategory.Playback);
         }

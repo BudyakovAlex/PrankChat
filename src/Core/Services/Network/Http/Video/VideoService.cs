@@ -8,6 +8,7 @@ using System;
 using System.Threading;
 using Serilog;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace PrankChat.Mobile.Core.Services.Network.Http.Video
 {
@@ -15,12 +16,16 @@ namespace PrankChat.Mobile.Core.Services.Network.Http.Video
     {
         private readonly HttpClient _client;
         private readonly ILogger _logger;
+        private readonly IPlatformHttpClient _platformHttpClient;
 
         public VideoService(
             IUserSessionProvider userSessionProvider,
             IEnvironmentConfigurationProvider environmentConfigurationProvider,
-            IMvxMessenger messenger)
+            IMvxMessenger messenger,
+            IPlatformHttpClient platformHttpClient)
         {
+            _platformHttpClient = platformHttpClient;
+
             var environment = environmentConfigurationProvider.Environment;
             _logger = this.Logger();
 
@@ -32,12 +37,13 @@ namespace PrankChat.Mobile.Core.Services.Network.Http.Video
                 messenger);
         }
 
-        public async Task<VideoDto> SendVideoAsync(int orderId,
-                                                        string path,
-                                                        string title,
-                                                        string description,
-                                                        Action<double, double> onChangedProgressAction = null,
-                                                        CancellationToken cancellationToken = default)
+        public async Task<VideoDto> SendVideoAsync(
+            int orderId,
+            string path,
+            string title,
+            string description,
+            Action<double, double> onChangedProgressAction = null,
+            CancellationToken cancellationToken = default)
         {
             var loadVideoApiModel = new UploadVideoDto()
             {
@@ -53,6 +59,26 @@ namespace PrankChat.Mobile.Core.Services.Network.Http.Video
                 onChangedProgressAction: onChangedProgressAction,
                 cancellationToken: cancellationToken);
             return videoMetadataApiModel?.Data;
+        }
+
+        public async Task<VideoDto> SendVideoWithNativeHandlerAsync(
+            int orderId,
+            string path,
+            string title,
+            string description,
+            Action<double, double> onChangedProgressAction = null,
+            CancellationToken cancellationToken = default)
+        {
+            var loadVideoApiModel = new UploadVideoDto()
+            {
+                OrderId = orderId,
+                FilePath = path,
+                Title = title,
+                Description = description,
+            };
+
+            var responseJson = await _platformHttpClient.UploadVideoAsync(loadVideoApiModel, onChangedProgressAction);
+            return JsonConvert.DeserializeObject<VideoDto>(responseJson);
         }
 
         public async Task<long?> IncrementVideoViewsAsync(int videoId)
