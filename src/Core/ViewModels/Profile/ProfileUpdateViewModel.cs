@@ -19,6 +19,8 @@ using PrankChat.Mobile.Core.Services.Notifications;
 using System;
 using System.Threading.Tasks;
 using PrankChat.Mobile.Core.Managers.Navigation.Arguments.NavigationResults;
+using Xamarin.Essentials;
+using Badge.Plugin;
 
 namespace PrankChat.Mobile.Core.ViewModels.Profile
 {
@@ -151,6 +153,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Profile
 
                     await _pushNotificationService.UnregisterNotificationsAsync();
                     await _authorizationManager.LogoutAsync();
+                    MainThread.BeginInvokeOnMainThread(() => CrossBadge.Current.ClearBadge());
                 }
                 catch (Exception ex)
                 {
