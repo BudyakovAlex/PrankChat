@@ -1637,7 +1637,7 @@
       <Version>1.4.3.4</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Facebook.Android">
-      <Version>7.1.0</Version>
+      <Version>11.2.0.1</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Firebase.Core">
       <Version>71.1601.0</Version>
