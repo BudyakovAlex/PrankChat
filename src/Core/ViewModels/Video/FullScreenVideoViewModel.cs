@@ -22,6 +22,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Video
 {
     public class FullScreenVideoViewModel : BasePageViewModel<FullScreenVideoParameter, Dictionary<int, FullScreenVideoResult>>
     {
+        private const int MillisecondsDelay = 500;
         private readonly IUsersManager _usersManager;
         private readonly Dictionary<int, FullScreenVideoResult> _updatedVideoItemsDictionary;
 
@@ -100,10 +101,16 @@ namespace PrankChat.Mobile.Core.ViewModels.Video
             UpdateVideoDataChanges();
         }
 
-        private Task NavigateByRestrictionAsync()
+        private async Task NavigateByRestrictionAsync()
         {
             Interaction.Raise();
-            return NavigationManager.NavigateAsync<LoginViewModel>();
+
+            if (DeviceInfo.Platform == DevicePlatform.iOS)
+            {
+                await Task.Delay(MillisecondsDelay);
+            }
+
+            await NavigationManager.NavigateAsync<LoginViewModel>();
         }
 
         private async Task OpenUserProfileAsync()

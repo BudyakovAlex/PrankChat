@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="facebook_app_id">621471715102522</string>
+    <string name="fb_login_protocol_scheme">fb621471715102522</string>
+    <string name="facebook_client_token">2ccfb56cf0d6301d396ff99366648ea3</string>
     <string name="Close">"Закрыть"</string>
 
     <!-- Fuzzy -->
