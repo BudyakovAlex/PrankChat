@@ -41,6 +41,7 @@ namespace PrankChat.Mobile.Droid
             CompositionRoot.Container.RegisterSingleton<IUserSessionProvider, UserSessionProvider>();
             CompositionRoot.Container.RegisterSingleton<IPlatformPathsProvider, PlatformPathsProvider>();
             CompositionRoot.Container.RegisterSingleton<IFileSystemService, FileSystemService>();
+            CompositionRoot.Container.RegisterSingleton<IPlatformHttpClient, PlatformHttpClient>();
         }
 
         protected override IMvxAndroidViewPresenter CreateViewPresenter()

@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Threading.Tasks;
 using Foundation;
+using PrankChat.Mobile.Core.Common;
 using PrankChat.Mobile.Core.Data.Dtos;
 using PrankChat.Mobile.Core.Providers.Configuration;
 using PrankChat.Mobile.Core.Providers.UserSession;
@@ -15,11 +16,6 @@ namespace PrankChat.Mobile.iOS.Plugins.HttpClient
     {
         private const string BackgroundSessionConfigurationIdetifier = "BackgroundSessionConfigurationIdetifier";
         private const string PostHttpMethod = "POST";
-        private const string AuthorizationCookieKey = "Authorization";
-        private const string AuthorizationCookieValueTemplate = "Bearer {0}";
-        private const string ContentTypeCookieKey = "Accept-Language";
-        private const string UrlStringTemplate = "{0}/api/v{1}/videos";
-        private const string ContentTypeCookieValueTemplate = "multipart/form-data; boundary=\"{0}\"";
 
         private readonly IEnvironmentConfigurationProvider _environmentConfigurationProvider;
         private readonly IUserSessionProvider _userSessionProvider;
@@ -47,7 +43,7 @@ namespace PrankChat.Mobile.iOS.Plugins.HttpClient
             var environment = _environmentConfigurationProvider.Environment;
             var version = new Version(environment.ApiVersion);
             var currentCulture = CultureInfo.CurrentCulture;
-            var urlString = string.Format(UrlStringTemplate, environment.ApiUrl, version.Major);
+            var urlString = string.Format(RestConstants.UrlStringTemplate, environment.ApiUrl, version.Major);
 
             // Create body content string.
             // TODO: Refactoring this code.
@@ -64,9 +60,9 @@ namespace PrankChat.Mobile.iOS.Plugins.HttpClient
 
             // Set header values.
             var accessToken = await _userSessionProvider.GetAccessTokenAsync();
-            request[AuthorizationCookieKey] = new NSString(string.Format(AuthorizationCookieValueTemplate, accessToken));
-            request[ContentTypeCookieKey] = new NSString(currentCulture.TwoLetterISOLanguageName);
-            request[FormDataBuilder.ContentTypeKey] = new NSString(string.Format(ContentTypeCookieValueTemplate, FormDataBuilder.DefaultBoundary));
+            request[RestConstants.AuthorizationCookieKey] = new NSString(string.Format(RestConstants.AuthorizationCookieValueTemplate, accessToken));
+            request[RestConstants.AcceptLanguageCookieKey] = new NSString(currentCulture.TwoLetterISOLanguageName);
+            request[RestConstants.ContentTypeKey] = new NSString(string.Format(RestConstants.ContentTypeCookieValueTemplate, FormDataBuilder.DefaultBoundary));
 
             // Set method and body content.
             request.HttpMethod = PostHttpMethod;
