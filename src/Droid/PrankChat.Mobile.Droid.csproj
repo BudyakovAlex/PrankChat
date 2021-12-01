@@ -210,6 +210,7 @@
     <Compile Include="PlatformBusinessServices\FileSystem\FileSystemService.cs" />
     <Compile Include="Spans\LinkSpan.cs" />
     <Compile Include="Listeners\DecorViewGlobalLayoutListener.cs" />
+    <Compile Include="Plugins\HttpClient\PlatformHttpClient.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -1920,6 +1921,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Utils\Extensions\" />
+    <Folder Include="Plugins\HttpClient\" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\button_white_bordered_background.xml" />
