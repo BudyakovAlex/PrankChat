@@ -2,7 +2,7 @@
 
 namespace PrankChat.Mobile.Droid.Plugins.HttpClient.HostnameVerfier
 {
-    public class UnsafeHostnamVerifier : Java.Lang.Object, IHostnameVerifier
+    public class UnsafeHostnameVerifier : Java.Lang.Object, IHostnameVerifier
     {
         public bool Verify(string hostname, ISSLSession session)
         {

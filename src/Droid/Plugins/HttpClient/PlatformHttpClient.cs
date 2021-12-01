@@ -21,7 +21,7 @@ namespace PrankChat.Mobile.Droid.Plugins.HttpClient
     public class PlatformHttpClient : IPlatformHttpClient
     {
         private const int ConnectTimeOutHttpClientInMinutes = 5;
-        private const string SSLKey = "SSL";
+        private const string SslKey = "SSL";
 
         private readonly IEnvironmentConfigurationProvider _environmentConfigurationProvider;
         private readonly IUserSessionProvider _userSessionProvider;
@@ -54,17 +54,17 @@ namespace PrankChat.Mobile.Droid.Plugins.HttpClient
 
             // TODO: Refactoring this code.
             var formDataBuilder = FormDataBuilder.Create()
-                    .AttachStringContent("order_id", uploadVideoDto.OrderId.ToString())
-                    .AttachStringContent("title", uploadVideoDto.Title)
-                    .AttachStringContent("description", uploadVideoDto.Description)
-                    .AttachFileContent("video", uploadVideoDto.FilePath);
+                .AttachStringContent("order_id", uploadVideoDto.OrderId.ToString())
+                .AttachStringContent("title", uploadVideoDto.Title)
+                .AttachStringContent("description", uploadVideoDto.Description)
+                .AttachFileContent("video", uploadVideoDto.FilePath);
 
             var request = requestBuilder
-                    .Post(new VideoRequestBody(onChangedProgressAction, formDataBuilder, contentType))
-                    .AddHeader(RestConstants.AuthorizationCookieKey, string.Format(RestConstants.AuthorizationCookieValueTemplate, accessToken))
-                    .AddHeader(RestConstants.AcceptLanguageCookieKey, currentCulture.TwoLetterISOLanguageName)
-                    .AddHeader(RestConstants.ContentTypeKey, contentType)
-                    .Build();
+                .Post(new VideoRequestBody(onChangedProgressAction, formDataBuilder, contentType))
+                .AddHeader(RestConstants.AuthorizationCookieKey, string.Format(RestConstants.AuthorizationCookieValueTemplate, accessToken))
+                .AddHeader(RestConstants.AcceptLanguageCookieKey, currentCulture.TwoLetterISOLanguageName)
+                .AddHeader(RestConstants.ContentTypeKey, contentType)
+                .Build();
 
             var call = httpClient.NewCall(request);
             call.Enqueue(
@@ -88,17 +88,17 @@ namespace PrankChat.Mobile.Droid.Plugins.HttpClient
         private OkHttpClient CreateUnsafeHttpClient()
         {
             var trustManagers = new[] { new UnsafeX509ExtendedTrustManager() };
-            var sslContext = SSLContext.GetInstance(SSLKey);
+            var sslContext = SSLContext.GetInstance(SslKey);
             sslContext.Init(null, trustManagers, new Java.Security.SecureRandom());
             var sslSocketFactory = sslContext.SocketFactory;
 
             var httpClient = new OkHttpClient.Builder()
-                    .SslSocketFactory(sslSocketFactory, trustManagers[0])
-                    .HostnameVerifier(new UnsafeHostnamVerifier())
-                    .ConnectTimeout(ConnectTimeOutHttpClientInMinutes, TimeUnit.Minutes)
-                    .ReadTimeout(ConnectTimeOutHttpClientInMinutes, TimeUnit.Minutes)
-                    .WriteTimeout(ConnectTimeOutHttpClientInMinutes, TimeUnit.Minutes)
-                    .Build();
+                .SslSocketFactory(sslSocketFactory, trustManagers[0])
+                .HostnameVerifier(new UnsafeHostnameVerifier())
+                .ConnectTimeout(ConnectTimeOutHttpClientInMinutes, TimeUnit.Minutes)
+                .ReadTimeout(ConnectTimeOutHttpClientInMinutes, TimeUnit.Minutes)
+                .WriteTimeout(ConnectTimeOutHttpClientInMinutes, TimeUnit.Minutes)
+                .Build();
             return httpClient;
         }
     }
