@@ -17,7 +17,7 @@ using Square.OkHttp3;
 
 namespace PrankChat.Mobile.Droid.Plugins.HttpClient
 {
-    public class PlatformHttpClient : Java.Lang.Object, IPlatformHttpClient
+    public class PlatformHttpClient : IPlatformHttpClient
     {
         private const string AuthorizationCookieKey = "Authorization";
         private const string AuthorizationCookieValueTemplate = "Bearer {0}";
