@@ -23,6 +23,8 @@ using MvvmCross.IoC;
 using Microsoft.Extensions.Logging;
 using Serilog;
 using Serilog.Extensions.Logging;
+using PrankChat.Mobile.Core.Services.Network;
+using PrankChat.Mobile.Droid.Plugins.HttpClient;
 
 namespace PrankChat.Mobile.Droid
 {
@@ -38,6 +40,7 @@ namespace PrankChat.Mobile.Droid
             CompositionRoot.Container.RegisterSingleton<IUserSessionProvider, UserSessionProvider>();
             CompositionRoot.Container.RegisterSingleton<IPlatformPathsProvider, PlatformPathsProvider>();
             CompositionRoot.Container.RegisterSingleton<IFileSystemService, FileSystemService>();
+            CompositionRoot.Container.RegisterSingleton<IPlatformHttpClient, PlatformHttpClient>();
         }
 
         protected override IMvxAndroidViewPresenter CreateViewPresenter()
