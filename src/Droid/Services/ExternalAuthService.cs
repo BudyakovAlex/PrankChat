@@ -25,8 +25,8 @@ namespace PrankChat.Mobile.Droid.Services
         {
             _mvxAndroidCurrentTopActivity = mvxAndroidCurrentTopActivity;
 
+            FacebookSdk.AutoInitEnabled = true;
             FacebookSdk.ApplicationId = FacebookAppId;
-            FacebookSdk.SdkInitialize(Application.Context.ApplicationContext, this);
         }
 
         public async Task<string> LoginWithFacebookAsync()
@@ -42,6 +42,7 @@ namespace PrankChat.Mobile.Droid.Services
             FacebookCallback.Instance.CompletionSource = taskCompletionSource;
             FacebookCallback.Instance.Register();
 
+            LoginManager.Instance.SetLoginBehavior(LoginBehavior.WebOnly);
             LoginManager.Instance.LogInWithReadPermissions(currentContext, _facebookPermissions);
 
             var token = await taskCompletionSource.Task;
