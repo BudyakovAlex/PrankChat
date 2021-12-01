@@ -35,6 +35,7 @@ namespace PrankChat.Mobile.Droid
             base.InitializeLastChance(iocProvider);
 
             CompositionRoot.Container.RegisterType<IVideoPlayer, VideoPlayer>();
+            CompositionRoot.Container.RegisterSingleton<IPlatformHttpClient, PlatformHttpClient>();
             CompositionRoot.Container.RegisterSingleton<IUserInteraction, UserInteraction>();
             CompositionRoot.Container.RegisterSingleton<IExternalAuthService, ExternalAuthService>();
             CompositionRoot.Container.RegisterSingleton<IUserSessionProvider, UserSessionProvider>();
