@@ -52,9 +52,9 @@ namespace PrankChat.Mobile.Droid.Adapters.ViewHolders.Competitions
             bindingSet.Bind(_rightImageView).For(v => v.Visibility).To(vm => vm.HasNavigationControls)
                       .WithConversion<BoolToGoneConverter>();
             bindingSet.Bind(_leftDivider).For(v => v.BindBackgroundColor()).To(vm => vm.Phase)
-                      .WithConversion<CompetitionPhaseToBorderBackgroundConverter>();
+                      .WithConversion<CompetitionPhaseToBorderBackgroundConverter>().OneWay();
             bindingSet.Bind(_rightDivider).For(v => v.BindBackgroundColor()).To(vm => vm.Phase)
-                      .WithConversion<CompetitionPhaseToBorderBackgroundConverter>();
+                      .WithConversion<CompetitionPhaseToBorderBackgroundConverter>().OneWay();
         }
 
         protected override void DoInit(View view)

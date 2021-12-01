@@ -34,8 +34,7 @@ namespace PrankChat.Mobile.Droid.Views.Order
         private MaterialButton _takeOrderMaterialButton;
         private MaterialButton _subribeMaterialButton;
         private MaterialButton _unsubcribeMaterialButton;
-        private LinearLayout _videoLoadLinearLayout;
-        private MaterialButton _loadVideMaterialButton;
+        private MaterialButton _loadVideoMaterialButton;
         private MaterialButton _executeMaterialButton;
         private MaterialButton _cancelMaterialButton;
         private View _separatorView;
@@ -89,8 +88,7 @@ namespace PrankChat.Mobile.Droid.Views.Order
             _takeOrderMaterialButton = FindViewById<MaterialButton>(Resource.Id.take_order_button);
             _subribeMaterialButton = FindViewById<MaterialButton>(Resource.Id.subscribe_material_button);
             _unsubcribeMaterialButton = FindViewById<MaterialButton>(Resource.Id.unsubscribe_button);
-            _videoLoadLinearLayout = FindViewById<LinearLayout>(Resource.Id.video_load_linear_layout);
-            _loadVideMaterialButton = FindViewById<MaterialButton>(Resource.Id.load_video_material_button);
+            _loadVideoMaterialButton = FindViewById<MaterialButton>(Resource.Id.load_video_material_button);
             _executeMaterialButton = FindViewById<MaterialButton>(Resource.Id.execute_button);
             _cancelMaterialButton = FindViewById<MaterialButton>(Resource.Id.cancel_order_details_button);
             _separatorView = FindViewById<View>(Resource.Id.order_details_separator_view);
@@ -144,8 +142,8 @@ namespace PrankChat.Mobile.Droid.Views.Order
             bindingSet.Bind(_subribeMaterialButton).For(v => v.BindVisible()).To(vm => vm.IsSubscribeAvailable);
             bindingSet.Bind(_unsubcribeMaterialButton).For(v => v.BindClick()).To(vm => vm.UnsubscribeOrderCommand);
             bindingSet.Bind(_unsubcribeMaterialButton).For(v => v.BindVisible()).To(vm => vm.IsUnsubscribeAvailable);
-            bindingSet.Bind(_videoLoadLinearLayout).For(v => v.BindVisible()).To(vm => vm.VideoSectionViewModel.IsVideoLoadAvailable);
-            bindingSet.Bind(_loadVideMaterialButton).For(v => v.BindClick()).To(vm => vm.VideoSectionViewModel.LoadVideoCommand);
+            bindingSet.Bind(_loadVideoMaterialButton).For(v => v.BindVisible()).To(vm => vm.VideoSectionViewModel.IsVideoLoadAvailable);
+            bindingSet.Bind(_loadVideoMaterialButton).For(v => v.BindClick()).To(vm => vm.VideoSectionViewModel.LoadVideoCommand);
             bindingSet.Bind(_executeMaterialButton).For(v => v.BindClick()).To(vm => vm.ExecuteOrderCommand);
             bindingSet.Bind(_executeMaterialButton).For(v => v.BindVisible()).To(vm => vm.IsExecuteOrderAvailable);
             bindingSet.Bind(_cancelMaterialButton).For(v => v.BindClick()).To(vm => vm.CancelOrderCommand);

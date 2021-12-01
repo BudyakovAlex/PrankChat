@@ -1,4 +1,7 @@
-﻿using MvvmCross.ViewModels;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
+using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.Common;
 using PrankChat.Mobile.Core.Managers.Search;
 using PrankChat.Mobile.Core.Managers.Users;
@@ -12,13 +15,10 @@ using PrankChat.Mobile.Core.ViewModels.Order.Items;
 using PrankChat.Mobile.Core.ViewModels.Order.Items.Abstract;
 using PrankChat.Mobile.Core.ViewModels.Publication.Items;
 using PrankChat.Mobile.Core.ViewModels.Search.Items;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.ViewModels
 {
-    public class SearchViewModel : PaginationViewModel
+    public class SearchViewModel : PaginationViewModel<MvxNotifyPropertyChanged>
     {
         private const int SearchDelay = 1000;
 
@@ -31,14 +31,10 @@ namespace PrankChat.Mobile.Core.ViewModels
             IVideoManager videoManager,
             IUsersManager usersManager) : base(Constants.Pagination.DefaultPaginationSize)
         {
-            Items = new MvxObservableCollection<MvxNotifyPropertyChanged>();
-
             _searchManager = searchManager;
             _videoManager = videoManager;
             _usersManager = usersManager;
         }
-
-        public MvxObservableCollection<MvxNotifyPropertyChanged> Items { get; }
 
         private string _searchValue;
         public string SearchValue
@@ -141,12 +137,12 @@ namespace PrankChat.Mobile.Core.ViewModels
 
         private BaseVideoItemViewModel[] GetPublicationsFullScreenVideos() =>
             Items.OfType<BaseVideoItemViewModel>()
-                 .ToArray();
+            .ToArray();
 
         private BaseVideoItemViewModel[] GetOrdersFullScreenVideos() =>
-           Items.OfType<BaseOrderItemViewModel>()
-                .Where(order => order.VideoItemViewModel != null)
-                .Select(order => order.VideoItemViewModel)
-                .ToArray();
+            Items.OfType<BaseOrderItemViewModel>()
+            .Where(order => order.VideoItemViewModel != null)
+            .Select(order => order.VideoItemViewModel)
+            .ToArray();
     }
 }

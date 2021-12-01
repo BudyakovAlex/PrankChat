@@ -1,4 +1,7 @@
-﻿using MvvmCross.Commands;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
+using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.Common;
 using PrankChat.Mobile.Core.Extensions;
@@ -6,13 +9,10 @@ using PrankChat.Mobile.Core.Managers.Video;
 using PrankChat.Mobile.Core.Models.Data.Shared;
 using PrankChat.Mobile.Core.ViewModels.Comment.Items;
 using PrankChat.Mobile.Core.ViewModels.Common;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.ViewModels.Comment
 {
-    public class CommentsViewModel : PaginationViewModel<int, int>
+    public class CommentsViewModel : PaginationViewModel<int, int, CommentItemViewModel>
     {
         private readonly IVideoManager _videoManager;
 
@@ -23,15 +23,11 @@ namespace PrankChat.Mobile.Core.ViewModels.Comment
         {
             _videoManager = videoManager;
 
-            Items = new MvxObservableCollection<CommentItemViewModel>();
-
             SendCommentCommand = this.CreateCommand(SendCommentAsync, () => !string.IsNullOrWhiteSpace(Comment));
             ScrollInteraction = new MvxInteraction<int>();
         }
 
         protected override int DefaultResult => _newCommentsCounter;
-
-        public MvxObservableCollection<CommentItemViewModel> Items { get; }
 
         public MvxInteraction<int> ScrollInteraction { get; }
 

@@ -10,6 +10,8 @@ using PrankChat.Mobile.Core.Common;
 using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.ViewModels;
 using PrankChat.Mobile.Core.ViewModels.Order;
+using PrankChat.Mobile.Droid.Extensions;
+using PrankChat.Mobile.Droid.Listeners;
 using PrankChat.Mobile.Droid.Views.Base;
 
 namespace PrankChat.Mobile.Droid.Views.Order
@@ -52,6 +54,12 @@ namespace PrankChat.Mobile.Droid.Views.Order
             _descriptionImageView = view.FindViewById<ImageView>(Resource.Id.description_image_view);
             _createButton = view.FindViewById<MaterialButton>(Resource.Id.create_button);
             _createOrderFrameLayout = view.FindViewById<FrameLayout>(Resource.Id.animation_frame_layout);
+
+            _createButton.SetOnTouchListener(new ViewOnTouchListener((v, e) =>
+            {
+                this.Context.HideKeyboard();
+                return false;
+            }));
         }
 
         protected override void Bind()

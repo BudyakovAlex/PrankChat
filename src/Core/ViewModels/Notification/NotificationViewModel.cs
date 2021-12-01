@@ -1,27 +1,23 @@
-﻿using Badge.Plugin;
-using MvvmCross.ViewModels;
-using PrankChat.Mobile.Core.Managers.Notifications;
-using PrankChat.Mobile.Core.ViewModels.Notification.Items;
-using PrankChat.Mobile.Core.ViewModels.Common;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
-using Xamarin.Essentials;
+using Badge.Plugin;
 using PrankChat.Mobile.Core.Common;
+using PrankChat.Mobile.Core.Managers.Notifications;
 using PrankChat.Mobile.Core.Messages;
+using PrankChat.Mobile.Core.ViewModels.Common;
+using PrankChat.Mobile.Core.ViewModels.Notification.Items;
+using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.ViewModels.Notification
 {
-    public class NotificationViewModel : PaginationViewModel
+    public class NotificationViewModel : PaginationViewModel<NotificationItemViewModel>
     {
         private readonly INotificationsManager _notificationsManager;
 
         public NotificationViewModel(INotificationsManager notificationsManager) : base(Constants.Pagination.DefaultPaginationSize)
         {
-            Items = new MvxObservableCollection<NotificationItemViewModel>();
             _notificationsManager = notificationsManager;
         }
-
-        public MvxObservableCollection<NotificationItemViewModel> Items { get; }
 
         public override async Task InitializeAsync()
         {

@@ -404,6 +404,10 @@
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<Compile Include="Plugins\Logging\NativeConsoleLogger.cs" />
+		<Compile Include="Plugins\HttpClient\PlatformHttpClient.cs" />
+		<Compile Include="Controls\EmptyView .cs" />
+		<Compile Include="Plugins\HttpClient\Delegates\NSUrlSessionDataDelegate.cs" />
+		<Compile Include="Plugins\HttpClient\Builders\FormDataBuilder.cs" />
 	</ItemGroup>
 	<ItemGroup>
 		<Reference Include="System" />
@@ -478,14 +482,8 @@
 		<PackageReference Include="VideoLAN.LibVLC.iOS">
 			<Version>3.3.17</Version>
 		</PackageReference>
-		<PackageReference Include="VLC.Native">
-			<Version>3.0.8</Version>
-		</PackageReference>
 		<PackageReference Include="LibVLCSharp">
 			<Version>3.6.1</Version>
-		</PackageReference>
-		<PackageReference Include="Vlc.DotNet.Core">
-			<Version>3.1.0</Version>
 		</PackageReference>
 		<PackageReference Include="Serilog">
 			<Version>2.10.0</Version>
@@ -1178,6 +1176,8 @@
 		<ImageAsset Include="Assets.xcassets\ic_notification_with_bage.imageset\ic_notification_with_bage.pdf" />
 		<ImageAsset Include="Assets.xcassets\ic_search.imageset\Shape.pdf" />
 		<ImageAsset Include="Assets.xcassets\ic_info.imageset\ic_info.pdf" />
+		<ImageAsset Include="Assets.xcassets\img_empty_state.imageset\Contents.json" />
+		<ImageAsset Include="Assets.xcassets\img_empty_state.imageset\img_empty_state.pdf" />
 	</ItemGroup>
 	<ItemGroup>
 		<Folder Include="Assets.xcassets\bg_onboarding_fifth_slide.imageset\" />
@@ -1239,6 +1239,10 @@
 		<Folder Include="Assets.xcassets\OrderTagTypeWait.imageset\" />
 		<Folder Include="Assets.xcassets\ic_onplay.imageset\" />
 		<Folder Include="Plugins\Logging\" />
+		<Folder Include="Plugins\HttpClient\" />
+		<Folder Include="Assets.xcassets\img_empty_state.imageset\" />
+		<Folder Include="Plugins\HttpClient\Delegates\" />
+		<Folder Include="Plugins\HttpClient\Builders\" />
 	</ItemGroup>
 	<Choose>
 		<When Condition="'$(MtouchLink)'=='Full' Or '$(MtouchLink)'=='SdkOnly'">

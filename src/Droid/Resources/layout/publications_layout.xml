@@ -79,6 +79,13 @@
         </mvvmcross.droidx.MvxSwipeRefreshLayout>
     </LinearLayout>
 
+    <include
+        android:id="@+id/empty_view"
+        layout="@layout/layout_empty_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="81dp"/>
+
     <FrameLayout
         android:id="@+id/loading_overlay"
         android:layout_width="match_parent"
@@ -94,4 +101,5 @@
             app:lottie_fileName="ripple_animation.json"
             app:lottie_loop="true" />
     </FrameLayout>
+
 </FrameLayout>

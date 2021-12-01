@@ -41,8 +41,6 @@ namespace PrankChat.Mobile.Core.ViewModels.Profile
             _ordersManager = ordersManager;
             _walkthroughsProvider = walkthroughsProvider;
 
-            Items = new MvxObservableCollection<OrderItemViewModel>();
-
             ShowWithdrawalCommand = this.CreateCommand(ShowWithdrawalAsync);
             ShowRefillCommand = this.CreateCommand(ShowRefillAsync);
             ShowSubscriptionsCommand = this.CreateCommand(ShowSubscriptionsAsync);
@@ -51,7 +49,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Profile
             LoadProfileCommand = this.CreateCommand(LoadProfileAsync);
             ShowUpdateProfileCommand = this.CreateCommand(ShowUpdateProfileAsync);
 
-            Messenger.SubscribeOnMainThread<OrderChangedMessage>((msg) => ReloadItemsCommand?.Execute()).DisposeWith(Disposables);
+            Messenger.SubscribeOnMainThread<OrderChangedMessage>(OnOrdersChanged).DisposeWith(Disposables);
             Messenger.SubscribeOnMainThread<SubscriptionChangedMessage>((msg) => LoadProfileCommand.Execute()).DisposeWith(Disposables);
         }
 
@@ -96,8 +94,6 @@ namespace PrankChat.Mobile.Core.ViewModels.Profile
             get => _subscriptionsValue;
             set => SetProperty(ref _subscriptionsValue, value);
         }
-
-        public MvxObservableCollection<OrderItemViewModel> Items { get; }
 
         public IMvxAsyncCommand ShowWalkthrouthCommand { get; }
 
@@ -292,6 +288,12 @@ namespace PrankChat.Mobile.Core.ViewModels.Profile
             return Items.Where(item => item.VideoItemViewModel != null)
                         .Select(item => item.VideoItemViewModel)
                         .ToArray();
+        }
+
+        private void OnOrdersChanged(OrderChangedMessage _)
+        {
+            // TODO
+            ReloadItemsCommand?.Execute();
         }
     }
 }

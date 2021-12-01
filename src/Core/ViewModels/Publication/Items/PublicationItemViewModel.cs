@@ -17,6 +17,8 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
+using System.Collections.Generic;
+using PrankChat.Mobile.Core.ViewModels.Results;
 
 namespace PrankChat.Mobile.Core.ViewModels.Publication.Items
 {
@@ -141,13 +143,13 @@ namespace PrankChat.Mobile.Core.ViewModels.Publication.Items
                 return;
             }
 
-            var shouldRefresh = await NavigationManager.NavigateAsync<FullScreenVideoViewModel, FullScreenVideoParameter, bool>(navigationParams);
-            if (!shouldRefresh)
+            var refreshedItems = await NavigationManager.NavigateAsync<FullScreenVideoViewModel, FullScreenVideoParameter, Dictionary<int, FullScreenVideoResult>>(navigationParams);
+            if (refreshedItems == null || refreshedItems.Count == 0)
             {
                 return;
             }
 
-            Messenger.Publish(new ReloadPublicationsMessage(this));
+            Messenger.Publish(new ReloadPublicationsMessage(this, refreshedItems));
         }
 
         private async Task ShowCommentsAsync()
@@ -223,10 +225,13 @@ namespace PrankChat.Mobile.Core.ViewModels.Publication.Items
             Messenger.Publish(new ReloadPublicationsMessage(this));
         }
 
-        private Task DownloadVideoAsync()
+        private async Task DownloadVideoAsync()
         {
             var videoFileName = Video.Title.ReplaceSpacesWithUnderscores().ToLower();
-            return VideoManager.DownloadVideoAsync(Video.MarkedStreamUri, videoFileName);
+            await VideoManager.DownloadVideoAsync(Video.MarkedStreamUri, videoFileName);
+
+            var downloadedVideoMessage = string.Format(Resources.VideoIsDownloadedTemplate, VideoName);
+            UserInteraction.ShowToast(downloadedVideoMessage, ToastType.Positive);
         }
 
         private async Task ComplaintAsync()
@@ -239,7 +244,6 @@ namespace PrankChat.Mobile.Core.ViewModels.Publication.Items
 
             await VideoManager.ComplainVideoAsync(VideoId, text, text);
             UserInteraction.ShowToast(Resources.ThankYouForLettingUsKnow, ToastType.Positive);
-            Messenger.Publish(new ReloadPublicationsMessage(this));
         }
 
         private void ToggleSound()

@@ -7,12 +7,12 @@ using PrankChat.Mobile.Core.Exceptions.UserVisible.Validation;
 using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.Managers.Authorization;
+using PrankChat.Mobile.Core.Managers.Navigation.Arguments.NavigationParameters;
 using PrankChat.Mobile.Core.Managers.Users;
 using PrankChat.Mobile.Core.Models.Data;
+using PrankChat.Mobile.Core.Services.Notifications;
 using PrankChat.Mobile.Core.ViewModels.Parameters;
 using PrankChat.Mobile.Core.ViewModels.Profile.Abstract;
-using PrankChat.Mobile.Core.Services.Notifications;
-using PrankChat.Mobile.Core.Managers.Navigation.Arguments.NavigationParameters;
 
 namespace PrankChat.Mobile.Core.ViewModels.Registration
 {
@@ -128,13 +128,6 @@ namespace PrankChat.Mobile.Core.ViewModels.Registration
                 return false;
             }
 
-            //if ((DateTime.Now.Year - Birthday?.Year) <= Constants.Age.AdultAge)
-            //{
-            //    ErrorHandleService.HandleException(new ValidationException(Resources.ValidationFieldBirthday, ValidationErrorType.LowerThanRequired, Constants.Age.AdultAge.ToString()));
-            //    ErrorHandleService.LogError(this, $"User can't be younger than {Constants.Age.AdultAge} years.");
-            //    return false;
-            //}
-
             if (string.IsNullOrEmpty(Password))
             {
                 ErrorHandleService.HandleException(new ValidationException(Resources.Password, ValidationErrorType.Empty));
@@ -158,14 +151,14 @@ namespace PrankChat.Mobile.Core.ViewModels.Registration
 
             if (!IsAdultChecked)
             {
-                ErrorHandleService.HandleException(new ValidationException(Resources.NotVerified));
+                ErrorHandleService.HandleException(new ValidationException(Resources.YouAreNotConfirmedAdultAge));
                 ErrorHandleService.LogError(this, "Adult not checked");
                 return false;
             }
 
             if (!IsPolicyChecked)
             {
-                ErrorHandleService.HandleException(new ValidationException(Resources.NotVerified));
+                ErrorHandleService.HandleException(new ValidationException(Resources.YouAreNotConfirmedUserAgreement));
                 ErrorHandleService.LogError(this, "Policy not checked");
                 return false;
             }

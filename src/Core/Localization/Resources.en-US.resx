@@ -267,7 +267,7 @@
     <comment>Fuzzy</comment>
   </data>
   <data name="UploadVideo" xml:space="preserve">
-    <value>Upload video:</value>
+    <value>Upload video</value>
     <comment>Fuzzy</comment>
   </data>
   <data name="Run" xml:space="preserve">
@@ -608,7 +608,7 @@
     <comment>Fuzzy</comment>
   </data>
   <data name="OnBoardingFirstTitle" xml:space="preserve">
-    <value>watch and enjoy</value>
+    <value>Watch and enjoy</value>
     <comment>Fuzzy</comment>
   </data>
   <data name="OnBoardingSecondTitle" xml:space="preserve">
@@ -1228,5 +1228,44 @@ Taking such a task the user will have to complete it or lose the Deposit!</value
   <data name="AllTime" xml:space="preserve">
     <value>Per all time</value>
     <comment>Fuzzy</comment>
+  </data>
+  <data name="YouAreNotConfirmedAdultAge" xml:space="preserve">
+    <value>You are not confirmed that you have adult age</value>
+  </data>
+  <data name="YouAreNotConfirmedUserAgreement" xml:space="preserve">
+    <value>You are not approved user agreement</value>
+  </data>
+  <data name="VideoIsDownloadedTemplate" xml:space="preserve">
+    <value>Video {0} downloaded</value>
+  </data>
+  <data name="PublicationListIsEmpty" xml:space="preserve">
+    <value>No publications yet</value>
+  </data>
+  <data name="CompetitionsListIsEmpty" xml:space="preserve">
+    <value>No competitions yet</value>
+  </data>
+  <data name="OrdersListIsEmpty" xml:space="preserve">
+    <value>No orders yet</value>
+  </data>
+  <data name="NotificationsListIsEmpty" xml:space="preserve">
+    <value>No notifications yet</value>
+  </data>
+  <data name="SubscribersListIsEmpty" xml:space="preserve">
+    <value>No subscribers yet</value>
+  </data>
+  <data name="SubscriptionsListIsEmpty" xml:space="preserve">
+    <value>No subscriptions yet</value>
+  </data>
+  <data name="CommentsListIsEmpty" xml:space="preserve">
+    <value>No comments yet</value>
+  </data>
+  <data name="PublicationsNotFound" xml:space="preserve">
+    <value>Publications not found</value>
+  </data>
+  <data name="PeoplesNotFound" xml:space="preserve">
+    <value>Peoples not found</value>
+  </data>
+  <data name="OrdersNotFound" xml:space="preserve">
+    <value>Orders not found</value>
   </data>
 </root>

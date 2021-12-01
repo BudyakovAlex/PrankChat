@@ -46,9 +46,6 @@ namespace PrankChat.Mobile.iOS.Views.Order
 		UIKit.UIButton downloadButton { get; set; }
 
 		[Outlet]
-		UIKit.UILabel downloadVideotextLabel { get; set; }
-
-		[Outlet]
 		UIKit.UIView downloadView { get; set; }
 
 		[Outlet]
@@ -231,11 +228,6 @@ namespace PrankChat.Mobile.iOS.Views.Order
 				downloadButton = null;
 			}
 
-			if (downloadVideotextLabel != null) {
-				downloadVideotextLabel.Dispose ();
-				downloadVideotextLabel = null;
-			}
-
 			if (downloadView != null) {
 				downloadView.Dispose ();
 				downloadView = null;
@@ -259,6 +251,11 @@ namespace PrankChat.Mobile.iOS.Views.Order
 			if (executorView != null) {
 				executorView.Dispose ();
 				executorView = null;
+			}
+
+			if (hiddentView != null) {
+				hiddentView.Dispose ();
+				hiddentView = null;
 			}
 
 			if (hourTitleLabel != null) {
@@ -439,11 +436,6 @@ namespace PrankChat.Mobile.iOS.Views.Order
 			if (yesButton != null) {
 				yesButton.Dispose ();
 				yesButton = null;
-			}
-
-			if (hiddentView != null) {
-				hiddentView.Dispose ();
-				hiddentView = null;
 			}
 		}
 	}
