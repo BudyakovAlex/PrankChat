@@ -17,6 +17,8 @@ using PrankChat.Mobile.iOS.Views.Base;
 using UIKit;
 using Xamarin.Essentials;
 using PrankChat.Mobile.iOS.Common;
+using PrankChat.Mobile.iOS.Controls;
+using MvvmCross.Binding.Combiners;
 
 namespace PrankChat.Mobile.iOS.Views.Publication
 {
@@ -25,6 +27,7 @@ namespace PrankChat.Mobile.iOS.Views.Publication
     {
         private MvxUIRefreshControl _refreshControl;
         private UIBarButtonItem _notificationBarItem;
+        private EmptyView _emptyView;
 
         public VideoTableSource PublicationTableSource { get; private set; }
 
@@ -45,13 +48,24 @@ namespace PrankChat.Mobile.iOS.Views.Publication
             bindingSet.Bind(_refreshControl).For(v => v.IsRefreshing).To(vm => vm.IsBusy);
             bindingSet.Bind(_refreshControl).For(v => v.RefreshCommand).To(vm => vm.ReloadItemsCommand);
 
-            bindingSet.Bind(_notificationBarItem).For(v => v.Image).To(vm => vm.NotificationBadgeViewModel.HasUnreadNotifications).WithConversion<BoolToNotificationImageConverter>();
-		}
+            bindingSet.Bind(_notificationBarItem)
+                .For(v => v.Image)
+                .To(vm => vm.NotificationBadgeViewModel.HasUnreadNotifications)
+                .WithConversion<BoolToNotificationImageConverter>();
+
+            bindingSet.Bind(_emptyView)
+                .For(v => v.BindVisible())
+                .ByCombining(new MvxAndValueCombiner(),
+                  vm => vm.IsEmpty,
+                  vm => vm.IsNotRefreshingData,
+                  vm => vm.IsInitialized);
+        }
 
 		protected override void SetupControls()
 		{
 			InitializeNavigationBar();
             InitializeTableView();
+            CreateEmptyView();
 
             publicationTypeStackView.SetTabsStyle(new string[] {
                 Resources.Popular,
@@ -111,6 +125,13 @@ namespace PrankChat.Mobile.iOS.Views.Publication
 
             _refreshControl = new MvxUIRefreshControl();
             tableView.RefreshControl = _refreshControl;
+        }
+
+        private void CreateEmptyView()
+        {
+            _emptyView = EmptyView
+                .Create(Resources.PublicationListIsEmpty, ImageNames.ImageEmptyState)
+                .AttachToTableViewAsBackgroundView(tableView);
         }
     }
 }

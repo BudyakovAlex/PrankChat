@@ -239,18 +239,6 @@ namespace PrankChat.Mobile.Core.Services.Network
                                                        .Build();
 
                     var url = new Uri($"{_baseAddress}/{ApiId}/v{_apiVersion.Major}/{endpoint}");
-
-                    var parameters = new[]
-                    {
-                        new Parameter("order_id", item.OrderId.ToString(), ParameterType.RequestBody),
-                        new Parameter("title", item.Title, ParameterType.RequestBody),
-                        new Parameter("description", item.Description, ParameterType.RequestBody),
-                        new Parameter("video", item.FilePath, ParameterType.RequestBody)
-                    };
-
-                    var headers = multipartData.Headers.Select(header => new Parameter(header.Key, header.Value, ParameterType.HttpHeader)).ToList();
-                    var requestParameters = parameters.Union(headers).ToList();
-
                     response = await client.PostAsync(url, multipartData, cancellationToken);
                     if (response.IsSuccessStatusCode)
                     {

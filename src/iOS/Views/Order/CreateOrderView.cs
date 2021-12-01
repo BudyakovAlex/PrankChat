@@ -71,7 +71,6 @@ namespace PrankChat.Mobile.iOS.Views.Order
                .WithConversion<PriceConverter>();
             bindingSet.Bind(completeDateTextField).To(vm => vm.ActiveFor.Title);
             bindingSet.Bind(completeDateTextField.Tap()).For(v => v.Command).To(vm => vm.ShowDateDialogCommand);
-            bindingSet.Bind(createButton).To(vm => vm.CreateCommand);
             bindingSet.Bind(progressBarView).For(v => v.BindVisible()).To(vm => vm.IsBusy);
             bindingSet.Bind(_notificationBarItem).For(v => v.Image).To(vm => vm.NotificationBadgeViewModel.HasUnreadNotifications)
                .WithConversion<BoolToNotificationImageConverter>();
@@ -147,6 +146,12 @@ namespace PrankChat.Mobile.iOS.Views.Order
 
             stackView.SetCustomSpacing(8, stackView.ArrangedSubviews[0]);
             SetupPrivacyLabelAttributedText();
+
+            createButton.AddGestureRecognizer(new UITapGestureRecognizer(() =>
+            {
+                View.EndEditing(true);
+                ViewModel?.CreateCommand?.Execute();
+            }));
         }
 
         protected override void RegisterKeyboardDismissResponders(List<UIView> views)

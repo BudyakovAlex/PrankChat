@@ -1,21 +1,18 @@
-﻿using MvvmCross.Commands;
-using MvvmCross.ViewModels;
+﻿using System.Threading.Tasks;
+using MvvmCross.Commands;
 using PrankChat.Mobile.Core.Common;
 using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Localization;
-using PrankChat.Mobile.Core.Managers.Navigation.Arguments.NavigationParameters;
-using PrankChat.Mobile.Core.Managers.Navigation.Arguments.NavigationResults;
 using PrankChat.Mobile.Core.Managers.Users;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.Shared;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.ViewModels.Common;
 using PrankChat.Mobile.Core.ViewModels.Parameters;
-using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.ViewModels.Subscriptions.Items
 {
-    public class SubscriptionsViewModel : PaginationViewModel, IMvxViewModel<GenericNavigationParams<SubscriptionsNavigationParameter>, GenericNavigationResult<bool>>
+    public class SubscriptionsViewModel : PaginationViewModel<SubscriptionsNavigationParameter, bool, SubscriptionItemViewModel>
     {
         private readonly IUsersManager _usersManager;
 
@@ -28,13 +25,10 @@ namespace PrankChat.Mobile.Core.ViewModels.Subscriptions.Items
         {
             _usersManager = usersManager;
 
-            Items = new MvxObservableCollection<SubscriptionItemViewModel>();
-            CloseCompletionSource = new TaskCompletionSource<object>();
-
             LoadDataCommand = this.CreateCommand(LoadDataAsync);
         }
 
-        public MvxObservableCollection<SubscriptionItemViewModel> Items { get; }
+        protected override bool DefaultResult => _isUpdateNeeded; 
 
         public IMvxAsyncCommand LoadDataCommand { get; }
 
@@ -65,45 +59,11 @@ namespace PrankChat.Mobile.Core.ViewModels.Subscriptions.Items
             set => SetProperty(ref _subscriptionsTitle, value);
         }
 
-        public TaskCompletionSource<object> CloseCompletionSource { get; set; }
-
-        private Task LoadDataAsync()
+        public override void Prepare(SubscriptionsNavigationParameter parameter)
         {
-            Reset();
-            Items.Clear();
-
-            return LoadMoreItemsCommand.ExecuteAsync();
-        }
-
-        private async Task DebounceRefreshDataAsync()
-        {
-            if (_reloadTask != null &&
-                !_reloadTask.IsCompleted &&
-                !_reloadTask.IsCanceled &&
-                !_reloadTask.IsFaulted)
-            {
-                await _reloadTask;
-            }
-
-            Items.Clear();
-            _reloadTask = ReloadItemsCommand.ExecuteAsync();
-        }
-
-        public void Prepare(GenericNavigationParams<SubscriptionsNavigationParameter> parameter)
-        {
-            _userId = parameter.Parameter.UserId;
-            _selectedTabType = parameter.Parameter.SubscriptionTabType;
-            Title = parameter.Parameter.UserName;
-        }
-
-        public override void ViewDestroy(bool viewFinishing = true)
-        {
-            if (viewFinishing && CloseCompletionSource != null && !CloseCompletionSource.Task.IsCompleted && !CloseCompletionSource.Task.IsFaulted)
-            {
-                CloseCompletionSource?.SetResult(_isUpdateNeeded);
-            }
-
-            base.ViewDestroy(viewFinishing);
+            _userId = parameter.UserId;
+            _selectedTabType = parameter.SubscriptionTabType;
+            Title = parameter.UserName;
         }
 
         public override async Task InitializeAsync()
@@ -137,5 +97,27 @@ namespace PrankChat.Mobile.Core.ViewModels.Subscriptions.Items
 
         private SubscriptionItemViewModel ProduceSubscriptionItemViewModel(User user) =>
             new SubscriptionItemViewModel(UserSessionProvider, user, LoadDataAsync);
+
+        private Task LoadDataAsync()
+        {
+            Reset();
+            Items.Clear();
+
+            return LoadMoreItemsCommand.ExecuteAsync();
+        }
+
+        private async Task DebounceRefreshDataAsync()
+        {
+            if (_reloadTask != null &&
+                !_reloadTask.IsCompleted &&
+                !_reloadTask.IsCanceled &&
+                !_reloadTask.IsFaulted)
+            {
+                await _reloadTask;
+            }
+
+            Items.Clear();
+            _reloadTask = ReloadItemsCommand.ExecuteAsync();
+        }
     }
 }

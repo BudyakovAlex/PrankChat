@@ -1,4 +1,5 @@
 ﻿using MvvmCross.Binding.BindingContext;
+using MvvmCross.Binding.Combiners;
 using MvvmCross.Platforms.Ios.Binding;
 using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.Models.Enums;
@@ -8,6 +9,7 @@ using PrankChat.Mobile.Core.ViewModels.Publication.Items;
 using PrankChat.Mobile.Core.ViewModels.Search.Items;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Common;
+using PrankChat.Mobile.iOS.Controls;
 using PrankChat.Mobile.iOS.Infrastructure;
 using PrankChat.Mobile.iOS.Infrastructure.Helpers;
 using PrankChat.Mobile.iOS.SourcesAndDelegates;
@@ -23,6 +25,10 @@ namespace PrankChat.Mobile.iOS.Views.Search
     {
         private const int SearchBarRightPadding = 16;
         private const int BackButtonWidth = 40;
+
+        private EmptyView _peoplesEmptyView;
+        private EmptyView _videosEmptyView;
+        private EmptyView _ordersEmptyView;
 
         public SearchTableSource OrdersTableSource { get; private set; }
         public SearchTableSource PeoplesTableSource { get; private set; }
@@ -40,6 +46,24 @@ namespace PrankChat.Mobile.iOS.Views.Search
 
             bindingSet.Bind(SearchBar).For(v => v.Text).To(vm => vm.SearchValue);
             bindingSet.Bind(loadingView).For(v => v.BindVisible()).To(vm => vm.IsBusy);
+            bindingSet.Bind(_peoplesEmptyView)
+               .For(v => v.BindVisible())
+               .ByCombining(new MvxAndValueCombiner(),
+                 vm => vm.IsEmpty,
+                 vm => vm.IsNotBusy,
+                 vm => vm.IsInitialized);
+            bindingSet.Bind(_videosEmptyView)
+               .For(v => v.BindVisible())
+               .ByCombining(new MvxAndValueCombiner(),
+                 vm => vm.IsEmpty,
+                 vm => vm.IsNotBusy,
+                 vm => vm.IsInitialized);
+            bindingSet.Bind(_ordersEmptyView)
+               .For(v => v.BindVisible())
+               .ByCombining(new MvxAndValueCombiner(),
+                 vm => vm.IsEmpty,
+                 vm => vm.IsNotBusy,
+                 vm => vm.IsInitialized);
         }
 
         protected override void SetupControls()
@@ -94,6 +118,7 @@ namespace PrankChat.Mobile.iOS.Views.Search
             SetupOrdersTableView();
             SetupVideosTableView();
             SetupPeoplesTableView();
+            CreateEmptyViews();
         }
 
         private void SetupOrdersTableView()
@@ -139,6 +164,21 @@ namespace PrankChat.Mobile.iOS.Views.Search
 
             peoplesTableView.UserInteractionEnabled = true;
             peoplesTableView.KeyboardDismissMode = UIScrollViewKeyboardDismissMode.OnDrag;
+        }
+
+        private void CreateEmptyViews()
+        {
+            _peoplesEmptyView = EmptyView
+                .Create(Resources.PeoplesNotFound, ImageNames.ImageEmptyState)
+                .AttachToTableViewAsBackgroundView(peoplesTableView);
+
+            _videosEmptyView = EmptyView
+              .Create(Resources.PublicationsNotFound, ImageNames.ImageEmptyState)
+              .AttachToTableViewAsBackgroundView(videosTableView);
+
+            _ordersEmptyView = EmptyView
+              .Create(Resources.OrdersNotFound, ImageNames.ImageEmptyState)
+              .AttachToTableViewAsBackgroundView(ordersTableView);
         }
     }
 }

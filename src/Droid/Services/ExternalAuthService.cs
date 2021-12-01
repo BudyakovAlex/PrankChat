@@ -10,7 +10,7 @@ using Xamarin.Facebook.Login;
 
 namespace PrankChat.Mobile.Droid.Services
 {
-    public class ExternalAuthService : IExternalAuthService
+    public class ExternalAuthService : Java.Lang.Object, IExternalAuthService, FacebookSdk.IInitializeCallback
     {
         //TODO: move to config
         private const string FacebookAppId = "621471715102522";
@@ -25,8 +25,8 @@ namespace PrankChat.Mobile.Droid.Services
         {
             _mvxAndroidCurrentTopActivity = mvxAndroidCurrentTopActivity;
 
+            FacebookSdk.AutoInitEnabled = true;
             FacebookSdk.ApplicationId = FacebookAppId;
-            FacebookSdk.SdkInitialize(Application.Context.ApplicationContext);
         }
 
         public async Task<string> LoginWithFacebookAsync()
@@ -42,6 +42,7 @@ namespace PrankChat.Mobile.Droid.Services
             FacebookCallback.Instance.CompletionSource = taskCompletionSource;
             FacebookCallback.Instance.Register();
 
+            LoginManager.Instance.SetLoginBehavior(LoginBehavior.WebOnly);
             LoginManager.Instance.LogInWithReadPermissions(currentContext, _facebookPermissions);
 
             var token = await taskCompletionSource.Task;
@@ -74,6 +75,10 @@ namespace PrankChat.Mobile.Droid.Services
         public void LogoutFromFacebook()
         {
             LoginManager.Instance.LogOut();
+        }
+
+        public void OnInitialized()
+        {
         }
     }
 }

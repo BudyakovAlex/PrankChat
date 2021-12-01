@@ -5,7 +5,6 @@ using MvvmCross.Platforms.Ios.Binding;
 using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.ViewModels.Arbitration.Items;
 using PrankChat.Mobile.iOS.AppTheme;
-using PrankChat.Mobile.iOS.Binding;
 using PrankChat.Mobile.iOS.Extensions;
 using PrankChat.Mobile.iOS.Views.Base;
 
@@ -23,7 +22,7 @@ namespace PrankChat.Mobile.iOS.Views.ArbitrationView
 		{
 			base.SetupControls();
 
-			orderTitleLabel.SetScreenTitleStyle();
+			orderTitleLabel.SetWhiteTitleStyle();
 
 			timeLablel.SetMediumStyle(10, Theme.Color.White);
 			timeLablel.Text = Resources.OrderTime;

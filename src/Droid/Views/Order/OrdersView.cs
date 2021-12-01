@@ -19,6 +19,7 @@ using PrankChat.Mobile.Droid.Adapters.TemplateSelectors;
 using PrankChat.Mobile.Droid.Adapters.ViewHolders.Arbitration;
 using PrankChat.Mobile.Droid.Adapters.ViewHolders.Orders;
 using PrankChat.Mobile.Droid.Views.Base;
+using MvvmCross.Binding.Combiners;
 
 namespace PrankChat.Mobile.Droid.Views.Order
 {
@@ -32,6 +33,7 @@ namespace PrankChat.Mobile.Droid.Views.Order
         private LinearLayout _filterViewLayout;
         private TextView _filterViewTextView;
         private MvxSwipeRefreshLayout _publicationRefreshLayout;
+        private View _emptyView;
 
         public OrdersView() : base(Resource.Layout.fragment_orders)
         {
@@ -59,6 +61,7 @@ namespace PrankChat.Mobile.Droid.Views.Order
         protected override void SetViewProperties(View view)
         {
             base.SetViewProperties(view);
+            InitializeEmptyView(view);
 
             _endlessRecyclerView = view.FindViewById<EndlessRecyclerView>(Resource.Id.publication_recycler_view);
 
@@ -92,6 +95,19 @@ namespace PrankChat.Mobile.Droid.Views.Order
             bindingSet.Bind(_filterViewTextView).For(v => v.Text).To(vm => vm.ActiveFilterName);
             bindingSet.Bind(_publicationRefreshLayout).For(v => v.Refreshing).To(vm => vm.IsBusy);
             bindingSet.Bind(_publicationRefreshLayout).For(v => v.RefreshCommand).To(vm => vm.LoadDataCommand);
+            bindingSet.Bind(_emptyView)
+               .For(v => v.BindVisible())
+               .ByCombining(new MvxAndValueCombiner(),
+                   vm => vm.IsEmpty,
+                   vm => vm.IsNotBusy,
+                   vm => vm.IsInitialized);
+        }
+
+        private void InitializeEmptyView(View view)
+        {
+            _emptyView = view.FindViewById<View>(Resource.Id.empty_view);
+            var emptyViewTitleTextView = _emptyView.FindViewById<TextView>(Resource.Id.title_text_view);
+            emptyViewTitleTextView.Text = Core.Localization.Resources.OrdersListIsEmpty;
         }
     }
 }

@@ -28,25 +28,39 @@ namespace PrankChat.Mobile.Core.Managers.Navigation
 
         public bool IsNavigating { get; private set; }
 
-        public Task<bool> NavigateAsync<TViewModel>() where TViewModel : IMvxViewModel
+        public Task<bool> NavigateAsync<TViewModel>()
+            where TViewModel : IMvxViewModel
         {
             return navigationService.Navigate<TViewModel>();
         }
 
-        public async Task<TResult> NavigateAsync<TViewModel, TResult>() where TViewModel : IMvxViewModelResult<GenericNavigationResult<TResult>>
+        public async Task<TResult> NavigateAsync<TViewModel, TResult>()
+            where TViewModel : IMvxViewModelResult<GenericNavigationResult<TResult>>
         {
             var result = await navigationService.Navigate<TViewModel, GenericNavigationResult<TResult>>();
+            if (result == null)
+            {
+                return default;
+            }
+
             return result.Result;
         }
 
-        public Task<bool> NavigateAsync<TViewModel, TParameter>(TParameter parameter) where TViewModel : IMvxViewModel<GenericNavigationParams<TParameter>>
+        public Task<bool> NavigateAsync<TViewModel, TParameter>(TParameter parameter)
+            where TViewModel : IMvxViewModel<GenericNavigationParams<TParameter>>
         {
             return navigationService.Navigate<TViewModel, GenericNavigationParams<TParameter>>(new GenericNavigationParams<TParameter>(parameter));
         }
 
-        public async Task<TResult> NavigateAsync<TViewModel, TParameter, TResult>(TParameter parameter) where TViewModel : IMvxViewModel<GenericNavigationParams<TParameter>, GenericNavigationResult<TResult>>
+        public async Task<TResult> NavigateAsync<TViewModel, TParameter, TResult>(TParameter parameter)
+            where TViewModel : IMvxViewModel<GenericNavigationParams<TParameter>, GenericNavigationResult<TResult>>
         {
             var result = await navigationService.Navigate<TViewModel, GenericNavigationParams<TParameter>, GenericNavigationResult<TResult>>(new GenericNavigationParams<TParameter>(parameter));
+            if (result == null)
+            {
+                return default;
+            }
+
             return result.Result;
         }
 

@@ -27,7 +27,7 @@ using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.ViewModels.Competition
 {
-    public class CompetitionDetailsViewModel : PaginationViewModel<Models.Data.Competition, bool>
+    public class CompetitionDetailsViewModel : PaginationViewModel<Models.Data.Competition, bool, BaseViewModel>
     {
         private readonly ICompetitionsManager _competitionsManager;
         private readonly IVideoManager _videoManager;
@@ -49,8 +49,6 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
             _competitionsManager = competitionsManager;
             _videoManager = videoManager;
             _mediaManager = mediaManager;
-
-            Items = new MvxObservableCollection<BaseViewModel>();
 
             Messenger.SubscribeOnMainThread<ReloadCompetitionMessage>(OnReloadData).DisposeWith(Disposables);
 
@@ -85,7 +83,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
             set => SetProperty(ref _isRefreshing, value);
         }
 
-        public MvxObservableCollection<BaseViewModel> Items { get; }
+        protected override bool DefaultResult => _isReloadNeeded;
 
         public IMvxAsyncCommand RefreshDataCommand { get; }
 
@@ -105,16 +103,6 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
         public override Task InitializeAsync()
         {
             return LoadMoreItemsCommand.ExecuteAsync();
-        }
-
-        public override void ViewDestroy(bool viewFinishing = true)
-        {
-            if (viewFinishing && CloseCompletionSource != null && !CloseCompletionSource.Task.IsCompleted && !CloseCompletionSource.Task.IsFaulted)
-            {
-                CloseCompletionSource?.SetResult(_isReloadNeeded);
-            }
-
-            base.ViewDestroy(viewFinishing);
         }
 
         protected override async Task<int> LoadMoreItemsAsync(int page = 1, int pageSize = 20)
@@ -231,6 +219,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
 
         private void OnReloadData(ReloadCompetitionMessage obj)
         {
+            // TODO
             _isReloadNeeded = true;
             RefreshDataCommand.Execute();
         }

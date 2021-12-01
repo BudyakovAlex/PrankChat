@@ -6,6 +6,7 @@ using Android.Widget;
 using AndroidX.RecyclerView.Widget;
 using MvvmCross.Base;
 using MvvmCross.Binding.BindingContext;
+using MvvmCross.Binding.Combiners;
 using MvvmCross.DroidX;
 using MvvmCross.Platforms.Android.Binding;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
@@ -13,11 +14,11 @@ using MvvmCross.Platforms.Android.Presenters.Attributes;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.ViewModels.Comment;
 using PrankChat.Mobile.Core.ViewModels.Comment.Items;
-using PrankChat.Mobile.Droid.Controls;
-using PrankChat.Mobile.Droid.LayoutManagers;
 using PrankChat.Mobile.Droid.Adapters;
 using PrankChat.Mobile.Droid.Adapters.TemplateSelectors;
 using PrankChat.Mobile.Droid.Adapters.ViewHolders.Comments;
+using PrankChat.Mobile.Droid.Controls;
+using PrankChat.Mobile.Droid.LayoutManagers;
 using PrankChat.Mobile.Droid.Views.Base;
 
 namespace PrankChat.Mobile.Droid.Views.Comment
@@ -33,6 +34,7 @@ namespace PrankChat.Mobile.Droid.Views.Comment
         private CircleCachedImageView _profileImageView;
         private EditText _commentEditText;
         private ImageButton _sendCommentImageButton;
+        private View _emptyView;
 
         protected override bool HasBackButton => true;
 
@@ -67,6 +69,7 @@ namespace PrankChat.Mobile.Droid.Views.Comment
 
         protected override void SetViewProperties()
         {
+            InitializeEmptyView();
             _profileImageView = FindViewById<CircleCachedImageView>(Resource.Id.profile_image_view);
             _commentEditText = FindViewById<EditText>(Resource.Id.comment_text_view);
             _sendCommentImageButton = FindViewById<ImageButton>(Resource.Id.create_comment_button);
@@ -98,11 +101,24 @@ namespace PrankChat.Mobile.Droid.Views.Comment
             bindingSet.Bind(_profileImageView).For(v => v.PlaceholderText).To(vm => vm.ProfileShortName);
             bindingSet.Bind(_commentEditText).For(v => v.Text).To(vm => vm.Comment);
             bindingSet.Bind(_sendCommentImageButton).For(v => v.BindClick()).To(vm => vm.SendCommentCommand);
+            bindingSet.Bind(_emptyView)
+              .For(v => v.BindVisible())
+              .ByCombining(new MvxAndValueCombiner(),
+                  vm => vm.IsEmpty,
+                  vm => vm.IsNotBusy,
+                  vm => vm.IsInitialized);
         }
 
         private void OnInteractionRequested(object sender, MvxValueEventArgs<int> e)
         {
             _recyclerView.SmoothScrollToPosition(e.Value);
+        }
+
+        private void InitializeEmptyView()
+        {
+            _emptyView = FindViewById<View>(Resource.Id.empty_view);
+            var emptyViewTitleTextView = _emptyView.FindViewById<TextView>(Resource.Id.title_text_view);
+            emptyViewTitleTextView.Text = Core.Localization.Resources.CommentsListIsEmpty;
         }
     }
 }

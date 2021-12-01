@@ -19,5 +19,20 @@
         public const string Notifications = "notifications";
         public const string NotificationsRead = "notifications/read";
         public const string NotificationsUnreaded = "notifications/undelivered";
+
+        public const string AuthorizationCookieKey = "Authorization";
+        public const string AuthorizationCookieValueTemplate = "Bearer {0}";
+        public const string AcceptLanguageCookieKey = "Accept-Language";
+        public const string UrlStringTemplate = "{0}/api/v{1}/videos";
+        public const string ContentTypeCookieValueTemplate = "multipart/form-data; boundary=\"{0}\"";
+        public const string ContentTypeKey = "Content-Type";
+        public const string DefaultBoundary = "----PrankChatBoundary7MA4YWxkTrZu0gW";
+        public const string MultipartSuffixTemplate = "form-data; name=\"{0}\"";
+        public const string ContentTypeAppJson = "application/json";
+        public const string ContentDespositionKey = "Content-Disposition";
+        public const string DispositionTypeFormData = "form-data";
+        public const string NewLine = "\r\n";
+        public readonly static string ContentDispositionDefaultTemplate = $@"{ContentDespositionKey}: {DispositionTypeFormData}; name=""{{0}}""{NewLine}";
+        public readonly static string ContentDispositionFileTemplate = $@"{ContentDespositionKey}: {DispositionTypeFormData}; filename={{0}}; name={{1}}{NewLine}";
     }
 }

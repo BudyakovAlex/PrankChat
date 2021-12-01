@@ -5,6 +5,8 @@ using Android.Widget;
 using AndroidX.RecyclerView.Widget;
 using Google.Android.Material.Tabs;
 using MvvmCross.Binding.BindingContext;
+using MvvmCross.Binding.Combiners;
+using MvvmCross.Platforms.Android.Binding;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 using PrankChat.Mobile.Core.Models.Enums;
@@ -12,15 +14,15 @@ using PrankChat.Mobile.Core.ViewModels;
 using PrankChat.Mobile.Core.ViewModels.Order.Items;
 using PrankChat.Mobile.Core.ViewModels.Publication.Items;
 using PrankChat.Mobile.Core.ViewModels.Search.Items;
-using PrankChat.Mobile.Droid.Controls;
-using PrankChat.Mobile.Droid.LayoutManagers;
-using PrankChat.Mobile.Droid.PlatformBusinessServices.Video.Listeners;
 using PrankChat.Mobile.Droid.Adapters;
 using PrankChat.Mobile.Droid.Adapters.TemplateSelectors;
 using PrankChat.Mobile.Droid.Adapters.ViewHolders.Orders;
 using PrankChat.Mobile.Droid.Adapters.ViewHolders.Publications;
 using PrankChat.Mobile.Droid.Adapters.ViewHolders.Search;
+using PrankChat.Mobile.Droid.Controls;
 using PrankChat.Mobile.Droid.Converters;
+using PrankChat.Mobile.Droid.LayoutManagers;
+using PrankChat.Mobile.Droid.PlatformBusinessServices.Video.Listeners;
 using PrankChat.Mobile.Droid.Views.Base;
 
 namespace PrankChat.Mobile.Droid.Views
@@ -36,6 +38,8 @@ namespace PrankChat.Mobile.Droid.Views
         private SafeLinearLayoutManager _layoutManager;
 
         private RecycleViewBindableAdapter _adapter;
+        private View _emptyView;
+        private TextView _emptyViewTitleTextView;
 
         protected override bool HasBackButton => true;
 
@@ -48,6 +52,7 @@ namespace PrankChat.Mobile.Droid.Views
 
         protected override void SetViewProperties()
         {
+            InitializeEmptyView();
             _loadingOverlay = FindViewById<FrameLayout>(Resource.Id.loading_overlay);
             _searchTextView = FindViewById<ClearEditText>(Resource.Id.search_text_view);
             _recyclerView = FindViewById<EndlessRecyclerView>(Resource.Id.search_recycler_view);
@@ -80,6 +85,12 @@ namespace PrankChat.Mobile.Droid.Views
             bindingSet.Bind(_recyclerView).For(v => v.LoadMoreItemsCommand).To(vm => vm.LoadMoreItemsCommand);
             bindingSet.Bind(_adapter).For(v => v.ItemsSource).To(vm => vm.Items);
             bindingSet.Bind(_loadingOverlay).For(v => v.Visibility).To(vm => vm.IsBusy).WithConversion<BoolToGoneConverter>();
+            bindingSet.Bind(_emptyView)
+               .For(v => v.BindVisible())
+               .ByCombining(new MvxAndValueCombiner(),
+                  vm => vm.IsEmpty,
+                  vm => vm.IsNotBusy,
+                  vm => vm.IsInitialized);
         }
 
         public void OnTabReselected(TabLayout.Tab tab)
@@ -99,10 +110,24 @@ namespace PrankChat.Mobile.Droid.Views
                 2 => SearchTabType.Orders,
                 _ => SearchTabType.Users
             };
+
+            _emptyViewTitleTextView.Text = tab.Position switch
+            {
+                1 => Core.Localization.Resources.PublicationsNotFound,
+                2 => Core.Localization.Resources.OrdersNotFound,
+                _ => Core.Localization.Resources.PeoplesNotFound
+            };
         }
 
         public void OnTabUnselected(TabLayout.Tab tab)
         {
+        }
+
+        private void InitializeEmptyView()
+        {
+            _emptyView = FindViewById<View>(Resource.Id.empty_view);
+            _emptyViewTitleTextView = _emptyView.FindViewById<TextView>(Resource.Id.title_text_view);
+            _emptyViewTitleTextView.Text = Core.Localization.Resources.PeoplesNotFound;
         }
     }
 }

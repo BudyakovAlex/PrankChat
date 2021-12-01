@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="facebook_app_id">621471715102522</string>
+    <string name="fb_login_protocol_scheme">fb621471715102522</string>
+    <string name="facebook_client_token">2ccfb56cf0d6301d396ff99366648ea3</string>
     <string name="Close">"Close"</string>
 
     <!-- Fuzzy -->
@@ -38,10 +41,10 @@
     <string name="Continue">"Continue"</string>
 
     <!-- Fuzzy -->
-    <string name="StepTwo" formatted="false">"Step 2"</string>
+    <string name="StepTwo">"Step 2"</string>
 
     <!-- Fuzzy -->
-    <string name="StepThree" formatted="false">"Step 3"</string>
+    <string name="StepThree">"Step 3"</string>
 
     <!-- Fuzzy -->
     <string name="GoToFeed">"Go to the feed"</string>
@@ -110,7 +113,7 @@
     <string name="Unsubscribe">"Unsubscribe"</string>
 
     <!-- Fuzzy -->
-    <string name="UploadVideo">"Upload video:"</string>
+    <string name="UploadVideo">"Upload video"</string>
 
     <!-- Fuzzy -->
     <string name="Run">"Run"</string>
@@ -360,7 +363,7 @@
     <string name="DeleteCardQuestion">"Are you sure you want to delete this card?"</string>
 
     <!-- Fuzzy -->
-    <string name="OnBoardingFirstTitle">"watch and enjoy"</string>
+    <string name="OnBoardingFirstTitle">"Watch and enjoy"</string>
 
     <!-- Fuzzy -->
     <string name="OnBoardingSecondTitle">"Create your first order"</string>
@@ -751,4 +754,17 @@ Taking such a task the user will have to complete it or lose the Deposit!"</stri
 
     <!-- Fuzzy -->
     <string name="AllTime">"Per all time"</string>
+    <string name="YouAreNotConfirmedAdultAge">"You are not confirmed that you have adult age"</string>
+    <string name="YouAreNotConfirmedUserAgreement">"You are not approved user agreement"</string>
+    <string name="VideoIsDownloadedTemplate">"Video {0} downloaded"</string>
+    <string name="PublicationListIsEmpty">"No publications yet"</string>
+    <string name="CompetitionsListIsEmpty">"No competitions yet"</string>
+    <string name="OrdersListIsEmpty">"No orders yet"</string>
+    <string name="NotificationsListIsEmpty">"No notifications yet"</string>
+    <string name="SubscribersListIsEmpty">"No subscribers yet"</string>
+    <string name="SubscriptionsListIsEmpty">"No subscriptions yet"</string>
+    <string name="CommentsListIsEmpty">"No comments yet"</string>
+    <string name="PublicationsNotFound">"Publications not found"</string>
+    <string name="PeoplesNotFound">"Peoples not found"</string>
+    <string name="OrdersNotFound">"Orders not found"</string>
 </resources>
