@@ -4,7 +4,7 @@ using Javax.Net.Ssl;
 
 namespace PrankChat.Mobile.Droid.Plugins.HttpClient.TrustManagers
 {
-    public class AllowAllSSLX509ExtendedTrustManager : X509ExtendedTrustManager
+    public class UnsafeX509ExtendedTrustManager : X509ExtendedTrustManager
     {
         public override void CheckClientTrusted(X509Certificate[] chain, string authType, Socket socket)
         {

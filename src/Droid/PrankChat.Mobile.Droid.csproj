@@ -211,10 +211,10 @@
     <Compile Include="Spans\LinkSpan.cs" />
     <Compile Include="Listeners\DecorViewGlobalLayoutListener.cs" />
     <Compile Include="Plugins\HttpClient\PlatformHttpClient.cs" />
-    <Compile Include="Plugins\HttpClient\HostnameVerifier\AllowAllSSLHostnamVerifier.cs" />
-    <Compile Include="Plugins\HttpClient\TrustManagers\AllowAllSSLX509ExtendedTrustManager.cs" />
+    <Compile Include="Plugins\HttpClient\HostnameVerifier\UnsafeHostnamVerifier.cs" />
     <Compile Include="Plugins\HttpClient\Builders\FormDataBuilder.cs" />
     <Compile Include="Plugins\HttpClient\Requests\VideoRequestBody.cs" />
+    <Compile Include="Plugins\HttpClient\TrustManagers\UnsafeX509ExtendedTrustManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
