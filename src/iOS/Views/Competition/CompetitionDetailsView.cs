@@ -56,6 +56,7 @@ namespace PrankChat.Mobile.iOS.Views.Competition
             bindingSet.Bind(uploadingProgressBar).For(v => v.Progress).To(vm => vm.UploadingProgress);
             bindingSet.Bind(uploadingLabel).For(v => v.Text).To(vm => vm.UploadingProgressStringPresentation);
             bindingSet.Bind(uploadingProgressBar).For(v => v.BindTap()).To(vm => vm.CancelUploadingCommand);
+            bindingSet.Bind(TabBarController.TabBar).For(v => v.UserInteractionEnabled).To(vm => vm.IsNotBusy);
         }
     }
 }
