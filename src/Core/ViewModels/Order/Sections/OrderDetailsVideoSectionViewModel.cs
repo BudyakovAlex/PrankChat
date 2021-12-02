@@ -1,22 +1,22 @@
-﻿using MvvmCross.Commands;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using MvvmCross.Commands;
 using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.Managers.Media;
 using PrankChat.Mobile.Core.Managers.Video;
 using PrankChat.Mobile.Core.Messages;
 using PrankChat.Mobile.Core.Models.Enums;
+using PrankChat.Mobile.Core.Providers.UserSession;
 using PrankChat.Mobile.Core.ViewModels.Arbitration.Items;
 using PrankChat.Mobile.Core.ViewModels.Common.Abstract;
 using PrankChat.Mobile.Core.ViewModels.Order.Sections.Abstract;
 using PrankChat.Mobile.Core.ViewModels.Parameters;
-using PrankChat.Mobile.Core.ViewModels.Video;
-using PrankChat.Mobile.Core.Providers.UserSession;
-using System;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using PrankChat.Mobile.Core.ViewModels.Results;
-using System.Collections.Generic;
+using PrankChat.Mobile.Core.ViewModels.Video;
 
 namespace PrankChat.Mobile.Core.ViewModels.Order.Sections
 {
