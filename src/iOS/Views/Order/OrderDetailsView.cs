@@ -3,7 +3,6 @@ using CoreGraphics;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Binding.Combiners;
 using MvvmCross.Platforms.Ios.Binding;
-using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
 using MvvmCross.Platforms.Ios.Views;
 using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.Localization;
@@ -11,6 +10,7 @@ using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.ViewModels.Order;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Common;
+using PrankChat.Mobile.iOS.Extensions;
 using PrankChat.Mobile.iOS.Views.Base;
 using UIKit;
 
@@ -165,7 +165,7 @@ namespace PrankChat.Mobile.iOS.Views.Order
             bindingSet.Bind(uploadingProgressBar).For(v => v.BindTap()).To(vm => vm.VideoSectionViewModel.CancelUploadingCommand);
             bindingSet.Bind(uploadingLabel).For(v => v.Text).To(vm => vm.VideoSectionViewModel.UploadingProgressStringPresentation);
             bindingSet.Bind(NavigationItem.LeftBarButtonItem).For(v => v.Enabled).To(vm => vm.VideoSectionViewModel.IsNotBusy);
-            bindingSet.Bind(TabBarController.TabBar).For(v => v.UserInteractionEnabled).To(vm => vm.VideoSectionViewModel.IsNotBusy);
+            bindingSet.Bind(TabBarController).For(v => v.BindIsEnabled()).To(vm => vm.VideoSectionViewModel.IsNotBusy);
         }
 
         protected override void SetupControls()
