@@ -62,7 +62,7 @@ namespace PrankChat.Mobile.iOS.Plugins.HttpClient
             var accessToken = await _userSessionProvider.GetAccessTokenAsync();
             request[RestConstants.AuthorizationCookieKey] = new NSString(string.Format(RestConstants.AuthorizationCookieValueTemplate, accessToken));
             request[RestConstants.AcceptLanguageCookieKey] = new NSString(currentCulture.TwoLetterISOLanguageName);
-            request[RestConstants.ContentTypeKey] = new NSString(string.Format(RestConstants.ContentTypeCookieValueTemplate, FormDataBuilder.DefaultBoundary));
+            request[RestConstants.ContentTypeKey] = new NSString(string.Format(RestConstants.ContentTypeCookieValueTemplate, RestConstants.DefaultBoundary));
 
             // Set method and body content.
             request.HttpMethod = PostHttpMethod;

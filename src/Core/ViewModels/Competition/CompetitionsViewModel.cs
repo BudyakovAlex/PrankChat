@@ -85,7 +85,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
                 .OrderBy(item => item.Phase)
                 .ToList();
 
-            Items.SwitchTo(sections);
+            InvokeOnMainThread(() => Items.ReplaceWith(sections));
         }
 
         private void OnTimerTick(object _, EventArgs __)
