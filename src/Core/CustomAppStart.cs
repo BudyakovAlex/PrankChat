@@ -11,6 +11,7 @@ using PrankChat.Mobile.Core.ViewModels.Registration;
 using PrankChat.Mobile.Core.Providers.UserSession;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
+using Badge.Plugin;
 
 namespace PrankChat.Mobile.Core
 {
@@ -43,6 +44,11 @@ namespace PrankChat.Mobile.Core
 
         private Task StartApp()
         {
+            if (_userSessionProvider.User is null)
+            {
+                MainThread.BeginInvokeOnMainThread(() => CrossBadge.Current.ClearBadge());
+            }
+
             var isOnBoardingShown = Preferences.Get(Constants.Keys.IsOnBoardingShown, false);
             if (!isOnBoardingShown)
             {
@@ -62,16 +68,16 @@ namespace PrankChat.Mobile.Core
             _orderId = orderId;
             if (_userSessionProvider.User != null)
             {
-                NavigationService.AfterNavigate += NavigatenAfterMainViewByPushNotification;
+                NavigationService.WillNavigate += WillNavigateMainViewByPushNotification;
                 return _navigationManager.NavigateAsync<MainViewModel>();
             }
 
             return _navigationManager.NavigateAsync<LoginViewModel>();
         }
 
-        private void NavigatenAfterMainViewByPushNotification(object sender, MvvmCross.Navigation.EventArguments.IMvxNavigateEventArgs e)
+        private void WillNavigateMainViewByPushNotification(object sender, MvvmCross.Navigation.EventArguments.IMvxNavigateEventArgs e)
         {
-            NavigationService.AfterNavigate -= NavigatenAfterMainViewByPushNotification;
+            NavigationService.WillNavigate -= WillNavigateMainViewByPushNotification;
 
             if (_orderId == null)
             {

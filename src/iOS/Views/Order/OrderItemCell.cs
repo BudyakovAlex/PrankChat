@@ -6,7 +6,6 @@ using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.ViewModels.Order.Items;
 using PrankChat.Mobile.iOS.AppTheme;
-using PrankChat.Mobile.iOS.Binding;
 using PrankChat.Mobile.iOS.Extensions;
 using PrankChat.Mobile.iOS.Views.Base;
 using UIKit;
@@ -39,7 +38,7 @@ namespace PrankChat.Mobile.iOS.Views.Order
         {
             base.SetupControls();
 
-            orderTitleLabel.SetScreenTitleStyle();
+            orderTitleLabel.SetWhiteTitleStyle();
 
             timeLabel.SetMediumStyle(10, Theme.Color.White);
             timeLabel.Text = Resources.OrderTime;

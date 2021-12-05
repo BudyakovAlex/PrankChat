@@ -3,6 +3,7 @@ using Android.Views;
 using Android.Widget;
 using AndroidX.RecyclerView.Widget;
 using Google.Android.Material.Button;
+using Microsoft.Extensions.Logging;
 using MvvmCross.DroidX.RecyclerView;
 using MvvmCross.IoC;
 using System;
@@ -108,6 +109,16 @@ namespace PrankChat.Mobile.Droid
             vh.ItemView.LongClick += (sender, args) => { };
             list.ItemsSource = null;
             list.Click += (sender, args) => { };
+        }
+
+        public void Include(Microsoft.Extensions.Logging.Abstractions.NullLogger c)
+        {
+            c.BeginScope<CheckedTextView>(null);
+        }
+
+        public void Include(Microsoft.Extensions.Logging.Logger<CheckedTextView> logger)
+        {
+            logger.BeginScope("");
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using MvvmCross;
-using MvvmCross.Logging;
 using MvvmCross.Plugin.Messenger;
 using Newtonsoft.Json;
 using PrankChat.Mobile.Core.Data.Dtos;
@@ -16,6 +15,7 @@ using PrankChat.Mobile.Core.Services.ErrorHandling.Messages;
 using PrankChat.Mobile.Core.Services.Network.Http.Authorization;
 using PrankChat.Mobile.Core.Services.Network.JsonSerializers;
 using RestSharp;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -36,7 +36,7 @@ namespace PrankChat.Mobile.Core.Services.Network
         private readonly IRestClient _client;
         private readonly IMvxMessenger _messenger;
 
-        private readonly IMvxLog _mvxLog;
+        private readonly ILogger _mvxLog;
         private readonly IUserSessionProvider _userSessionProvider;
 
         private readonly Version _apiVersion;
@@ -47,7 +47,7 @@ namespace PrankChat.Mobile.Core.Services.Network
         public HttpClient(string baseAddress,
                           string apiVersion,
                           IUserSessionProvider userSessionProvider,
-                          IMvxLog mvxLog,
+                          ILogger mvxLog,
                           IMvxMessenger messenger)
         {
             _baseAddress = baseAddress;
@@ -184,7 +184,7 @@ namespace PrankChat.Mobile.Core.Services.Network
                 };
 
                 var problemException = new ServerErrorMessage(this, error);
-                _mvxLog.ErrorException(Resources.ErrorUnexpectedNetwork, error);
+                _mvxLog.LogError(error, Resources.ErrorUnexpectedNetwork);
                 _messenger.Publish(problemException);
 
                 if (exceptionThrowingEnabled)
@@ -239,18 +239,6 @@ namespace PrankChat.Mobile.Core.Services.Network
                                                        .Build();
 
                     var url = new Uri($"{_baseAddress}/{ApiId}/v{_apiVersion.Major}/{endpoint}");
-
-                    var parameters = new[]
-                    {
-                        new Parameter("order_id", item.OrderId.ToString(), ParameterType.RequestBody),
-                        new Parameter("title", item.Title, ParameterType.RequestBody),
-                        new Parameter("description", item.Description, ParameterType.RequestBody),
-                        new Parameter("video", item.FilePath, ParameterType.RequestBody)
-                    };
-
-                    var headers = multipartData.Headers.Select(header => new Parameter(header.Key, header.Value, ParameterType.HttpHeader)).ToList();
-                    var requestParameters = parameters.Union(headers).ToList();
-
                     response = await client.PostAsync(url, multipartData, cancellationToken);
                     if (response.IsSuccessStatusCode)
                     {
@@ -279,7 +267,7 @@ namespace PrankChat.Mobile.Core.Services.Network
                 };
 
                 var problemException = new ServerErrorMessage(this, error);
-                _mvxLog.ErrorException(Resources.ErrorUnexpectedNetwork, error);
+                _mvxLog.LogError(error, Resources.ErrorUnexpectedNetwork);
                 _messenger.Publish(problemException);
 
                 if (exceptionThrowingEnabled)
@@ -336,7 +324,7 @@ namespace PrankChat.Mobile.Core.Services.Network
                     return;
                 }
 
-                _mvxLog.Debug($"[HTTP] {request.Method} {endpoint}");
+                _mvxLog.LogDebug($"[HTTP] {request.Method} {endpoint}");
                 if (includeAccessToken)
                 {
                     await AddAuthorizationHeaderAsync(request);
@@ -366,7 +354,7 @@ namespace PrankChat.Mobile.Core.Services.Network
                     return default;
                 }
 
-                _mvxLog.Debug($"[HTTP] {request.Method} {endpoint}");
+                _mvxLog.LogDebug($"[HTTP] {request.Method} {endpoint}");
                 if (includeAccessToken)
                 {
                     await AddAuthorizationHeaderAsync(request);
@@ -415,7 +403,7 @@ namespace PrankChat.Mobile.Core.Services.Network
             }
             catch (Exception ex)
             {
-                _mvxLog.ErrorException(response.StatusCode + response.ErrorMessage, ex);
+                _mvxLog.LogError(ex, response.StatusCode + response.ErrorMessage);
                 _messenger.Publish(new ServerErrorMessage(this, ex));
 
                 if (exceptionThrowingEnabled)

@@ -1,35 +1,30 @@
-﻿using MvvmCross.Logging;
-using MvvmCross.Plugin.Messenger;
-using PrankChat.Mobile.Core.Services.Network.Http.Payment;
+﻿using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.Data.Dtos;
 using PrankChat.Mobile.Core.Providers.Configuration;
 using PrankChat.Mobile.Core.Providers.UserSession;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using PrankChat.Mobile.Core.Extensions;
 
 namespace PrankChat.Mobile.Core.Services.Network.Http.Payment
 {
     public class PaymentService : IPaymentService
     {
-        private readonly IMvxLog _log;
-
         private readonly HttpClient _client;
 
         public PaymentService(
             IUserSessionProvider userSessionProvider,
             IEnvironmentConfigurationProvider environmentConfigurationProvider,
-            IMvxLogProvider logProvider,
             IMvxMessenger messenger)
         {
-            _log = logProvider.GetLogFor<PaymentService>();
-
             var environment = environmentConfigurationProvider.Environment;
 
-            _client = new HttpClient(environment.ApiUrl,
-                                     environment.ApiVersion,
-                                     userSessionProvider,
-                                     _log,
-                                     messenger);
+            _client = new HttpClient(
+                environment.ApiUrl,
+                environment.ApiVersion,
+                userSessionProvider,
+                this.Logger(),
+                messenger);
         }
 
         public async Task<PaymentDto> RefillAsync(double coast)

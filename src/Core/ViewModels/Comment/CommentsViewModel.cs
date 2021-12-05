@@ -1,5 +1,7 @@
-﻿using MvvmCross.Commands;
-using MvvmCross.Logging;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
+using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.Common;
 using PrankChat.Mobile.Core.Extensions;
@@ -7,32 +9,25 @@ using PrankChat.Mobile.Core.Managers.Video;
 using PrankChat.Mobile.Core.Models.Data.Shared;
 using PrankChat.Mobile.Core.ViewModels.Comment.Items;
 using PrankChat.Mobile.Core.ViewModels.Common;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.ViewModels.Comment
 {
-    public class CommentsViewModel : PaginationViewModel, IMvxViewModel<int, int>
+    public class CommentsViewModel : PaginationViewModel<int, int, CommentItemViewModel>
     {
         private readonly IVideoManager _videoManager;
-        private readonly IMvxLog _mvxLog;
 
         private int _videoId;
         private int _newCommentsCounter;
 
-        public CommentsViewModel(IVideoManager videoManager, IMvxLog mvxLog) : base(Constants.Pagination.DefaultPaginationSize)
+        public CommentsViewModel(IVideoManager videoManager) : base(Constants.Pagination.DefaultPaginationSize)
         {
             _videoManager = videoManager;
-            _mvxLog = mvxLog;
-
-            Items = new MvxObservableCollection<CommentItemViewModel>();
 
             SendCommentCommand = this.CreateCommand(SendCommentAsync, () => !string.IsNullOrWhiteSpace(Comment));
             ScrollInteraction = new MvxInteraction<int>();
         }
 
-        public MvxObservableCollection<CommentItemViewModel> Items { get; }
+        protected override int DefaultResult => _newCommentsCounter;
 
         public MvxInteraction<int> ScrollInteraction { get; }
 
@@ -49,9 +44,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Comment
 
         public IMvxAsyncCommand SendCommentCommand { get; }
 
-        public TaskCompletionSource<object> CloseCompletionSource { get; set; } = new TaskCompletionSource<object>();
-
-        public void Prepare(int parameter)
+        public override void Prepare(int parameter)
         {
             _videoId = parameter;
         }
@@ -65,16 +58,6 @@ namespace PrankChat.Mobile.Core.ViewModels.Comment
         public override Task InitializeAsync()
         {
             return LoadMoreItemsCommand.ExecuteAsync();
-        }
-
-        public override void ViewDestroy(bool viewFinishing = true)
-        {
-            if (viewFinishing && CloseCompletionSource != null && !CloseCompletionSource.Task.IsCompleted && !CloseCompletionSource.Task.IsFaulted)
-            {
-                CloseCompletionSource?.SetResult(_newCommentsCounter);
-            }
-
-            base.ViewDestroy(viewFinishing);
         }
 
         protected override async Task<int> LoadMoreItemsAsync(int page = 1, int pageSize = 20)

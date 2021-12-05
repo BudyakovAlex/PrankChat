@@ -1,4 +1,6 @@
-﻿using Foundation;
+﻿using System.Collections.Specialized;
+using System.Windows.Input;
+using Foundation;
 using MvvmCross.Platforms.Ios.Views;
 using UIKit;
 
@@ -97,6 +99,26 @@ namespace PrankChat.Mobile.iOS
         public void Include(UIViewController controller)
         {
             controller.NavigationItem.LeftBarButtonItem = new UIBarButtonItem();
+        }
+
+        public void Include(Microsoft.Extensions.Logging.Abstractions.NullLogger c)
+        {
+            c.BeginScope<UILexiconEntry>(null);
+        }
+
+        public void Include(Microsoft.Extensions.Logging.ILogger l)
+        {
+            l.Log<UITextView>(Microsoft.Extensions.Logging.LogLevel.Critical, new Microsoft.Extensions.Logging.EventId(), new UITextView(), new System.Exception(), (u, ex) => ex.Message);
+        }
+
+        public void Include(INotifyCollectionChanged changed)
+        {
+            changed.CollectionChanged += (s, e) => { var test = string.Format("{0}{1}{2}{3}{4}", e.Action, e.NewItems, e.NewStartingIndex, e.OldItems, e.OldStartingIndex); };
+        }
+
+        public void Include(ICommand command)
+        {
+            command.CanExecuteChanged += (s, e) => { if (command.CanExecute(null)) command.Execute(null); };
         }
     }
 }

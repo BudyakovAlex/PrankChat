@@ -17,7 +17,7 @@ namespace PrankChat.Mobile.Core.Mappers
             }
 
             var values = Enum.GetValues(typeof(OrderCategory)).OfType<OrderCategory>();
-            var matchedCategory = values.FirstOrDefault(item => item.GetEnumMemberAttrValue() == dto.Category);
+            var matchedCategory = values.FirstOrDefault(item => item.GetEnumMemberAttrValue()?.ToLower() == dto.Category?.ToLower());
 
             return new Competition(
                 dto.Id,

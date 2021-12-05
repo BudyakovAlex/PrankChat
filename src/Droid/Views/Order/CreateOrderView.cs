@@ -1,9 +1,7 @@
 ﻿using Android.App;
 using Android.Content.PM;
 using Android.OS;
-using Android.Runtime;
 using Android.Text;
-using Android.Views;
 using Android.Widget;
 using Google.Android.Material.Button;
 using Google.Android.Material.TextField;
@@ -11,9 +9,9 @@ using MvvmCross.Platforms.Android.Binding;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 using PrankChat.Mobile.Core.Common;
 using PrankChat.Mobile.Core.Converters;
-using PrankChat.Mobile.Core.ViewModels;
 using PrankChat.Mobile.Core.ViewModels.Order;
 using PrankChat.Mobile.Droid.Extensions;
+using PrankChat.Mobile.Droid.Listeners;
 using PrankChat.Mobile.Droid.Views.Base;
 
 namespace PrankChat.Mobile.Droid.Views.Order
@@ -51,8 +49,13 @@ namespace PrankChat.Mobile.Droid.Views.Order
             _descriptionImageView = FindViewById<ImageView>(Resource.Id.description_image_view);
             _createButton = FindViewById<MaterialButton>(Resource.Id.create_button);
             _createOrderFrameLayout = FindViewById<FrameLayout>(Resource.Id.animation_frame_layout);
-
             _createOrderPriceEditText.SetTextChangeListened((sequence) => _createOrderPriceEditText.MoveCursorBeforeSymbol(Core.Localization.Resources.Currency, sequence));
+
+            _createButton.SetOnTouchListener(new ViewOnTouchListener((v, e) =>
+            {
+                this.HideKeyboard();
+                return false;
+            }));
         }
 
         protected override void Bind()

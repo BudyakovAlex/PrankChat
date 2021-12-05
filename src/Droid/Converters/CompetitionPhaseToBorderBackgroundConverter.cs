@@ -9,17 +9,13 @@ namespace PrankChat.Mobile.Droid.Converters
     {
         protected override int Convert(CompetitionPhase value, Type targetType, object parameter, CultureInfo culture)
         {
-            switch (value)
+            return value switch
             {
-                case CompetitionPhase.Voting:
-                    return Resource.Color.competition_vote_border;
-                case CompetitionPhase.New:
-                    return Resource.Color.competition_new_border;
-                case CompetitionPhase.Finished:
-                    return Resource.Color.competition_finished_border;
-                default:
-                    return 0;
-            }
+                CompetitionPhase.Voting => Resource.Color.competition_vote_border,
+                CompetitionPhase.New => Resource.Color.competition_new_border,
+                CompetitionPhase.Finished => Resource.Color.competition_finished_border,
+                _ => 0,
+            };
         }
     }
 }

@@ -1,8 +1,9 @@
-﻿using MvvmCross.Logging;
-using MvvmCross.Plugin.Messenger;
+﻿using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.Data.Dtos;
+using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Providers.Configuration;
 using PrankChat.Mobile.Core.Providers.UserSession;
+using Serilog;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 
@@ -15,17 +16,14 @@ namespace PrankChat.Mobile.Core.Services.Network.Http.Common
         public VersionService(
             IUserSessionProvider userSessionProvider,
             IEnvironmentConfigurationProvider environmentConfigurationProvider,
-            IMvxLogProvider logProvider,
             IMvxMessenger messenger) 
         {
-            var log = logProvider.GetLogFor<VersionService>();
-
             var environment = environmentConfigurationProvider.Environment;
             _client = new HttpClient(
                 environment.ApiUrl,
                 environment.ApiVersion,
                 userSessionProvider,
-                log,
+                this.Logger(),
                 messenger);
         }
 

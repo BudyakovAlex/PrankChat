@@ -25,14 +25,23 @@ using WebKit;
 using PrankChat.Mobile.Core.Plugins.UserInteraction;
 using PrankChat.Mobile.iOS.Plugins.UserInteraction;
 using PrankChat.Mobile.iOS.Common;
+using Microsoft.Extensions.Logging;
+using Serilog;
+using Serilog.Extensions.Logging;
+using System;
+using PrankChat.Mobile.iOS.Plugins.Logging;
+using PrankChat.Mobile.iOS.Plugins.HttpClient;
+using PrankChat.Mobile.Core.Services.Network;
 
 namespace PrankChat.Mobile.iOS
 {
     public class Setup : MvxIosSetup<App>
     {
-        protected override void InitializeFirstChance()
+        private const string LoggerTag = "Prank_IOS";
+
+        protected override void InitializeFirstChance(IMvxIoCProvider iocProvider)
         {
-            base.InitializeFirstChance();
+            base.InitializeFirstChance(iocProvider);
 
             Mvx.IoCProvider.CallbackWhenRegistered<IEnvironmentConfigurationProvider>(provider =>
             {
@@ -40,9 +49,36 @@ namespace PrankChat.Mobile.iOS
             });
         }
 
-        protected override void InitializeLastChance()
+        public override void InitializeSecondary()
         {
-            base.InitializeLastChance();
+            //NOTE: need to trace errors in console
+            try
+            {
+                base.InitializeSecondary();
+            }
+            catch (Exception exception)
+            {
+                NativeConsoleLogger.Write(LoggerTag, $"{exception.Message} \n\n\n\n{exception.StackTrace}");
+            }
+        }
+
+        protected override ILoggerProvider CreateLogProvider()
+        {
+            return new SerilogLoggerProvider();
+        }
+
+        protected override ILoggerFactory CreateLogFactory()
+        {
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel
+                .Debug()
+                .CreateLogger();
+            return new SerilogLoggerFactory();
+        }
+
+        protected override void InitializeLastChance(IMvxIoCProvider iocProvider)
+        {
+            base.InitializeLastChance(iocProvider);
 
             CompositionRoot.Container.RegisterType<IVideoPlayer, VideoPlayer>();
             CompositionRoot.Container.RegisterSingleton<IUserInteraction, UserInteraction>();
@@ -51,6 +87,7 @@ namespace PrankChat.Mobile.iOS
             CompositionRoot.Container.RegisterSingleton<IUserSessionProvider, UserSessionProvider>();
             CompositionRoot.Container.RegisterSingleton<IAppleSignInService, AppleSignInService>();
             CompositionRoot.Container.RegisterSingleton<IPlatformPathsProvider, PlatformPathsProvider>();
+            CompositionRoot.Container.RegisterSingleton<IPlatformHttpClient, PlatformHttpClient>();
 
             AVAudioSession.SharedInstance().SetCategory(AVAudioSessionCategory.Playback);
         }
@@ -61,6 +98,7 @@ namespace PrankChat.Mobile.iOS
             registry.RegisterCustomBindingFactory<UIImageView>(nameof(UIImageViewOrderTypeTargetBinding), v => new UIImageViewOrderTypeTargetBinding(v));
             registry.RegisterCustomBindingFactory<UIButton>(nameof(UIButtonOrderTypeTargetBinding), v => new UIButtonOrderTypeTargetBinding(v));
             registry.RegisterCustomBindingFactory<WKWebView>(nameof(WKWebViewHtmlStringTargetBinding), v => new WKWebViewHtmlStringTargetBinding(v));
+            registry.RegisterCustomBindingFactory<UITabBarController>(nameof(UITabBarControllerIsEnabedTargetBinding), v => new UITabBarControllerIsEnabedTargetBinding(v));
 
             registry.RegisterCustomBindingFactory<FloatPlaceholderTextField>(FloatPlaceholderTextFieldPaddingTargetBinding.StartPadding, view => new FloatPlaceholderTextFieldPaddingTargetBinding(view, FloatPlaceholderTextFieldPaddingTargetBinding.StartPadding));
             registry.RegisterCustomBindingFactory<FloatPlaceholderTextField>(FloatPlaceholderTextFieldPaddingTargetBinding.EndPadding, view => new FloatPlaceholderTextFieldPaddingTargetBinding(view, FloatPlaceholderTextFieldPaddingTargetBinding.EndPadding));

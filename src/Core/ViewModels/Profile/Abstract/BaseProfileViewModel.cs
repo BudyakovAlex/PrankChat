@@ -1,20 +1,23 @@
-﻿using MvvmCross.Commands;
-using PrankChat.Mobile.Core.Managers.Users;
-using PrankChat.Mobile.Core.Models.Enums;
-using PrankChat.Mobile.Core.Localization;
-using PrankChat.Mobile.Core.ViewModels.Common;
-using System;
+﻿using System;
 using System.Threading.Tasks;
 using System.Timers;
-using Xamarin.Essentials;
+using MvvmCross.Commands;
 using PrankChat.Mobile.Core.Common;
 using PrankChat.Mobile.Core.Extensions;
+using PrankChat.Mobile.Core.Localization;
+using PrankChat.Mobile.Core.Managers.Users;
+using PrankChat.Mobile.Core.Models.Enums;
+using PrankChat.Mobile.Core.ViewModels.Common;
+using PrankChat.Mobile.Core.ViewModels.Order.Items;
+using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.ViewModels.Profile.Abstract
 {
-    public abstract class BaseProfileViewModel : PaginationViewModel
+    public abstract class BaseProfileViewModel : PaginationViewModel<OrderItemViewModel>
     {
         private readonly Timer _timer;
+
+        private IDisposable _timerSubscription;
 
         public BaseProfileViewModel(IUsersManager usersManager) : base(Constants.Pagination.DefaultPaginationSize)
         {
@@ -24,7 +27,11 @@ namespace PrankChat.Mobile.Core.ViewModels.Profile.Abstract
             _canResendEmailValidation = timeStamp <= DateTime.Now;
 
             _timer = new Timer(Constants.Profile.CheckCanSendEmailInterval);
-            _timer.Elapsed += OnTimerElapsed;
+            _timerSubscription = _timer.SubscribeToEvent<Timer, ElapsedEventHandler, ElapsedEventArgs>(
+                OnTimerElapsed,
+                (timer, handler) => timer.Elapsed += handler,
+                (timer, handler) => timer.Elapsed -= handler);
+
             _timer.Start();
 
             ResendEmailValidationCommand = this.CreateCommand(ResendEmailValidationAsync, () => CanResendEmailValidation);
@@ -160,7 +167,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Profile.Abstract
             CanResendEmailValidation = false;
         }
 
-        private void OnTimerElapsed(object sender, ElapsedEventArgs e)
+        private void OnTimerElapsed(object sender, EventArgs _)
         {
             var timeStamp = Preferences.Get(nameof(CanResendEmailValidation), DateTime.MinValue);
             CanResendEmailValidation = timeStamp <= DateTime.Now;
@@ -185,6 +192,29 @@ namespace PrankChat.Mobile.Core.ViewModels.Profile.Abstract
         private void SelectGender(GenderType genderType)
         {
             Gender = genderType;
+        }
+
+        protected void RemoveTimerSubscription()
+        {
+            if (_timerSubscription is null)
+            {
+                return;
+            }
+
+            _timerSubscription.Dispose();
+            _timerSubscription = null;
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+
+            if (!disposing)
+            {
+                return;
+            }
+
+            RemoveTimerSubscription();
         }
     }
 }

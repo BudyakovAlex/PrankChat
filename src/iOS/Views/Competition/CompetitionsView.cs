@@ -11,6 +11,10 @@ using PrankChat.Mobile.iOS.Views.Base;
 using UIKit;
 using Xamarin.Essentials;
 using PrankChat.Mobile.iOS.Common;
+using PrankChat.Mobile.iOS.Controls;
+using MvvmCross.Platforms.Ios.Binding;
+using MvvmCross.Binding.Combiners;
+using PrankChat.Mobile.Core.Localization;
 
 namespace PrankChat.Mobile.iOS.Views.Competition
 {
@@ -20,6 +24,7 @@ namespace PrankChat.Mobile.iOS.Views.Competition
         private TableViewSource _source;
         private MvxUIRefreshControl _refreshControl;
         private UIBarButtonItem _notificationBarItem;
+        private EmptyView _emptyView;
 
         public UIScrollView ScrollView => tableView;
 
@@ -29,6 +34,7 @@ namespace PrankChat.Mobile.iOS.Views.Competition
 
             base.SetupControls();
             InitializeNavigationBar();
+            CreateEmptyView();
 
             _source = new TableViewSource(tableView)
                 .Register<CompetitionsSectionViewModel>(CompetitionsSectionCell.Nib, CompetitionsSectionCell.CellId);
@@ -53,15 +59,24 @@ namespace PrankChat.Mobile.iOS.Views.Competition
             bindingSet.Bind(_source).For(v => v.ItemsSource).To(vm => vm.Items);
             bindingSet.Bind(_refreshControl).For(v => v.IsRefreshing).To(vm => vm.IsBusy);
             bindingSet.Bind(_refreshControl).For(v => v.RefreshCommand).To(vm => vm.LoadDataCommand);
-            bindingSet.Bind(_notificationBarItem).For(v => v.Image).To(vm => vm.NotificationBadgeViewModel.HasUnreadNotifications)
-                      .WithConversion<BoolToNotificationImageConverter>();
+            bindingSet.Bind(_notificationBarItem)
+                .For(v => v.Image)
+                .To(vm => vm.NotificationBadgeViewModel.HasUnreadNotifications)
+                .WithConversion<BoolToNotificationImageConverter>();
+
+            bindingSet.Bind(_emptyView)
+                .For(v => v.BindVisible())
+                .ByCombining(new MvxAndValueCombiner(),
+                  vm => vm.IsEmpty,
+                  vm => vm.IsNotBusy,
+                  vm => vm.IsInitialized);
         }
 
         protected override void RefreshData()
         {
             ViewModel?.LoadDataCommand.Execute();
             MainThread.BeginInvokeOnMainThread(() =>
-                ViewModel.SafeExecutionWrapper.Wrap(() =>
+                ViewModel?.SafeExecutionWrapper?.Wrap(() =>
                 tableView.SetContentOffset(new CGPoint(0, -_refreshControl.Frame.Height), true)));
         }
 
@@ -69,16 +84,23 @@ namespace PrankChat.Mobile.iOS.Views.Competition
         {
             NavigationController.NavigationBar.SetNavigationBarStyle();
 
-            _notificationBarItem = NavigationItemHelper.CreateBarButton(ImageNames.IconNotification, ViewModel.ShowNotificationCommand, UIColor.Black);
+            _notificationBarItem = NavigationItemHelper.CreateBarButton(ImageNames.IconNotification, ViewModel.ShowNotificationCommand);
             NavigationItem?.SetRightBarButtonItems(new UIBarButtonItem[]
             {
                _notificationBarItem,
-                NavigationItemHelper.CreateBarButton(ImageNames.IconInfo, ViewModel.ShowWalkthrouthCommand, UIColor.Black),
+                NavigationItemHelper.CreateBarButton(ImageNames.IconInfo, ViewModel.ShowWalkthrouthCommand),
                 // TODO: This feature will be implemented.
                 //NavigationItemHelper.CreateBarButton("ic_search", ViewModel.ShowSearchCommand)
             }, true);
 
             NavigationItem.LeftBarButtonItem = NavigationItemHelper.CreateBarLogoButton();
+        }
+
+        private void CreateEmptyView()
+        {
+            _emptyView = EmptyView
+                .Create(Resources.CompetitionsListIsEmpty, ImageNames.ImageEmptyState)
+                .AttachToTableViewAsBackgroundView(tableView);
         }
     }
 }

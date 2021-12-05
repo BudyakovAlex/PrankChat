@@ -1,0 +1,10 @@
+﻿<linker>
+    <assembly fullname="PrankChat.Mobile.iOS" />
+    <assembly fullname="MvvmCross">
+        <type fullname="MvvmCross.Core.MvxSettings">
+            <method name=".ctor"/>
+        </type>
+    </assembly>
+    <assembly fullname="Microsoft.Extensions.Logging"/>
+    <assembly fullname="Microsoft.Extensions.Logging.Abstractions"/>
+</linker>

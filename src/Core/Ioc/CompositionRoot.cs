@@ -30,6 +30,7 @@ using PrankChat.Mobile.Managers.Common;
 using PrankChat.Mobile.Core.Plugins.Timer;
 using PrankChat.Mobile.Core.Providers.Permissions;
 using PrankChat.Mobile.Core.Managers.Media;
+using MvvmCross.Plugin.Messenger;
 
 namespace PrankChat.Mobile.Core.Ioc
 {
@@ -44,6 +45,9 @@ namespace PrankChat.Mobile.Core.Ioc
 
         public void Initialize()
         {
+            //NOTE: do not remove, need to avoid issues with resolve messenger
+            Container.RegisterSingleton<IMvxMessenger, MvxMessengerHub>();
+
             RegisterServices();
             RegisterManagers();
             RegisterProviders();
@@ -71,7 +75,7 @@ namespace PrankChat.Mobile.Core.Ioc
             Container.RegisterSingleton<ISearchService, SearchService>();
             Container.RegisterSingleton<IUsersService, UsersService>();
             Container.RegisterSingleton<IVideoService, VideoService>();
-            Container.ConstructAndRegisterSingleton<IErrorHandleService, ErrorHandleService>();
+            Container.RegisterSingleton<IErrorHandleService, ErrorHandleService>();
         }
 
         private void RegisterManagers()

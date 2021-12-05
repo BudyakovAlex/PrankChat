@@ -1,44 +1,49 @@
-﻿using MvvmCross.Logging;
-using MvvmCross.Plugin.Messenger;
+﻿using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.Data.Dtos;
 using PrankChat.Mobile.Core.Data.Dtos.Base;
+using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Providers.Configuration;
 using PrankChat.Mobile.Core.Providers.UserSession;
 using System;
 using System.Threading;
+using Serilog;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace PrankChat.Mobile.Core.Services.Network.Http.Video
 {
     public class VideoService : IVideoService
     {
         private readonly HttpClient _client;
-        private readonly IMvxLog _log;
+        private readonly ILogger _logger;
+        private readonly IPlatformHttpClient _platformHttpClient;
 
         public VideoService(
             IUserSessionProvider userSessionProvider,
             IEnvironmentConfigurationProvider environmentConfigurationProvider,
-            IMvxLogProvider logProvider,
-            IMvxMessenger messenger)
+            IMvxMessenger messenger,
+            IPlatformHttpClient platformHttpClient)
         {
-            _log = logProvider.GetLogFor<VideoService>();
+            _platformHttpClient = platformHttpClient;
 
             var environment = environmentConfigurationProvider.Environment;
+            _logger = this.Logger();
 
             _client = new HttpClient(
                 environment.ApiUrl,
                 environment.ApiVersion,
                 userSessionProvider,
-                _log,
+                _logger,
                 messenger);
         }
 
-        public async Task<VideoDto> SendVideoAsync(int orderId,
-                                                        string path,
-                                                        string title,
-                                                        string description,
-                                                        Action<double, double> onChangedProgressAction = null,
-                                                        CancellationToken cancellationToken = default)
+        public async Task<VideoDto> SendVideoAsync(
+            int orderId,
+            string path,
+            string title,
+            string description,
+            Action<double, double> onChangedProgressAction = null,
+            CancellationToken cancellationToken = default)
         {
             var loadVideoApiModel = new UploadVideoDto()
             {
@@ -56,10 +61,30 @@ namespace PrankChat.Mobile.Core.Services.Network.Http.Video
             return videoMetadataApiModel?.Data;
         }
 
+        public async Task<VideoDto> SendVideoWithNativeHandlerAsync(
+            int orderId,
+            string path,
+            string title,
+            string description,
+            Action<double, double> onChangedProgressAction = null,
+            CancellationToken cancellationToken = default)
+        {
+            var loadVideoApiModel = new UploadVideoDto()
+            {
+                OrderId = orderId,
+                FilePath = path,
+                Title = title,
+                Description = description,
+            };
+
+            var responseJson = await _platformHttpClient.UploadVideoAsync(loadVideoApiModel, onChangedProgressAction);
+            return JsonConvert.DeserializeObject<VideoDto>(responseJson);
+        }
+
         public async Task<long?> IncrementVideoViewsAsync(int videoId)
         {
             var videoApiModel = await _client.UnauthorizedGetAsync<ResponseDto<VideoDto>>($"videos/{videoId}/looked");
-            _log.Log(MvxLogLevel.Debug, () => $"Registered {videoApiModel?.Data?.ViewsCount} for video with id {videoId}");
+            _logger.LogDebug($"Registered {videoApiModel?.Data?.ViewsCount} for video with id {videoId}");
             return videoApiModel?.Data?.ViewsCount;
         }
 

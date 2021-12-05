@@ -7,15 +7,16 @@ using PrankChat.Mobile.Core.Exceptions.UserVisible.Validation;
 using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.Managers.Authorization;
+using PrankChat.Mobile.Core.Managers.Navigation.Arguments.NavigationParameters;
 using PrankChat.Mobile.Core.Managers.Users;
 using PrankChat.Mobile.Core.Models.Data;
+using PrankChat.Mobile.Core.Services.Notifications;
 using PrankChat.Mobile.Core.ViewModels.Parameters;
 using PrankChat.Mobile.Core.ViewModels.Profile.Abstract;
-using PrankChat.Mobile.Core.Services.Notifications;
 
 namespace PrankChat.Mobile.Core.ViewModels.Registration
 {
-    public class RegistrationSecondStepViewModel : BaseProfileViewModel, IMvxViewModel<RegistrationNavigationParameter>
+    public class RegistrationSecondStepViewModel : BaseProfileViewModel, IMvxViewModel<GenericNavigationParams<RegistrationNavigationParameter>>
     {
         private readonly IAuthorizationManager _authorizationManager;
         private readonly IPushNotificationProvider _pushNotificationService;
@@ -64,9 +65,9 @@ namespace PrankChat.Mobile.Core.ViewModels.Registration
 
         public IMvxCommand ShowTermsAndRulesCommand { get; }
 
-        public void Prepare(RegistrationNavigationParameter parameter)
+        public void Prepare(GenericNavigationParams<RegistrationNavigationParameter> parameter)
         {
-            Email = parameter.Email;
+            Email = parameter.Parameter.Email;
         }
 
         private Task ShowTermsAndRulesAsync() =>
@@ -127,13 +128,6 @@ namespace PrankChat.Mobile.Core.ViewModels.Registration
                 return false;
             }
 
-            //if ((DateTime.Now.Year - Birthday?.Year) <= Constants.Age.AdultAge)
-            //{
-            //    ErrorHandleService.HandleException(new ValidationException(Resources.ValidationFieldBirthday, ValidationErrorType.LowerThanRequired, Constants.Age.AdultAge.ToString()));
-            //    ErrorHandleService.LogError(this, $"User can't be younger than {Constants.Age.AdultAge} years.");
-            //    return false;
-            //}
-
             if (string.IsNullOrEmpty(Password))
             {
                 ErrorHandleService.HandleException(new ValidationException(Resources.Password, ValidationErrorType.Empty));
@@ -157,14 +151,14 @@ namespace PrankChat.Mobile.Core.ViewModels.Registration
 
             if (!IsAdultChecked)
             {
-                ErrorHandleService.HandleException(new ValidationException(Resources.NotVerified));
+                ErrorHandleService.HandleException(new ValidationException(Resources.YouAreNotConfirmedAdultAge));
                 ErrorHandleService.LogError(this, "Adult not checked");
                 return false;
             }
 
             if (!IsPolicyChecked)
             {
-                ErrorHandleService.HandleException(new ValidationException(Resources.NotVerified));
+                ErrorHandleService.HandleException(new ValidationException(Resources.YouAreNotConfirmedUserAgreement));
                 ErrorHandleService.LogError(this, "Policy not checked");
                 return false;
             }

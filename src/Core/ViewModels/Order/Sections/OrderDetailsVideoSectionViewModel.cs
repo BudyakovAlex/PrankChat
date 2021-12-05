@@ -1,20 +1,22 @@
-﻿using MvvmCross.Commands;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using MvvmCross.Commands;
 using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.Managers.Media;
 using PrankChat.Mobile.Core.Managers.Video;
 using PrankChat.Mobile.Core.Messages;
 using PrankChat.Mobile.Core.Models.Enums;
+using PrankChat.Mobile.Core.Providers.UserSession;
 using PrankChat.Mobile.Core.ViewModels.Arbitration.Items;
 using PrankChat.Mobile.Core.ViewModels.Common.Abstract;
 using PrankChat.Mobile.Core.ViewModels.Order.Sections.Abstract;
 using PrankChat.Mobile.Core.ViewModels.Parameters;
+using PrankChat.Mobile.Core.ViewModels.Results;
 using PrankChat.Mobile.Core.ViewModels.Video;
-using PrankChat.Mobile.Core.Providers.UserSession;
-using System;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.ViewModels.Order.Sections
 {
@@ -128,7 +130,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Order.Sections
             IsUploading = true;
             _cancellationTokenSource = new CancellationTokenSource();
 
-            var video = await _videoManager.SendVideoAsync(Order.Id,
+            var video = await _videoManager.SendVideoWithNativeHandlerAsync(Order.Id,
                                                            file.Path,
                                                            Order?.Title,
                                                            Order?.Description,
@@ -198,8 +200,8 @@ namespace PrankChat.Mobile.Core.ViewModels.Order.Sections
                 return;
             }
 
-            var shouldReload = await NavigationManager.NavigateAsync<FullScreenVideoViewModel, FullScreenVideoParameter, bool>(navigationParams);
-            if (!shouldReload)
+            var refreshedItems = await NavigationManager.NavigateAsync<FullScreenVideoViewModel, FullScreenVideoParameter, Dictionary<int, FullScreenVideoResult>>(navigationParams);
+            if (refreshedItems == null || refreshedItems.Count == 0)
             {
                 return;
             }

@@ -18,10 +18,13 @@ using PrankChat.Mobile.Core.Services.ExternalAuth;
 using PrankChat.Mobile.Core.Services.Notifications;
 using System;
 using System.Threading.Tasks;
+using PrankChat.Mobile.Core.Managers.Navigation.Arguments.NavigationResults;
+using Xamarin.Essentials;
+using Badge.Plugin;
 
 namespace PrankChat.Mobile.Core.ViewModels.Profile
 {
-    public class ProfileUpdateViewModel : BaseProfileViewModel, IMvxViewModelResult<ProfileUpdateResult>
+    public class ProfileUpdateViewModel : BaseProfileViewModel, IMvxViewModelResult<GenericNavigationResult<ProfileUpdateResult>>
     {
         private readonly IAuthorizationManager _authorizationManager;
         private readonly IMediaManager _mediaManager;
@@ -59,7 +62,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Profile
         {
             if (viewFinishing && CloseCompletionSource != null && !CloseCompletionSource.Task.IsCompleted && !CloseCompletionSource.Task.IsFaulted)
             {
-                CloseCompletionSource?.TrySetResult(new ProfileUpdateResult(false, _isUserPhotoUpdated));
+                CloseCompletionSource?.TrySetResult(new GenericNavigationResult<ProfileUpdateResult>(new ProfileUpdateResult(false, _isUserPhotoUpdated)));
             }
 
             base.ViewDestroy(viewFinishing);
@@ -145,9 +148,12 @@ namespace PrankChat.Mobile.Core.ViewModels.Profile
                 try
                 {
                     SystemTimer.Stop();
+                    RemoveTimerSubscription();
                     ErrorHandleService.SuspendServerErrorsHandling();
+
                     await _pushNotificationService.UnregisterNotificationsAsync();
                     await _authorizationManager.LogoutAsync();
+                    MainThread.BeginInvokeOnMainThread(() => CrossBadge.Current.ClearBadge());
                 }
                 catch (Exception ex)
                 {

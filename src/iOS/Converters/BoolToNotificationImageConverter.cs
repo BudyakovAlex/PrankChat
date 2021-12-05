@@ -11,7 +11,7 @@ namespace PrankChat.Mobile.iOS.Converters
         protected override UIImage Convert(bool value, Type targetType, object parameter, CultureInfo culture)
         {
             var imageName = value ? ImageNames.IconNotificationWithBage : ImageNames.IconNotification;
-            return UIImage.FromBundle(imageName).ImageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate).ApplyTintColor(UIColor.Black);
+            return UIImage.FromBundle(imageName);
         }
     }
 }

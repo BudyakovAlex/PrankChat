@@ -19,21 +19,29 @@ using PrankChat.Mobile.Core.Services.ExternalAuth;
 using PrankChat.Mobile.Core.Services.FileSystem;
 using PrankChat.Mobile.Core.Plugins.UserInteraction;
 using PrankChat.Mobile.Droid.Plugins.UserInteraction;
+using MvvmCross.IoC;
+using Microsoft.Extensions.Logging;
+using Serilog;
+using Serilog.Extensions.Logging;
+using PrankChat.Mobile.Core.Services.Network;
+using PrankChat.Mobile.Droid.Plugins.HttpClient;
 
 namespace PrankChat.Mobile.Droid
 {
     public class Setup : MvxAndroidSetup<Core.App>
     {
-        protected override void InitializeLastChance()
+        protected override void InitializeLastChance(IMvxIoCProvider iocProvider)
         {
-            base.InitializeLastChance();
+            base.InitializeLastChance(iocProvider);
 
             CompositionRoot.Container.RegisterType<IVideoPlayer, VideoPlayer>();
+            CompositionRoot.Container.RegisterSingleton<IPlatformHttpClient, PlatformHttpClient>();
             CompositionRoot.Container.RegisterSingleton<IUserInteraction, UserInteraction>();
             CompositionRoot.Container.RegisterSingleton<IExternalAuthService, ExternalAuthService>();
             CompositionRoot.Container.RegisterSingleton<IUserSessionProvider, UserSessionProvider>();
             CompositionRoot.Container.RegisterSingleton<IPlatformPathsProvider, PlatformPathsProvider>();
             CompositionRoot.Container.RegisterSingleton<IFileSystemService, FileSystemService>();
+            CompositionRoot.Container.RegisterSingleton<IPlatformHttpClient, PlatformHttpClient>();
         }
 
         protected override IMvxAndroidViewPresenter CreateViewPresenter()
@@ -58,6 +66,20 @@ namespace PrankChat.Mobile.Droid
             registry.RegisterCustomBindingFactory<View>(PaddingTargetBinding.TopPadding, view => new PaddingTargetBinding(view, PaddingTargetBinding.TopPadding));
             registry.RegisterCustomBindingFactory<View>(PaddingTargetBinding.BottomPadding, view => new PaddingTargetBinding(view, PaddingTargetBinding.BottomPadding));
             registry.RegisterCustomBindingFactory<TabLayout.Tab>(nameof(TabLayoutTabTextBinding), view => new TabLayoutTabTextBinding(view));
+        }
+
+        protected override ILoggerProvider CreateLogProvider()
+        {
+            return new SerilogLoggerProvider();
+        }
+
+        protected override ILoggerFactory CreateLogFactory()
+        {
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel
+                .Debug()
+                .CreateLogger();
+            return new SerilogLoggerFactory();
         }
     }
 }

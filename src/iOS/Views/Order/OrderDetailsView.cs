@@ -10,6 +10,7 @@ using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.ViewModels.Order;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Common;
+using PrankChat.Mobile.iOS.Extensions;
 using PrankChat.Mobile.iOS.Views.Base;
 using UIKit;
 
@@ -48,7 +49,7 @@ namespace PrankChat.Mobile.iOS.Views.Order
 
             #region LoadVideo
 
-            bindingSet.Bind(downloadButton).To(vm => vm.VideoSectionViewModel.LoadVideoCommand);
+            bindingSet.Bind(downloadButton).For(v => v.BindTouchUpInside()).To(vm => vm.VideoSectionViewModel.LoadVideoCommand);
             bindingSet.Bind(downloadButton).For(v => v.BindVisible()).To(vm => vm.VideoSectionViewModel.IsVideoLoadAvailable);
             bindingSet.Bind(downloadView).For(v => v.BindVisible()).To(vm => vm.VideoSectionViewModel.IsVideoLoadAvailable);
 
@@ -163,6 +164,8 @@ namespace PrankChat.Mobile.iOS.Views.Order
             bindingSet.Bind(uploadingProgressBar).For(v => v.Progress).To(vm => vm.VideoSectionViewModel.UploadingProgress);
             bindingSet.Bind(uploadingProgressBar).For(v => v.BindTap()).To(vm => vm.VideoSectionViewModel.CancelUploadingCommand);
             bindingSet.Bind(uploadingLabel).For(v => v.Text).To(vm => vm.VideoSectionViewModel.UploadingProgressStringPresentation);
+            bindingSet.Bind(NavigationItem.LeftBarButtonItem).For(v => v.Enabled).To(vm => vm.VideoSectionViewModel.IsNotBusy);
+            bindingSet.Bind(TabBarController).For(v => v.BindIsEnabled()).To(vm => vm.VideoSectionViewModel.IsNotBusy);
         }
 
         protected override void SetupControls()
@@ -194,7 +197,6 @@ namespace PrankChat.Mobile.iOS.Views.Order
             daysTitleLabel.SetSmallTitleStyle(Resources.Day, 10);
             hourTitleLabel.SetSmallTitleStyle(Resources.Hour, 10);
             minutesTitleLabel.SetSmallTitleStyle(Resources.Minute, 10);
-            downloadVideotextLabel.SetSmallTitleStyle(Resources.UploadVideo);
             tookOrderTextLabel.SetSmallTitleStyle(Resources.Executor);
             executorNameLabel.SetTitleStyle();
             startDateLabel.SetSmallSubtitleStyle();

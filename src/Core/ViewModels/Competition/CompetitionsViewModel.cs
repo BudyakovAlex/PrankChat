@@ -10,11 +10,16 @@ using PrankChat.Mobile.Core.Wrappers;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
+using System;
 
 namespace PrankChat.Mobile.Core.ViewModels.Competition
 {
     public class CompetitionsViewModel : BaseItemsPageViewModel<CompetitionsSectionViewModel>
     {
+        private const int RefreshAfterCountTicks = 20;
+
+        private int _timerThicksCount;
+
         private readonly ICompetitionsManager _competitionsManager;
         private readonly IWalkthroughsProvider _walkthroughsProvider;
 
@@ -35,6 +40,11 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
             ShowWalkthrouthCommand = this.CreateCommand(ShowWalkthrouthAsync);
 
             Messenger.SubscribeOnMainThread<ReloadCompetitionsMessage>((msg) => LoadDataCommand?.Execute()).DisposeWith(Disposables);
+
+            SystemTimer.SubscribeToEvent(
+                OnTimerTick,
+                (timer, handler) => timer.TimerElapsed += handler,
+                (timer, handler) => timer.TimerElapsed -= handler).DisposeWith(Disposables);
         }
 
         public IMvxAsyncCommand LoadDataCommand { get; }
@@ -75,7 +85,17 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
                 .OrderBy(item => item.Phase)
                 .ToList();
 
-            Items.SwitchTo(sections);
+            InvokeOnMainThread(() => Items.ReplaceWith(sections));
+        }
+
+        private void OnTimerTick(object _, EventArgs __)
+        {
+            _timerThicksCount++;
+            if (_timerThicksCount >= RefreshAfterCountTicks)
+            {
+                _timerThicksCount = 0;
+                _ = LoadDataCommand.ExecuteAsync();
+            }
         }
     }
 }

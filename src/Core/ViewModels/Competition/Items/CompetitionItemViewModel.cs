@@ -22,7 +22,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition.Items
         {
             Competition = competition;
 
-            SystemTimer.SubscribeToEvent(
+            _timerTickSubscription = SystemTimer.SubscribeToEvent(
                 OnTimerTick,
                 (timer, handler) => timer.TimerElapsed += handler,
                 (timer, handler) => timer.TimerElapsed -= handler).DisposeWith(Disposables);
@@ -83,6 +83,8 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition.Items
 
         public string MinutesText { get; } = Resources.Minutes;
 
+        public string ActionButtonTitle => GetAcitonButtonTitle();
+
         private TimeSpan? _nextPhaseCountdown;
         public TimeSpan? NextPhaseCountdown
         {
@@ -139,5 +141,12 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition.Items
         {
             return NavigationManager.NavigateAsync<LoginViewModel>();
         }
+
+        private string GetAcitonButtonTitle() => Phase switch
+        {
+            CompetitionPhase.New => CanJoinToPaidCompetition ? Resources.Participate : Resources.Watch,
+            CompetitionPhase.Finished => Resources.MoreDetails,
+            _ => Resources.Watch
+        };
     }
 }

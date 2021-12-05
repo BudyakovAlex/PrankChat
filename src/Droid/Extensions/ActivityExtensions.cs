@@ -1,15 +1,18 @@
 ﻿using System;
 using Android.App;
+using Android.Content;
+using Android.Views;
 using Android.Views.InputMethods;
 
 namespace PrankChat.Mobile.Droid.Extensions
 {
     public static class ActivityExtensions
     {
-        public static void HideKeyboard(this Activity activity)
+        public static void HideKeyboard(this Context context)
         {
             try
             {
+                var activity = (Activity)context;
                 var inputMethodManager = InputMethodManager.FromContext(activity);
                 if (inputMethodManager != null)
                 {

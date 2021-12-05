@@ -1,9 +1,9 @@
 ﻿using Android.Content.PM;
 using Android.OS;
 using Android.Views;
-using Android.Widget;
 using MvvmCross.Platforms.Android.Views;
 using PrankChat.Mobile.Core.ViewModels.Abstract;
+using PrankChat.Mobile.Droid.Listeners;
 using Toolbar = AndroidX.AppCompat.Widget.Toolbar;
 
 namespace PrankChat.Mobile.Droid.Views.Base
@@ -11,6 +11,8 @@ namespace PrankChat.Mobile.Droid.Views.Base
     public abstract class BaseView<TMvxViewModel> : MvxActivity<TMvxViewModel>, IToolbarOwner
         where TMvxViewModel : BasePageViewModel
     {
+        private DecorViewGlobalLayoutListener _decorViewGlobalLayoutListener;
+
         public Toolbar Toolbar { get; private set; }
 
         protected virtual bool HasBackButton => false;
@@ -27,6 +29,9 @@ namespace PrankChat.Mobile.Droid.Views.Base
             SetViewProperties();
             SetupToolbar();
             Bind();
+
+            _decorViewGlobalLayoutListener = new DecorViewGlobalLayoutListener(Window.DecorView);
+            Window.DecorView.ViewTreeObserver.AddOnGlobalLayoutListener(_decorViewGlobalLayoutListener);
         }
 
         public override bool OnOptionsItemSelected(IMenuItem item)
@@ -44,6 +49,12 @@ namespace PrankChat.Mobile.Droid.Views.Base
         {
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+
+        protected override void OnDestroy()
+        {
+            Window.DecorView.ViewTreeObserver.RemoveOnGlobalLayoutListener(_decorViewGlobalLayoutListener);
+            base.OnDestroy();
         }
 
         public override void OnBackPressed()

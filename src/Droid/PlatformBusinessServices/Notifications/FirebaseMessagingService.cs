@@ -1,19 +1,19 @@
-﻿using Android.App;
+﻿using System;
+using System.Diagnostics;
+using Android.App;
 using Android.Content;
 using Android.Runtime;
 using Badge.Plugin;
 using Firebase.Messaging;
 using MvvmCross;
-using MvvmCross.Logging;
+using MvvmCross.IoC;
 using MvvmCross.Plugin.Messenger;
 using Newtonsoft.Json;
+using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Messages;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Providers.UserSession;
 using PrankChat.Mobile.Core.Services.Notifications;
-using PrankChat.Mobile.Core.Extensions;
-using System;
-using System.Diagnostics;
 using Xamarin.Essentials;
 using Constants = PrankChat.Mobile.Core.Common;
 using NotificationHandler = PrankChat.Mobile.Core.Services.Notifications.NotificationHandler;
@@ -36,16 +36,17 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications
         {
             try
             {
-                var userSession = Mvx.IoCProvider.Resolve<IUserSessionProvider>();
-                userSession.PushToken = token;
+                Mvx.IoCProvider.CallbackWhenRegistered<IUserSessionProvider>(userSession =>
+                {
+                    userSession.PushToken = token;
 
-                var pushNotificationService = Mvx.IoCProvider.Resolve<IPushNotificationProvider>();
-                pushNotificationService.TryUpdateTokenAsync().FireAndForget();
+                    var pushNotificationService = Mvx.IoCProvider.Resolve<IPushNotificationProvider>();
+                    pushNotificationService.TryUpdateTokenAsync().FireAndForget();
+                });
             }
             catch (Exception ex)
             {
-                var log = Mvx.IoCProvider.Resolve<IMvxLog>();
-                log.ErrorException("Can not resolve IPushNotificationService", ex);
+                this.Logger().LogError(ex, "Can not resolve IPushNotificationService");
             }
         }
 

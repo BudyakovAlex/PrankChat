@@ -1,6 +1,5 @@
 ﻿using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
-using MvvmCross.Logging;
 using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.Exceptions;
 using PrankChat.Mobile.Core.Exceptions.Network;
@@ -15,6 +14,7 @@ using Xamarin.Essentials;
 using PrankChat.Mobile.Core.Services.ErrorHandling.Messages;
 using PrankChat.Mobile.Core.Plugins.UserInteraction;
 using PrankChat.Mobile.Core.Ioc;
+using PrankChat.Mobile.Core.Extensions;
 
 namespace PrankChat.Mobile.Core.Services.ErrorHandling
 {
@@ -23,18 +23,14 @@ namespace PrankChat.Mobile.Core.Services.ErrorHandling
         private const int ZeroSkipDelay = 0;
 
         private readonly SemaphoreSlim _semaphore = new SemaphoreSlim(1, 1);
-        private readonly IMvxLogProvider _logProvider;
+
         private bool _isSuspended;
 
         // This need for normal initialize ErrorHandleService on start application, because IUserInteraction on this time not register.
         private IUserInteraction UserInteraction => CompositionRoot.Container.Resolve<IUserInteraction>();
 
-        public ErrorHandleService(
-            IMvxMessenger messenger,
-            IMvxLogProvider logProvider)
+        public ErrorHandleService(IMvxMessenger messenger)
         {
-            _logProvider = logProvider;
-
             messenger.Subscribe<ServerErrorMessage>(OnServerErrorEvent, MvxReference.Strong);
         }
 
@@ -66,8 +62,8 @@ namespace PrankChat.Mobile.Core.Services.ErrorHandling
         public void LogError(object sender, string message, Exception exception = null)
         {
             var senderType = sender.GetType();
-            var logger = _logProvider.GetLogFor(senderType);
-            logger.Log(MvxLogLevel.Error, () => message, exception);
+            var logger = sender.Logger();
+            logger.Write(Serilog.Events.LogEventLevel.Error, exception, message);
             Analytics.TrackEvent(message);
 
             if (exception != null)

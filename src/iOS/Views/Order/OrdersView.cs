@@ -14,6 +14,9 @@ using PrankChat.Mobile.iOS.Views.Base;
 using UIKit;
 using Xamarin.Essentials;
 using PrankChat.Mobile.iOS.Common;
+using PrankChat.Mobile.iOS.Controls;
+using MvvmCross.Platforms.Ios.Binding;
+using MvvmCross.Binding.Combiners;
 
 namespace PrankChat.Mobile.iOS.Views.Order
 {
@@ -22,6 +25,7 @@ namespace PrankChat.Mobile.iOS.Views.Order
     {
         private MvxUIRefreshControl _refreshControl;
         private UIBarButtonItem _notificationBarItem;
+        private EmptyView _emptyView;
 
         public OrdersTableSource OrdersTableSource { get; private set; }
 
@@ -37,8 +41,18 @@ namespace PrankChat.Mobile.iOS.Views.Order
             bindingSet.Bind(_refreshControl).For(v => v.IsRefreshing).To(vm => vm.IsBusy);
             bindingSet.Bind(_refreshControl).For(v => v.RefreshCommand).To(vm => vm.ReloadItemsCommand);
             bindingSet.Bind(OrdersTableSource).For(v => v.LoadMoreItemsCommand).To(vm => vm.LoadMoreItemsCommand);
-            bindingSet.Bind(_notificationBarItem).For(v => v.Image).To(vm => vm.NotificationBadgeViewModel.HasUnreadNotifications).WithConversion<BoolToNotificationImageConverter>();
-		}
+            bindingSet.Bind(_notificationBarItem)
+                .For(v => v.Image)
+                .To(vm => vm.NotificationBadgeViewModel.HasUnreadNotifications)
+                .WithConversion<BoolToNotificationImageConverter>();
+
+            bindingSet.Bind(_emptyView)
+               .For(v => v.BindVisible())
+               .ByCombining(new MvxAndValueCombiner(),
+                   vm => vm.IsEmpty,
+                   vm => vm.IsNotBusy,
+                   vm => vm.IsInitialized);
+        }
 
 		protected override void SetupControls()
 		{
@@ -58,16 +72,17 @@ namespace PrankChat.Mobile.iOS.Views.Order
 
             ratingTabLabel.UserInteractionEnabled = true;
             ratingTabLabel.AddGestureRecognizer(new UITapGestureRecognizer(_ => SetSelectedTab(1)));
-            ratingTabLabel.Text = Resources.InDispute;
+            ratingTabLabel.Text = Resources.InTheDispute;
 
             ApplySelectedTabStyle(0);
+            CreateEmptyView();
         }
 
         protected override void RefreshData()
         {
             ViewModel?.ReloadItemsCommand.Execute();
             MainThread.BeginInvokeOnMainThread(() =>
-                ViewModel.SafeExecutionWrapper.Wrap(() =>
+                ViewModel?.SafeExecutionWrapper.Wrap(() =>
                 tableView.SetContentOffset(new CGPoint(0, -_refreshControl.Frame.Height), true)));
         }
 
@@ -90,11 +105,11 @@ namespace PrankChat.Mobile.iOS.Views.Order
 
         private void InitializeNavigationBar()
         {
-            _notificationBarItem = NavigationItemHelper.CreateBarButton(ImageNames.IconNotification, ViewModel.ShowNotificationCommand, UIColor.Black);
+            _notificationBarItem = NavigationItemHelper.CreateBarButton(ImageNames.IconNotification, ViewModel.ShowNotificationCommand);
             NavigationItem?.SetRightBarButtonItems(new UIBarButtonItem[]
             {
                 _notificationBarItem,
-                NavigationItemHelper.CreateBarButton(ImageNames.IconInfo, ViewModel.ShowWalkthrouthCommand, UIColor.Black)
+                NavigationItemHelper.CreateBarButton(ImageNames.IconInfo, ViewModel.ShowWalkthrouthCommand)
                 // TODO: This feature will be implemented.
                 //NavigationItemHelper.CreateBarButton("ic_search", ViewModel.ShowSearchCommand)
             }, true);
@@ -137,6 +152,13 @@ namespace PrankChat.Mobile.iOS.Views.Order
                 ratingTabLabel.SetMainTitleStyle();
                 orderTabLabel.SetTitleStyle();
             }
+        }
+
+        private void CreateEmptyView()
+        {
+            _emptyView = EmptyView
+                .Create(Resources.OrdersListIsEmpty, ImageNames.ImageEmptyState)
+                .AttachToTableViewAsBackgroundView(tableView);
         }
     }
 }
