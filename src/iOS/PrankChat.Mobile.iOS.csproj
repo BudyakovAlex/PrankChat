@@ -71,27 +71,6 @@
         <MtouchUseLlvm>true</MtouchUseLlvm>
     </PropertyGroup>
     <ItemGroup>
-        <InterfaceDefinition Include="**\*.xib" />
-        <Compile Update="**\*.designer.cs" DependentUpon="%(Filenam)" />
-        <Compile Include="**\*.cs" Exclude="obj\**" />
-
-        <None Include="Info.plist" />
-        <None Include="LinkerConfig.xml">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-        </None>
-
-        <Content Include="Entitlements.plist" />
-
-        <ImageAsset Include="Assets.xcassets\**\*.json" Visible="false" />
-        <ImageAsset Include="Assets.xcassets\**\*.pdf" Visible="false" />
-        <ImageAsset Include="Assets.xcassets\**\*.png" Visible="false" />
-
-        <InterfaceDefinition Include="LaunchScreen.storyboard" />
-        <BundleResource Include="Resources\**\*.strings" />
-        <BundleResource Include="Resources\**\*.png" />
-        <BundleResource Include="Resources\**\*.strings" />
-    </ItemGroup>
-    <ItemGroup>
         <Reference Include="System" />
         <Reference Include="System.Xml" />
         <Reference Include="System.Core" />
@@ -126,6 +105,31 @@
         <PackageReference Include="Serilog.Extensions.Logging" Version="3.1.0" />
         <PackageReference Include="Microsoft.Extensions.Logging" Version="6.0.0" />
     </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj" Name="PrankChat.Mobile.Core" />
+    </ItemGroup>
+    <ItemGroup>
+        <InterfaceDefinition Include="**\*.xib" />
+        <Compile Include="**\*.cs" Exclude="obj\**" />
+        <Compile Include="**\*.designer.cs">
+			<DependentUpon>$([System.String]::Copy(%(Filename)).Replace('.designer', '.cs'))</DependentUpon>
+		</Compile>
+
+        <None Include="Info.plist" />
+        <None Include="LinkerConfig.xml"/>
+
+        <Content Include="Entitlements.plist" />
+
+        <ImageAsset Include="Assets.xcassets\**\*.json" Visible="false" />
+        <ImageAsset Include="Assets.xcassets\**\*.pdf" Visible="false" />
+        <ImageAsset Include="Assets.xcassets\**\*.png" Visible="false" />
+
+        <InterfaceDefinition Include="LaunchScreen.storyboard" />
+        <BundleResource Include="GoogleService-Info.plist" />
+        <BundleResource Include="Resources\**\*.strings" />
+        <BundleResource Include="Resources\**\*.png" />
+        <BundleResource Include="Resources\**\*.strings" />
+    </ItemGroup>
     <Choose>
         <When Condition="'$(MtouchLink)'=='Full' Or '$(MtouchLink)'=='SdkOnly'">
             <ItemGroup>
@@ -138,8 +142,5 @@
             </ItemGroup>
         </Otherwise>
     </Choose>
-    <ItemGroup>
-        <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj" Name="PrankChat.Mobile.Core" />
-    </ItemGroup>
     <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

@@ -61,19 +61,6 @@
         <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
     </PropertyGroup>
     <ItemGroup>
-        <Compile Include="**\*.cs" Exclude="obj\**" />
-        <AndroidResource Include="Resources\**\*.png;Resources\**\*.axml;Resources\**\*.xml">
-            <SubType>Designer</SubType>
-            <Generator>MSBuild:UpdateGeneratedFiles</Generator>
-        </AndroidResource>
-        <GoogleServicesJson Include="google-services.json" />
-        <AndroidAsset Include="Assets\ripple_animation.json" />
-        <None Include="Resources\AboutResources.txt" />
-        <None Include="Assets\AboutAssets.txt" />
-        <None Include="Properties\AndroidManifest.xml" />
-        <None Include="LinkerConfig.xml" />
-    </ItemGroup>
-    <ItemGroup>
         <Reference Include="Mono.Android.Export" />
         <Reference Include="System" />
         <Reference Include="System.Xml" />
@@ -133,6 +120,19 @@
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj" Name="PrankChat.Mobile.Core" />
+    </ItemGroup>
+    <ItemGroup>
+        <Compile Include="**\*.cs" Exclude="obj\**" />
+        <AndroidResource Include="Resources\**\*.png;Resources\**\*.axml;Resources\**\*.xml">
+            <SubType>Designer</SubType>
+            <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+        </AndroidResource>
+        <GoogleServicesJson Include="google-services.json" />
+        <AndroidAsset Include="Assets\ripple_animation.json" />
+        <None Include="Resources\AboutResources.txt" />
+        <None Include="Assets\AboutAssets.txt" />
+        <None Include="Properties\AndroidManifest.xml" />
+        <None Include="LinkerConfig.xml" />
     </ItemGroup>
     <Choose>
         <When Condition="'$(AndroidLinkMode)'=='Full' Or '$(AndroidLinkMode)'=='SdkOnly'">
