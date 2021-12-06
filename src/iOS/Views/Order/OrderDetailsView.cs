@@ -5,6 +5,7 @@ using MvvmCross.Binding.Combiners;
 using MvvmCross.Platforms.Ios.Binding;
 using MvvmCross.Platforms.Ios.Views;
 using PrankChat.Mobile.Core.Converters;
+using PrankChat.Mobile.Core.Extensions.MvvmCross;
 using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.ViewModels.Order;
@@ -165,7 +166,8 @@ namespace PrankChat.Mobile.iOS.Views.Order
             bindingSet.Bind(uploadingProgressBar).For(v => v.BindTap()).To(vm => vm.VideoSectionViewModel.CancelUploadingCommand);
             bindingSet.Bind(uploadingLabel).For(v => v.Text).To(vm => vm.VideoSectionViewModel.UploadingProgressStringPresentation);
             bindingSet.Bind(NavigationItem.LeftBarButtonItem).For(v => v.Enabled).To(vm => vm.VideoSectionViewModel.IsNotBusy);
-            bindingSet.Bind(TabBarController).For(v => v.BindIsEnabled()).To(vm => vm.VideoSectionViewModel.IsNotBusy);
+            bindingSet.Bind(TabBarController).For(v => v.BindIsEnabled()).To(vm => vm.VideoSectionViewModel.IsBusy)
+                .WithBoolInvertionConversion();
         }
 
         protected override void SetupControls()
