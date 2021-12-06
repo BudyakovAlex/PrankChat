@@ -43,10 +43,9 @@ namespace PrankChat.Mobile.Core.Extensions
 
         public static string ToCountString(this long? count)
         {
-            if (count == null)
+            if (count == null || count == 0)
             {
                 return DefaultValue;
-
             }
 
             if (count >= BigLimitForCount)
@@ -59,7 +58,7 @@ namespace PrankChat.Mobile.Core.Extensions
                 return (count / SmallLimitForCount)?.ToString(FormatForCount) + Resources.CountThousand;
             }
 
-            return count?.ToString(FormatForCountWithFraction);
+            return count?.ToString(FormatForCountWithFraction) ?? string.Empty;
         }
 
         public static string ToCountViewsString(this long? count)
