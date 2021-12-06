@@ -112,11 +112,10 @@
         <InterfaceDefinition Include="**\*.xib" />
         <Compile Include="**\*.cs" Exclude="obj\**" />
         <Compile Include="**\*.designer.cs">
-			<DependentUpon>$([System.String]::Copy(%(Filename)).Replace('.designer', '.cs'))</DependentUpon>
-		</Compile>
+            <DependentUpon>$([System.String]::Copy(%(Filename)).Replace('.designer', '.cs'))</DependentUpon>
+        </Compile>
 
         <None Include="Info.plist" />
-        <None Include="LinkerConfig.xml"/>
 
         <Content Include="Entitlements.plist" />
 
@@ -124,11 +123,12 @@
         <ImageAsset Include="Assets.xcassets\**\*.pdf" Visible="false" />
         <ImageAsset Include="Assets.xcassets\**\*.png" Visible="false" />
 
-        <InterfaceDefinition Include="LaunchScreen.storyboard" />
-        <BundleResource Include="GoogleService-Info.plist" />
         <BundleResource Include="Resources\**\*.strings" />
         <BundleResource Include="Resources\**\*.png" />
         <BundleResource Include="Resources\**\*.strings" />
+
+        <InterfaceDefinition Include="LaunchScreen.storyboard" />
+        <BundleResource Include="GoogleService-Info.plist" />
     </ItemGroup>
     <Choose>
         <When Condition="'$(MtouchLink)'=='Full' Or '$(MtouchLink)'=='SdkOnly'">
