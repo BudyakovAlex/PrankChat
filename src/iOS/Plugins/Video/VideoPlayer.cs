@@ -11,12 +11,23 @@ using PrankChat.Mobile.Core.Common;
 
 namespace PrankChat.Mobile.iOS.Plugins.Video
 {
+    public static class Vlc
+    {
+        static Vlc()
+        {
+            LibVLCSharp.Shared.Core.Initialize();
+            Library = new LibVLC();
+        }
+
+        public static LibVLC Library { get; }
+    }
+
     public class VideoPlayer : NSObject, IVideoPlayer
     {
         private CompositeDisposable _disposables;
         private LibVLCSharp.Platforms.iOS.VideoView _player;
 
-        private LibVLC _libVLC;
+        private LibVLC _libVlc;
 
         private bool _isDisposed;
         private bool _shouldNotifyPartiallyPlayed;
@@ -25,6 +36,7 @@ namespace PrankChat.Mobile.iOS.Plugins.Video
         {
             MainThread.BeginInvokeOnMainThread(() =>
             {
+                _libVlc = Vlc.Library;
                 _disposables = new CompositeDisposable();
                 _player = new LibVLCSharp.Platforms.iOS.VideoView
                 {
@@ -32,8 +44,7 @@ namespace PrankChat.Mobile.iOS.Plugins.Video
                     UserInteractionEnabled = true,
                 };
 
-                _libVLC = new LibVLC();
-                _player.MediaPlayer = new LibVLCSharp.Shared.MediaPlayer(_libVLC);
+                _player.MediaPlayer = new LibVLCSharp.Shared.MediaPlayer(_libVlc);
                 _player.MediaPlayer.SubscribeToEvent<LibVLCSharp.Shared.MediaPlayer, MediaPlayerTimeChangedEventArgs>(OnTimeChanged,
                     (wrapper, handler) => wrapper.TimeChanged += handler,
                     (wrapper, handler) => wrapper.TimeChanged -= handler).DisposeWith(_disposables);
@@ -72,7 +83,7 @@ namespace PrankChat.Mobile.iOS.Plugins.Video
             MainThread.BeginInvokeOnMainThread(() =>
             {
                 var mediaOptions = new string[] { "input-repeat=-1" };
-                _player.MediaPlayer.Media = new Media(_libVLC, url, FromType.FromLocation, mediaOptions);
+                _player.MediaPlayer.Media = new Media(_libVlc, url, FromType.FromLocation, mediaOptions);
             });
         }
 
