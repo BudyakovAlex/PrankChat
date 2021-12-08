@@ -49,7 +49,7 @@ namespace PrankChat.Mobile.Droid.Views.Order
             _descriptionImageView = FindViewById<ImageView>(Resource.Id.description_image_view);
             _createButton = FindViewById<MaterialButton>(Resource.Id.create_button);
             _createOrderFrameLayout = FindViewById<FrameLayout>(Resource.Id.animation_frame_layout);
-            _createOrderPriceEditText.SetTextChangeListened((sequence) => _createOrderPriceEditText.MoveCursorBeforeSymbol(Core.Localization.Resources.Currency, sequence));
+            _createOrderPriceEditText.SetTextChangeListener((sequence) => _createOrderPriceEditText.MoveCursorBeforeSymbol(Core.Localization.Resources.Currency, sequence));
 
             _createButton.SetOnTouchListener(new ViewOnTouchListener((v, e) =>
             {

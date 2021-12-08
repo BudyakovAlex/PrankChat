@@ -1,8 +1,7 @@
-﻿// WARNING
+// WARNING
 //
-// This file has been generated automatically by Rider IDE
-//   to store outlets and actions made in Xcode.
-// If it is removed, they will be lost.
+// This file has been generated automatically by Visual Studio to store outlets and
+// actions made in the UI designer. If it is removed, they will be lost.
 // Manual changes to this file may not be handled correctly.
 //
 using Foundation;
@@ -13,6 +12,12 @@ namespace PrankChat.Mobile.iOS.Views.Competition
 	[Register ("SettingsTableParticipantsView")]
 	partial class SettingsTableParticipantsView
 	{
+		[Outlet]
+		UIKit.UIImageView AddPlaceImageView { get; set; }
+
+		[Outlet]
+		UIKit.UILabel AddPlaceLabel { get; set; }
+
 		[Outlet]
 		UIKit.UIView AddPrizePlaceView { get; set; }
 
@@ -33,7 +38,7 @@ namespace PrankChat.Mobile.iOS.Views.Competition
 
 		[Outlet]
 		UIKit.UILabel WarningLabel { get; set; }
-
+		
 		void ReleaseDesignerOutlets ()
 		{
 			if (AddPrizePlaceView != null) {
@@ -56,6 +61,11 @@ namespace PrankChat.Mobile.iOS.Views.Competition
 				FullPrizePoolLabel = null;
 			}
 
+			if (ItemsTableView != null) {
+				ItemsTableView.Dispose ();
+				ItemsTableView = null;
+			}
+
 			if (LeftToDistributeLabel != null) {
 				LeftToDistributeLabel.Dispose ();
 				LeftToDistributeLabel = null;
@@ -66,11 +76,15 @@ namespace PrankChat.Mobile.iOS.Views.Competition
 				WarningLabel = null;
 			}
 
-			if (ItemsTableView != null) {
-				ItemsTableView.Dispose ();
-				ItemsTableView = null;
+			if (AddPlaceImageView != null) {
+				AddPlaceImageView.Dispose ();
+				AddPlaceImageView = null;
 			}
 
+			if (AddPlaceLabel != null) {
+				AddPlaceLabel.Dispose ();
+				AddPlaceLabel = null;
+			}
 		}
 	}
 }

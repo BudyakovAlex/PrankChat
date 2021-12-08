@@ -3,7 +3,6 @@ using PrankChat.Mobile.Core.Common;
 using PrankChat.Mobile.Core.Data.Enums;
 using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Localization;
-using PrankChat.Mobile.Core.Managers.Orders;
 using PrankChat.Mobile.Core.ViewModels.Abstract;
 using PrankChat.Mobile.Core.ViewModels.Parameters;
 using PrankChat.Mobile.Core.ViewModels.Profile;
@@ -11,7 +10,6 @@ using PrankChat.Mobile.Core.ViewModels.Profile.Cashbox;
 using PrankChat.Mobile.Core.ViewModels.Results;
 using PrankChat.Mobile.Core.ViewModels.Walthroughs;
 using PrankChat.Mobile.Core.Providers;
-using PrankChat.Mobile.Core.Providers.Configuration;
 using System;
 using System.Threading.Tasks;
 
@@ -19,18 +17,11 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
 {
     public class CreateCompetitionViewModel : BasePageViewModel
     {
-        private readonly IOrdersManager _ordersManager;
         private readonly IWalkthroughsProvider _walkthroughsProvider;
-        private readonly IEnvironmentConfigurationProvider _environmentConfigurationProvider;
 
-        public CreateCompetitionViewModel(
-            IOrdersManager ordersManager,
-            IWalkthroughsProvider walkthroughsProvider,
-            IEnvironmentConfigurationProvider environmentConfigurationProvider)
+        public CreateCompetitionViewModel(IWalkthroughsProvider walkthroughsProvider)
         {
-            _ordersManager = ordersManager;
             _walkthroughsProvider = walkthroughsProvider;
-            _environmentConfigurationProvider = environmentConfigurationProvider;
 
             ShowWalkthrouthCommand = this.CreateCommand(ShowWalkthrouthAsync);
             ShowWalkthrouthSecretCommand = this.CreateCommand(ShowWalkthrouthSecretAsync);

@@ -111,7 +111,7 @@
     <ItemGroup>
         <InterfaceDefinition Include="**\*.xib" />
         <Compile Include="**\*.cs" Exclude="obj\**" />
-        <Compile Include="**\*.designer.cs">
+        <Compile Include="**\*.designer.cs" Exclude="obj\**">
             <DependentUpon>$([System.String]::Copy(%(Filename)).Replace('.designer', '.cs'))</DependentUpon>
         </Compile>
 

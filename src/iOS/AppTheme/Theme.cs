@@ -35,6 +35,8 @@ namespace PrankChat.Mobile.iOS.AppTheme
             public static UIColor Cobalt => UIColor.FromRGBA(0.39f, 0.35f, 0.44f, 1.0f);
             public static UIColor Violet => UIColor.FromRGBA(0.11f, 0.03f, 0.2f, 1.0f);
             public static UIColor Gray => UIColor.FromRGB(158, 158, 158);
+            public static UIColor NewAccentColor => UIColor.FromRGB(240, 134, 78);
+            public static UIColor WarningColor => UIColor.FromRGB(212, 81, 73);
         }
 
         public class Font

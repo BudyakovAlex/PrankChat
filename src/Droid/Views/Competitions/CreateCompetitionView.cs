@@ -3,6 +3,7 @@ using Android.Content.PM;
 using Android.OS;
 using Android.Text;
 using Android.Widget;
+using AndroidX.ConstraintLayout.Widget;
 using Google.Android.Material.Button;
 using Google.Android.Material.TextField;
 using MvvmCross.Platforms.Android.Binding;
@@ -32,6 +33,7 @@ namespace PrankChat.Mobile.Droid.Views.Competitions
         private CheckBox _createContestCheckBox;
         private ImageView _descriptionImageView;
         private MaterialButton _createContestButton;
+        private ConstraintLayout _settingsTableParticipantsConstraintLayout;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -52,15 +54,16 @@ namespace PrankChat.Mobile.Droid.Views.Competitions
             _createContestCheckBox = FindViewById<CheckBox>(Resource.Id.create_contest_check_box);
             _descriptionImageView = FindViewById<ImageView>(Resource.Id.description_image_view);
             _createContestButton = FindViewById<MaterialButton>(Resource.Id.create_contest_button);
+            _settingsTableParticipantsConstraintLayout = FindViewById<ConstraintLayout>(Resource.Id.settings_table_participants_constraint_layout);
 
             _collectionBidsFromEditText.InputType = InputTypes.Null;
             _collectionBidsToEditText.InputType = InputTypes.Null;
             _votingFromEditText.InputType = InputTypes.Null;
             _votingToEditText.InputType = InputTypes.Null;
 
-            _prizePoolEditText.SetTextChangeListened((sequence) => _prizePoolEditText.MoveCursorBeforeSymbol(Core.Localization.Resources.Currency, sequence));
-            _participationFeeEditText.SetTextChangeListened((sequence) => _participationFeeEditText.MoveCursorBeforeSymbol(Core.Localization.Resources.Currency, sequence));
-            _percentParticipationFeeEditText.SetTextChangeListened((sequence) => _percentParticipationFeeEditText.MoveCursorBeforeSymbol(Core.Localization.Resources.Percent, sequence));
+            _prizePoolEditText.SetTextChangeListener((sequence) => _prizePoolEditText.MoveCursorBeforeSymbol(Core.Localization.Resources.Currency, sequence));
+            _participationFeeEditText.SetTextChangeListener((sequence) => _participationFeeEditText.MoveCursorBeforeSymbol(Core.Localization.Resources.Currency, sequence));
+            _percentParticipationFeeEditText.SetTextChangeListener((sequence) => _percentParticipationFeeEditText.MoveCursorBeforeSymbol(Core.Localization.Resources.Percent, sequence));
         }
 
         protected override void Bind()
@@ -92,6 +95,7 @@ namespace PrankChat.Mobile.Droid.Views.Competitions
             bindingSet.Bind(_createContestCheckBox).For(v => v.Checked).To(vm => vm.IsExecutorHidden);
             bindingSet.Bind(_descriptionImageView).For(v => v.BindClick()).To(vm => vm.ShowWalkthrouthSecretCommand);
             bindingSet.Bind(_createContestButton).For(v => v.BindClick()).To(vm => vm.CreateCommand);
+            bindingSet.Bind(_settingsTableParticipantsConstraintLayout).For(v => v.BindClick()).To(vm => vm.ShowSettingTableParticipantsCommand);
         }
 
         private void OnCollectionBidsFromSelectDate(DateTime dateTime)

@@ -88,7 +88,7 @@ namespace PrankChat.Mobile.Droid.Views.Profile.Cashbox
             _loadingOverlayView = view.FindViewById<View>(Resource.Id.loading_overlay);
             _yoomoneyDescriptionTextView = view.FindViewById<TextView>(Resource.Id.withdrawal_yoomoney_description_text_view);
 
-            _costEditText.SetTextChangeListened((sequence) => _costEditText.MoveCursorBeforeSymbol(Core.Localization.Resources.Currency, sequence));
+            _costEditText.SetTextChangeListener((sequence) => _costEditText.MoveCursorBeforeSymbol(Core.Localization.Resources.Currency, sequence));
             SetupYoomoneyDescriptionTextView();
         }
 

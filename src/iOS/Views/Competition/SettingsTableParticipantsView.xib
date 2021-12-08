@@ -11,6 +11,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SettingsTableParticipantsView">
             <connections>
+                <outlet property="AddPlaceImageView" destination="yrG-d2-fcK" id="gyI-Pf-tOl"/>
+                <outlet property="AddPlaceLabel" destination="n1o-ex-hPb" id="8w5-GC-prk"/>
                 <outlet property="AddPrizePlaceView" destination="GlJ-xB-Cch" id="5Il-oo-sWS"/>
                 <outlet property="ApplyButton" destination="QGt-n4-uaR" id="OMB-f0-9QL"/>
                 <outlet property="ContentScrollView" destination="rcg-MD-YC5" id="8Pq-mI-xld"/>
