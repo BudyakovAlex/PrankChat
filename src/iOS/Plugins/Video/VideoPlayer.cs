@@ -16,7 +16,7 @@ namespace PrankChat.Mobile.iOS.Plugins.Video
         static Vlc()
         {
             LibVLCSharp.Shared.Core.Initialize();
-            Library = new LibVLC();
+            Library = new LibVLC(true);
         }
 
         public static LibVLC Library { get; }
