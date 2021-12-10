@@ -13,13 +13,47 @@ namespace PrankChat.Mobile.iOS.Plugins.Video
 {
     public static class Vlc
     {
-        static Vlc()
+        private static LibVLC _library;
+
+        public static LibVLC GetOrCreateLibraryRecursively()
         {
-            LibVLCSharp.Shared.Core.Initialize();
-            Library = new LibVLC();
+            try
+            {
+                if (_library is null ||
+                    _library.NativeReference == IntPtr.Zero)
+                {
+                    _library?.Dispose();
+                    _library = null;
+                    _library = new LibVLC();
+                }
+
+                return _library;
+            }
+            catch
+            {
+                return GetOrCreateLibraryRecursively();
+            }
         }
 
-        public static LibVLC Library { get; }
+        public static LibVLCSharp.Platforms.iOS.VideoView CreateAndConfigureVideoViewRecursively(Func<LibVLC> getOrCreateVlc)
+        {
+            try
+            {
+                var videoView = new LibVLCSharp.Platforms.iOS.VideoView
+                {
+                    TranslatesAutoresizingMaskIntoConstraints = false,
+                    UserInteractionEnabled = true,
+                };
+
+                var libVlc = getOrCreateVlc.Invoke();
+                videoView.MediaPlayer = new LibVLCSharp.Shared.MediaPlayer(libVlc);
+                return videoView;
+            }
+            catch
+            {
+                return CreateAndConfigureVideoViewRecursively(getOrCreateVlc);
+            }
+        }
     }
 
     public class VideoPlayer : NSObject, IVideoPlayer
@@ -36,15 +70,14 @@ namespace PrankChat.Mobile.iOS.Plugins.Video
         {
             MainThread.BeginInvokeOnMainThread(() =>
             {
-                _libVlc = Vlc.Library;
+                _libVlc = Vlc.GetOrCreateLibraryRecursively();
                 _disposables = new CompositeDisposable();
-                _player = new LibVLCSharp.Platforms.iOS.VideoView
+                _player = Vlc.CreateAndConfigureVideoViewRecursively(() =>
                 {
-                    TranslatesAutoresizingMaskIntoConstraints = false,
-                    UserInteractionEnabled = true,
-                };
+                    _libVlc = Vlc.GetOrCreateLibraryRecursively();
+                    return _libVlc;
+                });
 
-                _player.MediaPlayer = new LibVLCSharp.Shared.MediaPlayer(_libVlc);
                 _player.MediaPlayer.SubscribeToEvent<LibVLCSharp.Shared.MediaPlayer, MediaPlayerTimeChangedEventArgs>(OnTimeChanged,
                     (wrapper, handler) => wrapper.TimeChanged += handler,
                     (wrapper, handler) => wrapper.TimeChanged -= handler).DisposeWith(_disposables);

@@ -203,6 +203,10 @@ namespace PrankChat.Mobile.iOS.Views.Video
             bindingSet.Bind(likeLabel).For(v => v.Text).To(vm => vm.NumberOfLikesPresentation);
             bindingSet.Bind(dislikeLabel).For(v => v.Text).To(vm => vm.NumberOfDislikesPresentation);
 
+            bindingSet.Bind(dislikeView).For(v => v.BindVisible()).To(vm => vm.CurrentVideo.CanVoteVideo);
+            bindingSet.Bind(likeView).For(v => v.BindVisible()).To(vm => vm.CurrentVideo.CanVoteVideo);
+            bindingSet.Bind(profileView).For(v => v.BindVisible()).To(vm => vm.CurrentVideo.CanVoteVideo);
+
             bindingSet.Bind(commentsLabel).For(v => v.Text).To(vm => vm.NumberOfCommentsPresentation);
             bindingSet.Bind(shareButton).For(v => v.BindTouchUpInside()).To(vm => vm.ShareCommand);
             bindingSet.Bind(this).For(v => v.Interaction).To(vm => vm.Interaction);

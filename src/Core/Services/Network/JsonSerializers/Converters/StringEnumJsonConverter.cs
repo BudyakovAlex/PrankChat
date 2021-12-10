@@ -41,7 +41,7 @@ namespace PrankChat.Mobile.Core.Services.Network.JsonSerializers.Converters
 
             if (tokenType == JsonToken.String)
             {
-                string enumText = reader.Value.ToString();
+                var enumText = reader.Value.ToString();
                 if (enumText == string.Empty && objectType.IsNullableType())
                 {
                     return null;
@@ -51,8 +51,6 @@ namespace PrankChat.Mobile.Core.Services.Network.JsonSerializers.Converters
                 {
                     objectType = Nullable.GetUnderlyingType(objectType);
                 }
-
-                //enumText = enumText.Replace("_", "");
 
                 Enum enumObject;
                 try

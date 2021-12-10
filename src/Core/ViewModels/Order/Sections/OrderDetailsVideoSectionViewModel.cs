@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MvvmCross.Commands;
+using PrankChat.Mobile.Core.Common;
 using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.Managers.Media;
@@ -121,6 +123,13 @@ namespace PrankChat.Mobile.Core.ViewModels.Order.Sections
             var file = await _mediaManager.PickVideoAsync();
             if (file == null)
             {
+                return;
+            }
+
+            var fileInfo = new FileInfo(file.Path);
+            if (fileInfo.Length > Constants.File.MaximumFileSizeInMegabytes)
+            {
+                UserInteraction.ShowToast(Resources.VideoLimitOnUploading, ToastType.Negative);
                 return;
             }
 
