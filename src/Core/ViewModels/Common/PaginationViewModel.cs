@@ -62,13 +62,13 @@ namespace PrankChat.Mobile.Core.ViewModels.Common
         {
             SetTotalItemsCount(pagination.TotalCount);
             var viewModels = pagination.Items.Select(produceItemViewModel).ToList();
-
             if (page > 1)
             {
                 items.AddRange(viewModels);
             }
             else
             {
+                items.ForEach(item => (item as IDisposable)?.Dispose());
                 items.ReplaceWith(viewModels);
             }
 
