@@ -1475,9 +1475,9 @@ namespace PrankChat.Mobile.Core.Localization {
             }
         }
         
-        public static string com_vk_sdk_AppId {
+        public static string ComVkSdkAppId {
             get {
-                return ResourceManager.GetString("com_vk_sdk_AppId", resourceCulture);
+                return ResourceManager.GetString("ComVkSdkAppId", resourceCulture);
             }
         }
         
