@@ -4,6 +4,7 @@ using PrankChat.Mobile.Core.Models.Data;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System;
 
 namespace PrankChat.Mobile.Core.Managers.Payment
 {
@@ -28,10 +29,10 @@ namespace PrankChat.Mobile.Core.Managers.Payment
             return response.Map();
         }
 
-        public async Task<List<Withdrawal>> GetWithdrawalsAsync()
+        public async Task<Withdrawal[]> GetWithdrawalsAsync()
         {
             var response = await _paymentService.GetWithdrawalsAsync();
-            return response.Select(withdrawals => withdrawals.Map()).ToList();
+            return response?.Select(withdrawals => withdrawals.Map()).ToArray() ?? Array.Empty<Withdrawal>();
         }
 
         public Task CancelWithdrawalAsync(int withdrawalId)

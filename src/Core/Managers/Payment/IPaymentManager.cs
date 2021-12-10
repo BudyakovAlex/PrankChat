@@ -1,5 +1,4 @@
 ﻿using PrankChat.Mobile.Core.Models.Data;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Managers.Payment
@@ -10,7 +9,7 @@ namespace PrankChat.Mobile.Core.Managers.Payment
 
         Task<Withdrawal> WithdrawalAsync(double coast, int cardId);
 
-        Task<List<Withdrawal>> GetWithdrawalsAsync();
+        Task<Withdrawal[]> GetWithdrawalsAsync();
 
         Task CancelWithdrawalAsync(int withdrawalId);
     }

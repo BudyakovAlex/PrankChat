@@ -362,12 +362,12 @@ namespace PrankChat.Mobile.Core.Services.Network
 
                 AddLanguageHeader(request);
 
-                var content = cancellationToken.HasValue
+                var response = cancellationToken.HasValue
                     ? await _client.ExecuteAsync<T>(request, cancellationToken.Value)
                     : await _client.ExecuteAsync<T>(request);
 
-                CheckResponse(request, content, exceptionThrowingEnabled);
-                return content.Data;
+                CheckResponse(request, response, exceptionThrowingEnabled);
+                return response.Data;
             }
             catch (Exception e)
             {
@@ -393,8 +393,7 @@ namespace PrankChat.Mobile.Core.Services.Network
                 try
                 {
                     var problemDetails = JsonConvert.DeserializeObject<ProblemDetailsDto>(response.Content);
-                   // var problemDetailsData = problemDetails.Map(); // MappingConfig.Mapper.Map<ProblemDetailsDataModel>(problemDetails);
-                    throw problemDetails.Map();
+                    throw problemDetails?.Map();
                 }
                 catch (JsonSerializationException)
                 {
