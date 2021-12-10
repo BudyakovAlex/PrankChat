@@ -68,7 +68,6 @@ namespace PrankChat.Mobile.Core.ViewModels.Common
             }
             else
             {
-                items.ForEach(item => (item as IDisposable)?.Dispose());
                 items.ReplaceWith(viewModels);
             }
 
