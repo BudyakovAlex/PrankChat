@@ -51,7 +51,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
                 : await _competitionsManager.GetCompetitionRatingsAsync(_competition.Id);
 
             var items = ProducePrizePoolItems(competitionRatings);
-            Items.SwitchTo(items);
+            InvokeOnMainThread(() => Items.ReplaceWith(items));
         }
 
         private IEnumerable<CompetitionPrizePoolItemViewModel> ProducePrizePoolItems(List<CompetitionResult> results)

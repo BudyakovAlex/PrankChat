@@ -408,6 +408,7 @@
 		<Compile Include="Controls\EmptyView .cs" />
 		<Compile Include="Plugins\HttpClient\Delegates\NSUrlSessionDataDelegate.cs" />
 		<Compile Include="Plugins\HttpClient\Builders\FormDataBuilder.cs" />
+		<Compile Include="Binding\UITabBarControllerIsEnabedTargetBinding.cs" />
 	</ItemGroup>
 	<ItemGroup>
 		<Reference Include="System" />

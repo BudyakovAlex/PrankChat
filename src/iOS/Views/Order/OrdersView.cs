@@ -72,7 +72,7 @@ namespace PrankChat.Mobile.iOS.Views.Order
 
             ratingTabLabel.UserInteractionEnabled = true;
             ratingTabLabel.AddGestureRecognizer(new UITapGestureRecognizer(_ => SetSelectedTab(1)));
-            ratingTabLabel.Text = Resources.InDispute;
+            ratingTabLabel.Text = Resources.InTheDispute;
 
             ApplySelectedTabStyle(0);
             CreateEmptyView();

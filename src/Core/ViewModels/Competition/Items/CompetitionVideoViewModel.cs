@@ -33,10 +33,12 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition.Items
             IsVotingAvailable = isVotingAvailable;
             _getAllFullScreenVideosFunc = getAllFullScreenVideosFunc;
 
-           Messenger.SubscribeWithCondition<ViewCountMessage>(msg => msg.VideoId == VideoId, msg => NumberOfViews = msg.ViewsCount)
-                .DisposeWith(Disposables);
+            Messenger.SubscribeWithCondition<ViewCountMessage>(msg => msg.VideoId == VideoId, msg => NumberOfViews = msg.ViewsCount)
+                 .DisposeWith(Disposables);
 
             ShowFullScreenVideoCommand = this.CreateCommand(ShowFullScreenVideoAsync);
+
+            LikesCount = CountExtensions.ToCountString(NumberOfLikes);
         }
 
         public override bool CanVoteVideo => IsVotingAvailable && !IsMyPublication;
@@ -51,7 +53,12 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition.Items
 
         public bool IsVotingAvailable { get; }
 
-        public string LikesCount => CountExtensions.ToCountString(NumberOfLikes);
+        private string _likesCount;
+        public string LikesCount
+        {
+            get => _likesCount;
+            set => SetProperty(ref _likesCount, value);
+        }
 
         public string ViewsCount => CountExtensions.ToCountViewsString(NumberOfViews);
 
@@ -68,15 +75,19 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition.Items
 
         protected override User User => Video.User;
 
-        protected override void OnLikeChanged() =>
-            RaisePropertyChanged(LikesCount);
+        protected override void OnLikeChanged()
+        {
+            LikesCount = CountExtensions.ToCountString(NumberOfLikes);
+        }
 
-        protected override void OnDislikeChanged() =>
-            RaisePropertyChanged(LikesCount);
-
+        protected override void OnDislikeChanged()
+        {
+            LikesCount = CountExtensions.ToCountString(NumberOfLikes);
+        }
+        
         private async Task ShowFullScreenVideoAsync()
         {
-            var items = _getAllFullScreenVideosFunc?.Invoke() ?? new [] { this };
+            var items = _getAllFullScreenVideosFunc?.Invoke() ?? new[] { this };
             var currentItem = items.FirstOrDefault(item => item.VideoId == VideoId);
             var index = currentItem is null ? 0 : items.IndexOfOrDefault(currentItem);
             var navigationParams = new FullScreenVideoParameter(items, index);
