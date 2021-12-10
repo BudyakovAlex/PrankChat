@@ -41,6 +41,7 @@ namespace PrankChat.Mobile.Core.Common
         public static class File
         {
             public const string DownloadVideoFormat = ".mp4";
+            public const long MaximumFileSizeInMegabytes = 1024 * 1024 * 150;
         }
 
         public static class Delays

@@ -1876,5 +1876,11 @@ namespace PrankChat.Mobile.Core.Localization {
                 return ResourceManager.GetString("OrdersNotFound", resourceCulture);
             }
         }
+        
+        public static string VideoLimitOnUploading {
+            get {
+                return ResourceManager.GetString("VideoLimitOnUploading", resourceCulture);
+            }
+        }
     }
 }
