@@ -185,6 +185,13 @@ namespace PrankChat.Mobile.Droid.Views.Video
             bindingSet.Bind(_dislikeView).For(v => v.Enabled).To(vm => vm.CurrentVideo.CanVoteVideo);
             bindingSet.Bind(_dislikeView).For(v => v.Activated).To(vm => vm.CurrentVideo.IsDisliked);
 
+            bindingSet.Bind(_likeView).For(v => v.BindVisible()).To(vm => vm.CurrentVideo.CanVoteVideo);
+            bindingSet.Bind(_dislikeView).For(v => v.BindVisible()).To(vm => vm.CurrentVideo.CanVoteVideo);
+            bindingSet.Bind(_profileView).For(v => v.BindVisible()).To(vm => vm.CurrentVideo.CanVoteVideo);
+            bindingSet.Bind(_profileImageView).For(v => v.BindVisible()).To(vm => vm.CurrentVideo.CanVoteVideo);
+            bindingSet.Bind(_likeTextView).For(v => v.BindVisible()).To(vm => vm.CurrentVideo.CanVoteVideo);
+            bindingSet.Bind(_dislikeTextView).For(v => v.BindVisible()).To(vm => vm.CurrentVideo.CanVoteVideo);
+
             bindingSet.Bind(_dislikeTextView).For(v => v.Text).To(vm => vm.NumberOfDislikesPresentation);
             bindingSet.Bind(_commentsTextView).For(v => v.Text).To(vm => vm.NumberOfCommentsPresentation);
             bindingSet.Bind(_shareImageView).For(v => v.BindClick()).To(vm => vm.ShareCommand);
