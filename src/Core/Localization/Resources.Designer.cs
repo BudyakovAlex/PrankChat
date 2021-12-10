@@ -1475,9 +1475,9 @@ namespace PrankChat.Mobile.Core.Localization {
             }
         }
         
-        public static string ComVkSdkAppId {
+        public static string com_vk_sdk_AppId {
             get {
-                return ResourceManager.GetString("ComVkSdkAppId", resourceCulture);
+                return ResourceManager.GetString("com_vk_sdk_AppId", resourceCulture);
             }
         }
         
@@ -1874,6 +1874,12 @@ namespace PrankChat.Mobile.Core.Localization {
         public static string OrdersNotFound {
             get {
                 return ResourceManager.GetString("OrdersNotFound", resourceCulture);
+            }
+        }
+        
+        public static string VideoLimitOnUploading {
+            get {
+                return ResourceManager.GetString("VideoLimitOnUploading", resourceCulture);
             }
         }
     }

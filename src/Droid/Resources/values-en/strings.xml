@@ -767,4 +767,5 @@ Taking such a task the user will have to complete it or lose the Deposit!"</stri
     <string name="PublicationsNotFound">"Publications not found"</string>
     <string name="PeoplesNotFound">"Peoples not found"</string>
     <string name="OrdersNotFound">"Orders not found"</string>
+    <string name="VideoLimitOnUploading">"Video must be lower than 150mb"</string>
 </resources>
