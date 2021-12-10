@@ -353,3 +353,4 @@ MigrationBackup/
 Resource.designer.cs
 
 .idea/
+.DS_Store

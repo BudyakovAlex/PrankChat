@@ -357,5 +357,16 @@ namespace PrankChat.Mobile.Core.ViewModels.Common.Abstract
                 }
             });
         }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                FullVideoPlayer?.Dispose();
+                PreviewVideoPlayer?.Dispose();
+            }
+
+            base.Dispose(disposing);
+        }
     }
 }

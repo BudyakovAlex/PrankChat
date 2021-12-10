@@ -124,9 +124,11 @@ namespace PrankChat.Mobile.iOS.Plugins.Video
         {
             MainThread.BeginInvokeOnMainThread(() =>
             {
+                System.Diagnostics.Debug.WriteLine($"Play before {_player?.MediaPlayer?.State}");
                 _shouldNotifyPartiallyPlayed = true;
-                _player.MediaPlayer.Play();
+                _player?.MediaPlayer?.Play();
                 IsPlaying = true;
+                System.Diagnostics.Debug.WriteLine($"Play after {_player?.MediaPlayer?.State}");
             });
         }
 
@@ -134,9 +136,11 @@ namespace PrankChat.Mobile.iOS.Plugins.Video
         {
             MainThread.BeginInvokeOnMainThread(() =>
             {
-                _player.MediaPlayer.Pause();
+                System.Diagnostics.Debug.WriteLine($"Pause before {_player?.MediaPlayer?.State}");
+                _player?.MediaPlayer?.Pause();
                 IsPlaying = false;
                 VideoPlayingStatusChanged?.Invoke(this, VideoPlayingStatus.Paused);
+                System.Diagnostics.Debug.WriteLine($"Pause after {_player?.MediaPlayer?.State}");
             });
         }
 
@@ -144,8 +148,17 @@ namespace PrankChat.Mobile.iOS.Plugins.Video
         {
             MainThread.BeginInvokeOnMainThread(() =>
             {
-                _player.MediaPlayer.Stop();
+                System.Diagnostics.Debug.WriteLine($"Stop before {_player?.MediaPlayer?.State}");
+                var playerState = _player?.MediaPlayer?.State;
+                if (playerState != null && playerState == VLCState.Stopped)
+                {
+                    System.Diagnostics.Debug.WriteLine($"Stop return {_player?.MediaPlayer?.State}");
+                    return;
+                }
+
+                _player?.MediaPlayer?.Stop();
                 IsPlaying = false;
+                System.Diagnostics.Debug.WriteLine($"Stop after {_player?.MediaPlayer?.State}");
                 VideoPlayingStatusChanged?.Invoke(this, VideoPlayingStatus.Stopped);
             });
         }
@@ -161,6 +174,9 @@ namespace PrankChat.Mobile.iOS.Plugins.Video
 
             _isDisposed = true;
             _disposables.Dispose();
+            _player?.MediaPlayer?.Dispose();
+            _player?.Dispose();
+            _player = null;
         }
 
 

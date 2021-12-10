@@ -88,7 +88,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Abstract
 
             if (disposing)
             {
-                Disposables.Dispose();
+                Disposables?.Dispose();
             }
 
             _isDisposed = true;
@@ -96,6 +96,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Abstract
 
         public void Dispose()
         {
+            System.Diagnostics.Debug.WriteLine($"Call dispose for {this}");
             Dispose(true);
         }
 
@@ -103,6 +104,12 @@ namespace PrankChat.Mobile.Core.ViewModels.Abstract
         {
             var raisePropertiesTasks = propertiesNames.Select(propertyName => RaisePropertyChanged(propertyName));
             return Task.WhenAll(raisePropertiesTasks);
+        }
+
+        ~BaseViewModel()
+        {
+            System.Diagnostics.Debug.WriteLine($"Call desctructor for {this}");
+            Dispose();
         }
     }
 }
