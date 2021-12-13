@@ -26,12 +26,13 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
         MediaPlayer.IOnCompletionListener,
         TextureView.ISurfaceTextureListener
     {
+        private readonly SafeExecutionWrapper _safeExecutionWrapper;
+
         private AutoFitTextureView _textureView;
         private Surface _surface;
         private MediaPlayer _mediaPlayer;
         private CancellationTokenSource _registrationCancellationTokenSource;
-
-        private readonly SafeExecutionWrapper _safeExecutionWrapper;
+        private bool _isDisposed;
 
         private bool _isPrepared;
         private bool _isPlayNeeded;
@@ -281,14 +282,19 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Video
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);
-            if (disposing)
+
+            if (disposing && !_isDisposed)
             {
+                _isDisposed = true;
                 _mediaPlayer.Release();
                 _mediaPlayer.Dispose();
 
-                _textureView = null;
-                _surface?.Release();
-                _surface?.Dispose();
+                if (_textureView != null)
+                {
+                    _textureView = null;
+                    _surface?.Release();
+                    _surface?.Dispose();
+                }
             }
         }
     }
