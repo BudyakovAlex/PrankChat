@@ -1,10 +1,11 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using PrankChat.Mobile.Core.Extensions;
 using System;
 
 namespace PrankChat.Mobile.Core.Services.Network.JsonSerializers.Converters
 {
-    public class StringEnumJsonConverter : JsonConverter
+    public class StringEnumJsonConverter : StringEnumConverter
     {
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
@@ -14,26 +15,24 @@ namespace PrankChat.Mobile.Core.Services.Network.JsonSerializers.Converters
             }
             else
             {
-                Enum enumObject = value as Enum;
+                var enumObject = value as Enum;
                 if (enumObject != null)
                 {
-                    string str = enumObject.ToString("G");
-                    writer.WriteValue(str);
+                    var stringValue = enumObject.ToString("G");
+                    writer.WriteValue(stringValue);
                 }
                 else
                 {
-                    var s = new JsonSerializer();
-                    s.Converters.Add(this);
-
-                    s.Serialize(writer, value);
+                    var jsonSerializer = new JsonSerializer();
+                    jsonSerializer.Converters.Add(this);
+                    jsonSerializer.Serialize(writer, value);
                 }
             }
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            JsonToken tokenType = reader.TokenType;
-
+            var tokenType = reader.TokenType;
             if (tokenType == JsonToken.Null && objectType.IsNullableType())
             {
                 return null;
@@ -47,23 +46,15 @@ namespace PrankChat.Mobile.Core.Services.Network.JsonSerializers.Converters
                     return null;
                 }
 
-                if (objectType.IsNullableType())
-                {
-                    objectType = Nullable.GetUnderlyingType(objectType);
-                }
-
-                Enum enumObject;
                 try
                 {
-                    enumObject = (Enum)Enum.Parse(objectType, enumText, true);
+                    return base.ReadJson(reader, objectType, existingValue, serializer);
                 }
                 catch (ArgumentException)
                 {
                     // Returns default value
                     return Activator.CreateInstance(objectType);
                 }
-
-                return enumObject;
             }
 
             // Workaround for correct deserialization of integer values to enums
@@ -80,10 +71,9 @@ namespace PrankChat.Mobile.Core.Services.Network.JsonSerializers.Converters
             // Workaround for lists of enums
             if (tokenType == JsonToken.StartArray)
             {
-                JsonSerializer s = new JsonSerializer();
-                s.Converters.Add(this);
-
-                return s.Deserialize(reader, objectType);
+                var jsonSerializer = new JsonSerializer();
+                jsonSerializer.Converters.Add(this);
+                return jsonSerializer.Deserialize(reader, objectType);
             }
 
             throw new JsonSerializationException(
@@ -95,9 +85,10 @@ namespace PrankChat.Mobile.Core.Services.Network.JsonSerializers.Converters
 
         public override bool CanConvert(Type objectType)
         {
-            Type subType = objectType.IsNullableType()
+            var subType = objectType.IsNullableType()
                 ? Nullable.GetUnderlyingType(objectType)
                 : objectType;
+
             return subType.IsEnum();
         }
     }
