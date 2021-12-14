@@ -12,22 +12,20 @@ namespace PrankChat.Mobile.Core.Services.Network.JsonSerializers.Converters
             if (value == null)
             {
                 writer.WriteNull();
+                return;
             }
-            else
+
+            var enumObject = value as Enum;
+            if (enumObject != null)
             {
-                var enumObject = value as Enum;
-                if (enumObject != null)
-                {
-                    var stringValue = enumObject.ToString("G");
-                    writer.WriteValue(stringValue);
-                }
-                else
-                {
-                    var jsonSerializer = new JsonSerializer();
-                    jsonSerializer.Converters.Add(this);
-                    jsonSerializer.Serialize(writer, value);
-                }
+                var stringValue = enumObject.ToString("G");
+                writer.WriteValue(stringValue);
+                return;
             }
+
+            var jsonSerializer = new JsonSerializer();
+            jsonSerializer.Converters.Add(this);
+            jsonSerializer.Serialize(writer, value);
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
