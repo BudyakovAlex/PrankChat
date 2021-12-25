@@ -24,6 +24,7 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace PrankChat.Mobile.Core.ViewModels.Competition
 {
@@ -259,6 +260,13 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
                 var file = await _mediaManager.PickVideoAsync();
                 if (file == null)
                 {
+                    return;
+                }
+
+                var fileInfo = new FileInfo(file.Path);
+                if (fileInfo.Length > Constants.File.MaximumFileSizeInMegabytes)
+                {
+                    UserInteraction.ShowToast(Resources.VideoLimitOnUploading, ToastType.Negative);
                     return;
                 }
 

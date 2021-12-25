@@ -44,7 +44,7 @@ namespace PrankChat.Mobile.iOS.Views.ArbitrationView
 
 			orderDetailsButton.TitleLabel.Text = Resources.Estimate;
 
-			OrderStatusLabel.Text = Resources.InDispute;
+			OrderStatusLabel.Text = Resources.InTheDispute;
 		}
 
 		protected override void Bind()

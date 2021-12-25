@@ -30,5 +30,8 @@ namespace PrankChat.Mobile.iOS.Extensions
 
         public static string BindBottomPadding(this FloatPlaceholderTextField _)
             => FloatPlaceholderTextFieldPaddingTargetBinding.BottomPadding;
+
+        public static string BindIsEnabled(this UITabBarController _)
+           => nameof(UITabBarControllerIsEnabedTargetBinding);
     }
 }

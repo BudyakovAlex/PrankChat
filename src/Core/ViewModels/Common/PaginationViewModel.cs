@@ -62,7 +62,6 @@ namespace PrankChat.Mobile.Core.ViewModels.Common
         {
             SetTotalItemsCount(pagination.TotalCount);
             var viewModels = pagination.Items.Select(produceItemViewModel).ToList();
-
             if (page > 1)
             {
                 items.AddRange(viewModels);

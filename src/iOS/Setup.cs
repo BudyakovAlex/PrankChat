@@ -98,6 +98,7 @@ namespace PrankChat.Mobile.iOS
             registry.RegisterCustomBindingFactory<UIImageView>(nameof(UIImageViewOrderTypeTargetBinding), v => new UIImageViewOrderTypeTargetBinding(v));
             registry.RegisterCustomBindingFactory<UIButton>(nameof(UIButtonOrderTypeTargetBinding), v => new UIButtonOrderTypeTargetBinding(v));
             registry.RegisterCustomBindingFactory<WKWebView>(nameof(WKWebViewHtmlStringTargetBinding), v => new WKWebViewHtmlStringTargetBinding(v));
+            registry.RegisterCustomBindingFactory<UITabBarController>(nameof(UITabBarControllerIsEnabedTargetBinding), v => new UITabBarControllerIsEnabedTargetBinding(v));
 
             registry.RegisterCustomBindingFactory<FloatPlaceholderTextField>(FloatPlaceholderTextFieldPaddingTargetBinding.StartPadding, view => new FloatPlaceholderTextFieldPaddingTargetBinding(view, FloatPlaceholderTextFieldPaddingTargetBinding.StartPadding));
             registry.RegisterCustomBindingFactory<FloatPlaceholderTextField>(FloatPlaceholderTextFieldPaddingTargetBinding.EndPadding, view => new FloatPlaceholderTextFieldPaddingTargetBinding(view, FloatPlaceholderTextFieldPaddingTargetBinding.EndPadding));

@@ -3,19 +3,22 @@ using CoreGraphics;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Binding.Combiners;
 using MvvmCross.Platforms.Ios.Binding;
-using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
+using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using MvvmCross.Platforms.Ios.Views;
 using PrankChat.Mobile.Core.Converters;
+using PrankChat.Mobile.Core.Extensions.MvvmCross;
 using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.ViewModels.Order;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Common;
+using PrankChat.Mobile.iOS.Extensions;
 using PrankChat.Mobile.iOS.Views.Base;
 using UIKit;
 
 namespace PrankChat.Mobile.iOS.Views.Order
 {
+    [MvxModalPresentation(WrapInNavigationController = true)]
     public partial class OrderDetailsView : BaseViewController<OrderDetailsViewModel>
     {
         private MvxUIRefreshControl _refreshControl;

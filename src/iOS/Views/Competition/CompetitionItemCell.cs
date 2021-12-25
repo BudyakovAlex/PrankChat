@@ -86,8 +86,7 @@ namespace PrankChat.Mobile.iOS.Views.Competition
                       .WithConversion(new DelegateConverter<OrderCategory, bool>((category) => category == OrderCategory.PrivatePaidCompetition));
             bindingSet.Bind(PaidFlagImageView).For(v => v.BindVisible()).To(vm => vm.Category)
                       .WithConversion(new DelegateConverter<OrderCategory, bool>((category) => category == OrderCategory.PaidCompetition || category == OrderCategory.PrivatePaidCompetition));
-            bindingSet.Bind(button).For(v => v.BindTitle()).To(vm => vm.Phase)
-                      .WithConversion<CompetitionPhaseToActionButtonTitleConverter>();
+            bindingSet.Bind(button).For(v => v.BindTitle()).To(vm => vm.ActionButtonTitle);
             bindingSet.Bind(button).For(v => v.BindTouchUpInside()).To(vm => vm.ActionCommand);
         }
 

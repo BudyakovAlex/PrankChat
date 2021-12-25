@@ -408,6 +408,7 @@
 		<Compile Include="Controls\EmptyView .cs" />
 		<Compile Include="Plugins\HttpClient\Delegates\NSUrlSessionDataDelegate.cs" />
 		<Compile Include="Plugins\HttpClient\Builders\FormDataBuilder.cs" />
+		<Compile Include="Binding\UITabBarControllerIsEnabedTargetBinding.cs" />
 	</ItemGroup>
 	<ItemGroup>
 		<Reference Include="System" />
@@ -483,7 +484,7 @@
 			<Version>3.3.17</Version>
 		</PackageReference>
 		<PackageReference Include="LibVLCSharp">
-			<Version>3.6.1</Version>
+			<Version>3.6.3</Version>
 		</PackageReference>
 		<PackageReference Include="Serilog">
 			<Version>2.10.0</Version>

@@ -13,9 +13,6 @@ namespace PrankChat.Mobile.iOS.Views.Competition
 {
     public partial class CompetitionVideoCell : BaseVideoTableCell<CompetitionVideoCell, CompetitionVideoViewModel>
     {
-        private bool _isLikeButtonVisible;
-        private bool _isLiked;
-
         private nfloat _likeButtonHeightConstraintConstant;
         private nfloat _likeButtonBottomConstraintConstant;
 
@@ -32,6 +29,7 @@ namespace PrankChat.Mobile.iOS.Views.Competition
         protected override UILabel ProcessingLabel => processingLabel;
         protected override UIActivityIndicatorView ProcessingActivityIndicator => processingIndicatorView;
 
+        private bool _isLikeButtonVisible;
         public bool IsLikeButtonVisible
         {
             get => _isLikeButtonVisible;
@@ -53,6 +51,7 @@ namespace PrankChat.Mobile.iOS.Views.Competition
             }
         }
 
+        private bool _isLiked;
         public bool IsLiked
         {
             get => _isLiked;
@@ -61,14 +60,16 @@ namespace PrankChat.Mobile.iOS.Views.Competition
                 _isLiked = value;
                 if (_isLiked)
                 {
-                    likeButton.TintColor = Theme.Color.White;
                     likeButton.BackgroundColor = Theme.Color.CompetitionPhaseNewPrimary;
+                    likeButton.SetTitleColor(Theme.Color.White, UIControlState.Normal);
+                    likeButton.SetImage(UIImage.FromBundle(ImageNames.IconThumbsUp).ApplyTintColor(Theme.Color.White), UIControlState.Normal);
                     likeButton.Alpha = 1f;
                 }
                 else
                 {
-                    likeButton.TintColor = Theme.Color.CompetitionPhaseNewPrimary;
                     likeButton.BackgroundColor = UIColor.Clear;
+                    likeButton.SetTitleColor(Theme.Color.CompetitionPhaseNewPrimary, UIControlState.Normal);
+                    likeButton.SetImage(UIImage.FromBundle(ImageNames.IconThumbsUp).ApplyTintColor(Theme.Color.CompetitionPhaseNewPrimary), UIControlState.Normal);
                     likeButton.Alpha = 0.5f;
                 }
             }
@@ -106,9 +107,9 @@ namespace PrankChat.Mobile.iOS.Views.Competition
             bindingSet.Bind(postDateLabel).For(v => v.Text).To(vm => vm.PublicationDateString);
             bindingSet.Bind(videoView).For(v => v.BindTap()).To(vm => vm.ShowFullScreenVideoCommand);
             bindingSet.Bind(likeButton).For(v => v.BindTouchUpInside()).To(vm => vm.LikeCommand);
-            bindingSet.Bind(likeButton).For(v => v.BindTitle()).To(vm => vm.LikesCount);
             bindingSet.Bind(this).For(v => v.IsLiked).To(vm => vm.IsLiked);
             bindingSet.Bind(this).For(v => v.IsLikeButtonVisible).To(vm => vm.CanVoteVideo);
+            bindingSet.Bind(likeButton).For(v => v.BindTitle()).To(vm => vm.LikesCount);
             bindingSet.Bind(RootProcessingBackgroundView).For(v => v.BindVisible()).To(vm => vm.IsVideoProcessing);
             bindingSet.Bind(videoView).For(v => v.BindHidden()).To(vm => vm.IsVideoProcessing);
             bindingSet.Bind(this).For(v => v.CanShowStub).To(vm => vm.IsVideoProcessing)

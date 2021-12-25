@@ -107,8 +107,7 @@ namespace PrankChat.Mobile.Droid.Adapters.ViewHolders.Competitions
             bindingSet.Bind(_backgroundFrame).For(v => v.BindBackgroundResource()).To(vm => vm.Phase)
                       .WithConversion<CompetitionPhaseToBackgroundConverter>();
             bindingSet.Bind(_placeholderImageView).For(v => v.ImagePath).To(vm => vm.ImageUrl);
-            bindingSet.Bind(_actionButton).For(v => v.Text).To(vm => vm.Phase)
-                      .WithConversion<CompetitionPhaseToActionButtonTitleConverter>();
+            bindingSet.Bind(_actionButton).For(v => v.Text).To(vm => vm.ActionButtonTitle);
             bindingSet.Bind(_actionButton).For(v => v.BindClick()).To(vm => vm.ActionCommand);
             bindingSet.Bind(_termLinearLayout).For(v => v.Visibility).To(vm => vm.IsFinished)
                       .WithConversion<BoolToGoneConverter>();

@@ -13,6 +13,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using UIKit;
+using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.iOS.Plugins.UserInteraction
 {
@@ -65,54 +66,57 @@ namespace PrankChat.Mobile.iOS.Plugins.UserInteraction
 
         public override void ShowToast(string text, ToastType toastType)
         {
-            try
+            MainThread.BeginInvokeOnMainThread(() =>
             {
-                IsToastShown = true;
-
-                var keyWindow = UIApplication.SharedApplication.KeyWindow;
-                if (keyWindow == null)
+                try
                 {
-                    IsToastShown = false;
-                    return;
-                }
+                    IsToastShown = true;
 
-                var topViewController = GetTopViewController(keyWindow);
-                if (topViewController is UIAlertController)
-                {
-                    IsToastShown = false;
-                    return;
-                }
-
-                var toast = ToastView.Create(text, toastType);
-                toast.TranslatesAutoresizingMaskIntoConstraints = false;
-
-                var superview = topViewController.View;
-                superview.AddSubview(toast);
-
-                NSLayoutConstraint.ActivateConstraints(new[]
-                {
-                    toast.LeadingAnchor.ConstraintEqualTo(superview.LeadingAnchor),
-                    toast.TopAnchor.ConstraintEqualTo(superview.SafeAreaLayoutGuide.TopAnchor),
-                    toast.TrailingAnchor.ConstraintEqualTo(superview.TrailingAnchor)
-                });
-
-                toast.Frame = new CGRect(0f, -toast.Frame.Height, toast.Frame.Width, toast.Frame.Height);
-                UIView.Animate(
-                    ToastAnimationDuration,
-                    () => toast.Frame = new CGRect(0f, 0f, toast.Frame.Width, toast.Frame.Height));
-
-                DispatchQueue.MainQueue.DispatchAfter(
-                    new DispatchTime(DispatchTime.Now, TimeSpan.FromSeconds(ToastDuration)),
-                    () =>
+                    var keyWindow = UIApplication.SharedApplication.KeyWindow;
+                    if (keyWindow == null)
                     {
-                        toast.RemoveFromSuperview();
                         IsToastShown = false;
+                        return;
+                    }
+
+                    var topViewController = GetTopViewController(keyWindow);
+                    if (topViewController is UIAlertController)
+                    {
+                        IsToastShown = false;
+                        return;
+                    }
+
+                    var toast = ToastView.Create(text, toastType);
+                    toast.TranslatesAutoresizingMaskIntoConstraints = false;
+
+                    var superview = topViewController.View;
+                    superview.AddSubview(toast);
+
+                    NSLayoutConstraint.ActivateConstraints(new[]
+                    {
+                        toast.LeadingAnchor.ConstraintEqualTo(superview.LeadingAnchor),
+                        toast.TopAnchor.ConstraintEqualTo(superview.SafeAreaLayoutGuide.TopAnchor),
+                        toast.TrailingAnchor.ConstraintEqualTo(superview.TrailingAnchor)
                     });
-            }
-            catch (Exception ex)
-            {
-                _lazyErrorHandleService.Value.LogError(this, "Failed to show toast", ex);
-            }
+
+                    toast.Frame = new CGRect(0f, -toast.Frame.Height, toast.Frame.Width, toast.Frame.Height);
+                    UIView.Animate(
+                        ToastAnimationDuration,
+                        () => toast.Frame = new CGRect(0f, 0f, toast.Frame.Width, toast.Frame.Height));
+
+                    DispatchQueue.MainQueue.DispatchAfter(
+                        new DispatchTime(DispatchTime.Now, TimeSpan.FromSeconds(ToastDuration)),
+                        () =>
+                        {
+                            toast.RemoveFromSuperview();
+                            IsToastShown = false;
+                        });
+                }
+                catch (Exception ex)
+                {
+                    _lazyErrorHandleService.Value.LogError(this, "Failed to show toast", ex);
+                }
+            });
         }
 
         public static UIViewController GetTopViewController(UIWindow window)

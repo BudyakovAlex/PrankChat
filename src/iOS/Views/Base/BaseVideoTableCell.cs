@@ -1,4 +1,5 @@
 ﻿using CoreAnimation;
+using CoreFoundation;
 using CoreGraphics;
 using FFImageLoading.Cross;
 using Foundation;
@@ -66,7 +67,7 @@ namespace PrankChat.Mobile.iOS.Views.Base
         public override void PrepareForReuse()
         {
             StubImageView.Image = null;
-     
+
             ShowStub();
 
             StopVideo();
@@ -90,7 +91,7 @@ namespace PrankChat.Mobile.iOS.Views.Base
             RootProcessingBackgroundView.BackgroundColor = UIColor.Clear;
             _gradientLayer = new CAGradientLayer
             {
-                Colors = new[] {  Theme.Color.CompetitionPhaseNewPrimary.CGColor, Theme.Color.CompetitionPhaseNewSecondary.CGColor },
+                Colors = new[] { Theme.Color.CompetitionPhaseNewPrimary.CGColor, Theme.Color.CompetitionPhaseNewSecondary.CGColor },
                 CornerRadius = 10,
                 StartPoint = new CGPoint(0f, 1f),
                 EndPoint = new CGPoint(1f, 0f)
@@ -144,31 +145,33 @@ namespace PrankChat.Mobile.iOS.Views.Base
 
         private void SetPlayerState()
         {
-            if (VideoPlayer?.GetNativePlayer() is VideoView player)
+            if (!(VideoPlayer?.GetNativePlayer() is VideoView player))
             {
-                _videoPlayer.ReadyToPlayAction = HideStubs;
-                foreach (var subview in VideoView.Subviews)
-                {
-                    foreach (var gestureRecognizer in subview.GestureRecognizers)
-                    {
-                        subview.RemoveGestureRecognizer(gestureRecognizer);
-                    }
+                return;
+            }
 
-                    subview.RemoveFromSuperview();
+            _videoPlayer.ReadyToPlayAction = HideStubs;
+            foreach (var subview in VideoView.Subviews)
+            {
+                foreach (var gestureRecognizer in subview.GestureRecognizers)
+                {
+                    subview.RemoveGestureRecognizer(gestureRecognizer);
                 }
 
-                VideoView.AddSubview(player);
-                player.BackgroundColor = UIColor.Black;
-                player.AddGestureRecognizer(_tapGestureRecognizer);
-
-                NSLayoutConstraint.ActivateConstraints(new[]
-                {
-                    player.TopAnchor.ConstraintEqualTo(VideoView.TopAnchor),
-                    player.LeadingAnchor.ConstraintEqualTo(VideoView.LeadingAnchor),
-                    player.TrailingAnchor.ConstraintEqualTo(VideoView.TrailingAnchor),
-                    player.BottomAnchor.ConstraintEqualTo(VideoView.BottomAnchor)
-                });
+                subview.RemoveFromSuperview();
             }
+
+            VideoView.AddSubview(player);
+            player.BackgroundColor = UIColor.Black;
+            player.AddGestureRecognizer(_tapGestureRecognizer);
+
+            NSLayoutConstraint.ActivateConstraints(new[]
+            {
+                player.TopAnchor.ConstraintEqualTo(VideoView.TopAnchor),
+                player.LeadingAnchor.ConstraintEqualTo(VideoView.LeadingAnchor),
+                player.TrailingAnchor.ConstraintEqualTo(VideoView.TrailingAnchor),
+                player.BottomAnchor.ConstraintEqualTo(VideoView.BottomAnchor)
+            });
         }
 
         protected override void Bind()
@@ -183,23 +186,23 @@ namespace PrankChat.Mobile.iOS.Views.Base
 
     public abstract class BaseVideoTableCell<TCell, TViewModel> : BaseVideoTableCell
         where TCell : BaseVideoTableCell
-		where TViewModel : BaseVideoItemViewModel
+        where TViewModel : BaseVideoItemViewModel
     {
         protected BaseVideoTableCell(IntPtr handle)
             : base(handle)
         {
         }
 
-		static BaseVideoTableCell()
-		{
-			CellId = typeof(TCell).Name;
-			Nib = UINib.FromName(CellId, NSBundle.MainBundle);
-		}
+        static BaseVideoTableCell()
+        {
+            CellId = typeof(TCell).Name;
+            Nib = UINib.FromName(CellId, NSBundle.MainBundle);
+        }
 
-		public static string CellId { get; }
+        public static string CellId { get; }
 
-		public static UINib Nib { get; }
+        public static UINib Nib { get; }
 
-		public new TViewModel ViewModel => BindingContext.DataContext as TViewModel;
+        public new TViewModel ViewModel => BindingContext.DataContext as TViewModel;
     }
 }

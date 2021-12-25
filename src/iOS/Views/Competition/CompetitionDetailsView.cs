@@ -1,5 +1,6 @@
 ﻿using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding;
+using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using MvvmCross.Platforms.Ios.Views;
 using PrankChat.Mobile.Core.ViewModels.Competition;
 using PrankChat.Mobile.Core.ViewModels.Competition.Items;
@@ -10,6 +11,7 @@ using UIKit;
 
 namespace PrankChat.Mobile.iOS.Views.Competition
 {
+    [MvxModalPresentation(WrapInNavigationController = true)]
     public partial class CompetitionDetailsView : BaseViewController<CompetitionDetailsViewModel>
     {
         private MvxUIRefreshControl _refreshControl;

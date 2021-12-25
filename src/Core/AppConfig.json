@@ -24,9 +24,9 @@
       "ApiUrl": "https://api.onplaysite.com",
       "AppCenterIosId": "7f555baf-5c59-4e9b-a9ae-a45f068ebf74",
       "AppCenterDroidId": "0501262f-547e-473c-8759-28c04b57902e",
-      "ShouldCheckAppUpdate": false,
+      "ShouldCheckAppUpdate": true,
       "ApiVersion": "1.0",
-      "SiteUrl": "https://onplaysite.com"
+      "SiteUrl": "https://onplaysite.com/"
     }
   ]
 }
