@@ -13,7 +13,7 @@ namespace PrankChat.Mobile.Core.Models.Data
             string description,
             string htmlContent,
             OrderCategory? category,
-            string status,
+            CompetitionStatus status,
             bool canUploadVideo,
             int prizePool,
             int? likesCount,
@@ -25,7 +25,8 @@ namespace PrankChat.Mobile.Core.Models.Data
             DateTime? voteTo,
             DateTime? uploadVideoTo,
             DateTime? createdAt,
-            DateTime? activeTo)
+            DateTime? activeTo,
+            User? customer)
         {
             Id = id;
             Title = title;
@@ -46,6 +47,7 @@ namespace PrankChat.Mobile.Core.Models.Data
             UploadVideoTo = uploadVideoTo;
             CreatedAt = createdAt;
             ActiveTo = activeTo;
+            Customer = customer;
         }
 
         public int Id { get; set; }
@@ -60,7 +62,7 @@ namespace PrankChat.Mobile.Core.Models.Data
 
         public OrderCategory? Category { get; set; }
 
-        public string Status { get; set; }
+        public CompetitionStatus Status { get; set; }
 
         public bool CanUploadVideo { get; set; }
 
@@ -85,5 +87,7 @@ namespace PrankChat.Mobile.Core.Models.Data
         public DateTime? CreatedAt { get; set; }
 
         public DateTime? ActiveTo { get; set; }
+
+        public User? Customer { get; }
     }
 }

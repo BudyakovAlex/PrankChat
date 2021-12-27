@@ -64,7 +64,7 @@ namespace PrankChat.Mobile.Core.Services.Network.Http.Competitions
         public Task<BaseBundleDto<CompetitionDto>> GetCompetitionsAsync(int page, int pageSize)
         {
             var endpoint = $"competitions?page={page}&items_per_page={pageSize}";
-            var data = _client.GetAsync<BaseBundleDto<CompetitionDto>>(endpoint);
+            var data = _client.GetAsync<BaseBundleDto<CompetitionDto>>(endpoint, includes: new[] { IncludeType.Customer });
             return data;
         }
 

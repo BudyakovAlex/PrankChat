@@ -74,14 +74,6 @@ namespace PrankChat.Mobile.Core.Common
             public const int DefaultPaginationSize = 20;
         }
 
-        public static class CompetitionStatuses
-        {
-            public const string New = "new";
-            public const string UploadVideos = "competition_upload_videos";
-            public const string Voting = "competition_voting";
-            public const string Finished = "finished";
-        }
-
         public static class ErrorCodes
         {
             public const string LowBalance = "XA0001";

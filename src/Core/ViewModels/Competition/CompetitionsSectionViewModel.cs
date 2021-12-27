@@ -11,12 +11,6 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
     {
         private readonly bool _isUserSessionInitialized;
 
-        public CompetitionPhase Phase { get; }
-
-        public List<CompetitionItemViewModel> Items { get; }
-
-        public bool HasNavigationControls => Items.Count > 1;
-
         public CompetitionsSectionViewModel(
             bool isUserSessionInitialized,
             CompetitionPhase phase,
@@ -27,6 +21,12 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
             Phase = phase;
             Items = competitions.Select(ProduceItemViewModel).ToList();
         }
+
+        public CompetitionPhase Phase { get; }
+
+        public List<CompetitionItemViewModel> Items { get; }
+
+        public bool HasNavigationControls => Items.Count > 1;
 
         private CompetitionItemViewModel ProduceItemViewModel(Models.Data.Competition competition)
         {

@@ -1,16 +1,14 @@
-﻿using MvvmCross.Plugin.Messenger;
+﻿using System;
+using System.Threading.Tasks;
+using System.Windows.Input;
 using PrankChat.Mobile.Core.Commands;
 using PrankChat.Mobile.Core.Common;
 using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.Messages;
 using PrankChat.Mobile.Core.Models.Enums;
-using PrankChat.Mobile.Core.Plugins.Timer;
 using PrankChat.Mobile.Core.ViewModels.Abstract;
 using PrankChat.Mobile.Core.ViewModels.Registration;
-using System;
-using System.Threading.Tasks;
-using System.Windows.Input;
 
 namespace PrankChat.Mobile.Core.ViewModels.Competition.Items
 {
@@ -73,6 +71,8 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition.Items
 
         public bool IsNew => Phase == CompetitionPhase.New;
 
+        public bool IsModeration => Phase == CompetitionPhase.Moderation;
+
         public string LikesCountString => LikesCount.ToCountString();
 
         public string PrizePoolPresentation => string.Format(Constants.Formats.MoneyFormat, PrizePool);
@@ -84,6 +84,10 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition.Items
         public string MinutesText { get; } = Resources.Minutes;
 
         public string ActionButtonTitle => GetAcitonButtonTitle();
+
+        public string? CustomerAvatarUrl => Competition.Customer?.Avatar;
+
+        public bool IsCustomerAttached => Competition.Customer != null;
 
         private TimeSpan? _nextPhaseCountdown;
         public TimeSpan? NextPhaseCountdown
