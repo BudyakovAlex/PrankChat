@@ -1273,4 +1273,7 @@ Apple Inc. не является спонсором проведения кон�
   <data name="VideoLimitOnUploading" xml:space="preserve">
     <value>Видео должно быть меньше 150мб</value>
   </data>
+  <data name="WantToCancelCompetition" xml:space="preserve">
+    <value>Вы уверены, что хотите отменить конкурс?</value>
+  </data>
 </root>

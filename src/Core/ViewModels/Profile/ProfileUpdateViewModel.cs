@@ -170,7 +170,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Profile
 
             await UserSessionProvider.SetAccessTokenAsync(string.Empty);
 
-            if (Xamarin.Essentials.Connectivity.NetworkAccess.HasConnection())
+            if (Connectivity.NetworkAccess.HasConnection())
             {
                 _externalAuthService.LogoutFromFacebook();
                 _externalAuthService.LogoutFromVkontakte();

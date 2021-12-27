@@ -1,4 +1,9 @@
-﻿using FFImageLoading;
+﻿using System;
+using System.IO;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using FFImageLoading;
 using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.Common;
@@ -13,18 +18,13 @@ using PrankChat.Mobile.Core.Managers.Video;
 using PrankChat.Mobile.Core.Messages;
 using PrankChat.Mobile.Core.Models.Data.Shared;
 using PrankChat.Mobile.Core.Models.Enums;
+using PrankChat.Mobile.Core.Services.ErrorHandling.Messages;
 using PrankChat.Mobile.Core.ViewModels.Abstract;
 using PrankChat.Mobile.Core.ViewModels.Common;
 using PrankChat.Mobile.Core.ViewModels.Common.Abstract;
 using PrankChat.Mobile.Core.ViewModels.Competition.Items;
 using PrankChat.Mobile.Core.ViewModels.Parameters;
 using PrankChat.Mobile.Core.ViewModels.Profile.Cashbox;
-using PrankChat.Mobile.Core.Services.ErrorHandling.Messages;
-using System;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using System.IO;
 
 namespace PrankChat.Mobile.Core.ViewModels.Competition
 {
@@ -96,6 +96,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
             _header = new CompetitionDetailsHeaderViewModel(
                 IsUserSessionInitialized,
                 this.CreateCommand(ExecuteActionAsync),
+                this.CreateCommand(DeleteAsync),
                 parameter);
 
             Items.Add(_header);
@@ -173,6 +174,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
                     _header = new CompetitionDetailsHeaderViewModel(
                         IsUserSessionInitialized,
                         this.CreateCommand(ExecuteActionAsync),
+                        this.CreateCommand(DeleteAsync),
                         _competition);
 
                     Items.ReplaceWith(new[] { _header });
@@ -327,6 +329,23 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
             }
 
             IsUploading = false;
+        }
+
+        private async Task DeleteAsync()
+        {
+            var shouldCancelOrder = await UserInteraction.ShowConfirmAsync(
+                Resources.WantToCancelCompetition,
+                Resources.Attention,
+                Resources.Ok,
+                Resources.Cancel);
+            if (!shouldCancelOrder)
+            {
+                return;
+            }
+
+            await _competitionsManager.CancelCompetitionAsync(_competition.Id);
+            _isReloadNeeded = true;
+            await CloseAsync(false);
         }
     }
 }

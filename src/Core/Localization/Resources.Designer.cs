@@ -1882,5 +1882,11 @@ namespace PrankChat.Mobile.Core.Localization {
                 return ResourceManager.GetString("VideoLimitOnUploading", resourceCulture);
             }
         }
+        
+        public static string WantToCancelCompetition {
+            get {
+                return ResourceManager.GetString("WantToCancelCompetition", resourceCulture);
+            }
+        }
     }
 }

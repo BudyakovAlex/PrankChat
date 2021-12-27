@@ -46,5 +46,11 @@ namespace PrankChat.Mobile.Core.Managers.Competitions
             var response = await _competitionsService.CompetitionJoinAsync(id);
             return response.Map();
         }
+
+        public async Task<Competition> CancelCompetitionAsync(int id)
+        {
+            var response = await _competitionsService.CancelCompetitionAsync(id);
+            return response.Map();
+        }
     }
 }

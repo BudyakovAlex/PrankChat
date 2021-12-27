@@ -1,4 +1,5 @@
-﻿using MvvmCross.Logging;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.Data.Dtos;
 using PrankChat.Mobile.Core.Data.Dtos.Base;
@@ -6,8 +7,6 @@ using PrankChat.Mobile.Core.Data.Enums;
 using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Providers.Configuration;
 using PrankChat.Mobile.Core.Providers.UserSession;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Services.Network.Http.Competitions
 {
@@ -72,6 +71,12 @@ namespace PrankChat.Mobile.Core.Services.Network.Http.Competitions
         {
             var response = await _client.PostAsync<ResponseDto<CompetitionDto>>($"competitions/{id}/join", true);
             return response?.Data;
+        }
+
+        public async Task<CompetitionDto> CancelCompetitionAsync(int id)
+        {
+            var data = await _client.PostAsync<ResponseDto<CompetitionDto>>($"competitions/{id}/cancel", false);
+            return data?.Data;
         }
     }
 }

@@ -1,8 +1,8 @@
-﻿using MvvmCross.Commands;
+﻿using System.Threading.Tasks;
+using System.Windows.Input;
+using MvvmCross.Commands;
 using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Localization;
-using System.Threading.Tasks;
-using System.Windows.Input;
 
 namespace PrankChat.Mobile.Core.ViewModels.Competition.Items
 {
@@ -11,20 +11,22 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition.Items
         public CompetitionDetailsHeaderViewModel(
             bool isUserSessionInitialized,
             IMvxAsyncCommand actionCommand,
+            IMvxAsyncCommand deleteCommand,
             Models.Data.Competition competition) : base(isUserSessionInitialized, competition)
         {
             ActionCommand = actionCommand;
+            DeleteCommand = deleteCommand;
             OpenPrizePoolCommand = this.CreateCommand(OpenPrizePoolAsync);
             OpenRulesCommand = this.CreateCommand(OpenRulesAsync);
         }
 
-        public ICommand OpenPrizePoolCommand { get; set; }
+        public ICommand OpenPrizePoolCommand { get; }
 
-        public new ICommand ActionCommand { get; set; }
+        public new ICommand ActionCommand { get; }
 
-        public ICommand OpenRulesCommand { get; set; }
+        public ICommand OpenRulesCommand { get; }
 
-        public ICommand JoinCommand { get; set; }
+        public ICommand DeleteCommand { get; }
 
         public bool CanShowRules => !string.IsNullOrWhiteSpace(HtmlContent);
 

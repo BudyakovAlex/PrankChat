@@ -752,3 +752,4 @@
 "PeoplesNotFound" = "Людей не найдено";
 "OrdersNotFound" = "Заказов не найдено";
 "VideoLimitOnUploading" = "Видео должно быть меньше 150мб";
+"WantToCancelCompetition" = "Вы уверены, что хотите отменить конкурс?";

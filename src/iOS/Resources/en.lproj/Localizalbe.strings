@@ -750,3 +750,4 @@
 "PeoplesNotFound" = "Peoples not found";
 "OrdersNotFound" = "Orders not found";
 "VideoLimitOnUploading" = "Video must be lower than 150mb";
+"WantToCancelCompetition" = "Are you sure you want to cancel the competition?";

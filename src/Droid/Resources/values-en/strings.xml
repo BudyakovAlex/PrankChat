@@ -768,4 +768,5 @@ Taking such a task the user will have to complete it or lose the Deposit!"</stri
     <string name="PeoplesNotFound">"Peoples not found"</string>
     <string name="OrdersNotFound">"Orders not found"</string>
     <string name="VideoLimitOnUploading">"Video must be lower than 150mb"</string>
+    <string name="WantToCancelCompetition">"Are you sure you want to cancel the competition?"</string>
 </resources>
