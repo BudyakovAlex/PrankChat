@@ -1,4 +1,8 @@
-﻿using PrankChat.Mobile.Core.Common;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Input;
+using PrankChat.Mobile.Core.Common;
 using PrankChat.Mobile.Core.Exceptions.UserVisible.Validation;
 using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Localization;
@@ -8,10 +12,6 @@ using PrankChat.Mobile.Core.Managers.Users;
 using PrankChat.Mobile.Core.Messages;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.ViewModels.Abstract;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Input;
 using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.ViewModels.Profile.Cashbox
@@ -246,6 +246,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Profile.Cashbox
         {
             var withdrawals = await _paymentManager.GetWithdrawalsAsync();
             _lastWithdrawal = withdrawals?.FirstOrDefault();
+
             await RaiseAllPropertiesChanged();
         }
 

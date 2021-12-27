@@ -1268,4 +1268,7 @@ Taking such a task the user will have to complete it or lose the Deposit!</value
   <data name="OrdersNotFound" xml:space="preserve">
     <value>Orders not found</value>
   </data>
+  <data name="VideoLimitOnUploading" xml:space="preserve">
+    <value>Video must be lower than 150mb</value>
+  </data>
 </root>

@@ -1250,7 +1250,7 @@ Apple Inc. не является спонсором проведения кон�
     <value>Список заказов пуст</value>
   </data>
   <data name="NotificationsListIsEmpty" xml:space="preserve">
-    <value></value>
+    <value>Список уведомлений пуст</value>
   </data>
   <data name="SubscribersListIsEmpty" xml:space="preserve">
     <value>Список подписчиков пуст</value>
@@ -1269,5 +1269,8 @@ Apple Inc. не является спонсором проведения кон�
   </data>
   <data name="OrdersNotFound" xml:space="preserve">
     <value>Заказов не найдено</value>
+  </data>
+  <data name="VideoLimitOnUploading" xml:space="preserve">
+    <value>Видео должно быть меньше 150мб</value>
   </data>
 </root>

@@ -1,16 +1,17 @@
 ﻿using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding;
+using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using MvvmCross.Platforms.Ios.Views;
 using PrankChat.Mobile.Core.ViewModels.Competition;
 using PrankChat.Mobile.Core.ViewModels.Competition.Items;
 using PrankChat.Mobile.iOS.AppTheme;
-using PrankChat.Mobile.iOS.Extensions;
 using PrankChat.Mobile.iOS.SourcesAndDelegates;
 using PrankChat.Mobile.iOS.Views.Base;
 using UIKit;
 
 namespace PrankChat.Mobile.iOS.Views.Competition
 {
+    [MvxModalPresentation(WrapInNavigationController = true)]
     public partial class CompetitionDetailsView : BaseViewController<CompetitionDetailsViewModel>
     {
         private MvxUIRefreshControl _refreshControl;
@@ -57,7 +58,6 @@ namespace PrankChat.Mobile.iOS.Views.Competition
             bindingSet.Bind(uploadingProgressBar).For(v => v.Progress).To(vm => vm.UploadingProgress);
             bindingSet.Bind(uploadingLabel).For(v => v.Text).To(vm => vm.UploadingProgressStringPresentation);
             bindingSet.Bind(uploadingProgressBar).For(v => v.BindTap()).To(vm => vm.CancelUploadingCommand);
-            bindingSet.Bind(TabBarController).For(v => v.BindIsEnabled()).To(vm => vm.IsNotBusy);
         }
     }
 }
