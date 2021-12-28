@@ -1,4 +1,5 @@
-﻿using PrankChat.Mobile.Core.Mappers;
+﻿using PrankChat.Mobile.Core.Data.Models;
+using PrankChat.Mobile.Core.Mappers;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.Shared;
 using PrankChat.Mobile.Core.Services.Network.Http.Competitions;
@@ -50,6 +51,12 @@ namespace PrankChat.Mobile.Core.Managers.Competitions
         public async Task<Competition> CancelCompetitionAsync(int id)
         {
             var response = await _competitionsService.CancelCompetitionAsync(id);
+            return response.Map();
+        }
+
+        public async Task<CompetitionStatistics> GetCompetitionStatisticsAsync(int id)
+        {
+            var response = await _competitionsService.GetCompetitionStatisticsAsync(id);
             return response.Map();
         }
     }

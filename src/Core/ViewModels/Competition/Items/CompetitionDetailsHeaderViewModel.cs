@@ -12,10 +12,13 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition.Items
             bool isUserSessionInitialized,
             IMvxAsyncCommand actionCommand,
             IMvxAsyncCommand deleteCommand,
-            Models.Data.Competition competition) : base(isUserSessionInitialized, competition)
+            Models.Data.Competition competition,
+            bool isMyCompetition) : base(isUserSessionInitialized, competition)
         {
             ActionCommand = actionCommand;
             DeleteCommand = deleteCommand;
+            CanChangeCompetition = isUserSessionInitialized && isMyCompetition;
+
             OpenPrizePoolCommand = this.CreateCommand(OpenPrizePoolAsync);
             OpenRulesCommand = this.CreateCommand(OpenRulesAsync);
         }
@@ -27,6 +30,8 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition.Items
         public ICommand OpenRulesCommand { get; }
 
         public ICommand DeleteCommand { get; }
+
+        public bool CanChangeCompetition { get; }
 
         public bool CanShowRules => !string.IsNullOrWhiteSpace(HtmlContent);
 

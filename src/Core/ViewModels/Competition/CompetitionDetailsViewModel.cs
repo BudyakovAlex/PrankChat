@@ -55,6 +55,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
 
             RefreshDataCommand = this.CreateCommand(RefreshDataAsync);
             CancelUploadingCommand = this.CreateCommand(() => _cancellationTokenSource?.Cancel());
+            OpenStatisticsCommand = this.CreateCommand(OpenStatisticsAsync);
         }
 
         private bool _isUploading;
@@ -90,6 +91,8 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
 
         public IMvxCommand CancelUploadingCommand { get; }
 
+        public IMvxCommand OpenStatisticsCommand { get; }
+
         public override void Prepare(Models.Data.Competition parameter)
         {
             _competition = parameter;
@@ -97,7 +100,8 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
                 IsUserSessionInitialized,
                 this.CreateCommand(ExecuteActionAsync),
                 this.CreateCommand(DeleteAsync),
-                parameter);
+                parameter,
+                _competition.Customer?.Id == UserSessionProvider.User?.Id);
 
             Items.Add(_header);
         }
@@ -175,7 +179,8 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
                         IsUserSessionInitialized,
                         this.CreateCommand(ExecuteActionAsync),
                         this.CreateCommand(DeleteAsync),
-                        _competition);
+                        _competition,
+                        _competition.Customer?.Id == UserSessionProvider.User?.Id);
 
                     Items.ReplaceWith(new[] { _header });
                     await LoadMoreItemsAsync();
@@ -347,5 +352,8 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
             _isReloadNeeded = true;
             await CloseAsync(false);
         }
+
+        private Task OpenStatisticsAsync() =>
+            NavigationManager.NavigateAsync<CompetitonStatitsticsViewModel, int>(_competition.Id);
     }
 }
