@@ -12,6 +12,7 @@ using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.ViewModels.Competition.Items;
 using PrankChat.Mobile.Droid.Adapters.ViewHolders.Abstract;
+using PrankChat.Mobile.Droid.Controls;
 using PrankChat.Mobile.Droid.Converters;
 
 namespace PrankChat.Mobile.Droid.Adapters.ViewHolders.Competitions
@@ -33,6 +34,9 @@ namespace PrankChat.Mobile.Droid.Adapters.ViewHolders.Competitions
         private LinearLayout _termLinearLayout;
         private ImageView _likesImageView;
         private MvxCachedImageView _placeholderImageView;
+        private CircleCachedImageView _customerImageView;
+        private AppCompatButton _deleteButton;
+        private AppCompatButton _statisticsButton;
 
         //TODO: add bindings for action buttons
         private MaterialButton _actionButton;
@@ -66,13 +70,15 @@ namespace PrankChat.Mobile.Droid.Adapters.ViewHolders.Competitions
             _likesImageView = view.FindViewById<ImageView>(Resource.Id.likes_image_view);
             _placeholderImageView = view.FindViewById<MvxCachedImageView>(Resource.Id.placeholder_image_view);
             _prizeTitleTextView = view.FindViewById<TextView>(Resource.Id.prize_title_text_view);
-
-            _placeholderImageView.OnError += (s, e) => _placeholderImageView.SetBackgroundResource(Resource.Drawable.button_accent_background);
-            _prizeTitleTextView.Text = Resources.TournamentPrizePool;
-
+            _customerImageView = view.FindViewById<CircleCachedImageView>(Resource.Id.customer_image_view);
             _actionButton = view.FindViewById<MaterialButton>(Resource.Id.load_video_button);
             _rulesButton = view.FindViewById<AppCompatButton>(Resource.Id.rules_button);
             _resultsButton = view.FindViewById<AppCompatButton>(Resource.Id.results_button);
+            _deleteButton = view.FindViewById<AppCompatButton>(Resource.Id.delete_button);
+            _statisticsButton = view.FindViewById<AppCompatButton>(Resource.Id.statistics_button);
+
+            _placeholderImageView.OnError += (s, e) => _placeholderImageView.SetBackgroundResource(Resource.Drawable.button_accent_background);
+            _prizeTitleTextView.Text = Resources.TournamentPrizePool;
         }
 
         public override void BindData()
@@ -121,6 +127,12 @@ namespace PrankChat.Mobile.Droid.Adapters.ViewHolders.Competitions
                       .WithConversion(new DelegateConverter<OrderCategory, bool>((category) => category == OrderCategory.PrivatePaidCompetition));
             bindingSet.Bind(_paidFlagImageView).For(v => v.BindVisible()).To(vm => vm.Category)
                       .WithConversion(new DelegateConverter<OrderCategory, bool>((category) => category == OrderCategory.PaidCompetition || category == OrderCategory.PrivatePaidCompetition));
+            bindingSet.Bind(_customerImageView).For(v => v.ImagePath).To(vm => vm.CustomerAvatarUrl);
+            bindingSet.Bind(_customerImageView).For(v => v.BindVisible()).To(vm => vm.IsCustomerAttached);
+            bindingSet.Bind(_deleteButton).For(v => v.BindClick()).To(vm => vm.DeleteCommand);
+            bindingSet.Bind(_deleteButton).For(v => v.BindVisible()).To(vm => vm.IsCustomerAttached);
+            bindingSet.Bind(_statisticsButton).For(v => v.BindClick()).To(vm => vm.OpenStatisticsCommand);
+            bindingSet.Bind(_statisticsButton).For(v => v.BindVisible()).To(vm => vm.IsCustomerAttached);
         }
     }
 }

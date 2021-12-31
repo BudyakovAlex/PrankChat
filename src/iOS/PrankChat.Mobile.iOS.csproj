@@ -109,7 +109,7 @@
         <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj" Name="PrankChat.Mobile.Core" />
     </ItemGroup>
     <ItemGroup>
-        <InterfaceDefinition Include="**\*.xib" />
+        <InterfaceDefinition Include="**\*.xib" Exclude="obj\**" />
         <Compile Include="**\*.cs" Exclude="obj\**" />
         <Compile Include="**\*.designer.cs" Exclude="obj\**">
             <DependentUpon>$([System.String]::Copy(%(Filename)).Replace('.designer', '.cs'))</DependentUpon>

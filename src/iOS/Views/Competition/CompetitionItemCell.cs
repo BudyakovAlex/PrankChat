@@ -1,5 +1,6 @@
 ﻿using CoreAnimation;
 using CoreGraphics;
+using Foundation;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Ios.Binding;
 using PrankChat.Mobile.Core.Common;
@@ -19,6 +20,8 @@ namespace PrankChat.Mobile.iOS.Views.Competition
     {
         private CompetitionPhase _phase;
         private CAGradientLayer _titleGradientSublayer;
+        private CAShapeLayer _dashedBorderLayer;
+        private CAShapeLayer _defaultBorderLayer;
 
         protected CompetitionItemCell(IntPtr handle)
             : base(handle)
@@ -49,6 +52,9 @@ namespace PrankChat.Mobile.iOS.Views.Competition
             base.LayoutSubviews();
 
             _titleGradientSublayer.Frame = titleContainer.Bounds;
+            _defaultBorderLayer.Frame = Bounds;
+            _dashedBorderLayer.Frame = Bounds;
+            _dashedBorderLayer.Path = UIBezierPath.FromRoundedRect(new CGRect(1, 1, Bounds.Width - 2, Bounds.Height - 2), Layer.CornerRadius).CGPath;
             Layer.ShadowPath = UIBezierPath.FromRoundedRect(Bounds, Layer.CornerRadius).CGPath;
         }
 
@@ -88,18 +94,33 @@ namespace PrankChat.Mobile.iOS.Views.Competition
                       .WithConversion(new DelegateConverter<OrderCategory, bool>((category) => category == OrderCategory.PaidCompetition || category == OrderCategory.PrivatePaidCompetition));
             bindingSet.Bind(button).For(v => v.BindTitle()).To(vm => vm.ActionButtonTitle);
             bindingSet.Bind(button).For(v => v.BindTouchUpInside()).To(vm => vm.ActionCommand);
+            bindingSet.Bind(CustomerAvatarImageView).For(v => v.ImagePath).To(vm => vm.CustomerAvatarUrl).OneWay();
+            bindingSet.Bind(CustomerAvatarImageView).For(v => v.BindVisible()).To(vm => vm.IsCustomerAttached);
+            bindingSet.Bind(OnModerationView).For(v => v.BindVisible()).To(vm => vm.Phase)
+                .WithConversion(new DelegateConverter<CompetitionPhase, bool>(phase => phase == CompetitionPhase.Moderation));
         }
 
         private void InitializeLayer()
         {
+            _dashedBorderLayer = new CAShapeLayer
+            {
+                CornerRadius = 15f,
+                StrokeColor = UIColor.FromRGB(134, 134, 134).CGColor,
+                FillColor = null,
+                ShouldRasterize = true,
+                LineWidth = 2f,
+                LineDashPattern = new[] { new NSNumber(10), new NSNumber(6) }
+            };
+
+            _defaultBorderLayer = new CAShapeLayer()
+            {
+                CornerRadius = 15f,
+                BorderWidth = 3f
+            };
+
+            OverlayView.Layer.InsertSublayer(_defaultBorderLayer, 0);
             Layer.CornerRadius = 15f;
-            Layer.BorderWidth = 3f;
-            Layer.ShadowOffset = CGSize.Empty;
-            Layer.ShadowOpacity = 1f;
-            Layer.ShadowRadius = 5f;
-            Layer.MasksToBounds = false;
-            Layer.RasterizationScale = UIScreen.MainScreen.Scale;
-            Layer.ShouldRasterize = true;
+            // Layer.BorderWidth = 3f;
         }
 
         private void InitializeTitleContainer()
@@ -123,10 +144,30 @@ namespace PrankChat.Mobile.iOS.Views.Competition
             var color = GetPrimaryColor(phase);
             idLabel.TextColor = color;
 
-            Layer.BorderColor = color.CGColor;
+            _defaultBorderLayer.BorderColor = color.CGColor;
             Layer.ShadowColor = color.CGColor;
 
             _titleGradientSublayer.Colors = GetGradient(_phase);
+
+            if (phase == CompetitionPhase.Moderation)
+            {
+                if (_dashedBorderLayer.SuperLayer == null)
+                {
+                    Layer.AddSublayer(_dashedBorderLayer);
+                }
+
+                Layer.ShadowOpacity = 0f;
+            }
+            else
+            {
+                _dashedBorderLayer.RemoveFromSuperLayer();
+                Layer.ShadowOffset = CGSize.Empty;
+                Layer.ShadowOpacity = 1f;
+                Layer.ShadowRadius = 5f;
+                Layer.MasksToBounds = false;
+                Layer.RasterizationScale = UIScreen.MainScreen.Scale;
+                Layer.ShouldRasterize = true;
+            }
         }
 
         private UIColor GetPrimaryColor(CompetitionPhase phase) => phase switch
@@ -134,6 +175,7 @@ namespace PrankChat.Mobile.iOS.Views.Competition
             CompetitionPhase.New => Theme.Color.CompetitionPhaseNewPrimary,
             CompetitionPhase.Voting => Theme.Color.CompetitionPhaseVotingPrimary,
             CompetitionPhase.Finished => Theme.Color.CompetitionPhaseFinishedPrimary,
+            CompetitionPhase.Moderation => UIColor.White,
             _ => throw new ArgumentOutOfRangeException(),
         };
 
@@ -160,6 +202,13 @@ namespace PrankChat.Mobile.iOS.Views.Competition
                     {
                         Theme.Color.CompetitionPhaseFinishedSecondary.CGColor,
                         Theme.Color.CompetitionPhaseFinishedPrimary.CGColor
+                    };
+
+                case CompetitionPhase.Moderation:
+                    return new[]
+                    {
+                        Theme.Color.CompetitionPhaseModeration.CGColor,
+                        Theme.Color.CompetitionPhaseModeration.CGColor
                     };
 
                 default:

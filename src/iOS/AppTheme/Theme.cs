@@ -32,6 +32,7 @@ namespace PrankChat.Mobile.iOS.AppTheme
             public static UIColor CompetitionPhaseVotingSecondary => UIColor.FromRGBA(0.98f, 0.77f, 0.26f, 1.0f);
             public static UIColor CompetitionPhaseFinishedPrimary => UIColor.FromRGBA(0.6f, 0.6f, 0.6f, 1.0f);
             public static UIColor CompetitionPhaseFinishedSecondary => UIColor.FromRGBA(0.98f, 0.98f, 0.98f, 1.0f);
+            public static UIColor CompetitionPhaseModeration => UIColor.FromRGB(134, 134, 134);
             public static UIColor Cobalt => UIColor.FromRGBA(0.39f, 0.35f, 0.44f, 1.0f);
             public static UIColor Violet => UIColor.FromRGBA(0.11f, 0.03f, 0.2f, 1.0f);
             public static UIColor Gray => UIColor.FromRGB(158, 158, 158);

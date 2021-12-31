@@ -9,15 +9,15 @@ namespace PrankChat.Mobile.Droid.Converters
     {
         protected override string Convert(OrderType value, Type targetType, object parameter, CultureInfo culture)
         {
-            switch (value)
+            return value switch
             {
-                case OrderType.MyOrder:             return "my_order_background";
-                case OrderType.MyOrderInModeration: return "not_moderated_order_background";
-                case OrderType.NotMyOrder:          return "not_my_order_background";
-                case OrderType.MyOrderCompleted:    return "my_order_completed_background";
-                case OrderType.NotMyOrderCompleted: return "my_order_completed_background";
-                default: throw new ArgumentOutOfRangeException();
-            }
+                OrderType.MyOrder => "my_order_background",
+                OrderType.MyOrderInModeration => "not_moderated_order_background",
+                OrderType.NotMyOrder => "not_my_order_background",
+                OrderType.MyOrderCompleted => "my_order_completed_background",
+                OrderType.NotMyOrderCompleted => "my_order_completed_background",
+                _ => throw new ArgumentOutOfRangeException(),
+            };
         }
     }
 }
