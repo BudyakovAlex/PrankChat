@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.Managers.Competitions;
 using PrankChat.Mobile.Core.ViewModels.Abstract;
 
@@ -15,7 +16,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
             _competitionsManager = competitionsManager;
         }
 
-        public decimal Profit { get; private set; }
+        public string Profit { get; private set; }
 
         public int PercentageFromContribution { get; private set; }
 
@@ -32,7 +33,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
         {
             var statistics = await _competitionsManager.GetCompetitionStatisticsAsync(_competitionId);
 
-            Profit = statistics.Profit;
+            Profit = $"{statistics.Profit} {Resources.Currency}";
             PercentageFromContribution = statistics.PercentageFromContribution;
             Contribution = statistics.Contribution;
             Participants = statistics.Participants;

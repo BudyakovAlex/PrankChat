@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<androidx.constraintlayout.widget.ConstraintLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical">
+
+	<include
+		android:id="@+id/action_bar"
+		layout="@layout/action_bar_back_and_title"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		app:layout_constraintTop_toTopOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"/>
+
+	<TextView
+		android:id="@+id/profit_title_text_view"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="48dp"
+		android:textColor="#939393"
+		android:textFontWeight="400"
+		android:textSize="12dp"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@id/action_bar"
+		tools:text="Прибыль" />
+
+	<TextView
+		android:id="@+id/profit_value_text_view"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="8dp"
+		android:textColor="@android:color/white"
+		android:textFontWeight="600"
+		android:textSize="46dp"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@id/profit_title_text_view"
+		tools:text="4800P" />
+
+	<LinearLayout
+		android:id="@+id/participants_linear_layout"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="29dp"
+		android:layout_marginTop="32dp"
+		android:orientation="vertical"
+		app:layout_constraintEnd_toStartOf="@+id/contribution_linear_layout"
+		app:layout_constraintHorizontal_bias="0.5"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@id/profit_value_text_view">
+
+		<TextView
+			android:id="@+id/participants_title_text_view"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textColor="#939393"
+			android:textFontWeight="400"
+			android:textSize="12dp"
+			tools:text="участников"/>
+
+		<TextView
+			android:id="@+id/participants_value_text_view"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textColor="@android:color/white"
+			android:textFontWeight="700"
+			android:textSize="34dp"/>
+
+	</LinearLayout>
+
+	<LinearLayout
+		android:id="@+id/contribution_linear_layout"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="29dp"
+		android:layout_marginTop="32dp"
+		android:orientation="vertical"
+		app:layout_constraintEnd_toStartOf="@+id/percent_linear_layout"
+		app:layout_constraintHorizontal_bias="0.5"
+		app:layout_constraintStart_toEndOf="@+id/participants_linear_layout"
+		app:layout_constraintTop_toBottomOf="@id/profit_value_text_view">
+
+		<TextView
+			android:id="@+id/contribution_title_text_view"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textColor="#939393"
+			android:textFontWeight="400"
+			android:textSize="12dp"
+			tools:text="взнос"/>
+
+		<TextView
+			android:id="@+id/contribution_value_text_view"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textColor="@android:color/white"
+			android:textFontWeight="700"
+			android:textSize="34dp"/>
+
+	</LinearLayout>
+
+	<LinearLayout
+		android:id="@+id/percent_linear_layout"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="32dp"
+		android:layout_marginEnd="29dp"
+		android:orientation="vertical"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintHorizontal_bias="0.5"
+		app:layout_constraintStart_toEndOf="@+id/contribution_linear_layout"
+		app:layout_constraintTop_toBottomOf="@id/profit_value_text_view">
+
+		<TextView
+			android:id="@+id/percent_title_text_view"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textColor="#939393"
+			android:textFontWeight="400"
+			android:textSize="12dp"
+			tools:text="% от взноса"/>
+
+		<TextView
+			android:id="@+id/percent_value_text_view"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textColor="@android:color/white"
+			android:textFontWeight="700"
+			android:textSize="34dp"/>
+
+	</LinearLayout>
+
+	<FrameLayout
+		android:id="@+id/loading_overlay"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:background="@color/applicationTransparent"
+		app:layout_constraintTop_toTopOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintBottom_toBottomOf="parent">
+
+		<com.airbnb.lottie.LottieAnimationView
+			android:id="@+id/animation_view"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center"
+			app:lottie_autoPlay="true"
+			app:lottie_fileName="ripple_animation.json"
+			app:lottie_loop="true" />
+
+	</FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

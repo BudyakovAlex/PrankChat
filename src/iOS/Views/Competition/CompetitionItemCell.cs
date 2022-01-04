@@ -120,7 +120,6 @@ namespace PrankChat.Mobile.iOS.Views.Competition
 
             OverlayView.Layer.InsertSublayer(_defaultBorderLayer, 0);
             Layer.CornerRadius = 15f;
-            // Layer.BorderWidth = 3f;
         }
 
         private void InitializeTitleContainer()
