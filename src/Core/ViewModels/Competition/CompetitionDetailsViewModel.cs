@@ -25,6 +25,7 @@ using PrankChat.Mobile.Core.ViewModels.Common.Abstract;
 using PrankChat.Mobile.Core.ViewModels.Competition.Items;
 using PrankChat.Mobile.Core.ViewModels.Parameters;
 using PrankChat.Mobile.Core.ViewModels.Profile.Cashbox;
+using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.ViewModels.Competition
 {
@@ -55,6 +56,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
 
             RefreshDataCommand = this.CreateCommand(RefreshDataAsync);
             CancelUploadingCommand = this.CreateCommand(() => _cancellationTokenSource?.Cancel());
+            ShareCommand = this.CreateCommand(ShareAsync);
         }
 
         private bool _isUploading;
@@ -84,11 +86,15 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
             set => SetProperty(ref _isRefreshing, value);
         }
 
+        public bool IsModerationCompleted => _competition.Status != CompetitionStatus.Moderation;
+
         protected override bool DefaultResult => _isReloadNeeded;
 
         public IMvxAsyncCommand RefreshDataCommand { get; }
 
         public IMvxCommand CancelUploadingCommand { get; }
+
+        public IMvxCommand ShareCommand { get; }
 
         public override void Prepare(Models.Data.Competition parameter)
         {
@@ -98,8 +104,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
                 this.CreateCommand(ExecuteActionAsync),
                 this.CreateCommand(DeleteAsync),
                 this.CreateCommand(OpenStatisticsAsync),
-                parameter,
-                _competition.Customer?.Id == UserSessionProvider.User?.Id);
+                parameter);
 
             Items.Add(_header);
         }
@@ -178,8 +183,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
                         this.CreateCommand(ExecuteActionAsync),
                         this.CreateCommand(DeleteAsync),
                         this.CreateCommand(OpenStatisticsAsync),
-                        _competition,
-                        _competition.Customer?.Id == UserSessionProvider.User?.Id);
+                        _competition);
 
                     Items.ReplaceWith(new[] { _header });
                     await LoadMoreItemsAsync();
@@ -354,5 +358,12 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
 
         private Task OpenStatisticsAsync() =>
             NavigationManager.NavigateAsync<CompetitonStatitsticsViewModel, int>(_competition.Id);
+
+        private Task ShareAsync() =>
+            Share.RequestAsync(new ShareTextRequest
+            {
+                Uri = _competition.ShareUrl,
+                Title = Resources.ShareLink
+            });
     }
 }

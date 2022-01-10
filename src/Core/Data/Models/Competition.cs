@@ -15,6 +15,9 @@ namespace PrankChat.Mobile.Core.Models.Data
             OrderCategory? category,
             CompetitionStatus status,
             bool canUploadVideo,
+            bool canDelete,
+            string shareUrl,
+            bool isCompetitionOwner,
             int prizePool,
             int? likesCount,
             int? videosCount,
@@ -36,6 +39,9 @@ namespace PrankChat.Mobile.Core.Models.Data
             Category = category;
             Status = status;
             CanUploadVideo = canUploadVideo;
+            CanDelete = canDelete;
+            ShareUrl = shareUrl;
+            IsCompetitionOwner = isCompetitionOwner;
             PrizePool = prizePool;
             LikesCount = likesCount;
             VideosCount = videosCount;
@@ -66,7 +72,13 @@ namespace PrankChat.Mobile.Core.Models.Data
 
         public bool CanUploadVideo { get; set; }
 
+        public bool CanDelete { get; }
+
+        public string ShareUrl { get; }
+
         public bool IsPaidCompetitionMember { get; set; }
+
+        public bool IsCompetitionOwner { get; }
 
         public bool CanJoin { get; set; }
 

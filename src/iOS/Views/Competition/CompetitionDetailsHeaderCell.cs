@@ -62,12 +62,13 @@ namespace PrankChat.Mobile.iOS.Views.Competition
             bindingSet.Bind(openRulesButton).For(v => v.BindVisible()).To(vm => vm.CanShowRules);
             bindingSet.Bind(openRulesButton).For(v => v.BindTouchUpInside()).To(vm => vm.OpenRulesCommand);
             bindingSet.Bind(openPrizePoolButton).For(v => v.BindTouchUpInside()).To(vm => vm.OpenPrizePoolCommand);
+            bindingSet.Bind(openPrizePoolButton).For(v => v.BindHidden()).To(vm => vm.IsModeration);
             bindingSet.Bind(CustomerImageView).For(v => v.ImagePath).To(vm => vm.CustomerAvatarUrl);
             bindingSet.Bind(CustomerImageView).For(v => v.BindVisible()).To(vm => vm.IsCustomerAttached);
             bindingSet.Bind(DeleteButton).For(v => v.BindTouchUpInside()).To(vm => vm.DeleteCommand);
+            bindingSet.Bind(DeleteButton).For(v => v.BindVisible()).To(vm => vm.CanDelete);
             bindingSet.Bind(StatisticsButton).For(v => v.BindTouchUpInside()).To(vm => vm.OpenStatisticsCommand);
-            // TODO: Need to create command?
-            // bindingSet.Bind(CancelOrChangeButton).For(v => v.BindTouchUpInside()).To(vm => vm.)
+            bindingSet.Bind(StatisticsButton).For(v => v.BindVisible()).To(vm => vm.IsCompetitionOwner);
             bindingSet.Bind(PrivateFlagImageView).For(v => v.BindVisible()).To(vm => vm.Category)
                       .WithConversion(new DelegateConverter<OrderCategory, bool>((category) => category == OrderCategory.PrivatePaidCompetition));
             bindingSet.Bind(PaidFlagImageView).For(v => v.BindVisible()).To(vm => vm.Category)

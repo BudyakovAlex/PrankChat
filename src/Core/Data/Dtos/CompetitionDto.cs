@@ -37,6 +37,12 @@ namespace PrankChat.Mobile.Core.Data.Dtos
         [JsonProperty("can_join")]
         public bool CanJoin { get; set; }
 
+        [JsonProperty("can_delete")]
+        public bool CanDelete { get; set; }
+
+        [JsonProperty("share_url")]
+        public string ShareUrl { get; set; }
+
         [JsonProperty("is_competition_member")]
         public bool IsPaidCompetitionMember { get; set; }
 
@@ -66,5 +72,8 @@ namespace PrankChat.Mobile.Core.Data.Dtos
 
         [JsonProperty("customer")]
         public ResponseDto<UserDto> Customer { get; set; }
+
+        [JsonProperty("is_competition_owner")]
+        public bool IsCompetitionOwner { get; set; }
     }
 }

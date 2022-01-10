@@ -133,6 +133,10 @@
         <None Include="Assets\AboutAssets.txt" />
         <None Include="Properties\AndroidManifest.xml" />
         <None Include="LinkerConfig.xml" />
+        <AndroidResource Include="Resources\menu\competition_details_menu.xml">
+          <SubType></SubType>
+          <Generator></Generator>
+        </AndroidResource>
     </ItemGroup>
     <Choose>
         <When Condition="'$(AndroidLinkMode)'=='Full' Or '$(AndroidLinkMode)'=='SdkOnly'">

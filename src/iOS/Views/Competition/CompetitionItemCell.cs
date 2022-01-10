@@ -2,6 +2,7 @@
 using CoreGraphics;
 using Foundation;
 using MvvmCross.Binding.BindingContext;
+using MvvmCross.Binding.Combiners;
 using MvvmCross.Platforms.Ios.Binding;
 using PrankChat.Mobile.Core.Common;
 using PrankChat.Mobile.Core.Converters;
@@ -87,7 +88,10 @@ namespace PrankChat.Mobile.iOS.Views.Competition
             bindingSet.Bind(idLabel).For(v => v.Text).To(vm => vm.Number);
             bindingSet.Bind(idLabel).For(v => v.Hidden).To(vm => vm.CanExecuteActionVideo);
             bindingSet.Bind(likeButton).For(v => v.BindTitle()).To(vm => vm.LikesCountString);
-            bindingSet.Bind(likeButton).For(v => v.Hidden).To(vm => vm.CanExecuteActionVideo);
+            bindingSet.Bind(likeButton).For(v => v.Hidden).ByCombining(
+                new MvxOrValueCombiner(),
+                vm => vm.CanExecuteActionVideo,
+                vm => vm.IsModeration);
             bindingSet.Bind(PrivateFlagImageView).For(v => v.BindVisible()).To(vm => vm.Category)
                       .WithConversion(new DelegateConverter<OrderCategory, bool>((category) => category == OrderCategory.PrivatePaidCompetition));
             bindingSet.Bind(PaidFlagImageView).For(v => v.BindVisible()).To(vm => vm.Category)

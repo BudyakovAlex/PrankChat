@@ -1,5 +1,5 @@
 ﻿{
-  "Environment": "Dev",
+  "Environment": "Stage",
   "Configurations": [
     {
       "EnvironmentName": "Dev",

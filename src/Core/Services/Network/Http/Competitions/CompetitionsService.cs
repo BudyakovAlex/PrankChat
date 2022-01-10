@@ -81,7 +81,7 @@ namespace PrankChat.Mobile.Core.Services.Network.Http.Competitions
 
         public async Task<CompetitionStatisticsDto> GetCompetitionStatisticsAsync(int id)
         {
-            var data = await _client.PostAsync<ResponseDto<CompetitionStatisticsDto>>($"competitions/{id}/statistics", false);
+            var data = await _client.GetAsync<ResponseDto<CompetitionStatisticsDto>>($"competitions/{id}/statistics", false);
             return data?.Data;
         }
     }

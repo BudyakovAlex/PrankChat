@@ -123,6 +123,7 @@ namespace PrankChat.Mobile.Droid.Adapters.ViewHolders.Competitions
             bindingSet.Bind(_rulesButton).For(v => v.BindClick()).To(vm => vm.OpenRulesCommand);
             bindingSet.Bind(_rulesButton).For(v => v.BindVisible()).To(vm => vm.CanShowRules);
             bindingSet.Bind(_resultsButton).For(v => v.BindClick()).To(vm => vm.OpenPrizePoolCommand);
+            bindingSet.Bind(_resultsButton).For(v => v.BindHidden()).To(vm => vm.IsModeration);
             bindingSet.Bind(_privateFlagImageView).For(v => v.BindVisible()).To(vm => vm.Category)
                       .WithConversion(new DelegateConverter<OrderCategory, bool>((category) => category == OrderCategory.PrivatePaidCompetition));
             bindingSet.Bind(_paidFlagImageView).For(v => v.BindVisible()).To(vm => vm.Category)
@@ -130,9 +131,9 @@ namespace PrankChat.Mobile.Droid.Adapters.ViewHolders.Competitions
             bindingSet.Bind(_customerImageView).For(v => v.ImagePath).To(vm => vm.CustomerAvatarUrl);
             bindingSet.Bind(_customerImageView).For(v => v.BindVisible()).To(vm => vm.IsCustomerAttached);
             bindingSet.Bind(_deleteButton).For(v => v.BindClick()).To(vm => vm.DeleteCommand);
-            bindingSet.Bind(_deleteButton).For(v => v.BindVisible()).To(vm => vm.IsCustomerAttached);
+            bindingSet.Bind(_deleteButton).For(v => v.BindVisible()).To(vm => vm.CanDelete);
             bindingSet.Bind(_statisticsButton).For(v => v.BindClick()).To(vm => vm.OpenStatisticsCommand);
-            bindingSet.Bind(_statisticsButton).For(v => v.BindVisible()).To(vm => vm.IsCustomerAttached);
+            bindingSet.Bind(_statisticsButton).For(v => v.BindVisible()).To(vm => vm.IsCompetitionOwner);
         }
     }
 }

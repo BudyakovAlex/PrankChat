@@ -39,8 +39,14 @@ namespace PrankChat.Mobile.Droid.Views.Competitions
         private CircleProgressBar _uploadingProgressBar;
         private View _uploadingInfoContainer;
         private TextView _uploadedTextView;
+        private IMenuItem _shareMenuItem;
 
         protected override bool HasBackButton => true;
+
+        public bool IsModerationCompleted
+        {
+            set => _shareMenuItem.SetVisible(value);
+        }
 
         protected override void OnCreate(Android.OS.Bundle bundle)
         {
@@ -97,6 +103,28 @@ namespace PrankChat.Mobile.Droid.Views.Competitions
             bindingSet.Bind(_uploadingProgressBar).For(v => v.Progress).To(vm => vm.UploadingProgress);
             bindingSet.Bind(_uploadedTextView).For(v => v.Text).To(vm => vm.UploadingProgressStringPresentation);
             bindingSet.Bind(_uploadingProgressBar).For(v => v.BindClick()).To(vm => vm.CancelUploadingCommand);
+            bindingSet.Bind(this).For(nameof(IsModerationCompleted)).To(vm => vm.IsModerationCompleted);
+        }
+
+        public override bool OnCreateOptionsMenu(IMenu menu)
+        {
+            MenuInflater.Inflate(Resource.Menu.competition_details_menu, menu);
+
+            _shareMenuItem = menu.GetItem(0);
+
+            return true;
+        }
+
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            switch (item.ItemId)
+            {
+                case Resource.Id.menu_share:
+                    ViewModel.ShareCommand.Execute(null);
+                    return true;
+            }
+
+            return base.OnOptionsItemSelected(item);
         }
     }
 }
