@@ -63,8 +63,6 @@ namespace PrankChat.Mobile.Droid.Views.Comment
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle, Resource.Layout.activity_comments_view);
-
-            Window.SetBackgroundDrawableResource(Resource.Drawable.gradient_action_bar_background);
         }
 
         protected override void SetViewProperties()

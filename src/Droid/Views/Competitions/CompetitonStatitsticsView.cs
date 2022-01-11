@@ -26,8 +26,6 @@ namespace PrankChat.Mobile.Droid.Views.Competitions
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState, Resource.Layout.activity_competion_statistics);
-
-            Window.SetBackgroundDrawableResource(Resource.Drawable.gradient_action_bar_background);
         }
 
         protected override void SetViewProperties()

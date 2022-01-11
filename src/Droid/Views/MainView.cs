@@ -60,8 +60,6 @@ namespace PrankChat.Mobile.Droid.Views
             base.OnCreate(bundle, Resource.Layout.main_view_layout);
             ViewModel.LoadContentCommand.Execute(null);
 
-            Window.SetBackgroundDrawableResource(Resource.Drawable.gradient_action_bar_background);
-
             var viewPager = FindViewById<ApplicationSwipeViewPager>(Resource.Id.viewpager);
             viewPager.OffscreenPageLimit = 5;
             _tabLayout = FindViewById<TabLayout>(Resource.Id.tabs);

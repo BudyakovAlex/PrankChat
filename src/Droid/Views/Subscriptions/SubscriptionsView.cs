@@ -63,7 +63,6 @@ namespace PrankChat.Mobile.Droid.Views.Subscriptions
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle, Resource.Layout.activity_subscriptions);
-            Window.SetBackgroundDrawableResource(Resource.Drawable.gradient_action_bar_background);
         }
 
         protected override void SetViewProperties()

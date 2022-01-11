@@ -1274,4 +1274,19 @@ Taking such a task the user will have to complete it or lose the Deposit!</value
   <data name="WantToCancelCompetition" xml:space="preserve">
     <value>Are you sure you want to cancel the competition?</value>
   </data>
+  <data name="Participants" xml:space="preserve">
+    <value>participants</value>
+  </data>
+  <data name="Fee" xml:space="preserve">
+    <value>fee</value>
+  </data>
+  <data name="OfTheInstallment" xml:space="preserve">
+    <value>of the installment</value>
+  </data>
+  <data name="Profit" xml:space="preserve">
+    <value>Profit</value>
+  </data>
+  <data name="Statistics" xml:space="preserve">
+    <value>Statistics</value>
+  </data>
 </root>

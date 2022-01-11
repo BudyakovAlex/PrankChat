@@ -177,7 +177,7 @@
 
 	<com.google.android.material.button.MaterialButton
 		android:id="@+id/load_video_button"
-		android:layout_width="0dp"
+		android:layout_width="160dp"
 		android:layout_height="36dp"
 		android:layout_marginStart="32dp"
 		android:layout_marginEnd="32dp"
@@ -192,7 +192,7 @@
 		app:layout_goneMarginTop="43dp" />
 
 	<LinearLayout
-		android:layout_width="match_parent"
+		android:layout_width="160dp"
 		android:layout_height="wrap_content"
 		android:orientation="vertical"
 		android:layout_marginBottom="14dp"
@@ -208,7 +208,7 @@
 			android:id="@+id/statistics_button"
 			android:layout_width="match_parent"
 			android:layout_height="36dp"
-			android:layout_marginBottom="36dp"
+			android:layout_marginBottom="16dp"
 			android:background="@drawable/button_accent_background"
 			android:text="Статистика"
 			android:textAllCaps="false"
@@ -219,8 +219,8 @@
 			android:id="@+id/delete_button"
 			android:layout_width="match_parent"
 			android:layout_height="36dp"
-			android:layout_marginBottom="36dp"
-			android:background="@drawable/button_accent_background"
+			android:layout_marginBottom="16dp"
+			android:background="@drawable/border_white"
 			android:text="@string/Delete"
 			android:textAllCaps="false"
 			android:textColor="@color/applicationWhite"
@@ -230,8 +230,8 @@
 			android:id="@+id/results_button"
 			android:layout_width="match_parent"
 			android:layout_height="36dp"
-			android:layout_marginBottom="36dp"
-			android:background="@drawable/button_competition_secondary"
+			android:layout_marginBottom="16dp"
+			android:background="@drawable/border_white"
 			android:text="@string/Results"
 			android:textAllCaps="false"
 			android:textColor="@color/applicationWhite"
@@ -242,7 +242,7 @@
 			android:layout_width="match_parent"
 			android:layout_height="36dp"
 			android:layout_marginBottom="36dp"
-			android:background="@drawable/button_competition_secondary"
+			android:background="@drawable/border_white"
 			android:text="@string/CompetitionRules"
 			android:textAllCaps="false"
 			android:textColor="@color/applicationWhite"

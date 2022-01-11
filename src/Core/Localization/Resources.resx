@@ -1276,4 +1276,19 @@ Apple Inc. не является спонсором проведения кон�
   <data name="WantToCancelCompetition" xml:space="preserve">
     <value>Вы уверены, что хотите отменить конкурс?</value>
   </data>
+  <data name="Participants" xml:space="preserve">
+    <value>участников</value>
+  </data>
+  <data name="Fee" xml:space="preserve">
+    <value>взнос</value>
+  </data>
+  <data name="OfTheInstallment" xml:space="preserve">
+    <value>от взноса</value>
+  </data>
+  <data name="Profit" xml:space="preserve">
+    <value>Прибыль</value>
+  </data>
+  <data name="Statistics" xml:space="preserve">
+    <value>Статистика</value>
+  </data>
 </root>
