@@ -1,4 +1,5 @@
-﻿using PrankChat.Mobile.Core.Data.Dtos.Competitions;
+﻿using System.Linq;
+using PrankChat.Mobile.Core.Data.Dtos.Competitions;
 using PrankChat.Mobile.Core.Data.Models.Competitions;
 
 namespace PrankChat.Mobile.Core.Mappers
@@ -14,7 +15,7 @@ namespace PrankChat.Mobile.Core.Mappers
                 EntryTax = competitionCreationForm.EntryTax,
                 Type = competitionCreationForm.Type,
                 EntryTaxPrizePart = competitionCreationForm.EntryTaxPrizePart,
-                PrizePool = competitionCreationForm.PrizePool,
+                PrizePool = string.Join(',', competitionCreationForm.PrizePool),
                 StartUploadVideosDateTime = competitionCreationForm.StartUploadVideosDateTime,
                 EndUploadVideosDateTime = competitionCreationForm.EndUploadVideosDateTime,
                 VoteToDateTime = competitionCreationForm.VoteToDateTime

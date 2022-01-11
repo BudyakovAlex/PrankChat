@@ -25,7 +25,7 @@ namespace PrankChat.Mobile.Core.Data.Dtos.Competitions
         public DateTime? VoteToDateTime { get; set; }
 
         [JsonProperty("prize_pool")]
-        public double[] PrizePool { get; set; }
+        public string PrizePool { get; set; }
 
         [JsonProperty("type")]
         public OrderCategory Type { get; set; }
