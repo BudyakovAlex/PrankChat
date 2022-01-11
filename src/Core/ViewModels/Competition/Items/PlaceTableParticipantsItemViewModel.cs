@@ -5,17 +5,19 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition.Items
 {
     public class PlaceTableParticipantsItemViewModel : BaseViewModel
     {
+        private const int MaximumPercents = 100;
+
         private readonly Action _percentChanged;
-        private readonly Func<double> _leftToDistribute;
+        private readonly Func<double> _getTotalPercentsInInput;
 
         public PlaceTableParticipantsItemViewModel(
             int place,
-            Func<double> leftToDistribute,
+            Func<double> getTotalPercentsInInput,
             Action percentChanged)
         {
             Place = place;
             _percentChanged = percentChanged;
-            _leftToDistribute = leftToDistribute;
+            _getTotalPercentsInInput = getTotalPercentsInInput;
         }
 
         public int Place { get; }
@@ -29,26 +31,26 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition.Items
             set
             {
                 _percent = value;
+                var availablePercent = GetMaxAvailablePercent(value);
+                SetProperty(ref _percent, availablePercent);
                 _percentChanged?.Invoke();
-
-                var availablePercent = GetPercent(value);
-                if (availablePercent < _percent)
-                {
-                    Percent = availablePercent;
-                }
-
-                RaisePropertyChanged();
-            }
+             }
         }
 
-        private double GetPercent(double? value)
+        private double GetMaxAvailablePercent(double? value)
         {
             if (value == null)
             {
                 return 0;
             }
 
-            return Math.Min(value ?? 0, _leftToDistribute.Invoke());
+            var totalPercents = _getTotalPercentsInInput.Invoke();
+            if (totalPercents <= MaximumPercents)
+            {
+                return value.Value;
+            }
+
+            return MaximumPercents - (totalPercents - value ?? 0);
         }
     }
 }

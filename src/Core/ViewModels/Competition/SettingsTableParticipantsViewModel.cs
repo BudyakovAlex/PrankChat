@@ -26,7 +26,9 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
 
         public double? PrizePool { get; private set; }
 
-        public int LeftToDistribtePercent => DefaultLeftToDistributeInPercent - (int)Items.Sum(item => item.Percent ?? 0);
+        public int LeftToDistribtePercent => Math.Max(DefaultLeftToDistributeInPercent - TotalPercentsInInput, 0);
+
+        public int TotalPercentsInInput => (int)Items.Sum(item => item.Percent ?? 0);
 
         public bool IsWarning => ApplyCommand.CanExecute();
 
@@ -52,7 +54,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
             PlaceTableParticipantsItemViewModel ProduceNewItem()
             {
                 var place = Items.Count + 1;
-                return new PlaceTableParticipantsItemViewModel(place, () => Math.Max(LeftToDistribtePercent, 0), PercentPlaceTableParticipantsChanged);
+                return new PlaceTableParticipantsItemViewModel(place, () => TotalPercentsInInput, PercentPlaceTableParticipantsChanged);
             }
         }
 
