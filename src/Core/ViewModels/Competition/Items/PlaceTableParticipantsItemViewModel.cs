@@ -28,8 +28,16 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition.Items
             get => _percent;
             set
             {
+                _percent = value;
+                _percentChanged?.Invoke();
+
                 var availablePercent = GetPercent(value);
-                SetProperty(ref _percent, availablePercent, _percentChanged);
+                if (availablePercent < _percent)
+                {
+                    Percent = availablePercent;
+                }
+
+                RaisePropertyChanged();
             }
         }
 

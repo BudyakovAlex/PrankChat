@@ -18,7 +18,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
         public SettingsTableParticipantsViewModel()
         {
             AddPlaceCommand = this.CreateCommand(AddPlace);
-            ApplyCommand = this.CreateCommand(ApplyAsync, CanExecuteApplyCommand);
+            ApplyCommand = this.CreateCommand(ApplyAsync, () => LeftToDistribtePercent == MinimumLeftToDistributePercent);
             InitializeDefaultProperties();
         }
 
@@ -26,12 +26,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
 
         public double? PrizePool { get; private set; }
 
-        private int _leftToDistribute;
-        public int LeftToDistribtePercent
-        {
-            get => _leftToDistribute;
-            set => SetProperty(ref _leftToDistribute, value);
-        }
+        public int LeftToDistribtePercent => DefaultLeftToDistributeInPercent - (int)Items.Sum(item => item.Percent ?? 0);
 
         public bool IsWarning => ApplyCommand.CanExecute();
 
@@ -41,6 +36,11 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
         public override void Prepare(SettingsTableParticipantsNavigationParameter parameter)
         {
             PrizePool = parameter.PrizePool;
+
+            if (parameter.Places.IsEmpty())
+            {
+                return;
+            }
 
             Items.ReplaceWith(parameter.Places);
         }
@@ -61,16 +61,11 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
             return NavigationManager.CloseAsync(this, Items.ToArray());
         }
 
-        private bool CanExecuteApplyCommand()
-        {
-            return LeftToDistribtePercent == MinimumLeftToDistributePercent;
-        }
-
         private void PercentPlaceTableParticipantsChanged()
         {
-            LeftToDistribtePercent = DefaultLeftToDistributeInPercent - (int)Items.Sum(item => item.Percent ?? 0);
             ApplyCommand.RaiseCanExecuteChanged();
             RaisePropertyChanged(nameof(IsWarning));
+            RaisePropertyChanged(nameof(LeftToDistribtePercent));
         }
 
         private void InitializeDefaultProperties()
@@ -79,8 +74,6 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
             {
                 AddPlace();
             }
-
-            LeftToDistribtePercent = DefaultLeftToDistributeInPercent;
         }
     }
 }
