@@ -19,7 +19,7 @@ namespace PrankChat.Mobile.Droid.Views.Competitions
         private TextView _contributionValueTextView;
         private TextView _percentValueTextView;
 
-        protected override string TitleActionBar => "Статистика";
+        protected override string TitleActionBar => Core.Localization.Resources.Statistics;
 
         protected override bool HasBackButton => true;
 
@@ -38,10 +38,10 @@ namespace PrankChat.Mobile.Droid.Views.Competitions
             _contributionValueTextView = FindViewById<TextView>(Resource.Id.contribution_value_text_view);
             _percentValueTextView = FindViewById<TextView>(Resource.Id.percent_value_text_view);
 
-            FindViewById<TextView>(Resource.Id.profit_title_text_view).Text = "Прибыль";
-            FindViewById<TextView>(Resource.Id.participants_title_text_view).Text = "участников";
-            FindViewById<TextView>(Resource.Id.contribution_title_text_view).Text = "взнос";
-            FindViewById<TextView>(Resource.Id.percent_title_text_view).Text = "% от взноса";
+            FindViewById<TextView>(Resource.Id.profit_title_text_view).Text = Core.Localization.Resources.Profit;
+            FindViewById<TextView>(Resource.Id.participants_title_text_view).Text = Core.Localization.Resources.Participants;
+            FindViewById<TextView>(Resource.Id.contribution_title_text_view).Text = Core.Localization.Resources.Fee;
+            FindViewById<TextView>(Resource.Id.percent_title_text_view).Text = $"% {Core.Localization.Resources.OfTheInstallment}";
         }
 
         protected override void Bind()

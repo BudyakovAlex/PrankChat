@@ -1,4 +1,5 @@
 ﻿using MvvmCross.Platforms.Ios.Presenters.Attributes;
+using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.ViewModels.Competition;
 using PrankChat.Mobile.iOS.Views.Base;
 
@@ -11,7 +12,11 @@ namespace PrankChat.Mobile.iOS.Views.Competition
         {
             base.SetupControls();
 
-            Title = "Статистика";
+            Title = Resources.Statistics;
+            ProfitTitleLabel.Text = Resources.Profit;
+            ParticipantsTitleLabel.Text = Resources.Participants;
+            PercentageFromContributionTitleLabel.Text = $"% {Resources.OfTheInstallment}";
+            ContributionTitleLabel.Text = Resources.Fee;
         }
 
         protected override void Bind()

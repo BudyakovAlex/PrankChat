@@ -1888,5 +1888,35 @@ namespace PrankChat.Mobile.Core.Localization {
                 return ResourceManager.GetString("WantToCancelCompetition", resourceCulture);
             }
         }
+        
+        public static string Participants {
+            get {
+                return ResourceManager.GetString("Participants", resourceCulture);
+            }
+        }
+        
+        public static string Fee {
+            get {
+                return ResourceManager.GetString("Fee", resourceCulture);
+            }
+        }
+        
+        public static string OfTheInstallment {
+            get {
+                return ResourceManager.GetString("OfTheInstallment", resourceCulture);
+            }
+        }
+        
+        public static string Profit {
+            get {
+                return ResourceManager.GetString("Profit", resourceCulture);
+            }
+        }
+        
+        public static string Statistics {
+            get {
+                return ResourceManager.GetString("Statistics", resourceCulture);
+            }
+        }
     }
 }
