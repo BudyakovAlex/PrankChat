@@ -1,34 +1,50 @@
-﻿using MvvmCross.Commands;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
+using MvvmCross.Commands;
 using PrankChat.Mobile.Core.Common;
 using PrankChat.Mobile.Core.Data.Enums;
+using PrankChat.Mobile.Core.Data.Models.Competitions;
+using PrankChat.Mobile.Core.Exceptions;
+using PrankChat.Mobile.Core.Exceptions.Network;
 using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Localization;
+using PrankChat.Mobile.Core.Managers.Competitions;
+using PrankChat.Mobile.Core.Messages;
+using PrankChat.Mobile.Core.Models.Enums;
+using PrankChat.Mobile.Core.Providers;
+using PrankChat.Mobile.Core.Services.ErrorHandling.Messages;
 using PrankChat.Mobile.Core.ViewModels.Abstract;
+using PrankChat.Mobile.Core.ViewModels.Competition.Items;
 using PrankChat.Mobile.Core.ViewModels.Parameters;
 using PrankChat.Mobile.Core.ViewModels.Profile;
 using PrankChat.Mobile.Core.ViewModels.Profile.Cashbox;
 using PrankChat.Mobile.Core.ViewModels.Results;
 using PrankChat.Mobile.Core.ViewModels.Walthroughs;
-using PrankChat.Mobile.Core.Providers;
-using System;
-using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.ViewModels.Competition
 {
     public class CreateCompetitionViewModel : BasePageViewModel
     {
+        private readonly ICompetitionsManager _competitionsManager;
         private readonly IWalkthroughsProvider _walkthroughsProvider;
 
-        public CreateCompetitionViewModel(IWalkthroughsProvider walkthroughsProvider)
+        private PlaceTableParticipantsItemViewModel[] _places;
+
+        private bool _isExecuting;
+
+        public CreateCompetitionViewModel(ICompetitionsManager competitionsManager, IWalkthroughsProvider walkthroughsProvider)
         {
+            _competitionsManager = competitionsManager;
             _walkthroughsProvider = walkthroughsProvider;
+
+            _places = Array.Empty<PlaceTableParticipantsItemViewModel>();
 
             ShowWalkthrouthCommand = this.CreateCommand(ShowWalkthrouthAsync);
             ShowWalkthrouthSecretCommand = this.CreateCommand(ShowWalkthrouthSecretAsync);
             CreateCommand = this.CreateCommand(CreateAsync);
             SelectPeriodCollectionBidsFromCommand = this.CreateCommand(SelectPeriodCollectionBidsFromAsync);
             SelectPeriodCollectionBidsToCommand = this.CreateCommand(SelectPeriodCollectionBidsToAsync);
-            SelectPeriodVotingFromCommand = this.CreateCommand(SelectPeriodVotingFromAsync);
             SelectPeriodVotingToCommand = this.CreateCommand(SelectPeriodVotingToAsync);
             ShowSettingTableParticipantsCommand = this.CreateCommand(ShowSettingTableParticipantsAsync);
         }
@@ -38,7 +54,6 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
         public IMvxAsyncCommand ShowWalkthrouthSecretCommand { get; }
         public IMvxAsyncCommand SelectPeriodCollectionBidsFromCommand { get; }
         public IMvxAsyncCommand SelectPeriodCollectionBidsToCommand { get; }
-        public IMvxAsyncCommand SelectPeriodVotingFromCommand { get; }
         public IMvxAsyncCommand SelectPeriodVotingToCommand { get; }
         public IMvxAsyncCommand ShowSettingTableParticipantsCommand { get; }
 
@@ -83,21 +98,6 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
                 }
 
                 SetProperty(ref _collectionBidsTo, value);
-            }
-        }
-
-        private DateTime? _votingFrom;
-        public DateTime? VotingFrom
-        {
-            get => _votingFrom;
-            set
-            {
-                if (value == null)
-                {
-                    return;
-                }
-
-                SetProperty(ref _votingFrom, value);
             }
         }
 
@@ -149,18 +149,94 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
 
         private Task ShowWalkthrouthSecretAsync()
         {
-            var parameters = new WalthroughNavigationParameter(Resources.SecretOrder, Resources.WalkthrouthCreateOrderSecretDescription);
+            var parameters = new WalthroughNavigationParameter(Resources.SecretContest, Resources.WalkthrouthCreateOrderSecretDescription);
             return NavigationManager.NavigateAsync<WalthroughViewModel, WalthroughNavigationParameter>(parameters);
         }
 
-        private Task CreateAsync()
+        private async Task CreateAsync()
         {
-            return Task.CompletedTask;
+            if (_isExecuting)
+            {
+                return;
+            }
+
+            _isExecuting = true;
+
+            try
+            {
+                var canCreate = await UserInteraction.ShowConfirmAsync(Resources.OrderCreateMessage, Resources.Attention, Resources.Create, Resources.Cancel);
+                if (!canCreate)
+                {
+                    return;
+                }
+
+                await SaveCompetitionAsync();
+            }
+            catch (NetworkException ex) when (ex.InnerException is ProblemDetailsException problemDetails && problemDetails?.CodeError == Constants.ErrorCodes.LowBalance)
+            {
+                await HandleLowBalanceExceptionAsync(ex);
+            }
+            catch (NetworkException ex) when (ex.InnerException is ProblemDetailsException problemDetails && problemDetails?.CodeError == Constants.ErrorCodes.Unauthorized)
+            {
+                await HandleUnauthorizedAsync(ex);
+            }
+            catch (Exception ex)
+            {
+                ErrorHandleService.ResumeServerErrorsHandling();
+                Messenger.Publish(new ServerErrorMessage(this, ex));
+            }
+            finally
+            {
+                ErrorHandleService.ResumeServerErrorsHandling();
+                _isExecuting = false;
+            }
         }
 
-        private Task SaveOrderAsync()
+        private async Task SaveCompetitionAsync()
         {
-            return Task.CompletedTask;
+            var category = IsExecutorHidden
+                ? OrderCategory.PrivatePaidCompetition
+                : OrderCategory.PaidCompetition;
+
+            var prizePool = _places
+                .OrderBy(place => place.Place)
+                .Select(place => place.Percent.Value)
+                .ToArray();
+
+            var competitionCreationForm = new CompetitionCreationForm(
+                PrizePool,
+                Name,
+                Description,
+                CollectionBidsFrom,
+                CollectionBidsTo,
+                VotingTo,
+                prizePool,
+                category,
+                ParticipationFee,
+                PercentParticipationFee);
+
+            ErrorHandleService.SuspendServerErrorsHandling();
+            var newCompetition = await _competitionsManager.CreateCompetitionAsync(competitionCreationForm);
+            if (newCompetition != null)
+            {
+                Messenger.Publish(new ReloadCompetitionsMessage(this));
+                SetDefaultData();
+                return;
+            }
+
+            await UserInteraction.ShowAlertAsync(Resources.ErrorUnexpectedServer);
+        }
+
+        private void SetDefaultData()
+        {
+            Name = string.Empty;
+            Description = string.Empty;
+            IsExecutorHidden = false;
+            CollectionBidsFrom = null;
+            CollectionBidsTo = null;
+            VotingTo = null;
+            PrizePool = null;
+            _places = Array.Empty<PlaceTableParticipantsItemViewModel>();
         }
 
         private async Task SelectPeriodCollectionBidsFromAsync()
@@ -171,11 +247,6 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
         private async Task SelectPeriodVotingToAsync()
         {
             VotingTo = await UserInteraction.ShowDateDialogAsync();
-        }
-
-        private async Task SelectPeriodVotingFromAsync()
-        {
-            VotingFrom = await UserInteraction.ShowDateDialogAsync();
         }
 
         private async Task SelectPeriodCollectionBidsToAsync()
@@ -206,12 +277,10 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
             await NavigationManager.NavigateAsync<ProfileUpdateViewModel, ProfileUpdateResult>();
         }
 
-        private Task ShowPrivacyPolicyAsync() =>
-            Xamarin.Essentials.Browser.OpenAsync(RestConstants.PolicyEndpoint);
-
         private async Task ShowSettingTableParticipantsAsync()
         {
-            await NavigationManager.NavigateAsync<SettingsTableParticipantsViewModel>();
+            var navigationParameters = new SettingsTableParticipantsNavigationParameter(_places, PrizePool);
+            _places = await NavigationManager.NavigateAsync<SettingsTableParticipantsViewModel, SettingsTableParticipantsNavigationParameter, PlaceTableParticipantsItemViewModel[]>(navigationParameters);
         }
     }
 }

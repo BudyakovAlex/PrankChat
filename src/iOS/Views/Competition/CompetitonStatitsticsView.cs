@@ -1,6 +1,7 @@
 ﻿using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.ViewModels.Competition;
+using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Views.Base;
 
 namespace PrankChat.Mobile.iOS.Views.Competition

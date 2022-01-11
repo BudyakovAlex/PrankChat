@@ -46,4 +46,12 @@
       <DesignTime>True</DesignTime>
     </Compile>
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="Data\Models\Competitions\" />
+    <None Remove="Data\Dtos\Competitions\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Data\Models\Competitions\" />
+    <Folder Include="Data\Dtos\Competitions\" />
+  </ItemGroup>
 </Project>

@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.Data.Dtos;
 using PrankChat.Mobile.Core.Data.Dtos.Base;
+using PrankChat.Mobile.Core.Data.Dtos.Competitions;
 using PrankChat.Mobile.Core.Data.Enums;
 using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Providers.Configuration;
@@ -83,6 +84,12 @@ namespace PrankChat.Mobile.Core.Services.Network.Http.Competitions
         {
             var data = await _client.GetAsync<ResponseDto<CompetitionStatisticsDto>>($"competitions/{id}/statistics", false);
             return data?.Data;
+        }
+
+        public async Task<CompetitionDto> CreateCompetitionAsync(CompetitionCreationFormDto competitionCreationFormDto)
+        {
+            var newCompetition = await _client.PostAsync<CompetitionCreationFormDto, ResponseDto<CompetitionDto>>("competitions", competitionCreationFormDto, true);
+            return newCompetition?.Data;
         }
     }
 }

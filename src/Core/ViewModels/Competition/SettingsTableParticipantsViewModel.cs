@@ -5,10 +5,11 @@ using MvvmCross.Commands;
 using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.ViewModels.Abstract.Items;
 using PrankChat.Mobile.Core.ViewModels.Competition.Items;
+using PrankChat.Mobile.Core.ViewModels.Parameters;
 
 namespace PrankChat.Mobile.Core.ViewModels.Competition
 {
-    public class SettingsTableParticipantsViewModel : BaseItemsPageViewModel<PlaceTableParticipantsItemViewModel, int>
+    public class SettingsTableParticipantsViewModel : BaseItemsPageViewModel<PlaceTableParticipantsItemViewModel, SettingsTableParticipantsNavigationParameter, PlaceTableParticipantsItemViewModel[]>
     {
         private const int DefaultLeftToDistributeInPercent = 100;
         private const int DefaultCountParticipants = 3;
@@ -21,7 +22,9 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
             InitializeDefaultProperties();
         }
 
-        public int PrizePool { get; private set; }
+        protected override PlaceTableParticipantsItemViewModel[] DefaultResult => Items.ToArray();
+
+        public double? PrizePool { get; private set; }
 
         private int _leftToDistribute;
         public int LeftToDistribtePercent
@@ -35,9 +38,11 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
         public IMvxCommand AddPlaceCommand { get; }
         public IMvxAsyncCommand ApplyCommand { get; }
 
-        public override void Prepare(int parameter)
+        public override void Prepare(SettingsTableParticipantsNavigationParameter parameter)
         {
-            PrizePool = parameter;
+            PrizePool = parameter.PrizePool;
+
+            Items.ReplaceWith(parameter.Places);
         }
 
         private void AddPlace()
@@ -53,7 +58,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
 
         private Task ApplyAsync()
         {
-            return Task.CompletedTask;
+            return NavigationManager.CloseAsync(this, Items.ToArray());
         }
 
         private bool CanExecuteApplyCommand()

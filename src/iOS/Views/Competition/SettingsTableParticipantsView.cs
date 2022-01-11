@@ -64,11 +64,10 @@ namespace PrankChat.Mobile.iOS.Views.Competition
                  .Register<PlaceTableParticipantsItemViewModel>(PlaceTableParticipantsItemCell.Nib, PlaceTableParticipantsItemCell.CellId);
             ItemsTableView.RowHeight = 58f;
             ItemsTableView.Source = _tableViewSource;
-            ItemsTableView.SeparatorStyle = UIKit.UITableViewCellSeparatorStyle.None;
+            ItemsTableView.SeparatorStyle = UITableViewCellSeparatorStyle.None;
 
 
             AddPlaceImageView.Image = UIImage.FromBundle(ImageNames.AddPlaceParticipant);
-            // TODO: Move to AppStrings.
             ApplyButton.SetDarkStyle("Применить");
             Title = "Настройка таблицы участников";
             WarningLabel.SetSmallSubtitleStyle("необходимо распределить весь призовой фонд");

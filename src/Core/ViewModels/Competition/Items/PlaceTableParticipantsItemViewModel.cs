@@ -5,24 +5,32 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition.Items
 {
     public class PlaceTableParticipantsItemViewModel : BaseViewModel
     {
-        private readonly int _place;
-        private readonly Action? _percentChanged;
+        private readonly Action _percentChanged;
         private readonly Func<double> _leftToDistribute;
 
-        public string Title => $"При за {_place} место";
+        public PlaceTableParticipantsItemViewModel(
+            int place,
+            Func<double> leftToDistribute,
+            Action percentChanged)
+        {
+            Place = place;
+            _percentChanged = percentChanged;
+            _leftToDistribute = leftToDistribute;
+        }
+
+        public int Place { get; }
+
+        public string Title => $"Приз за {Place} место";
 
         private double? _percent;
         public double? Percent
         {
             get => _percent;
-            set => SetProperty(ref _percent, GetPercent(value), _percentChanged);
-        }
-
-        public PlaceTableParticipantsItemViewModel(int place, Func<double> leftToDistribute, Action? percentChanged)
-        {
-            _place = place;
-            _percentChanged = percentChanged;
-            _leftToDistribute = leftToDistribute;
+            set
+            {
+                var availablePercent = GetPercent(value);
+                SetProperty(ref _percent, availablePercent, _percentChanged);
+            }
         }
 
         private double GetPercent(double? value)
