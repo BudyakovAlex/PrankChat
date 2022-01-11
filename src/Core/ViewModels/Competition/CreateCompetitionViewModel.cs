@@ -199,6 +199,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
                 : OrderCategory.PaidCompetition;
 
             var prizePool = _places
+                .Where(place => place.Percent.HasValue)
                 .OrderBy(place => place.Place)
                 .Select(place => place.Percent.Value)
                 .ToArray();
