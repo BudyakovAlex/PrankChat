@@ -42,7 +42,7 @@ namespace PrankChat.Mobile.iOS.Views.Competition
             {
                 { ParticipationFeeTextField, Resources.Currency },
                 { PrizeFundTextField, Resources.Currency },
-                { PerrcentFromContribution, "%" }
+                { PerrcentFromContribution, Resources.Percent }
             };
 
             DescriptionTextView.TextContainer.MaximumNumberOfLines = 100;
@@ -60,7 +60,6 @@ namespace PrankChat.Mobile.iOS.Views.Competition
                 var newLength = textField.Text.Length + replacementString.Length - range.Length;
                 return newLength <= Constants.Orders.DescriptionMaxLength;
             };
-
 
             Title = Resources.CreateContest;
             NameTextField.SetDarkStyle(Resources.OrderName);
@@ -99,9 +98,9 @@ namespace PrankChat.Mobile.iOS.Views.Competition
             bindingSet.Bind(CollectOfRequestsToTextField).For(v => v.Text).To(vm => vm.CollectionBidsTo)
                 .WithConversion<StringFormatValueConverter>(Constants.Formats.DateTimeFormat);
             bindingSet.Bind(CollectOfRequestsToTextField).For(v => v.BindTap()).To(vm => vm.SelectPeriodCollectionBidsToCommand);
-            bindingSet.Bind(VotingFromTextField).For(v => v.Text).To(vm => vm.VotingFrom)
+            bindingSet.Bind(VotingFromTextField).For(v => v.Text).To(vm => vm.CollectionBidsTo)
                 .WithConversion<StringFormatValueConverter>(Constants.Formats.DateTimeFormat);
-            bindingSet.Bind(VotingFromTextField).For(v => v.BindTap()).To(vm => vm.SelectPeriodVotingFromCommand);
+            bindingSet.Bind(VotingFromTextField).For(v => v.BindTap()).To(vm => vm.SelectPeriodCollectionBidsToCommand);
             bindingSet.Bind(VotingToTextField).For(v => v.Text).To(vm => vm.VotingTo)
                 .WithConversion<StringFormatValueConverter>(Constants.Formats.DateTimeFormat);
             bindingSet.Bind(VotingToTextField).For(v => v.BindTap()).To(vm => vm.SelectPeriodVotingToCommand);
