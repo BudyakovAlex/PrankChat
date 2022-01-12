@@ -1,7 +1,8 @@
 using System;
+using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.ViewModels.Abstract;
 
-namespace PrankChat.Mobile.Core.ViewModels.Competition.Items
+namespace PrankChat.Mobile.Core.ViewModels.Competitions.Items
 {
     public class PlaceTableParticipantsItemViewModel : BaseViewModel
     {
@@ -22,7 +23,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition.Items
 
         public int Place { get; }
 
-        public string Title => $"Приз за {Place} место";
+        public string Title => string.Format(Resources.PrizeForPlaceTemplate, Place);
 
         private double? _percent;
         public double? Percent

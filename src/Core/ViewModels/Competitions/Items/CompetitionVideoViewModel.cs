@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using PrankChat.Mobile.Core.ViewModels.Results;
 
-namespace PrankChat.Mobile.Core.ViewModels.Competition.Items
+namespace PrankChat.Mobile.Core.ViewModels.Competitions.Items
 {
     public class CompetitionVideoViewModel : BaseVideoItemViewModel
     {

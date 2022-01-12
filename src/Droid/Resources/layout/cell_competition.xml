@@ -339,7 +339,7 @@
 				app:layout_constraintTop_toTopOf="@+id/placeholder_image_view"
 				app:srcCompat="@drawable/ic_order_hidden" />
 
-			<PrankChat.Mobile.Droid.Controls.CircleCachedImageView
+			<CircleCachedImageView
 				android:id="@+id/customer_image_view"
 				android:layout_width="48dp"
 				android:layout_height="48dp"

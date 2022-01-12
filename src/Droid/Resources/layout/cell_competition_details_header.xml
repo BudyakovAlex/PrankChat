@@ -18,7 +18,7 @@
 		app:layout_constraintTop_toTopOf="parent"
 		tools:srcCompat="@tools:sample/backgrounds/scenic[11]" />
 
-	<PrankChat.Mobile.Droid.Controls.CircleCachedImageView
+	<CircleCachedImageView
 		android:id="@+id/customer_image_view"
 		android:layout_width="48dp"
 		android:layout_height="48dp"

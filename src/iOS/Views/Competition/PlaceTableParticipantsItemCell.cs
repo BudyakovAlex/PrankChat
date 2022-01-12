@@ -1,7 +1,8 @@
 ﻿using System;
 using MvvmCross.Binding.BindingContext;
 using PrankChat.Mobile.Core.Converters;
-using PrankChat.Mobile.Core.ViewModels.Competition.Items;
+using PrankChat.Mobile.Core.Localization;
+using PrankChat.Mobile.Core.ViewModels.Competitions.Items;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Views.Base;
 using UIKit;
@@ -10,7 +11,6 @@ namespace PrankChat.Mobile.iOS.Views.Competition
 {
     public partial class PlaceTableParticipantsItemCell : BaseTableCell<PlaceTableParticipantsItemCell, PlaceTableParticipantsItemViewModel>
     {
-        private const string Percent = "%";
         private UITextPosition _previousPosition;
 
         protected PlaceTableParticipantsItemCell(IntPtr handle)
@@ -43,7 +43,7 @@ namespace PrankChat.Mobile.iOS.Views.Competition
             PercentTextField.EditingChanged += OnRightTextAlignmentTextFieldEditingChanged;
         }
 
-        private void OnRightTextAlignmentTextFieldEditingChanged(object sender, System.EventArgs e)
+        private void OnRightTextAlignmentTextFieldEditingChanged(object sender, EventArgs e)
         {
             if (!(sender is UITextField textField))
             {
@@ -56,7 +56,7 @@ namespace PrankChat.Mobile.iOS.Views.Competition
                 return;
             }
 
-            if (!text.EndsWith(Percent))
+            if (!text.EndsWith(Resources.Percent))
             {
                 return;
             }

@@ -22,12 +22,12 @@ using PrankChat.Mobile.Core.Services.ErrorHandling.Messages;
 using PrankChat.Mobile.Core.ViewModels.Abstract;
 using PrankChat.Mobile.Core.ViewModels.Common;
 using PrankChat.Mobile.Core.ViewModels.Common.Abstract;
-using PrankChat.Mobile.Core.ViewModels.Competition.Items;
+using PrankChat.Mobile.Core.ViewModels.Competitions.Items;
 using PrankChat.Mobile.Core.ViewModels.Parameters;
 using PrankChat.Mobile.Core.ViewModels.Profile.Cashbox;
 using Xamarin.Essentials;
 
-namespace PrankChat.Mobile.Core.ViewModels.Competition
+namespace PrankChat.Mobile.Core.ViewModels.Competitions
 {
     public class CompetitionDetailsViewModel : PaginationViewModel<Models.Data.Competition, bool, BaseViewModel>
     {

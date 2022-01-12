@@ -1,4 +1,4 @@
-﻿using PrankChat.Mobile.Core.ViewModels.Competition.Items;
+﻿using PrankChat.Mobile.Core.ViewModels.Competitions.Items;
 
 namespace PrankChat.Mobile.Core.ViewModels.Parameters
 {

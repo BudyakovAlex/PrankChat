@@ -4,10 +4,10 @@ using System.Threading.Tasks;
 using MvvmCross.Commands;
 using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.ViewModels.Abstract.Items;
-using PrankChat.Mobile.Core.ViewModels.Competition.Items;
+using PrankChat.Mobile.Core.ViewModels.Competitions.Items;
 using PrankChat.Mobile.Core.ViewModels.Parameters;
 
-namespace PrankChat.Mobile.Core.ViewModels.Competition
+namespace PrankChat.Mobile.Core.ViewModels.Competitions
 {
     public class SettingsTableParticipantsViewModel : BaseItemsPageViewModel<PlaceTableParticipantsItemViewModel, SettingsTableParticipantsNavigationParameter, PlaceTableParticipantsItemViewModel[]>
     {

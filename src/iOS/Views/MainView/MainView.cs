@@ -45,7 +45,7 @@ namespace PrankChat.Mobile.iOS.Views.MainView
         public override void ItemSelected(UITabBar tabbar, UITabBarItem item)
         {
             var tabPosition = tabbar.Items.ToList().IndexOf(item);
-            if (tabPosition == 2)
+            if (tabPosition == 2 && (ViewModel?.CanSwitchTabs(tabPosition) ?? false))
             {
                 ViewModel?.ShowChooseCreateTypeCommand?.Execute();
             }

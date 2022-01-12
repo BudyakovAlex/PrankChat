@@ -9,13 +9,12 @@ using PrankChat.Mobile.Core.Common;
 using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.Models.Enums;
-using PrankChat.Mobile.Core.ViewModels.Competition.Items;
-using PrankChat.Mobile.Droid.Extensions;
+using PrankChat.Mobile.Core.ViewModels.Competitions.Items;
 using PrankChat.Mobile.Droid.Adapters.ViewHolders.Abstract;
-using PrankChat.Mobile.Droid.Bindings;
-using PrankChat.Mobile.Droid.Converters;
-using PrankChat.Mobile.Droid.Utils.Helpers;
 using PrankChat.Mobile.Droid.Controls;
+using PrankChat.Mobile.Droid.Converters;
+using PrankChat.Mobile.Droid.Extensions;
+using PrankChat.Mobile.Droid.Utils.Helpers;
 
 namespace PrankChat.Mobile.Droid.Adapters.ViewHolders.Competitions
 {
@@ -141,6 +140,8 @@ namespace PrankChat.Mobile.Droid.Adapters.ViewHolders.Competitions
                       .WithConversion(new DelegateConverter<OrderCategory, bool>((category) => category == OrderCategory.PaidCompetition || category == OrderCategory.PrivatePaidCompetition));
             bindingSet.Bind(_customerImageView).For(v => v.ImagePath).To(vm => vm.CustomerAvatarUrl);
             bindingSet.Bind(_customerImageView).For(v => v.BindVisible()).To(vm => vm.IsCustomerAttached);
+            bindingSet.Bind(_customerImageView).For(v => v.PlaceholderText).To(vm => vm.CustomerShortName);
+
             bindingSet.Bind(this).For(nameof(Phase)).To(vm => vm.Phase);
         }
 

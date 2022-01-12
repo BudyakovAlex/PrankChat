@@ -8,7 +8,7 @@ using PrankChat.Mobile.Core.Common;
 using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.Models.Enums;
-using PrankChat.Mobile.Core.ViewModels.Competition.Items;
+using PrankChat.Mobile.Core.ViewModels.Competitions.Items;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Converters;
 using PrankChat.Mobile.iOS.Views.Base;
@@ -100,6 +100,7 @@ namespace PrankChat.Mobile.iOS.Views.Competition
             bindingSet.Bind(button).For(v => v.BindTouchUpInside()).To(vm => vm.ActionCommand);
             bindingSet.Bind(CustomerAvatarImageView).For(v => v.ImagePath).To(vm => vm.CustomerAvatarUrl).OneWay();
             bindingSet.Bind(CustomerAvatarImageView).For(v => v.BindVisible()).To(vm => vm.IsCustomerAttached);
+            bindingSet.Bind(CustomerAvatarImageView).For(v => v.PlaceholderText).To(vm => vm.CustomerShortName);
             bindingSet.Bind(OnModerationView).For(v => v.BindVisible()).To(vm => vm.Phase)
                 .WithConversion(new DelegateConverter<CompetitionPhase, bool>(phase => phase == CompetitionPhase.Moderation));
         }

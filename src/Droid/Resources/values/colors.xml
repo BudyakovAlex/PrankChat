@@ -30,6 +30,7 @@
     <color name="description">#9E9E9E</color>
     <color name="border">#C3C3C3</color>
     <color name="gray">#D1D1D1</color>
+    <color name="title_gray">#939393</color>
     <color name="dark_placeholder">#878787</color>
     <color name="ic_launcher_background">#2C3E50</color>
     <color name="primary_button_border">#602E9B</color>

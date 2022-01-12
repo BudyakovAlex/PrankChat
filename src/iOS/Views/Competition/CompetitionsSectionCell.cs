@@ -6,7 +6,7 @@ using Foundation;
 using MvvmCross.Binding.BindingContext;
 using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.Models.Enums;
-using PrankChat.Mobile.Core.ViewModels.Competition;
+using PrankChat.Mobile.Core.ViewModels.Competitions;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Views.Base;
 using UIKit;

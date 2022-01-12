@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 using Xamarin.Essentials;
 using System;
 
-namespace PrankChat.Mobile.Core.ViewModels.Competition
+namespace PrankChat.Mobile.Core.ViewModels.Competitions
 {
     public class CompetitionsViewModel : BaseItemsPageViewModel<CompetitionsSectionViewModel>
     {

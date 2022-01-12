@@ -2,8 +2,8 @@
 using MvvmCross.Platforms.Ios.Binding;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using PrankChat.Mobile.Core.Localization;
-using PrankChat.Mobile.Core.ViewModels.Competition;
-using PrankChat.Mobile.Core.ViewModels.Competition.Items;
+using PrankChat.Mobile.Core.ViewModels.Competitions;
+using PrankChat.Mobile.Core.ViewModels.Competitions.Items;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Common;
 using PrankChat.Mobile.iOS.SourcesAndDelegates;
@@ -25,12 +25,12 @@ namespace PrankChat.Mobile.iOS.Views.Competition
                 {
                     { UIStringAttributeKey.Font, Theme.Font.RegularFontOfSize(14) }
                 };
-                var attributedString = new NSMutableAttributedString($"Призовой фонд - ", normalTextAttributes);
+                var attributedString = new NSMutableAttributedString($"{Resources.PrizePool} - ", normalTextAttributes);
                 var boldTextAttributes = new NSMutableDictionary<NSString, UIFont>()
                 {
                     { UIStringAttributeKey.Font, Theme.Font.BoldOfSize(14) }
                 };
-                var boldString = new NSMutableAttributedString($"{value}{Resources.Currency}/100%", boldTextAttributes);
+                var boldString = new NSMutableAttributedString($"{value}{Resources.Currency} / 100%", boldTextAttributes);
                 attributedString.Append(boldString);
                 FullPrizePoolLabel.AttributedText = attributedString;
             }
@@ -44,7 +44,7 @@ namespace PrankChat.Mobile.iOS.Views.Competition
                 {
                     { UIStringAttributeKey.Font, Theme.Font.RegularFontOfSize(14) }
                 };
-                var attributedString = new NSMutableAttributedString($"Осталось распределить - ", normalTextAttributes);
+                var attributedString = new NSMutableAttributedString($"{Resources.RemainsToDistribute} - ", normalTextAttributes);
                 var boldTextAttributes = new NSMutableDictionary<NSString, NSObject>()
                 {
                     { UIStringAttributeKey.Font, Theme.Font.BoldOfSize(14) },
@@ -68,10 +68,10 @@ namespace PrankChat.Mobile.iOS.Views.Competition
 
 
             AddPlaceImageView.Image = UIImage.FromBundle(ImageNames.AddPlaceParticipant);
-            ApplyButton.SetDarkStyle("Применить");
-            Title = "Настройка таблицы участников";
-            WarningLabel.SetSmallSubtitleStyle("необходимо распределить весь призовой фонд");
-            AddPlaceLabel.SetTitleStyle("Добавить призовое место");
+            ApplyButton.SetDarkStyle(Resources.Apply);
+            Title = Resources.ConfiguringTheParticipantTable;
+            WarningLabel.SetSmallSubtitleStyle(Resources.DistributePrizeFundWarningMessage);
+            AddPlaceLabel.SetTitleStyle(Resources.AddPrizePlace);
             AddPlaceLabel.TextColor = Theme.Color.NewAccentColor;
             WarningLabel.TextColor = Theme.Color.WarningColor;
         }

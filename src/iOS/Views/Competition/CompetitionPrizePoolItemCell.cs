@@ -1,6 +1,6 @@
 ﻿using System;
 using MvvmCross.Binding.BindingContext;
-using PrankChat.Mobile.Core.ViewModels.Competition.Items;
+using PrankChat.Mobile.Core.ViewModels.Competitions.Items;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Converters;
 using PrankChat.Mobile.iOS.Views.Base;

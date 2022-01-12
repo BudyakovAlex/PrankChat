@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Acr.UserDialogs;
 using MvvmCross.Commands;
 using PrankChat.Mobile.Core.Common;
 using PrankChat.Mobile.Core.Data.Enums;
@@ -11,18 +12,19 @@ using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.Managers.Competitions;
 using PrankChat.Mobile.Core.Messages;
+using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Providers;
 using PrankChat.Mobile.Core.Services.ErrorHandling.Messages;
 using PrankChat.Mobile.Core.ViewModels.Abstract;
-using PrankChat.Mobile.Core.ViewModels.Competition.Items;
+using PrankChat.Mobile.Core.ViewModels.Competitions.Items;
 using PrankChat.Mobile.Core.ViewModels.Parameters;
 using PrankChat.Mobile.Core.ViewModels.Profile;
 using PrankChat.Mobile.Core.ViewModels.Profile.Cashbox;
 using PrankChat.Mobile.Core.ViewModels.Results;
 using PrankChat.Mobile.Core.ViewModels.Walthroughs;
 
-namespace PrankChat.Mobile.Core.ViewModels.Competition
+namespace PrankChat.Mobile.Core.ViewModels.Competitions
 {
     public class CreateCompetitionViewModel : BasePageViewModel
     {
@@ -90,30 +92,14 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
         public DateTime? CollectionBidsTo
         {
             get => _collectionBidsTo;
-            set
-            {
-                if (value == null)
-                {
-                    return;
-                }
-
-                SetProperty(ref _collectionBidsTo, value);
-            }
+            set => SetProperty(ref _collectionBidsTo, value);
         }
 
         private DateTime? _votingTo;
         public DateTime? VotingTo
         {
             get => _votingTo;
-            set
-            {
-                if (value == null)
-                {
-                    return;
-                }
-
-                SetProperty(ref _votingTo, value);
-            }
+            set => SetProperty(ref _votingTo, value);
         }
 
         private double? _prizePool;
@@ -221,6 +207,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
             if (newCompetition != null)
             {
                 Messenger.Publish(new ReloadCompetitionsMessage(this));
+                await NavigationManager.NavigateAsync<CompetitionDetailsViewModel, Competition, bool>(newCompetition);
                 SetDefaultData();
                 return;
             }
@@ -242,17 +229,68 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
 
         private async Task SelectPeriodCollectionBidsFromAsync()
         {
-            CollectionBidsFrom = await UserInteraction.ShowDateDialogAsync();
-        }
-
-        private async Task SelectPeriodVotingToAsync()
-        {
-            VotingTo = await UserInteraction.ShowDateDialogAsync();
+            CollectionBidsFrom = await SelectDateTimeAsync(CollectionBidsFrom);
+            RefreshRangesIfNeed();
         }
 
         private async Task SelectPeriodCollectionBidsToAsync()
         {
-            CollectionBidsTo = await UserInteraction.ShowDateDialogAsync();
+            CollectionBidsTo = await SelectDateTimeAsync(CollectionBidsTo);
+            RefreshRangesIfNeed();
+        }
+
+        private async Task SelectPeriodVotingToAsync()
+        {
+            VotingTo = await SelectDateTimeAsync(VotingTo);
+            RefreshRangesIfNeed();
+        }
+
+        private async Task<DateTime?> SelectDateTimeAsync(DateTime? dateTime)
+        {
+            var datePromptConfig = new DatePromptConfig
+            {
+                iOSPickerStyle = iOSPickerStyle.Wheels,
+                SelectedDate = dateTime
+            };
+
+            var selectedDateResult = await UserDialogs.Instance.DatePromptAsync(datePromptConfig);
+            if (!selectedDateResult.Ok)
+            {
+                return dateTime;
+            }
+
+            var selectedDateTime = selectedDateResult.SelectedDate;
+
+            var timePromptConfig = new TimePromptConfig
+            {
+                iOSPickerStyle = iOSPickerStyle.Wheels,
+                SelectedTime = dateTime?.TimeOfDay
+            };
+
+            var selectedTimeResult = await UserDialogs.Instance.TimePromptAsync(timePromptConfig);
+            if (!selectedTimeResult.Ok)
+            {
+                return dateTime;
+            }
+
+            return selectedDateTime.Date.Add(selectedTimeResult.SelectedTime);
+        }
+
+        public void RefreshRangesIfNeed()
+        {
+            if (CollectionBidsFrom.HasValue &&
+                CollectionBidsTo.HasValue &&
+                CollectionBidsFrom > CollectionBidsTo)
+            {
+                CollectionBidsTo = CollectionBidsFrom?.Add(TimeSpan.FromMinutes(5));
+            }
+
+            if (CollectionBidsTo.HasValue &&
+                VotingTo.HasValue &&
+                CollectionBidsTo > VotingTo)
+            {
+                VotingTo = CollectionBidsTo?.Add(TimeSpan.FromMinutes(5));
+            }
         }
 
         private async Task HandleLowBalanceExceptionAsync(Exception exception)

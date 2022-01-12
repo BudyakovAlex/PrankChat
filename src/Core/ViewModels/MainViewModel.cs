@@ -5,7 +5,7 @@ using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Managers.Common;
 using PrankChat.Mobile.Core.ViewModels.Abstract;
 using PrankChat.Mobile.Core.ViewModels.Common;
-using PrankChat.Mobile.Core.ViewModels.Competition;
+using PrankChat.Mobile.Core.ViewModels.Competitions;
 using PrankChat.Mobile.Core.ViewModels.Order;
 using PrankChat.Mobile.Core.ViewModels.Profile;
 using PrankChat.Mobile.Core.ViewModels.Publication;
@@ -29,6 +29,7 @@ namespace PrankChat.Mobile.Core.ViewModels
         private readonly IPushNotificationProvider _notificationService;
         private readonly IWalkthroughsProvider _walkthroughsProvider;
         private readonly IUserInteraction _userInteraction;
+
         private readonly int[] _skipTabIndexesInDemoMode = new[] { 2, 4 };
 
         private readonly IDisposable _refreshTokenExpiredMessageSubscription;
@@ -129,14 +130,17 @@ namespace PrankChat.Mobile.Core.ViewModels
             _ => Task.FromResult(false),
         };
 
-        private Task CheckDemoModeAsync(int position)
+        private async Task CheckDemoModeAsync(int position)
         {
             if (!CanSwitchTabs(position))
             {
-                return NavigationManager.NavigateAsync<LoginViewModel>();
-            }
+                if (position == 2)
+                {
+                    await Task.Delay(1000);
+                }
 
-            return Task.CompletedTask;
+                await NavigationManager.NavigateAsync<LoginViewModel>();
+            }
         }
 
         private void RefreshTokenExpired(RefreshTokenExpiredMessage _)
@@ -152,8 +156,10 @@ namespace PrankChat.Mobile.Core.ViewModels
             if (result == Resources.CreateOrder)
             {
                 await NavigationManager.NavigateAsync<CreateOrderViewModel>();
+                return;
             }
-            else if (result == Resources.CreateContest)
+
+            if (result == Resources.CreateContest)
             {
                 await NavigationManager.NavigateAsync<CreateCompetitionViewModel>();
             }

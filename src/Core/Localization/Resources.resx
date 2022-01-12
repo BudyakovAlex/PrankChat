@@ -1045,8 +1045,9 @@ Apple Inc. не является спонсором проведения кон�
   <data name="LoginToAccount" xml:space="preserve">
     <value>Войти в аккаунт</value>
   </data>
-  <data name="ComVkSdkAppId" xml:space="preserve">
+  <data name="com_vk_sdk_AppId" xml:space="preserve">
     <value>7343996</value>
+    <comment>Fuzzy</comment>
   </data>
   <data name="SentToModerator" xml:space="preserve">
     <value>Отправлено модератору</value>
@@ -1290,5 +1291,26 @@ Apple Inc. не является спонсором проведения кон�
   </data>
   <data name="Statistics" xml:space="preserve">
     <value>Статистика</value>
+  </data>
+  <data name="PrizeForPlaceTemplate" xml:space="preserve">
+    <value>Приз за {0} место</value>
+  </data>
+  <data name="RemainsToDistribute" xml:space="preserve">
+    <value>Осталось распределить</value>
+  </data>
+  <data name="Apply" xml:space="preserve">
+    <value>Применить</value>
+  </data>
+  <data name="ConfiguringTheParticipantTable" xml:space="preserve">
+    <value>Настройка таблицы участников</value>
+  </data>
+  <data name="DistributePrizeFundWarningMessage" xml:space="preserve">
+    <value>необходимо распределить весь призовой фонд</value>
+  </data>
+  <data name="AddPrizePlace" xml:space="preserve">
+    <value>Добавить призовое место</value>
+  </data>
+  <data name="CompetitionName" xml:space="preserve">
+    <value>Название конкурса</value>
   </data>
 </root>

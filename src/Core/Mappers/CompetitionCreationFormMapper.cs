@@ -16,9 +16,9 @@ namespace PrankChat.Mobile.Core.Mappers
                 Type = competitionCreationForm.Type,
                 EntryTaxPrizePart = competitionCreationForm.EntryTaxPrizePart,
                 PrizePool = string.Join(',', competitionCreationForm.PrizePool),
-                StartUploadVideosDateTime = competitionCreationForm.StartUploadVideosDateTime,
-                EndUploadVideosDateTime = competitionCreationForm.EndUploadVideosDateTime,
-                VoteToDateTime = competitionCreationForm.VoteToDateTime
+                StartUploadVideosDateTime = competitionCreationForm.StartUploadVideosDateTime?.ToUniversalTime(),
+                EndUploadVideosDateTime = competitionCreationForm.EndUploadVideosDateTime?.ToUniversalTime(),
+                VoteToDateTime = competitionCreationForm.VoteToDateTime?.ToUniversalTime()
             };
     }
 }

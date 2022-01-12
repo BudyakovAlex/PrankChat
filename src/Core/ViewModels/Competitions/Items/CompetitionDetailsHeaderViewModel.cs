@@ -4,7 +4,7 @@ using MvvmCross.Commands;
 using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Localization;
 
-namespace PrankChat.Mobile.Core.ViewModels.Competition.Items
+namespace PrankChat.Mobile.Core.ViewModels.Competitions.Items
 {
     public class CompetitionDetailsHeaderViewModel : CompetitionItemViewModel
     {

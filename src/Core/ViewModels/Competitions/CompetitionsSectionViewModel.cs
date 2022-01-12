@@ -1,11 +1,11 @@
 ﻿using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.ViewModels.Abstract;
-using PrankChat.Mobile.Core.ViewModels.Competition.Items;
+using PrankChat.Mobile.Core.ViewModels.Competitions.Items;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace PrankChat.Mobile.Core.ViewModels.Competition
+namespace PrankChat.Mobile.Core.ViewModels.Competitions
 {
     public class CompetitionsSectionViewModel : BaseViewModel, IDisposable
     {

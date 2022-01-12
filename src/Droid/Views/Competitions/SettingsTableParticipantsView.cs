@@ -1,6 +1,6 @@
 ﻿using Android.App;
 using Android.Content.PM;
-using PrankChat.Mobile.Core.ViewModels.Competition;
+using PrankChat.Mobile.Core.ViewModels.Competitions;
 using PrankChat.Mobile.Droid.Views.Base;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 using Android.OS;
@@ -10,7 +10,7 @@ using MvvmCross.Platforms.Android.Binding;
 using PrankChat.Mobile.Droid.Adapters;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
 using PrankChat.Mobile.Droid.Adapters.TemplateSelectors;
-using PrankChat.Mobile.Core.ViewModels.Competition.Items;
+using PrankChat.Mobile.Core.ViewModels.Competitions.Items;
 using PrankChat.Mobile.Droid.Adapters.ViewHolders.Competitions;
 
 namespace PrankChat.Mobile.Droid.Views.Competitions
@@ -27,7 +27,7 @@ namespace PrankChat.Mobile.Droid.Views.Competitions
         private Button _applyButton;
         private RecycleViewBindableAdapter _adapter;
 
-        protected override string TitleActionBar => "Настройка таблицы участников";
+        protected override string TitleActionBar => Core.Localization.Resources.ConfiguringTheParticipantTable;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {

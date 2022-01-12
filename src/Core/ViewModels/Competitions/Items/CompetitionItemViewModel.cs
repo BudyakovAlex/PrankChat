@@ -10,7 +10,7 @@ using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.ViewModels.Abstract;
 using PrankChat.Mobile.Core.ViewModels.Registration;
 
-namespace PrankChat.Mobile.Core.ViewModels.Competition.Items
+namespace PrankChat.Mobile.Core.ViewModels.Competitions.Items
 {
     public class CompetitionItemViewModel : BaseViewModel, IDisposable
     {
@@ -86,6 +86,8 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition.Items
         public string ActionButtonTitle => GetAcitonButtonTitle();
 
         public string? CustomerAvatarUrl => Competition.Customer?.Avatar;
+
+        public string? CustomerShortName => Competition.Customer?.Login.ToShortenName();
 
         public bool IsCustomerAttached => Competition.Customer != null;
 

@@ -1,6 +1,6 @@
 ﻿using MvvmCross.Binding.BindingContext;
 using PrankChat.Mobile.Core.Localization;
-using PrankChat.Mobile.Core.ViewModels.Competition;
+using PrankChat.Mobile.Core.ViewModels.Competitions;
 using PrankChat.Mobile.iOS.Binding;
 using PrankChat.Mobile.iOS.Extensions;
 using PrankChat.Mobile.iOS.Views.Base;

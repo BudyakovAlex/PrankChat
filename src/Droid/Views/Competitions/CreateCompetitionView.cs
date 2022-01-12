@@ -9,7 +9,7 @@ using Google.Android.Material.TextField;
 using MvvmCross.Platforms.Android.Binding;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 using PrankChat.Mobile.Core.Converters;
-using PrankChat.Mobile.Core.ViewModels.Competition;
+using PrankChat.Mobile.Core.ViewModels.Competitions;
 using PrankChat.Mobile.Droid.Converters;
 using PrankChat.Mobile.Droid.Extensions;
 using PrankChat.Mobile.Droid.Views.Base;
@@ -80,9 +80,9 @@ namespace PrankChat.Mobile.Droid.Views.Competitions
             bindingSet.Bind(_collectionBidsToEditText).For(v => v.Text).To(vm => vm.CollectionBidsTo)
                 .WithConversion<DateTimeToStringConverter>();
             bindingSet.Bind(_collectionBidsToEditText).For(v => v.BindClick()).To(vm => vm.SelectPeriodCollectionBidsToCommand);
-            bindingSet.Bind(_votingFromEditText).For(v => v.Text).To(vm => vm.VotingFrom)
+            bindingSet.Bind(_votingFromEditText).For(v => v.Text).To(vm => vm.CollectionBidsTo)
                 .WithConversion<DateTimeToStringConverter>();
-            bindingSet.Bind(_votingFromEditText).For(v => v.BindClick()).To(vm => vm.SelectPeriodVotingFromCommand);
+            bindingSet.Bind(_votingFromEditText).For(v => v.BindClick()).To(vm => vm.SelectPeriodCollectionBidsToCommand);
             bindingSet.Bind(_votingToEditText).For(v => v.Text).To(vm => vm.VotingTo)
                 .WithConversion<DateTimeToStringConverter>();
             bindingSet.Bind(_votingToEditText).For(v => v.BindClick()).To(vm => vm.SelectPeriodVotingToCommand);
@@ -96,26 +96,6 @@ namespace PrankChat.Mobile.Droid.Views.Competitions
             bindingSet.Bind(_descriptionImageView).For(v => v.BindClick()).To(vm => vm.ShowWalkthrouthSecretCommand);
             bindingSet.Bind(_createContestButton).For(v => v.BindClick()).To(vm => vm.CreateCommand);
             bindingSet.Bind(_settingsTableParticipantsConstraintLayout).For(v => v.BindClick()).To(vm => vm.ShowSettingTableParticipantsCommand);
-        }
-
-        private void OnCollectionBidsFromSelectDate(DateTime dateTime)
-        {
-            ViewModel.CollectionBidsFrom = dateTime;
-        }
-
-        private void OnCollectionBidsToSelectDate(DateTime dateTime)
-        {
-            ViewModel.CollectionBidsTo = dateTime;
-        }
-
-        private void OnVotingFromSelectDate(DateTime dateTime)
-        {
-            ViewModel.VotingFrom = dateTime;
-        }
-
-        private void OnVotingToSelectDate(DateTime dateTime)
-        {
-            ViewModel.VotingTo = dateTime;
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using PrankChat.Mobile.Core.ViewModels.Abstract;
 
-namespace PrankChat.Mobile.Core.ViewModels.Competition
+namespace PrankChat.Mobile.Core.ViewModels.Competitions
 {
     public class CompetitionRulesViewModel : BasePageViewModel<string>
     {

@@ -3,7 +3,7 @@ using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.Managers.Competitions;
 using PrankChat.Mobile.Core.ViewModels.Abstract;
 
-namespace PrankChat.Mobile.Core.ViewModels.Competition
+namespace PrankChat.Mobile.Core.ViewModels.Competitions
 {
     public class CompetitonStatitsticsViewModel : BasePageViewModel<int>
     {

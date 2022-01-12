@@ -3,7 +3,7 @@ using Android.Content.PM;
 using Android.OS;
 using Android.Widget;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
-using PrankChat.Mobile.Core.ViewModels.Competition;
+using PrankChat.Mobile.Core.ViewModels.Competitions;
 using PrankChat.Mobile.Droid.Converters;
 using PrankChat.Mobile.Droid.Views.Base;
 

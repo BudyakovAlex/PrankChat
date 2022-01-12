@@ -1,6 +1,6 @@
 ﻿using PrankChat.Mobile.Core.ViewModels.Abstract;
 
-namespace PrankChat.Mobile.Core.ViewModels.Competition.Items
+namespace PrankChat.Mobile.Core.ViewModels.Competitions.Items
 {
     public class CompetitionPrizePoolItemViewModel : BaseViewModel
     {

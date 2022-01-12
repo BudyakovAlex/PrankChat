@@ -5,7 +5,7 @@ using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using PrankChat.Mobile.Core.Common;
 using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.Localization;
-using PrankChat.Mobile.Core.ViewModels.Competition;
+using PrankChat.Mobile.Core.ViewModels.Competitions;
 using PrankChat.Mobile.iOS.AppTheme;
 using PrankChat.Mobile.iOS.Views.Base;
 using UIKit;
@@ -27,8 +27,6 @@ namespace PrankChat.Mobile.iOS.Views.Competition
                     return;
                 }
 
-                // var size = GetTextViewHeight(descriptionTextView.Bounds.Width, descriptionTextView.Font, value);
-                // TextViewHeightConstraint.Constant = size > MinimumDescriptionHeight ? size : MinimumDescriptionHeight;
                 DescriptionPlaceholdereLabel.Hidden = value.Length > 0;
                 DescriptionTopPlacehodlerLabel.Hidden = !DescriptionPlaceholdereLabel.Hidden;
             }
@@ -62,7 +60,7 @@ namespace PrankChat.Mobile.iOS.Views.Competition
             };
 
             Title = Resources.CreateContest;
-            NameTextField.SetDarkStyle(Resources.OrderName);
+            NameTextField.SetDarkStyle(Resources.CompetitionName);
             DescriptionPlaceholdereLabel.Text =
                 DescriptionTopPlacehodlerLabel.Text = Resources.Description;
             CollectRequestsFromTextField.SetDarkStyle(Resources.CollectionBidsFrom);
@@ -73,8 +71,7 @@ namespace PrankChat.Mobile.iOS.Views.Competition
             ParticipationFeeTextField.SetDarkStyle(Resources.ParticipationFee, rightPadding: 14);
             PerrcentFromContribution.SetDarkStyle(Resources.PercentageContributionPrizePool, rightPadding: 14);
             SecretContestLabel.Text = Resources.SecretContest;
-            // TODO: Move to AppStrings.
-            SettingTableofParticipantLabel.Text = "Настройка таблицы участников";
+            SettingTableofParticipantLabel.Text = Resources.ConfiguringTheParticipantTable;
             CreateContestButton.SetDarkStyle(Resources.CreateContest);
 
             ParticipationFeeTextField.TextAlignment =
