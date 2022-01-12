@@ -77,15 +77,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Competitions
         public DateTime? CollectionBidsFrom
         {
             get => _collectionBidsFrom;
-            set
-            {
-                if (value == null)
-                {
-                    return;
-                }
-
-                SetProperty(ref _collectionBidsFrom, value);
-            }
+            set => SetProperty(ref _collectionBidsFrom, value);
         }
 
         private DateTime? _collectionBidsTo;
@@ -208,6 +200,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Competitions
             {
                 Messenger.Publish(new ReloadCompetitionsMessage(this));
                 await NavigationManager.NavigateAsync<CompetitionDetailsViewModel, Competition, bool>(newCompetition);
+                await NavigationManager.CloseAsync(this);
                 SetDefaultData();
                 return;
             }
