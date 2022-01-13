@@ -26,7 +26,7 @@ namespace PrankChat.Mobile.iOS.Views.Competition
             prizeTitleLabel.Text = Resources.TournamentPrizePool;
 
             CancelOrChangeButton.Hidden = true;
-            StatisticsButton.SetDarkStyle("Статистика");
+            StatisticsButton.SetDarkStyle(Resources.Statistics);
             actionButton.SetDarkStyle(string.Empty);
             DeleteButton.SetBorderlessStyle(Resources.Delete, Theme.Color.White, Theme.Color.White);
             openRulesButton.SetBorderlessStyle(Resources.CompetitionRules, Theme.Color.White, Theme.Color.White);
@@ -45,10 +45,11 @@ namespace PrankChat.Mobile.iOS.Views.Competition
                       .WithConversion<CompetitionPhaseToTermTitleConverter>();
             bindingSet.Bind(durationLabel).For(v => v.Text).To(vm => vm.Duration);
             bindingSet.Bind(durationLabel).For(v => v.BindVisible()).To(vm => vm.IsFinished);
-            bindingSet.Bind(timeContainer).For(v => v.Hidden).ByCombining(
-                new MvxOrValueCombiner(),
-                vm => vm.IsFinished,
-                vm => vm.IsModeration);
+            bindingSet.Bind(timeContainer).For(v => v.Hidden)
+                .ByCombining(
+                    new MvxOrValueCombiner(),
+                    vm => vm.IsFinished,
+                    vm => vm.IsModeration);
             bindingSet.Bind(timeLabel).For(v => v.Text).To(vm => vm.NextPhaseCountdown)
                       .WithConversion(StringFormatValueConverter.Name, Constants.Formats.DateWithSpace);
             bindingSet.Bind(daysLabel).For(v => v.Text).To(vm => vm.DaysText);
@@ -57,15 +58,17 @@ namespace PrankChat.Mobile.iOS.Views.Competition
             bindingSet.Bind(prizeLabel).For(v => v.Text).To(vm => vm.PrizePoolPresentation);
             bindingSet.Bind(descriptionLabel).For(v => v.Text).To(vm => vm.Description);
             bindingSet.Bind(idLabel).For(v => v.Text).To(vm => vm.Number);
-            bindingSet.Bind(idLabel).For(v => v.Hidden).ByCombining(
-                new MvxOrValueCombiner(),
-                vm => vm.CanExecuteActionVideo,
-                vm => vm.IsModeration);
+            bindingSet.Bind(idLabel).For(v => v.Hidden)
+                .ByCombining(
+                    new MvxOrValueCombiner(),
+                    vm => vm.CanExecuteActionVideo,
+                    vm => vm.IsModeration);
             bindingSet.Bind(likeButton).For(v => v.BindTitle()).To(vm => vm.LikesCountString);
-            bindingSet.Bind(likeButton).For(v => v.Hidden).ByCombining(
-                new MvxOrValueCombiner(),
-                vm => vm.CanExecuteActionVideo,
-                vm => vm.IsModeration);
+            bindingSet.Bind(likeButton).For(v => v.Hidden)
+                .ByCombining(
+                    new MvxOrValueCombiner(),
+                    vm => vm.CanExecuteActionVideo,
+                    vm => vm.IsModeration);
             bindingSet.Bind(actionButton).For(v => v.BindTouchUpInside()).To(vm => vm.ActionCommand);
             bindingSet.Bind(actionButton).For(v => v.BindVisible()).To(vm => vm.CanExecuteActionVideo);
             bindingSet.Bind(actionButton).For(v => v.BindTitle()).To(vm => vm.ActionTitle);

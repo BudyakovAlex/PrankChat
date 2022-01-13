@@ -29,6 +29,8 @@ namespace PrankChat.Mobile.Droid.Views.Competitions
 
         protected override string TitleActionBar => Core.Localization.Resources.ConfiguringTheParticipantTable;
 
+        protected override bool HasBackButton => true;
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState, Resource.Layout.activity_settings_table_participants);
@@ -50,9 +52,9 @@ namespace PrankChat.Mobile.Droid.Views.Competitions
             _contentRecyclerView.ItemTemplateSelector = new TemplateSelector()
                 .AddElement<PlaceTableParticipantsItemViewModel, PlaceTableParticipantsItemViewHolder>(Resource.Layout.cell_place_table_participant);
 
-            FindViewById<TextView>(Resource.Id.add_place_text_view).Text = "Добавить призовое место";
-            _warningTextView.Text = "необходимо распределить весь призовой фонд";
-            _applyButton.Text = "Применить";
+            FindViewById<TextView>(Resource.Id.add_place_text_view).Text = Core.Localization.Resources.AddPrizePlace;
+            _warningTextView.Text = Core.Localization.Resources.DistributePrizeFundWarningMessage;
+            _applyButton.Text = Core.Localization.Resources.Apply;
         }
 
         protected override void Bind()

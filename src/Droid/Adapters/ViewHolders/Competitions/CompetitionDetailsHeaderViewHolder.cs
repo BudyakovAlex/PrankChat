@@ -4,6 +4,7 @@ using AndroidX.AppCompat.Widget;
 using FFImageLoading.Cross;
 using Google.Android.Material.Button;
 using MvvmCross.Binding.BindingContext;
+using MvvmCross.Binding.Combiners;
 using MvvmCross.Platforms.Android.Binding;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
 using PrankChat.Mobile.Core.Common;
@@ -31,14 +32,12 @@ namespace PrankChat.Mobile.Droid.Adapters.ViewHolders.Competitions
         private TextView _numberTextView;
         private TextView _likesTextView;
         private TextView _durationTextView;
-        private LinearLayout _termLinearLayout;
         private ImageView _likesImageView;
         private MvxCachedImageView _placeholderImageView;
         private CircleCachedImageView _customerImageView;
         private AppCompatButton _deleteButton;
         private AppCompatButton _statisticsButton;
 
-        //TODO: add bindings for action buttons
         private MaterialButton _actionButton;
         private AppCompatButton _rulesButton;
         private AppCompatButton _resultsButton;
@@ -65,7 +64,6 @@ namespace PrankChat.Mobile.Droid.Adapters.ViewHolders.Competitions
             _prizeTextView = view.FindViewById<TextView>(Resource.Id.prize_text_view);
             _numberTextView = view.FindViewById<TextView>(Resource.Id.number_text_view);
             _durationTextView = view.FindViewById<TextView>(Resource.Id.duration_text_view);
-            _termLinearLayout = view.FindViewById<LinearLayout>(Resource.Id.term_linear_layout);
             _likesTextView = view.FindViewById<TextView>(Resource.Id.like_text_view);
             _likesImageView = view.FindViewById<ImageView>(Resource.Id.likes_image_view);
             _placeholderImageView = view.FindViewById<MvxCachedImageView>(Resource.Id.placeholder_image_view);
@@ -90,29 +88,59 @@ namespace PrankChat.Mobile.Droid.Adapters.ViewHolders.Competitions
             bindingSet.Bind(_titleTextView).For(v => v.Text).To(vm => vm.Title);
             bindingSet.Bind(_descriptionTextView).For(v => v.Text).To(vm => vm.Description);
             bindingSet.Bind(_termTitle).For(v => v.Text).To(vm => vm.Phase)
-                      .WithConversion<CompetitionPhaseToTermTitleConverter>();
+                .WithConversion<CompetitionPhaseToTermTitleConverter>();
             bindingSet.Bind(_prizeTextView).For(v => v.Text).To(vm => vm.PrizePoolPresentation);
             bindingSet.Bind(_numberTextView).For(v => v.Text).To(vm => vm.Number);
             bindingSet.Bind(_likesTextView).For(v => v.Text).To(vm => vm.LikesCountString);
-            bindingSet.Bind(_numberTextView).For(v => v.BindHidden()).To(vm => vm.CanExecuteActionVideo);
-            bindingSet.Bind(_likesImageView).For(v => v.BindHidden()).To(vm => vm.CanExecuteActionVideo);
-            bindingSet.Bind(_likesTextView).For(v => v.BindHidden()).To(vm => vm.CanExecuteActionVideo);
             bindingSet.Bind(_termTimerTextView).For(v => v.Text).To(vm => vm.NextPhaseCountdown)
-                      .WithConversion(StringFormatValueConverter.Name, Constants.Formats.DateWithSpace);
+                .WithConversion(StringFormatValueConverter.Name, Constants.Formats.DateWithSpace);
+
+            bindingSet.Bind(_numberTextView).For(v => v.BindHidden())
+                .ByCombining(
+                    new MvxOrValueCombiner(),
+                    vm => vm.CanExecuteActionVideo,
+                    vm => vm.IsModeration);
+            bindingSet.Bind(_likesImageView).For(v => v.BindHidden())
+                .ByCombining(
+                    new MvxOrValueCombiner(),
+                    vm => vm.CanExecuteActionVideo,
+                    vm => vm.IsModeration);
+            bindingSet.Bind(_likesTextView).For(v => v.BindHidden())
+                .ByCombining(
+                    new MvxOrValueCombiner(),
+                    vm => vm.CanExecuteActionVideo,
+                    vm => vm.IsModeration);
+
             bindingSet.Bind(_durationTextView).For(v => v.Text).To(vm => vm.Duration);
             bindingSet.Bind(_durationTextView).For(v => v.Visibility).To(vm => vm.IsFinished)
-                      .WithConversion<BoolToGoneConverter>();
+                .WithConversion<BoolToGoneConverter>();
+
             bindingSet.Bind(_placeholderImageView).For(v => v.ImagePath).To(vm => vm.ImageUrl);
-            bindingSet.Bind(_termLinearLayout).For(v => v.Visibility).To(vm => vm.IsFinished)
-                      .WithConversion<BoolToGoneConverter>();
-            bindingSet.Bind(_termTimerTextView).For(v => v.Visibility).To(vm => vm.IsFinished)
-                      .WithConversion<BoolToGoneInvertedConverter>();
-            bindingSet.Bind(_daysTextView).For(v => v.Visibility).To(vm => vm.IsFinished)
-                      .WithConversion<BoolToGoneInvertedConverter>();
-            bindingSet.Bind(_hoursTextView).For(v => v.Visibility).To(vm => vm.IsFinished)
-                      .WithConversion<BoolToGoneInvertedConverter>();
-            bindingSet.Bind(_minutesTextView).For(v => v.Visibility).To(vm => vm.IsFinished)
-                      .WithConversion<BoolToGoneInvertedConverter>();
+
+            bindingSet.Bind(_termTimerTextView).For(v => v.Visibility)
+                .ByCombining(
+                    new MvxOrValueCombiner(),
+                    vm => vm.IsFinished,
+                    vm => vm.IsModeration)
+                .WithConversion<BoolToGoneInvertedConverter>();
+            bindingSet.Bind(_daysTextView).For(v => v.Visibility)
+                .ByCombining(
+                    new MvxOrValueCombiner(),
+                    vm => vm.IsFinished,
+                    vm => vm.IsModeration)
+                .WithConversion<BoolToGoneInvertedConverter>();
+            bindingSet.Bind(_hoursTextView).For(v => v.Visibility)
+                .ByCombining(
+                    new MvxOrValueCombiner(),
+                    vm => vm.IsFinished,
+                    vm => vm.IsModeration)
+                .WithConversion<BoolToGoneInvertedConverter>();
+            bindingSet.Bind(_minutesTextView).For(v => v.Visibility)
+                .ByCombining(
+                    new MvxOrValueCombiner(),
+                    vm => vm.IsFinished,
+                    vm => vm.IsModeration)
+                .WithConversion<BoolToGoneInvertedConverter>();
             bindingSet.Bind(_daysTextView).For(v => v.Text).To(vm => vm.DaysText);
             bindingSet.Bind(_hoursTextView).For(v => v.Text).To(vm => vm.HoursText);
             bindingSet.Bind(_minutesTextView).For(v => v.Text).To(vm => vm.MinutesText);

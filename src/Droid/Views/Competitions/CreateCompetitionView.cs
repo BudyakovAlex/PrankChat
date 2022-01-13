@@ -35,6 +35,10 @@ namespace PrankChat.Mobile.Droid.Views.Competitions
         private MaterialButton _createContestButton;
         private ConstraintLayout _settingsTableParticipantsConstraintLayout;
 
+        protected override bool HasBackButton => true;
+
+        protected override string TitleActionBar => Core.Localization.Resources.CreateContest;
+
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle, Resource.Layout.activity_create_competition);

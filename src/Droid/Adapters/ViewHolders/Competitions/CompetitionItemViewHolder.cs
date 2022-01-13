@@ -3,6 +3,7 @@ using Android.Widget;
 using FFImageLoading.Cross;
 using Google.Android.Material.Button;
 using MvvmCross.Binding.BindingContext;
+using MvvmCross.Binding.Combiners;
 using MvvmCross.Platforms.Android.Binding;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
 using PrankChat.Mobile.Core.Common;
@@ -104,10 +105,26 @@ namespace PrankChat.Mobile.Droid.Adapters.ViewHolders.Competitions
             bindingSet.Bind(_prizeTextView).For(v => v.Text).To(vm => vm.PrizePoolPresentation);
             bindingSet.Bind(_numberTextView).For(v => v.Text).To(vm => vm.Number);
             bindingSet.Bind(_likesTextView).For(v => v.Text).To(vm => vm.LikesCountString);
-            bindingSet.Bind(_numberTextView).For(v => v.BindHidden()).To(vm => vm.CanExecuteActionVideo);
-            bindingSet.Bind(_likesImageView).For(v => v.BindHidden()).To(vm => vm.CanExecuteActionVideo);
-            bindingSet.Bind(_likesTextView).For(v => v.BindHidden()).To(vm => vm.CanExecuteActionVideo);
-            bindingSet.Bind(_thirdDividerView).For(v => v.BindHidden()).To(vm => vm.CanExecuteActionVideo);
+            bindingSet.Bind(_numberTextView).For(v => v.BindHidden())
+                .ByCombining(
+                    new MvxOrValueCombiner(),
+                    vm => vm.CanExecuteActionVideo,
+                    vm => vm.IsModeration);
+            bindingSet.Bind(_likesImageView).For(v => v.BindHidden())
+               .ByCombining(
+                    new MvxOrValueCombiner(),
+                    vm => vm.CanExecuteActionVideo,
+                    vm => vm.IsModeration);
+            bindingSet.Bind(_likesTextView).For(v => v.BindHidden())
+                .ByCombining(
+                    new MvxOrValueCombiner(),
+                    vm => vm.CanExecuteActionVideo,
+                    vm => vm.IsModeration);
+            bindingSet.Bind(_thirdDividerView).For(v => v.BindHidden())
+                .ByCombining(
+                    new MvxOrValueCombiner(),
+                    vm => vm.CanExecuteActionVideo,
+                    vm => vm.IsModeration);
             bindingSet.Bind(_termTimerTextView).For(v => v.Text).To(vm => vm.NextPhaseCountdown)
                       .WithConversion(StringFormatValueConverter.Name, Constants.Formats.DateWithSpace);
             bindingSet.Bind(_termFromTextView).For(v => v.Text).To(vm => vm.CreatedAt)
