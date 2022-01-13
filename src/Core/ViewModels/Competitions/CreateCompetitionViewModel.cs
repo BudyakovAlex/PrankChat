@@ -142,7 +142,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Competitions
 
             try
             {
-                var canCreate = await UserInteraction.ShowConfirmAsync(Resources.OrderCreateMessage, Resources.Attention, Resources.Create, Resources.Cancel);
+                var canCreate = await UserInteraction.ShowConfirmAsync(Resources.CreateCompetitionMessage, Resources.Attention, Resources.Create, Resources.Cancel);
                 if (!canCreate)
                 {
                     return;

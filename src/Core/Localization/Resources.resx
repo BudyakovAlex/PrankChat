@@ -1313,4 +1313,10 @@ Apple Inc. не является спонсором проведения кон�
   <data name="CompetitionName" xml:space="preserve">
     <value>Название конкурса</value>
   </data>
+  <data name="CreateCompetitionMessage" xml:space="preserve">
+    <value>Вы уверены что хотите создать конкурс?</value>
+  </data>
+  <data name="OrderCreate" xml:space="preserve">
+    <value>Создать заказ</value>
+  </data>
 </root>

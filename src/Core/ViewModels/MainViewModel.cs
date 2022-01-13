@@ -134,11 +134,6 @@ namespace PrankChat.Mobile.Core.ViewModels
         {
             if (!CanSwitchTabs(position))
             {
-                if (position == 2)
-                {
-                    await Task.Delay(1000);
-                }
-
                 await NavigationManager.NavigateAsync<LoginViewModel>();
             }
         }
@@ -152,8 +147,8 @@ namespace PrankChat.Mobile.Core.ViewModels
 
         private async Task ShowChooseCreationTypeAsync()
         {
-            var result = await _userInteraction.ShowMenuDialogAsync(new[] { Resources.CreateOrder, Resources.CreateContest }, Resources.Cancel);
-            if (result == Resources.CreateOrder)
+            var result = await _userInteraction.ShowMenuDialogAsync(new[] { Resources.OrderCreate, Resources.CreateContest }, Resources.Cancel);
+            if (result == Resources.OrderCreate)
             {
                 await NavigationManager.NavigateAsync<CreateOrderViewModel>();
                 return;

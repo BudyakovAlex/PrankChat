@@ -1311,4 +1311,10 @@ Taking such a task the user will have to complete it or lose the Deposit!</value
   <data name="CompetitionName" xml:space="preserve">
     <value>Competition name</value>
   </data>
+  <data name="CreateCompetitionMessage" xml:space="preserve">
+    <value>Are you sure you want to create competition?</value>
+  </data>
+  <data name="OrderCreate" xml:space="preserve">
+    <value>Create order</value>
+  </data>
 </root>

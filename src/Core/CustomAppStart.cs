@@ -87,7 +87,7 @@ namespace PrankChat.Mobile.Core
             if (e.ViewModel is MainViewModel mainViewModel)
             {
                 var parameter = new OrderDetailsNavigationParameter(_orderId.Value, null, 0);
-                _navigationManager.NavigateAsync<OrderDetailsViewModel, OrderDetailsNavigationParameter>(parameter).FireAndForget();
+                _navigationManager.NavigateAsync<OrderDetailsViewModel, OrderDetailsNavigationParameter, bool>(parameter).FireAndForget();
             }
         }
     }

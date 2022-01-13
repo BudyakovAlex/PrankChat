@@ -113,7 +113,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Order.Items
             var index = currentItem is null ? 0 : items.IndexOfOrDefault(currentItem);
 
             var parameter = new OrderDetailsNavigationParameter(_order.Id, items, index);
-            return NavigationManager.NavigateAsync<OrderDetailsViewModel, OrderDetailsNavigationParameter>(parameter);
+            return NavigationManager.NavigateAsync<OrderDetailsViewModel, OrderDetailsNavigationParameter, bool>(parameter);
         }
     }
 }

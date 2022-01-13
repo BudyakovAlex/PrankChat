@@ -1960,5 +1960,17 @@ namespace PrankChat.Mobile.Core.Localization {
                 return ResourceManager.GetString("CompetitionName", resourceCulture);
             }
         }
+        
+        public static string CreateCompetitionMessage {
+            get {
+                return ResourceManager.GetString("CreateCompetitionMessage", resourceCulture);
+            }
+        }
+        
+        public static string OrderCreate {
+            get {
+                return ResourceManager.GetString("OrderCreate", resourceCulture);
+            }
+        }
     }
 }
