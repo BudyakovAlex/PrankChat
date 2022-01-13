@@ -20,7 +20,6 @@ namespace PrankChat.Mobile.Droid.Views.Order
     [Activity(ScreenOrientation = ScreenOrientation.Portrait)]
     public class CreateOrderView : BaseView<CreateOrderViewModel>
     {
-        private TextInputEditText _priceEditText;
         private TextInputEditText _descriptionEditText;
         private TextInputEditText _titleEditText;
         private TextInputEditText _createOrderPriceEditText;
@@ -30,16 +29,17 @@ namespace PrankChat.Mobile.Droid.Views.Order
         private MaterialButton _createButton;
         private FrameLayout _createOrderFrameLayout;
 
+        protected override string TitleActionBar => Core.Localization.Resources.CreateOrder;
+
+        protected override bool HasBackButton => true;
+
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle, Resource.Layout.activity_create_order);
         }
 
-        protected override string TitleActionBar => Core.Localization.Resources.CreateOrder;
-
         protected override void SetViewProperties()
         {
-            _priceEditText = FindViewById<TextInputEditText>(Resource.Id.create_order_price_edit_text);
             _descriptionEditText = FindViewById<TextInputEditText>(Resource.Id.order_description_edit_text);
             _descriptionEditText.SetFilters(new[] { new InputFilterLengthFilter(Constants.Orders.DescriptionMaxLength) });
             _titleEditText = FindViewById<TextInputEditText>(Resource.Id.title_input_edit_text);
