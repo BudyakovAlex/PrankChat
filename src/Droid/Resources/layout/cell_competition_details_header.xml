@@ -210,7 +210,7 @@
 			android:layout_height="36dp"
 			android:layout_marginBottom="16dp"
 			android:background="@drawable/button_accent_background"
-			android:text="Статистика"
+			tools:text="Статистика"
 			android:textAllCaps="false"
 			android:textColor="@color/applicationWhite"
 			android:textSize="14dp"/>

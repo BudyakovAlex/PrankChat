@@ -77,6 +77,7 @@ namespace PrankChat.Mobile.Droid.Adapters.ViewHolders.Competitions
 
             _placeholderImageView.OnError += (s, e) => _placeholderImageView.SetBackgroundResource(Resource.Drawable.button_accent_background);
             _prizeTitleTextView.Text = Resources.TournamentPrizePool;
+            _statisticsButton.Text = Resources.Statistics;
         }
 
         public override void BindData()

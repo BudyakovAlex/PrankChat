@@ -16,6 +16,11 @@ using PrankChat.Mobile.Droid.Adapters.ViewHolders.Abstract;
 using PrankChat.Mobile.Droid.Bindings;
 using PrankChat.Mobile.Droid.Converters;
 using PrankChat.Mobile.Droid.Listeners;
+using PrankChat.Mobile.Core.Models.Enums;
+using Android.Graphics;
+using AndroidX.Core.Content.Resources;
+using System;
+using Android.Content.Res;
 
 namespace PrankChat.Mobile.Droid.Adapters.ViewHolders.Competitions
 {
@@ -30,12 +35,17 @@ namespace PrankChat.Mobile.Droid.Adapters.ViewHolders.Competitions
         private View _leftDivider;
         private View _rightDivider;
 
+        public CompetitionsSectionViewHolder(View view, IMvxAndroidBindingContext context) : base(view, context)
+        {
+        }
+
         public int RecycledViewsVisibleCount => 5;
 
         public RecyclerView NestedRecyclerView => _sectionRecyclerView;
 
-        public CompetitionsSectionViewHolder(View view, IMvxAndroidBindingContext context) : base(view, context)
+        public CompetitionPhase Phase
         {
+            set => SetArrowsStyle(value);
         }
 
         public override void BindData()
@@ -44,6 +54,7 @@ namespace PrankChat.Mobile.Droid.Adapters.ViewHolders.Competitions
 
             using var bindingSet = this.CreateBindingSet<CompetitionsSectionViewHolder, CompetitionsSectionViewModel>();
 
+            bindingSet.Bind(this).For(nameof(Phase)).To(vm => vm.Phase);
             bindingSet.Bind(_sectionRecyclerView).For(v => v.ItemsSource).To(vm => vm.Items);
             bindingSet.Bind(_titleTextView).For(v => v.Text).To(vm => vm.Phase)
                       .WithConversion<CompetitionPhaseToSectionTitleConverter>();
@@ -121,5 +132,21 @@ namespace PrankChat.Mobile.Droid.Adapters.ViewHolders.Competitions
             var snapHelper = new PagerSnapHelper();
             snapHelper.AttachToRecyclerView(_sectionRecyclerView);
         }
+
+        private void SetArrowsStyle(CompetitionPhase phase)
+        {
+            var colorArgb = GetPhaseTintColor(phase);
+            _rightImageView.ImageTintList = ColorStateList.ValueOf(new Color(colorArgb));
+            _leftImageView.ImageTintList = ColorStateList.ValueOf(new Color(colorArgb));
+        }
+
+        private int GetPhaseTintColor(CompetitionPhase phase) => phase switch
+        {
+            CompetitionPhase.New => ResourcesCompat.GetColor(Context.Resources, Resource.Color.competition_new_border, null),
+            CompetitionPhase.Voting => ResourcesCompat.GetColor(Context.Resources, Resource.Color.competition_vote_border, null),
+            CompetitionPhase.Finished => ResourcesCompat.GetColor(Context.Resources, Resource.Color.competition_finished_border, null),
+            CompetitionPhase.Moderation => ResourcesCompat.GetColor(Context.Resources, Resource.Color.gray, null),
+            _ => throw new ArgumentOutOfRangeException()
+        };
     }
 }

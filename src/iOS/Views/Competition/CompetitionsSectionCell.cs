@@ -46,10 +46,10 @@ namespace PrankChat.Mobile.iOS.Views.Competition
             CompetitionPhase.New => Theme.Color.CompetitionPhaseNewPrimary,
             CompetitionPhase.Voting => Theme.Color.CompetitionPhaseVotingPrimary,
             CompetitionPhase.Finished => Theme.Color.CompetitionPhaseFinishedPrimary,
+            CompetitionPhase.Moderation => Theme.Color.CompetitionPhaseModeration,
             _ => throw new ArgumentOutOfRangeException(),
         };
         
-
         protected override void SetupControls()
         {
             base.SetupControls();
