@@ -1,6 +1,8 @@
-﻿using Android.Views;
+﻿using Android.App;
+using Android.Views;
 using Android.Widget;
 using AndroidX.AppCompat.Widget;
+using AndroidX.ConstraintLayout.Widget;
 using FFImageLoading.Cross;
 using Google.Android.Material.Button;
 using MvvmCross.Binding.BindingContext;
@@ -15,6 +17,7 @@ using PrankChat.Mobile.Core.ViewModels.Competitions.Items;
 using PrankChat.Mobile.Droid.Adapters.ViewHolders.Abstract;
 using PrankChat.Mobile.Droid.Controls;
 using PrankChat.Mobile.Droid.Converters;
+using PrankChat.Mobile.Droid.Extensions;
 
 namespace PrankChat.Mobile.Droid.Adapters.ViewHolders.Competitions
 {
@@ -78,6 +81,9 @@ namespace PrankChat.Mobile.Droid.Adapters.ViewHolders.Competitions
             _placeholderImageView.OnError += (s, e) => _placeholderImageView.SetBackgroundResource(Resource.Drawable.button_accent_background);
             _prizeTitleTextView.Text = Resources.TournamentPrizePool;
             _statisticsButton.Text = Resources.Statistics;
+
+            var actionBarSize = Application.Context.GetHeightByAttribute(Resource.Attribute.actionBarSize);
+            view.LayoutParameters = new ConstraintLayout.LayoutParams(view.LayoutParameters.Width, (int)Xamarin.Essentials.DeviceDisplay.MainDisplayInfo.Height - actionBarSize);
         }
 
         public override void BindData()

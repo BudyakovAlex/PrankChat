@@ -65,6 +65,7 @@ namespace PrankChat.Mobile.Droid.Views.Competitions
             _collectionBidsToEditText.InputType = InputTypes.Null;
             _votingFromEditText.InputType = InputTypes.Null;
             _votingToEditText.InputType = InputTypes.Null;
+
             settingsTableParticipantsTextView.Text = Core.Localization.Resources.ConfiguringTheParticipantTable;
 
             _prizePoolEditText.SetTextChangeListener((sequence) => _prizePoolEditText.MoveCursorBeforeSymbol(Core.Localization.Resources.Currency, sequence));
@@ -82,16 +83,16 @@ namespace PrankChat.Mobile.Droid.Views.Competitions
             bindingSet.Bind(_descriptionEditText).For(v => v.Text).To(vm => vm.Description);
             bindingSet.Bind(_collectionBidsFromEditText).For(v => v.Text).To(vm => vm.CollectionBidsFrom)
                 .WithConversion<DateTimeToStringConverter>();
-            bindingSet.Bind(_collectionBidsFromEditText).For(v => v.BindClick()).To(vm => vm.SelectPeriodCollectionBidsFromCommand);
+            bindingSet.Bind(_collectionBidsFromEditText).For(v => v.BindTouch()).To(vm => vm.SelectPeriodCollectionBidsFromCommand);
             bindingSet.Bind(_collectionBidsToEditText).For(v => v.Text).To(vm => vm.CollectionBidsTo)
                 .WithConversion<DateTimeToStringConverter>();
-            bindingSet.Bind(_collectionBidsToEditText).For(v => v.BindClick()).To(vm => vm.SelectPeriodCollectionBidsToCommand);
+            bindingSet.Bind(_collectionBidsToEditText).For(v => v.BindTouch()).To(vm => vm.SelectPeriodCollectionBidsToCommand);
             bindingSet.Bind(_votingFromEditText).For(v => v.Text).To(vm => vm.CollectionBidsTo)
                 .WithConversion<DateTimeToStringConverter>();
-            bindingSet.Bind(_votingFromEditText).For(v => v.BindClick()).To(vm => vm.SelectPeriodCollectionBidsToCommand);
+            bindingSet.Bind(_votingFromEditText).For(v => v.BindTouch()).To(vm => vm.SelectPeriodCollectionBidsToCommand);
             bindingSet.Bind(_votingToEditText).For(v => v.Text).To(vm => vm.VotingTo)
                 .WithConversion<DateTimeToStringConverter>();
-            bindingSet.Bind(_votingToEditText).For(v => v.BindClick()).To(vm => vm.SelectPeriodVotingToCommand);
+            bindingSet.Bind(_votingToEditText).For(v => v.BindTouch()).To(vm => vm.SelectPeriodVotingToCommand);
             bindingSet.Bind(_prizePoolEditText).For(v => v.Text).To(vm => vm.PrizePool)
                 .WithConversion<PriceConverter>();
             bindingSet.Bind(_participationFeeEditText).For(v => v.Text).To(vm => vm.ParticipationFee)

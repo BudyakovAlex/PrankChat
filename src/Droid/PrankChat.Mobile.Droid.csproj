@@ -134,6 +134,7 @@
         <None Include="Properties\AndroidManifest.xml" />
         <None Include="LinkerConfig.xml" />
         <Compile Include="Extensions\CompetitionPhaseExtensions.cs" />
+        <Compile Include="Extensions\ContextExtensions.cs" />
     </ItemGroup>
     <Choose>
         <When Condition="'$(AndroidLinkMode)'=='Full' Or '$(AndroidLinkMode)'=='SdkOnly'">
