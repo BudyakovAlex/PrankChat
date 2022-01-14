@@ -59,11 +59,13 @@ namespace PrankChat.Mobile.Droid.Views.Competitions
             _descriptionImageView = FindViewById<ImageView>(Resource.Id.description_image_view);
             _createContestButton = FindViewById<MaterialButton>(Resource.Id.create_contest_button);
             _settingsTableParticipantsConstraintLayout = FindViewById<ConstraintLayout>(Resource.Id.settings_table_participants_constraint_layout);
+            var settingsTableParticipantsTextView = FindViewById<TextView>(Resource.Id.settings_table_participants_text_view);
 
             _collectionBidsFromEditText.InputType = InputTypes.Null;
             _collectionBidsToEditText.InputType = InputTypes.Null;
             _votingFromEditText.InputType = InputTypes.Null;
             _votingToEditText.InputType = InputTypes.Null;
+            settingsTableParticipantsTextView.Text = Core.Localization.Resources.ConfiguringTheParticipantTable;
 
             _prizePoolEditText.SetTextChangeListener((sequence) => _prizePoolEditText.MoveCursorBeforeSymbol(Core.Localization.Resources.Currency, sequence));
             _participationFeeEditText.SetTextChangeListener((sequence) => _participationFeeEditText.MoveCursorBeforeSymbol(Core.Localization.Resources.Currency, sequence));

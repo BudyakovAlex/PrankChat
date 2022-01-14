@@ -1,4 +1,7 @@
 ﻿using Android.App;
+using Android.Content.Res;
+using Android.Graphics;
+using Android.OS;
 using Android.Views;
 using Android.Widget;
 using AndroidX.RecyclerView.Widget;
@@ -6,21 +9,16 @@ using MvvmCross.Binding.BindingContext;
 using MvvmCross.DroidX.RecyclerView;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
 using PrankChat.Mobile.Core.Converters;
+using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.ViewModels.Competitions;
 using PrankChat.Mobile.Core.ViewModels.Competitions.Items;
+using PrankChat.Mobile.Droid.Adapters.TemplateSelectors;
+using PrankChat.Mobile.Droid.Adapters.ViewHolders.Abstract;
+using PrankChat.Mobile.Droid.Converters;
 using PrankChat.Mobile.Droid.Decorators;
 using PrankChat.Mobile.Droid.Extensions;
 using PrankChat.Mobile.Droid.LayoutManagers;
-using PrankChat.Mobile.Droid.Adapters.TemplateSelectors;
-using PrankChat.Mobile.Droid.Adapters.ViewHolders.Abstract;
-using PrankChat.Mobile.Droid.Bindings;
-using PrankChat.Mobile.Droid.Converters;
 using PrankChat.Mobile.Droid.Listeners;
-using PrankChat.Mobile.Core.Models.Enums;
-using Android.Graphics;
-using AndroidX.Core.Content.Resources;
-using System;
-using Android.Content.Res;
 
 namespace PrankChat.Mobile.Droid.Adapters.ViewHolders.Competitions
 {
@@ -135,18 +133,22 @@ namespace PrankChat.Mobile.Droid.Adapters.ViewHolders.Competitions
 
         private void SetArrowsStyle(CompetitionPhase phase)
         {
-            var colorArgb = GetPhaseTintColor(phase);
+            var colorArgb = phase.GetPhaseTintColor(Context);
             _rightImageView.ImageTintList = ColorStateList.ValueOf(new Color(colorArgb));
             _leftImageView.ImageTintList = ColorStateList.ValueOf(new Color(colorArgb));
-        }
 
-        private int GetPhaseTintColor(CompetitionPhase phase) => phase switch
-        {
-            CompetitionPhase.New => ResourcesCompat.GetColor(Context.Resources, Resource.Color.competition_new_border, null),
-            CompetitionPhase.Voting => ResourcesCompat.GetColor(Context.Resources, Resource.Color.competition_vote_border, null),
-            CompetitionPhase.Finished => ResourcesCompat.GetColor(Context.Resources, Resource.Color.competition_finished_border, null),
-            CompetitionPhase.Moderation => ResourcesCompat.GetColor(Context.Resources, Resource.Color.gray, null),
-            _ => throw new ArgumentOutOfRangeException()
-        };
+            if (Build.VERSION.SdkInt < BuildVersionCodes.P)
+            {
+                return;
+            }
+
+            var shadowColor = new Color(colorArgb);
+
+            _leftImageView.SetOutlineAmbientShadowColor(shadowColor);
+            _leftImageView.SetOutlineSpotShadowColor(shadowColor);
+
+            _rightImageView.SetOutlineAmbientShadowColor(shadowColor);
+            _rightImageView.SetOutlineSpotShadowColor(shadowColor);
+        }
     }
 }

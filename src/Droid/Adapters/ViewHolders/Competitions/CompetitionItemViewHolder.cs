@@ -1,4 +1,6 @@
-﻿using Android.Views;
+﻿using Android.Graphics;
+using Android.OS;
+using Android.Views;
 using Android.Widget;
 using FFImageLoading.Cross;
 using Google.Android.Material.Button;
@@ -53,7 +55,7 @@ namespace PrankChat.Mobile.Droid.Adapters.ViewHolders.Competitions
 
         public CompetitionPhase Phase
         {
-            set => SetVisibleViews(value);
+            set => SetPhaseState(value);
         }
 
         protected override void DoInit(View view)
@@ -158,15 +160,25 @@ namespace PrankChat.Mobile.Droid.Adapters.ViewHolders.Competitions
             bindingSet.Bind(_customerImageView).For(v => v.ImagePath).To(vm => vm.CustomerAvatarUrl);
             bindingSet.Bind(_customerImageView).For(v => v.BindVisible()).To(vm => vm.IsCustomerAttached);
             bindingSet.Bind(_customerImageView).For(v => v.PlaceholderText).To(vm => vm.CustomerShortName);
-
             bindingSet.Bind(this).For(nameof(Phase)).To(vm => vm.Phase);
         }
 
-        private void SetVisibleViews(CompetitionPhase phase)
+        private void SetPhaseState(CompetitionPhase phase)
         {
             var isVisible = phase == CompetitionPhase.Moderation;
-            _moderationBackgroundView.Visibility =
-                _onModerationTextView.Visibility = isVisible ? ViewStates.Visible : ViewStates.Gone;
+            _moderationBackgroundView.Visibility = _onModerationTextView.Visibility = isVisible
+                ? ViewStates.Visible
+                : ViewStates.Gone;
+
+
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.P)
+            {
+                var colorArgb = phase.GetPhaseTintColor(Context);
+                var shadowColor = new Color(colorArgb);
+
+                _borderFrame.SetOutlineAmbientShadowColor(shadowColor);
+                _borderFrame.SetOutlineSpotShadowColor(shadowColor);
+            }
         }
     }
 }
