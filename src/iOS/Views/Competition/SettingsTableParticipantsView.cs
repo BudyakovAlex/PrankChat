@@ -25,11 +25,13 @@ namespace PrankChat.Mobile.iOS.Views.Competition
                 {
                     { UIStringAttributeKey.Font, Theme.Font.RegularFontOfSize(14) }
                 };
+
                 var attributedString = new NSMutableAttributedString($"{Resources.PrizePool} - ", normalTextAttributes);
                 var boldTextAttributes = new NSMutableDictionary<NSString, UIFont>()
                 {
                     { UIStringAttributeKey.Font, Theme.Font.BoldOfSize(14) }
                 };
+
                 var boldString = new NSMutableAttributedString($"{value}{Resources.Currency} / 100%", boldTextAttributes);
                 attributedString.Append(boldString);
                 FullPrizePoolLabel.AttributedText = attributedString;

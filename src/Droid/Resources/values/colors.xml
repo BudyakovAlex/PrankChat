@@ -24,6 +24,7 @@
     <color name="my_order_gradient_start">#F9C642</color>
     <color name="my_order_gradient_end">#FF7F09</color>
     <color name="my_order_accent">#FF810B</color>
+    <color name="orange">#F0864E</color>
     <color name="competition_border">#FCBE1D</color>
     <color name="not_moderated_order_gradient_start">#F9F9F9</color>
     <color name="not_moderated_order_gradient_end">#9A9A9A</color>
