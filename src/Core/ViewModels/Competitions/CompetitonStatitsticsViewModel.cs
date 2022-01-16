@@ -16,11 +16,11 @@ namespace PrankChat.Mobile.Core.ViewModels.Competitions
             _competitionsManager = competitionsManager;
         }
 
-        public string Profit { get; private set; }
+        public decimal Profit { get; private set; }
 
-        public string PercentageFromContribution { get; private set; }
+        public int PercentageFromContribution { get; private set; }
 
-        public string Contribution { get; private set; }
+        public decimal Contribution { get; private set; }
 
         public int Participants { get; private set; }
 
@@ -33,9 +33,9 @@ namespace PrankChat.Mobile.Core.ViewModels.Competitions
         {
             var statistics = await _competitionsManager.GetCompetitionStatisticsAsync(_competitionId);
 
-            Profit = $"{statistics.Profit} {Resources.Currency.ToLower()}";
-            PercentageFromContribution = $"{statistics.PercentageFromContribution}{Resources.Percent.ToLower()}";
-            Contribution = $"{statistics.Contribution}{Resources.Currency.ToLower()}";
+            Profit = statistics.Profit;
+            PercentageFromContribution = statistics.PercentageFromContribution;
+            Contribution = statistics.Contribution;
             Participants = statistics.Participants;
 
             _ = RaiseAllPropertiesChanged();
