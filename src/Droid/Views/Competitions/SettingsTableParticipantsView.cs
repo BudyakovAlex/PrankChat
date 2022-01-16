@@ -35,7 +35,12 @@ namespace PrankChat.Mobile.Droid.Views.Competitions
 
         public double PrizePool
         {
-            set => _fullPrizePoolTextView.Text = $"{value}{Core.Localization.Resources.Currency} / 100%";
+            set => _fullPrizePoolTextView.Text = $"{value}{Core.Localization.Resources.Currency} / 100{Core.Localization.Resources.Percent}";
+        }
+
+        public double LeftToDistribute
+        {
+            set => _leftToDistributeTextView.Text = $"{value}{Core.Localization.Resources.Percent}";
         }
 
         protected override void OnCreate(Bundle savedInstanceState)
@@ -73,7 +78,7 @@ namespace PrankChat.Mobile.Droid.Views.Competitions
             using var bindingSet = CreateBindingSet();
 
             bindingSet.Bind(this).For(nameof(PrizePool)).To(vm => vm.PrizePool);
-            bindingSet.Bind(_leftToDistributeTextView).For(v => v.Text).To(vm => vm.LeftToDistribtePercent);
+            bindingSet.Bind(this).For(nameof(LeftToDistribute)).To(vm => vm.LeftToDistribtePercent);
             bindingSet.Bind(_adapter).For(v => v.ItemsSource).To(vm => vm.Items);
             bindingSet.Bind(_addPlaceLinearLayout).For(v => v.BindClick()).To(vm => vm.AddPlaceCommand);
             bindingSet.Bind(_warningTextView).For(v => v.BindHidden()).To(vm => vm.IsWarning);

@@ -1,8 +1,8 @@
-﻿using Android.App;
-using Android.Views;
+﻿using Android.Views;
 using Android.Widget;
 using AndroidX.AppCompat.Widget;
 using AndroidX.ConstraintLayout.Widget;
+using AndroidX.Core.Content.Resources;
 using FFImageLoading.Cross;
 using Google.Android.Material.Button;
 using MvvmCross.Binding.BindingContext;
@@ -18,6 +18,7 @@ using PrankChat.Mobile.Droid.Adapters.ViewHolders.Abstract;
 using PrankChat.Mobile.Droid.Controls;
 using PrankChat.Mobile.Droid.Converters;
 using PrankChat.Mobile.Droid.Extensions;
+using PrankChat.Mobile.Droid.Utils.Helpers;
 
 namespace PrankChat.Mobile.Droid.Adapters.ViewHolders.Competitions
 {
@@ -82,8 +83,9 @@ namespace PrankChat.Mobile.Droid.Adapters.ViewHolders.Competitions
             _prizeTitleTextView.Text = Resources.TournamentPrizePool;
             _statisticsButton.Text = Resources.Statistics;
 
-            var actionBarSize = Application.Context.GetHeightByAttribute(Resource.Attribute.actionBarSize);
-            view.LayoutParameters = new ConstraintLayout.LayoutParams(view.LayoutParameters.Width, (int)Xamarin.Essentials.DeviceDisplay.MainDisplayInfo.Height - actionBarSize);
+            var contentViewSize = Xamarin.Essentials.Platform.CurrentActivity.Window.FindViewById(Window.IdAndroidContent).Height;
+            var actionBarSize = Context.GetHeightByAttribute(Android.Resource.Attribute.ActionBarSize);
+            view.LayoutParameters = new ConstraintLayout.LayoutParams(view.LayoutParameters.Width, contentViewSize - actionBarSize);
         }
 
         public override void BindData()
