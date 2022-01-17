@@ -42,7 +42,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/profit_title_text_view"
-        tools:text="4800P" />
+        tools:text="4800" />
 
     <TextView
         android:id="@+id/profit_currency_text_view"
@@ -57,7 +57,7 @@
         app:layout_constraintStart_toEndOf="@+id/profit_value_text_view"
         app:layout_constraintTop_toTopOf="@+id/profit_value_text_view"
         app:layout_constraintVertical_bias="0.86"
-        tools:text="@string/Currency" />
+        android:text="@string/Currency" />
 
     <LinearLayout
         android:id="@+id/participants_linear_layout"

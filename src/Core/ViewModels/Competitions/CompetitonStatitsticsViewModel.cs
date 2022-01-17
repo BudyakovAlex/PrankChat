@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.Managers.Competitions;
 using PrankChat.Mobile.Core.ViewModels.Abstract;
 
