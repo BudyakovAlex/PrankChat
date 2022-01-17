@@ -120,7 +120,7 @@ namespace PrankChat.Mobile.iOS.Views.MainView
         private void SetTabs()
         {
             TabBar.SetTabBarStyle();
-            
+
             if (TabBar.Items?.Length > 0)
             {
                 InitTab(0, ImageNames.IconHome, Resources.Home);

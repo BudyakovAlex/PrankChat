@@ -92,6 +92,18 @@ namespace PrankChat.Mobile.Core.ViewModels.Order
             set => SetProperty(ref _isExecutorHidden, value);
         }
 
+        public override void ViewAppeared()
+        {
+            base.ViewAppeared();
+
+            if (!_walkthroughsProvider.CheckCanShowOnFirstLoad<CreateOrderViewModel>())
+            {
+                return;
+            }
+
+            _ = _walkthroughsProvider.ShowWalthroughAsync<CreateOrderViewModel>();
+        }
+
         private Task ShowWalkthrouthAsync()
         {
             return _walkthroughsProvider.ShowWalthroughAsync<CreateOrderViewModel>();

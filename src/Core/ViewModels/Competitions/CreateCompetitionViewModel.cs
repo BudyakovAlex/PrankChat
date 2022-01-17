@@ -122,6 +122,18 @@ namespace PrankChat.Mobile.Core.ViewModels.Competitions
             set => SetProperty(ref _isExecutorHidden, value);
         }
 
+        public override void ViewAppeared()
+        {
+            base.ViewAppeared();
+
+            if (!_walkthroughsProvider.CheckCanShowOnFirstLoad<CreateCompetitionViewModel>())
+            {
+                return;
+            }
+
+            _ = _walkthroughsProvider.ShowWalthroughAsync<CreateCompetitionViewModel>();
+        }
+
         private Task ShowWalkthrouthAsync() =>
             _walkthroughsProvider.ShowWalthroughAsync<CreateCompetitionViewModel>();
 
