@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using PrankChat.Mobile.Core.Models.Enums;
 
 namespace PrankChat.Mobile.Core.Data.Dtos
 {
@@ -22,19 +23,25 @@ namespace PrankChat.Mobile.Core.Data.Dtos
         public string HtmlContent { get; set; }
 
         [JsonProperty("type")]
-        public string Category { get; set; }
+        public OrderCategory Category { get; set; }
 
         [JsonProperty("prize_pool")]
         public List<string> PrizePoolList { get; set; }
 
         [JsonProperty("status")]
-        public string Status { get; set; }
+        public CompetitionStatus Status { get; set; }
 
         [JsonProperty("can_upload_video")]
         public bool CanUploadVideo { get; set; }
 
         [JsonProperty("can_join")]
         public bool CanJoin { get; set; }
+
+        [JsonProperty("can_delete")]
+        public bool CanDelete { get; set; }
+
+        [JsonProperty("share_url")]
+        public string ShareUrl { get; set; }
 
         [JsonProperty("is_competition_member")]
         public bool IsPaidCompetitionMember { get; set; }
@@ -62,5 +69,11 @@ namespace PrankChat.Mobile.Core.Data.Dtos
 
         [JsonProperty("active_to")]
         public DateTime? ActiveTo { get; set; }
+
+        [JsonProperty("customer")]
+        public ResponseDto<UserDto> Customer { get; set; }
+
+        [JsonProperty("is_competition_owner")]
+        public bool IsCompetitionOwner { get; set; }
     }
 }

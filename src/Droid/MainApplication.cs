@@ -54,7 +54,7 @@ namespace PrankChat.Mobile.Droid
             ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
             Xamarin.Essentials.Platform.Init(this);
             VKUtil.GetCertificateFingerprint(this, PackageName);
-            VKSdk.Initialize(this);
+            // VKSdk.Initialize(this);
            
             UserDialogs.Init(this);
             Plugin.CurrentActivity.CrossCurrentActivity.Current.Init(this);

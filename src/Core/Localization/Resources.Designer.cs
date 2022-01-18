@@ -1475,9 +1475,9 @@ namespace PrankChat.Mobile.Core.Localization {
             }
         }
         
-        public static string ComVkSdkAppId {
+        public static string com_vk_sdk_AppId {
             get {
-                return ResourceManager.GetString("ComVkSdkAppId", resourceCulture);
+                return ResourceManager.GetString("com_vk_sdk_AppId", resourceCulture);
             }
         }
         
@@ -1880,6 +1880,96 @@ namespace PrankChat.Mobile.Core.Localization {
         public static string VideoLimitOnUploading {
             get {
                 return ResourceManager.GetString("VideoLimitOnUploading", resourceCulture);
+            }
+        }
+        
+        public static string WantToCancelCompetition {
+            get {
+                return ResourceManager.GetString("WantToCancelCompetition", resourceCulture);
+            }
+        }
+        
+        public static string Participants {
+            get {
+                return ResourceManager.GetString("Participants", resourceCulture);
+            }
+        }
+        
+        public static string Fee {
+            get {
+                return ResourceManager.GetString("Fee", resourceCulture);
+            }
+        }
+        
+        public static string OfTheInstallment {
+            get {
+                return ResourceManager.GetString("OfTheInstallment", resourceCulture);
+            }
+        }
+        
+        public static string Profit {
+            get {
+                return ResourceManager.GetString("Profit", resourceCulture);
+            }
+        }
+        
+        public static string Statistics {
+            get {
+                return ResourceManager.GetString("Statistics", resourceCulture);
+            }
+        }
+        
+        public static string PrizeForPlaceTemplate {
+            get {
+                return ResourceManager.GetString("PrizeForPlaceTemplate", resourceCulture);
+            }
+        }
+        
+        public static string RemainsToDistribute {
+            get {
+                return ResourceManager.GetString("RemainsToDistribute", resourceCulture);
+            }
+        }
+        
+        public static string Apply {
+            get {
+                return ResourceManager.GetString("Apply", resourceCulture);
+            }
+        }
+        
+        public static string ConfiguringTheParticipantTable {
+            get {
+                return ResourceManager.GetString("ConfiguringTheParticipantTable", resourceCulture);
+            }
+        }
+        
+        public static string DistributePrizeFundWarningMessage {
+            get {
+                return ResourceManager.GetString("DistributePrizeFundWarningMessage", resourceCulture);
+            }
+        }
+        
+        public static string AddPrizePlace {
+            get {
+                return ResourceManager.GetString("AddPrizePlace", resourceCulture);
+            }
+        }
+        
+        public static string CompetitionName {
+            get {
+                return ResourceManager.GetString("CompetitionName", resourceCulture);
+            }
+        }
+        
+        public static string CreateCompetitionMessage {
+            get {
+                return ResourceManager.GetString("CreateCompetitionMessage", resourceCulture);
+            }
+        }
+        
+        public static string OrderCreate {
+            get {
+                return ResourceManager.GetString("OrderCreate", resourceCulture);
             }
         }
     }

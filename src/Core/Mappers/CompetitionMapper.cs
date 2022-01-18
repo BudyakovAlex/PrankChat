@@ -1,9 +1,5 @@
 ﻿using PrankChat.Mobile.Core.Data.Dtos;
-using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Models.Data;
-using PrankChat.Mobile.Core.Models.Enums;
-using System;
-using System.Linq;
 
 namespace PrankChat.Mobile.Core.Mappers
 {
@@ -16,18 +12,18 @@ namespace PrankChat.Mobile.Core.Mappers
                 return null;
             }
 
-            var values = Enum.GetValues(typeof(OrderCategory)).OfType<OrderCategory>();
-            var matchedCategory = values.FirstOrDefault(item => item.GetEnumMemberAttrValue()?.ToLower() == dto.Category?.ToLower());
-
             return new Competition(
                 dto.Id,
                 dto.Title,
                 dto.ImageUrl,
                 dto.Description,
                 dto.HtmlContent,
-                matchedCategory,
+                dto.Category,
                 dto.Status,
                 dto.CanUploadVideo,
+                dto.CanDelete,
+                dto.ShareUrl,
+                dto.IsCompetitionOwner,
                 dto.PrizePool,
                 dto.LikesCount,
                 dto.VideosCount,
@@ -38,7 +34,8 @@ namespace PrankChat.Mobile.Core.Mappers
                 dto.VoteTo,
                 dto.UploadVideoTo,
                 dto.CreatedAt,
-                dto.ActiveTo);
+                dto.ActiveTo,
+                dto.Customer?.Map());
         }
     }
 }

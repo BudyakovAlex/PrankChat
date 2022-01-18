@@ -5,7 +5,7 @@ using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Managers.Common;
 using PrankChat.Mobile.Core.ViewModels.Abstract;
 using PrankChat.Mobile.Core.ViewModels.Common;
-using PrankChat.Mobile.Core.ViewModels.Competition;
+using PrankChat.Mobile.Core.ViewModels.Competitions;
 using PrankChat.Mobile.Core.ViewModels.Order;
 using PrankChat.Mobile.Core.ViewModels.Profile;
 using PrankChat.Mobile.Core.ViewModels.Publication;
@@ -18,7 +18,8 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using PrankChat.Mobile.Core.Managers.Authorization;
 using PrankChat.Mobile.Core.Ioc;
-using PrankChat.Mobile.Core.Plugins.Timer;
+using PrankChat.Mobile.Core.Plugins.UserInteraction;
+using PrankChat.Mobile.Core.Localization;
 
 namespace PrankChat.Mobile.Core.ViewModels
 {
@@ -27,6 +28,8 @@ namespace PrankChat.Mobile.Core.ViewModels
         private readonly IVersionManager _versionManager;
         private readonly IPushNotificationProvider _notificationService;
         private readonly IWalkthroughsProvider _walkthroughsProvider;
+        private readonly IUserInteraction _userInteraction;
+
         private readonly int[] _skipTabIndexesInDemoMode = new[] { 2, 4 };
 
         private readonly IDisposable _refreshTokenExpiredMessageSubscription;
@@ -34,8 +37,10 @@ namespace PrankChat.Mobile.Core.ViewModels
         public MainViewModel(
             IVersionManager versionManager,
             IPushNotificationProvider notificationService,
-            IWalkthroughsProvider walkthroughsProvider)
+            IWalkthroughsProvider walkthroughsProvider,
+            IUserInteraction userInteraction)
         {
+            _userInteraction = userInteraction;
             //NOTE: workaround for instantiate correctly IAuthorizationManager
             CompositionRoot.Container.CallbackWhenRegistered<IAuthorizationManager>((_) => { });
 
@@ -50,6 +55,7 @@ namespace PrankChat.Mobile.Core.ViewModels
             ShowWalkthrouthCommand = this.CreateCommand<int>(ShowWalthroughAsync);
             ShowWalkthrouthIfNeedCommand = this.CreateCommand<int>(ShowWalthroughIfNeedAsync);
             CheckActualAppVersionCommand = this.CreateCommand(CheckActualAppVersionAsync);
+            ShowChooseCreateTypeCommand = new MvxAsyncCommand(ShowChooseCreationTypeAsync);
 
             SystemTimer.Start();
         }
@@ -61,6 +67,7 @@ namespace PrankChat.Mobile.Core.ViewModels
         public IMvxAsyncCommand<int> ShowWalkthrouthCommand { get; set; }
         public IMvxAsyncCommand<int> ShowWalkthrouthIfNeedCommand { get; set; }
         public IMvxAsyncCommand CheckActualAppVersionCommand { get; }
+        public IMvxAsyncCommand ShowChooseCreateTypeCommand { get; }
 
         private async Task CheckActualAppVersionAsync()
         {
@@ -99,7 +106,7 @@ namespace PrankChat.Mobile.Core.ViewModels
         {
             return Task.WhenAll(NavigationManager.NavigateAsync<PublicationsViewModel>(),
                     NavigationManager.NavigateAsync<CompetitionsViewModel>(),
-                    NavigationManager.NavigateAsync<CreateOrderViewModel>(),
+                    NavigationManager.NavigateAsync<EmptyCreateOrderViewModel>(),
                     NavigationManager.NavigateAsync<OrdersViewModel>(),
                     NavigationManager.NavigateAsync<ProfileViewModel>(),
                     NotificationBadgeViewModel.RefreshDataCommand.ExecuteAsync());
@@ -108,7 +115,6 @@ namespace PrankChat.Mobile.Core.ViewModels
         private Task ShowWalthroughIfNeedAsync(int position) => position switch
         {
             1 when _walkthroughsProvider.CheckCanShowOnFirstLoad<CompetitionsViewModel>() => _walkthroughsProvider.ShowWalthroughAsync<CompetitionsViewModel>(),
-            2 when _walkthroughsProvider.CheckCanShowOnFirstLoad<CreateOrderViewModel>() => _walkthroughsProvider.ShowWalthroughAsync<CreateOrderViewModel>(),
             3 when _walkthroughsProvider.CheckCanShowOnFirstLoad<OrdersViewModel>() => _walkthroughsProvider.ShowWalthroughAsync<OrdersViewModel>(),
             4 when _walkthroughsProvider.CheckCanShowOnFirstLoad<ProfileViewModel>() => _walkthroughsProvider.ShowWalthroughAsync<ProfileViewModel>(),
             _ => Task.FromResult(false),
@@ -117,20 +123,17 @@ namespace PrankChat.Mobile.Core.ViewModels
         private Task ShowWalthroughAsync(int position) => position switch
         {
             1 => _walkthroughsProvider.ShowWalthroughAsync<CompetitionsViewModel>(),
-            2 => _walkthroughsProvider.ShowWalthroughAsync<CreateOrderViewModel>(),
             3 => _walkthroughsProvider.ShowWalthroughAsync<OrdersViewModel>(),
             4 => _walkthroughsProvider.ShowWalthroughAsync<ProfileViewModel>(),
             _ => Task.FromResult(false),
         };
 
-        private Task CheckDemoModeAsync(int position)
+        private async Task CheckDemoModeAsync(int position)
         {
             if (!CanSwitchTabs(position))
             {
-                return NavigationManager.NavigateAsync<LoginViewModel>();
+                await NavigationManager.NavigateAsync<LoginViewModel>();
             }
-
-            return Task.CompletedTask;
         }
 
         private void RefreshTokenExpired(RefreshTokenExpiredMessage _)
@@ -138,6 +141,21 @@ namespace PrankChat.Mobile.Core.ViewModels
             Disposables.Remove(_refreshTokenExpiredMessageSubscription);
             _refreshTokenExpiredMessageSubscription.Dispose();
             NavigationManager.NavigateAsync<LoginViewModel>();
+        }
+
+        private async Task ShowChooseCreationTypeAsync()
+        {
+            var result = await _userInteraction.ShowMenuDialogAsync(new[] { Resources.OrderCreate, Resources.CreateContest }, Resources.Cancel);
+            if (result == Resources.OrderCreate)
+            {
+                await NavigationManager.NavigateAsync<CreateOrderViewModel>();
+                return;
+            }
+
+            if (result == Resources.CreateContest)
+            {
+                await NavigationManager.NavigateAsync<CreateCompetitionViewModel>();
+            }
         }
     }
 }

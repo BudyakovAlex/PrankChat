@@ -771,4 +771,10 @@ Apple Inc. не является спонсором проведения кон�
     <string name="PeoplesNotFound">"Людей не найдено"</string>
     <string name="OrdersNotFound">"Заказов не найдено"</string>
     <string name="VideoLimitOnUploading">"Видео должно быть меньше 150мб"</string>
+    <string name="WantToCancelCompetition">"Вы уверены, что хотите отменить конкурс?"</string>
+    <string name="Participants">"участников"</string>
+    <string name="Fee">"взнос"</string>
+    <string name="OfTheInstallment">"от взноса"</string>
+    <string name="Profit">"Прибыль"</string>
+    <string name="Statistics">"Статистика"</string>
 </resources>

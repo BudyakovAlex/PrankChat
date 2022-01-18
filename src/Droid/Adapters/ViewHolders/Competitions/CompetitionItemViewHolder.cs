@@ -1,19 +1,22 @@
-﻿using Android.Views;
+﻿using Android.Graphics;
+using Android.OS;
+using Android.Views;
 using Android.Widget;
 using FFImageLoading.Cross;
 using Google.Android.Material.Button;
 using MvvmCross.Binding.BindingContext;
+using MvvmCross.Binding.Combiners;
 using MvvmCross.Platforms.Android.Binding;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
 using PrankChat.Mobile.Core.Common;
 using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.Models.Enums;
-using PrankChat.Mobile.Core.ViewModels.Competition.Items;
-using PrankChat.Mobile.Droid.Extensions;
+using PrankChat.Mobile.Core.ViewModels.Competitions.Items;
 using PrankChat.Mobile.Droid.Adapters.ViewHolders.Abstract;
-using PrankChat.Mobile.Droid.Bindings;
+using PrankChat.Mobile.Droid.Controls;
 using PrankChat.Mobile.Droid.Converters;
+using PrankChat.Mobile.Droid.Extensions;
 using PrankChat.Mobile.Droid.Utils.Helpers;
 
 namespace PrankChat.Mobile.Droid.Adapters.ViewHolders.Competitions
@@ -42,9 +45,17 @@ namespace PrankChat.Mobile.Droid.Adapters.ViewHolders.Competitions
         private FrameLayout _backgroundFrame;
         private ImageView _paidFlagImageView;
         private ImageView _privateFlagImageView;
+        private CircleCachedImageView _customerImageView;
+        private TextView _onModerationTextView;
+        private View _moderationBackgroundView;
 
         public CompetitionItemViewHolder(View view, IMvxAndroidBindingContext context) : base(view, context)
         {
+        }
+
+        public CompetitionPhase Phase
+        {
+            set => SetPhaseState(value);
         }
 
         protected override void DoInit(View view)
@@ -73,10 +84,14 @@ namespace PrankChat.Mobile.Droid.Adapters.ViewHolders.Competitions
             _backgroundFrame = view.FindViewById<FrameLayout>(Resource.Id.background_frame);
             _prizeTitleTextView = view.FindViewById<TextView>(Resource.Id.prize_title_text_view);
             _thirdDividerView = view.FindViewById<View>(Resource.Id.third_divider);
+            _customerImageView = view.FindViewById<CircleCachedImageView>(Resource.Id.customer_image_view);
+            _onModerationTextView = view.FindViewById<TextView>(Resource.Id.on_moderatin_text_view);
+            _moderationBackgroundView = view.FindViewById<View>(Resource.Id.moderation_background_view);
+
             _prizeTitleTextView.Text = Resources.TournamentPrizePool;
 
             _borderFrame.SetRoundedCorners(DisplayUtils.DpToPx(15));
-            _backgroundFrame.SetRoundedCorners(DisplayUtils.DpToPx(13));
+            _backgroundFrame.SetRoundedCorners(DisplayUtils.DpToPx(15));
         }
 
         public override void BindData()
@@ -92,17 +107,33 @@ namespace PrankChat.Mobile.Droid.Adapters.ViewHolders.Competitions
             bindingSet.Bind(_prizeTextView).For(v => v.Text).To(vm => vm.PrizePoolPresentation);
             bindingSet.Bind(_numberTextView).For(v => v.Text).To(vm => vm.Number);
             bindingSet.Bind(_likesTextView).For(v => v.Text).To(vm => vm.LikesCountString);
-            bindingSet.Bind(_numberTextView).For(v => v.BindHidden()).To(vm => vm.CanExecuteActionVideo);
-            bindingSet.Bind(_likesImageView).For(v => v.BindHidden()).To(vm => vm.CanExecuteActionVideo);
-            bindingSet.Bind(_likesTextView).For(v => v.BindHidden()).To(vm => vm.CanExecuteActionVideo);
-            bindingSet.Bind(_thirdDividerView).For(v => v.BindHidden()).To(vm => vm.CanExecuteActionVideo);
+            bindingSet.Bind(_numberTextView).For(v => v.BindHidden())
+                .ByCombining(
+                    new MvxOrValueCombiner(),
+                    vm => vm.CanExecuteActionVideo,
+                    vm => vm.IsModeration);
+            bindingSet.Bind(_likesImageView).For(v => v.BindHidden())
+               .ByCombining(
+                    new MvxOrValueCombiner(),
+                    vm => vm.CanExecuteActionVideo,
+                    vm => vm.IsModeration);
+            bindingSet.Bind(_likesTextView).For(v => v.BindHidden())
+                .ByCombining(
+                    new MvxOrValueCombiner(),
+                    vm => vm.CanExecuteActionVideo,
+                    vm => vm.IsModeration);
+            bindingSet.Bind(_thirdDividerView).For(v => v.BindHidden())
+                .ByCombining(
+                    new MvxOrValueCombiner(),
+                    vm => vm.CanExecuteActionVideo,
+                    vm => vm.IsModeration);
             bindingSet.Bind(_termTimerTextView).For(v => v.Text).To(vm => vm.NextPhaseCountdown)
                       .WithConversion(StringFormatValueConverter.Name, Constants.Formats.DateWithSpace);
             bindingSet.Bind(_termFromTextView).For(v => v.Text).To(vm => vm.CreatedAt)
                       .WithConversion(StringFormatValueConverter.Name, Constants.Formats.DateTimeFormat);
             bindingSet.Bind(_termToTextView).For(v => v.Text).To(vm => vm.ActiveTo)
                       .WithConversion(StringFormatValueConverter.Name, Constants.Formats.DateTimeFormat);
-            bindingSet.Bind(_borderFrame).For(v => v.BindBackgroundColor()).To(vm => vm.Phase)
+            bindingSet.Bind(_borderFrame).For(v => v.BindBackgroundResource()).To(vm => vm.Phase)
                       .WithConversion<CompetitionPhaseToBorderBackgroundConverter>();
             bindingSet.Bind(_backgroundFrame).For(v => v.BindBackgroundResource()).To(vm => vm.Phase)
                       .WithConversion<CompetitionPhaseToBackgroundConverter>();
@@ -126,6 +157,28 @@ namespace PrankChat.Mobile.Droid.Adapters.ViewHolders.Competitions
                       .WithConversion(new DelegateConverter<OrderCategory, bool>((category) => category == OrderCategory.PrivatePaidCompetition));
             bindingSet.Bind(_paidFlagImageView).For(v => v.BindVisible()).To(vm => vm.Category)
                       .WithConversion(new DelegateConverter<OrderCategory, bool>((category) => category == OrderCategory.PaidCompetition || category == OrderCategory.PrivatePaidCompetition));
+            bindingSet.Bind(_customerImageView).For(v => v.ImagePath).To(vm => vm.CustomerAvatarUrl);
+            bindingSet.Bind(_customerImageView).For(v => v.BindVisible()).To(vm => vm.IsCustomerAttached);
+            bindingSet.Bind(_customerImageView).For(v => v.PlaceholderText).To(vm => vm.CustomerShortName);
+            bindingSet.Bind(this).For(nameof(Phase)).To(vm => vm.Phase);
+        }
+
+        private void SetPhaseState(CompetitionPhase phase)
+        {
+            var isVisible = phase == CompetitionPhase.Moderation;
+            _moderationBackgroundView.Visibility = _onModerationTextView.Visibility = isVisible
+                ? ViewStates.Visible
+                : ViewStates.Gone;
+
+
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.P)
+            {
+                var colorArgb = phase.GetPhaseTintColor(Context);
+                var shadowColor = new Color(colorArgb);
+
+                _borderFrame.SetOutlineAmbientShadowColor(shadowColor);
+                _borderFrame.SetOutlineSpotShadowColor(shadowColor);
+            }
         }
     }
 }

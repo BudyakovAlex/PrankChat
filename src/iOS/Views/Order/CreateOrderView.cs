@@ -10,16 +10,15 @@ using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.ViewModels.Order;
 using PrankChat.Mobile.iOS.AppTheme;
-using PrankChat.Mobile.iOS.Infrastructure.Helpers;
-using PrankChat.Mobile.iOS.Converters;
 using PrankChat.Mobile.iOS.Views.Base;
 using UIKit;
 using PrankChat.Mobile.iOS.Common;
 
 namespace PrankChat.Mobile.iOS.Views.Order
 {
-    [MvxTabPresentation(TabName = "Create Order", TabIconName = ImageNames.IconUnselected, TabSelectedIconName = ImageNames.IconSelected, WrapInNavigationController = true)]
-    public partial class CreateOrderView : BaseTabbedViewController<CreateOrderViewModel>
+    // [MvxTabPresentation(TabName = "Create Order", TabIconName = ImageNames.IconUnselected, TabSelectedIconName = ImageNames.IconSelected, WrapInNavigationController = true)]
+    [MvxModalPresentation(WrapInNavigationController = true)]
+    public partial class CreateOrderView : BaseViewController<CreateOrderViewModel>
     {
         private const int MinimumDescriptionHeight = 80;
 
@@ -28,7 +27,7 @@ namespace PrankChat.Mobile.iOS.Views.Order
 
         private UITextPosition _position;
         private UITextView _dynamicDescriptionTextView;
-        private UIBarButtonItem _notificationBarItem;
+        // private UIBarButtonItem _notificationBarItem;
         private NSRange _privacyLinkRange;
 
         public string OrderDescription
@@ -72,8 +71,8 @@ namespace PrankChat.Mobile.iOS.Views.Order
             bindingSet.Bind(completeDateTextField).To(vm => vm.ActiveFor.Title);
             bindingSet.Bind(completeDateTextField.Tap()).For(v => v.Command).To(vm => vm.ShowDateDialogCommand);
             bindingSet.Bind(progressBarView).For(v => v.BindVisible()).To(vm => vm.IsBusy);
-            bindingSet.Bind(_notificationBarItem).For(v => v.Image).To(vm => vm.NotificationBadgeViewModel.HasUnreadNotifications)
-               .WithConversion<BoolToNotificationImageConverter>();
+            /* bindingSet.Bind(_notificationBarItem).For(v => v.Image).To(vm => vm.NotificationBadgeViewModel.HasUnreadNotifications)
+               .WithConversion<BoolToNotificationImageConverter>(); */
             bindingSet.Bind(HideExecutorCheckBoxButton).For(v => v.IsChecked).To(vm => vm.IsExecutorHidden)
                 .Mode(MvvmCross.Binding.MvxBindingMode.TwoWay);
             bindingSet.Bind(InfoImageView).For(v => v.BindTap()).To(vm => vm.ShowWalkthrouthSecretCommand);
@@ -100,12 +99,12 @@ namespace PrankChat.Mobile.iOS.Views.Order
             _dynamicDescriptionTextView = new UITextView();
             DefinesPresentationContext = true;
 
-            _notificationBarItem = NavigationItemHelper.CreateBarButton(ImageNames.IconNotification, ViewModel.ShowNotificationCommand);
+            /* _notificationBarItem = NavigationItemHelper.CreateBarButton(ImageNames.IconNotification, ViewModel.ShowNotificationCommand, UIColor.Black);
             NavigationItem?.SetRightBarButtonItems(new UIBarButtonItem[]
             {
                 _notificationBarItem,
                 NavigationItemHelper.CreateBarButton(ImageNames.IconInfo, ViewModel.ShowWalkthrouthCommand)
-            }, true);
+            }, true); */
 
             _checkedImage = UIImage.FromBundle(ImageNames.IconChecked);
             _uncheckedImage = UIImage.FromBundle(ImageNames.IconUnchecked);

@@ -16,6 +16,9 @@ namespace PrankChat.Mobile.iOS.Views.Competition
 		UIKit.UIButton button { get; set; }
 
 		[Outlet]
+		PrankChat.Mobile.iOS.Controls.CircleCachedImageView CustomerAvatarImageView { get; set; }
+
+		[Outlet]
 		UIKit.UILabel daysLabel { get; set; }
 
 		[Outlet]
@@ -35,6 +38,15 @@ namespace PrankChat.Mobile.iOS.Views.Competition
 
 		[Outlet]
 		UIKit.UILabel minutesLabel { get; set; }
+
+		[Outlet]
+		UIKit.UIView ModerationOverlayView { get; set; }
+
+		[Outlet]
+		UIKit.UIView OnModerationView { get; set; }
+
+		[Outlet]
+		UIKit.UIView OverlayView { get; set; }
 
 		[Outlet]
 		UIKit.UIImageView PaidFlagImageView { get; set; }
@@ -82,6 +94,11 @@ namespace PrankChat.Mobile.iOS.Views.Competition
 				button = null;
 			}
 
+			if (CustomerAvatarImageView != null) {
+				CustomerAvatarImageView.Dispose ();
+				CustomerAvatarImageView = null;
+			}
+
 			if (daysLabel != null) {
 				daysLabel.Dispose ();
 				daysLabel = null;
@@ -115,6 +132,21 @@ namespace PrankChat.Mobile.iOS.Views.Competition
 			if (minutesLabel != null) {
 				minutesLabel.Dispose ();
 				minutesLabel = null;
+			}
+
+			if (ModerationOverlayView != null) {
+				ModerationOverlayView.Dispose ();
+				ModerationOverlayView = null;
+			}
+
+			if (PaidFlagImageView != null) {
+				PaidFlagImageView.Dispose ();
+				PaidFlagImageView = null;
+			}
+
+			if (PrivateFlagImageView != null) {
+				PrivateFlagImageView.Dispose ();
+				PrivateFlagImageView = null;
 			}
 
 			if (prizeBottomSeparator != null) {
@@ -172,14 +204,14 @@ namespace PrankChat.Mobile.iOS.Views.Competition
 				titleLabel = null;
 			}
 
-			if (PaidFlagImageView != null) {
-				PaidFlagImageView.Dispose ();
-				PaidFlagImageView = null;
+			if (OnModerationView != null) {
+				OnModerationView.Dispose ();
+				OnModerationView = null;
 			}
 
-			if (PrivateFlagImageView != null) {
-				PrivateFlagImageView.Dispose ();
-				PrivateFlagImageView = null;
+			if (OverlayView != null) {
+				OverlayView.Dispose ();
+				OverlayView = null;
 			}
 		}
 	}

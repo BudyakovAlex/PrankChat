@@ -60,8 +60,6 @@ namespace PrankChat.Mobile.Droid.Views
             base.OnCreate(bundle, Resource.Layout.main_view_layout);
             ViewModel.LoadContentCommand.Execute(null);
 
-            Window.SetBackgroundDrawableResource(Resource.Drawable.gradient_action_bar_background);
-
             var viewPager = FindViewById<ApplicationSwipeViewPager>(Resource.Id.viewpager);
             viewPager.OffscreenPageLimit = 5;
             _tabLayout = FindViewById<TabLayout>(Resource.Id.tabs);
@@ -170,6 +168,12 @@ namespace PrankChat.Mobile.Droid.Views
 
             this.HideKeyboard();
 
+            if (e.Tab.Position == 2)
+            {
+                _ = ViewModel.ShowChooseCreateTypeCommand.ExecuteAsync().ConfigureAwait(false);
+                return;
+            }
+
             _toolbarLogo.Visibility = e.Tab.Position != 2 ? ViewStates.Visible : ViewStates.Invisible;
             _toolbarTitle.Visibility = e.Tab.Position == 2 ? ViewStates.Visible : ViewStates.Invisible;
             _toolbarTitle.Text = e.Tab.Position == 2 ? Localization.CreateOrder : string.Empty;
@@ -264,6 +268,12 @@ namespace PrankChat.Mobile.Droid.Views
             if (!int.TryParse(view.Tag.ToString(), out var index))
             {
                 return false;
+            }
+
+            if (index == 2)
+            {
+                ViewModel.ShowChooseCreateTypeCommand.ExecuteAsync().ConfigureAwait(false);
+                return true;
             }
 
             if (!ViewModel.CanSwitchTabs(index) &&

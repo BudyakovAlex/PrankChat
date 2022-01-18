@@ -13,6 +13,7 @@ namespace PrankChat.Mobile.Core.Converters
             CompetitionPhase.New => Resources.New,
             CompetitionPhase.Voting => Resources.Voting,
             CompetitionPhase.Finished => Resources.Summary,
+            CompetitionPhase.Moderation => Resources.Moderation,
             _ => string.Empty,
         };
     }

@@ -1,5 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <AssemblyName>PrankChat.Mobile.Core</AssemblyName>
@@ -34,9 +33,7 @@
     <PackageReference Include="Serilog" Version="2.10.0" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="AppConfig.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
+    <EmbeddedResource Include="AppConfig.json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
   <ItemGroup>
      <EmbeddedResource Update="Localization\Resources.resx">
@@ -50,38 +47,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Managers\Authorization\" />
-    <Folder Include="Managers\Users\" />
-    <Folder Include="Managers\Search\" />
-    <Folder Include="Managers\Publications\" />
-    <Folder Include="Managers\Notifications\" />
-    <Folder Include="Managers\Orders\" />
-    <Folder Include="Managers\Payment\" />
-    <Folder Include="Managers\Competitions\" />
-    <Folder Include="Data\Enums\" />
-    <Folder Include="Exceptions\Network\" />
-    <Folder Include="Data\Models\Shared\" />
-    <Folder Include="Data\Enums\FilterTypes\" />
-    <Folder Include="Providers\UserSession\" />
-    <Folder Include="Managers\Navigation\" />
-    <Folder Include="Ioc\" />
-    <Folder Include="Data\Models\Configurations\" />
-    <Folder Include="Providers\Configuration\" />
-    <Folder Include="Plugins\Video\" />
-    <Folder Include="Providers\Platform\" />
-    <Folder Include="Data\Models\User\" />
-    <Folder Include="Data\Dtos\Users\" />
-    <Folder Include="Managers\Navigation\Arguments\" />
-    <Folder Include="Managers\Navigation\Arguments\NavigationParameters\" />
-    <Folder Include="Managers\Navigation\Arguments\NavigationResults\" />
+    <None Remove="Data\Models\Competitions\" />
+    <None Remove="Data\Dtos\Competitions\" />
   </ItemGroup>
   <ItemGroup>
-    <None Remove="AppConfig.json" />
-    <None Remove="Data\Models\User\" />
-    <None Remove="Data\Dtos\Users\" />
-    <None Remove="Managers\Navigation\Arguments\" />
-    <None Remove="Managers\Navigation\Arguments\Parameters\" />
-    <None Remove="Managers\Navigation\Arguments\NavigationResults\" />
-    <None Remove="Serilog" />
+    <Folder Include="Data\Models\Competitions\" />
+    <Folder Include="Data\Dtos\Competitions\" />
   </ItemGroup>
 </Project>

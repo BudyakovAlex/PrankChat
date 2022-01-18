@@ -26,15 +26,17 @@ using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.Core.ViewModels.Order
 {
-    public class OrderDetailsViewModel : BasePageViewModel<OrderDetailsNavigationParameter>
+    public class OrderDetailsViewModel : BasePageViewModel<OrderDetailsNavigationParameter, bool>
     {
         private readonly IOrdersManager _ordersManager;
         private readonly IUsersManager _usersManager;
 
+        private readonly BaseOrderDetailsSectionViewModel[] _sections;
+
         private int _orderId;
         private int _timerThicksCount;
 
-        private readonly BaseOrderDetailsSectionViewModel[] _sections;
+        private bool _hasChanges;
 
         public OrderDetailsViewModel(IOrdersManager ordersManager, IUsersManager usersManager)
         {
@@ -68,6 +70,8 @@ namespace PrankChat.Mobile.Core.ViewModels.Order
 
             VideoSectionViewModel.RefreshDataFunc = LoadOrderDetailsAsync;
         }
+
+        protected override bool DefaultResult => _hasChanges;
 
         public int LikesCount => Order?.PositiveArbitrationValuesCount ?? 0;
 
@@ -255,6 +259,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Order
                     return;
                 }
 
+                _hasChanges = true;
                 Messenger.Publish(new OrderChangedMessage(this, Order));
             }
             catch (NetworkException ex) when (ex.InnerException is ProblemDetailsException problemDetails && problemDetails?.CodeError == Constants.ErrorCodes.LowBalance)
@@ -290,6 +295,8 @@ namespace PrankChat.Mobile.Core.ViewModels.Order
             {
                 Order = await _ordersManager.SubscribeOrderAsync(_orderId);
                 await RaiseAllPropertiesChanged();
+
+                _hasChanges = true;
                 Messenger.Publish(new OrderChangedMessage(this, Order));
             }
             catch (Exception ex)
@@ -324,6 +331,8 @@ namespace PrankChat.Mobile.Core.ViewModels.Order
                     Order.Status = order.Status;
                     await Task.WhenAll(_sections.Select(item => item.RaiseAllPropertiesChanged()));
                     await RaiseAllPropertiesChanged();
+
+                    _hasChanges = true;
                     Messenger.Publish(new OrderChangedMessage(this, Order));
                 }
             }
@@ -347,6 +356,8 @@ namespace PrankChat.Mobile.Core.ViewModels.Order
 
                     await Task.WhenAll(_sections.Select(item => item.RaiseAllPropertiesChanged()));
                     await RaiseAllPropertiesChanged();
+
+                    _hasChanges = true;
                     Messenger.Publish(new OrderChangedMessage(this, order));
                 }
             }
@@ -375,6 +386,8 @@ namespace PrankChat.Mobile.Core.ViewModels.Order
                 Order.Status = canceledOrder.Status;
                 await Task.WhenAll(_sections.Select(item => item.RaiseAllPropertiesChanged()));
                 await RaiseAllPropertiesChanged();
+
+                _hasChanges = true;
                 Messenger.Publish(new OrderChangedMessage(this, Order));
             }
         }
@@ -401,6 +414,8 @@ namespace PrankChat.Mobile.Core.ViewModels.Order
                     Order.PositiveArbitrationValuesCount = votedOrder.PositiveArbitrationValuesCount;
                     Order.NegativeArbitrationValuesCount = votedOrder.NegativeArbitrationValuesCount;
                     await RaiseAllPropertiesChanged();
+
+                    _hasChanges = true;
                     Messenger.Publish(new OrderChangedMessage(this, votedOrder));
                 }
             }
@@ -430,6 +445,8 @@ namespace PrankChat.Mobile.Core.ViewModels.Order
                     Order.PositiveArbitrationValuesCount = votedOrder.PositiveArbitrationValuesCount;
                     Order.NegativeArbitrationValuesCount = votedOrder.NegativeArbitrationValuesCount;
                     await RaiseAllPropertiesChanged();
+
+                    _hasChanges = true;
                     Messenger.Publish(new OrderChangedMessage(this, votedOrder));
                 }
             }
@@ -472,6 +489,8 @@ namespace PrankChat.Mobile.Core.ViewModels.Order
 
                 await _ordersManager.ComplainOrderAsync(_orderId, text, text);
                 UserInteraction.ShowToast(Resources.ThankYouForLettingUsKnow, ToastType.Positive);
+
+                _hasChanges = true;
                 Messenger.Publish(new OrderChangedMessage(this, Order));
                 return;
             }
@@ -509,6 +528,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Order
             var customerUsername = CustomerSectionViewModel.Order.Customer.Login;
             UserInteraction.ShowToast(string.Format(Resources.BlockedUser, customerUsername), ToastType.Positive);
 
+            _hasChanges = true;
             Messenger.Publish(new OrderChangedMessage(this, Order));
             return;
         }

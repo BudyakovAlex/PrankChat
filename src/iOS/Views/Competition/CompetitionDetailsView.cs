@@ -2,9 +2,11 @@
 using MvvmCross.Platforms.Ios.Binding;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using MvvmCross.Platforms.Ios.Views;
-using PrankChat.Mobile.Core.ViewModels.Competition;
-using PrankChat.Mobile.Core.ViewModels.Competition.Items;
+using PrankChat.Mobile.Core.ViewModels.Competitions;
+using PrankChat.Mobile.Core.ViewModels.Competitions.Items;
 using PrankChat.Mobile.iOS.AppTheme;
+using PrankChat.Mobile.iOS.Common;
+using PrankChat.Mobile.iOS.Infrastructure.Helpers;
 using PrankChat.Mobile.iOS.SourcesAndDelegates;
 using PrankChat.Mobile.iOS.Views.Base;
 using UIKit;
@@ -16,6 +18,12 @@ namespace PrankChat.Mobile.iOS.Views.Competition
     {
         private MvxUIRefreshControl _refreshControl;
         private VideoTableSource _source;
+        private UIBarButtonItem _shareBarItem;
+
+        public bool IsModerationCompleted
+        {
+            set => NavigationItem.RightBarButtonItem = value ? _shareBarItem : null;
+        }
 
         protected override void SetupControls()
         {
@@ -41,6 +49,8 @@ namespace PrankChat.Mobile.iOS.Views.Competition
             uploadingProgressBar.RingThickness = 5;
             uploadingProgressBar.BaseColor = UIColor.DarkGray;
             uploadingProgressBar.Progress = 0f;
+
+            InitializeNavigationController();
         }
 
         protected override void Bind()
@@ -58,6 +68,16 @@ namespace PrankChat.Mobile.iOS.Views.Competition
             bindingSet.Bind(uploadingProgressBar).For(v => v.Progress).To(vm => vm.UploadingProgress);
             bindingSet.Bind(uploadingLabel).For(v => v.Text).To(vm => vm.UploadingProgressStringPresentation);
             bindingSet.Bind(uploadingProgressBar).For(v => v.BindTap()).To(vm => vm.CancelUploadingCommand);
+            bindingSet.Bind(this).For(nameof(IsModerationCompleted)).To(vm => vm.IsModerationCompleted);
+        }
+
+        private void InitializeNavigationController()
+        {
+            _shareBarItem = NavigationItemHelper.CreateBarButton(ImageNames.IconShare, ViewModel.ShareCommand);
+            NavigationItem?.SetRightBarButtonItems(new []
+            {
+               _shareBarItem
+            }, true);
         }
     }
 }

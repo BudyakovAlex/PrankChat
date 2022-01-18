@@ -7,27 +7,6 @@ namespace PrankChat.Mobile.Core.Services.Network.JsonSerializers.Converters
 {
     public class StringEnumJsonConverter : StringEnumConverter
     {
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-        {
-            if (value == null)
-            {
-                writer.WriteNull();
-                return;
-            }
-
-            var enumObject = value as Enum;
-            if (enumObject != null)
-            {
-                var stringValue = enumObject.ToString("G");
-                writer.WriteValue(stringValue);
-                return;
-            }
-
-            var jsonSerializer = new JsonSerializer();
-            jsonSerializer.Converters.Add(this);
-            jsonSerializer.Serialize(writer, value);
-        }
-
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
             var tokenType = reader.TokenType;

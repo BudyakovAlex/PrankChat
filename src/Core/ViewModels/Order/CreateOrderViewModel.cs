@@ -45,7 +45,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Order
             ShowWalkthrouthSecretCommand = this.CreateCommand(ShowWalkthrouthSecretAsync);
             ShowDateDialogCommand = this.CreateCommand(ShowDateDialogAsync);
             CreateCommand = this.CreateCommand(CreateAsync);
-            ShowPrivacyPolicyCommand = this.CreateCommand(ShowProvacyPolicyAsync);
+            ShowPrivacyPolicyCommand = this.CreateCommand(ShowPrivacyPolicyAsync);
         }
 
         public IMvxAsyncCommand ShowDateDialogCommand { get; }
@@ -90,6 +90,18 @@ namespace PrankChat.Mobile.Core.ViewModels.Order
         {
             get => _isExecutorHidden;
             set => SetProperty(ref _isExecutorHidden, value);
+        }
+
+        public override void ViewAppeared()
+        {
+            base.ViewAppeared();
+
+            if (!_walkthroughsProvider.CheckCanShowOnFirstLoad<CreateOrderViewModel>())
+            {
+                return;
+            }
+
+            _ = _walkthroughsProvider.ShowWalthroughAsync<CreateOrderViewModel>();
         }
 
         private Task ShowWalkthrouthAsync()
@@ -168,7 +180,8 @@ namespace PrankChat.Mobile.Core.ViewModels.Order
                 Messenger.Publish(new OrderChangedMessage(this, newOrder));
 
                 var parameter = new OrderDetailsNavigationParameter(newOrder.Id, null, 0);
-                await NavigationManager.NavigateAsync<OrderDetailsViewModel, OrderDetailsNavigationParameter>(parameter);
+                await NavigationManager.NavigateAsync<OrderDetailsViewModel, OrderDetailsNavigationParameter, bool>(parameter);
+                await NavigationManager.CloseAsync(this);
                 SetDefaultData();
                 return;
             }
@@ -259,7 +272,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Order
             Price = null;
         }
 
-        private Task ShowProvacyPolicyAsync() =>
+        private Task ShowPrivacyPolicyAsync() =>
             Xamarin.Essentials.Browser.OpenAsync(RestConstants.PolicyEndpoint);
     }
 }

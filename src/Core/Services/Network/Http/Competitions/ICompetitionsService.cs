@@ -1,5 +1,6 @@
 ﻿using PrankChat.Mobile.Core.Data.Dtos;
 using PrankChat.Mobile.Core.Data.Dtos.Base;
+using PrankChat.Mobile.Core.Data.Dtos.Competitions;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -16,5 +17,11 @@ namespace PrankChat.Mobile.Core.Services.Network.Http.Competitions
         Task<List<CompetitionResultDto>> GetCompetitionRatingsAsync(int id);
 
         Task<CompetitionDto> CompetitionJoinAsync(int id);
+
+        Task<CompetitionDto> CancelCompetitionAsync(int id);
+
+        Task<CompetitionStatisticsDto> GetCompetitionStatisticsAsync(int id);
+
+        Task<CompetitionDto> CreateCompetitionAsync(CompetitionCreationFormDto competitionCreationFormDto);
     }
 }
