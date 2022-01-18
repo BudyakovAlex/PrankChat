@@ -142,7 +142,12 @@ namespace PrankChat.Mobile.iOS.SourcesAndDelegates
             }
 
             cell.ShowStub();
-            cell.VideoPlayer.Stop();
+            var nativePlayer = cell.VideoPlayer.GetNativePlayer();
+            if (nativePlayer is LibVLCSharp.Platforms.iOS.VideoView videoView)
+            {
+                videoView.MediaPlayer.Pause();
+                videoView.MediaPlayer.Position = 0.0f;
+            }
         }
 
         private bool IsCompletelyVisible(BaseVideoTableCell publicationCell)
