@@ -17,10 +17,11 @@
         <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
         <AndroidResgenClass>Resource</AndroidResgenClass>
         <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
-        <TargetFrameworkVersion>v10.0</TargetFrameworkVersion>
+        <TargetFrameworkVersion>v11.0</TargetFrameworkVersion>
         <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
         <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
         <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
+        <AndroidUseIntermediateDesignerFile>true</AndroidUseIntermediateDesignerFile>
         <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
         <AndroidUseAapt2>true</AndroidUseAapt2>
         <AndroidHttpClientHandlerType>Xamarin.Android.Net.AndroidClientHandler</AndroidHttpClientHandlerType>
@@ -35,7 +36,10 @@
         <WarningLevel>4</WarningLevel>
         <AndroidUseSharedRuntime>True</AndroidUseSharedRuntime>
         <AndroidLinkMode>None</AndroidLinkMode>
-        <EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
+         <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
+        <AndroidResgenClass>Resource</AndroidResgenClass>
+        <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
+        <AndroidUseIntermediateDesignerFile>true</AndroidUseIntermediateDesignerFile>
         <AndroidSupportedAbis>
         </AndroidSupportedAbis>
         <AndroidDexTool>d8</AndroidDexTool>
@@ -51,6 +55,9 @@
         <DefineConstants>TRACE</DefineConstants>
         <ErrorReport>prompt</ErrorReport>
         <WarningLevel>4</WarningLevel>
+        <AndroidUseIntermediateDesignerFile>true</AndroidUseIntermediateDesignerFile>
+        <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
+        <AndroidResgenClass>Resource</AndroidResgenClass>
         <AndroidLinkMode>SdkOnly</AndroidLinkMode>
         <AndroidManagedSymbols>true</AndroidManagedSymbols>
         <AndroidUseSharedRuntime>False</AndroidUseSharedRuntime>
@@ -121,12 +128,16 @@
     <ItemGroup>
         <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj" Name="PrankChat.Mobile.Core" />
     </ItemGroup>
+    <ItemGroup> 
+        <Compile Include="**\*.cs" Exclude="obj\**" /> 
+   </ItemGroup> 
+    <ItemGroup>  
+        <AndroidResource Include="Resources\**\*.xml" />
+        <AndroidResource Include="Resources\**\*.axml" />
+        <AndroidResource Include="Resources\**\*.png" />
+        <None Include="**\*.txt" Exclude="obj\**" />
+    </ItemGroup>
     <ItemGroup>
-        <Compile Include="**\*.cs" Exclude="obj\**" />
-        <AndroidResource Include="Resources\**\*.png;Resources\**\*.axml;Resources\**\*.xml">
-            <SubType>Designer</SubType>
-            <Generator>MSBuild:UpdateGeneratedFiles</Generator>
-        </AndroidResource>
         <GoogleServicesJson Include="google-services.json" />
         <AndroidAsset Include="Assets\ripple_animation.json" />
         <None Include="Resources\AboutResources.txt" />

@@ -1,5 +1,4 @@
 ﻿<linker>
-    <assembly fullname="PrankChat.Mobile.iOS" />
     <assembly fullname="MvvmCross">
         <type fullname="MvvmCross.Core.MvxSettings">
             <method name=".ctor"/>
