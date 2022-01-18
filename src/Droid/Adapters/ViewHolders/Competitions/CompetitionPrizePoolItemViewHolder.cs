@@ -3,7 +3,7 @@ using Android.Views;
 using Android.Widget;
 using MvvmCross.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
-using PrankChat.Mobile.Core.ViewModels.Competition.Items;
+using PrankChat.Mobile.Core.ViewModels.Competitions.Items;
 using PrankChat.Mobile.Droid.Adapters.ViewHolders.Abstract;
 using PrankChat.Mobile.Droid.Bindings;
 using PrankChat.Mobile.Droid.Converters;

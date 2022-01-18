@@ -1,13 +1,13 @@
-﻿using MvvmCross.Logging;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.Data.Dtos;
 using PrankChat.Mobile.Core.Data.Dtos.Base;
+using PrankChat.Mobile.Core.Data.Dtos.Competitions;
 using PrankChat.Mobile.Core.Data.Enums;
 using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Providers.Configuration;
 using PrankChat.Mobile.Core.Providers.UserSession;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Services.Network.Http.Competitions
 {
@@ -64,7 +64,7 @@ namespace PrankChat.Mobile.Core.Services.Network.Http.Competitions
         public Task<BaseBundleDto<CompetitionDto>> GetCompetitionsAsync(int page, int pageSize)
         {
             var endpoint = $"competitions?page={page}&items_per_page={pageSize}";
-            var data = _client.GetAsync<BaseBundleDto<CompetitionDto>>(endpoint);
+            var data = _client.GetAsync<BaseBundleDto<CompetitionDto>>(endpoint, includes: new[] { IncludeType.Customer });
             return data;
         }
 
@@ -72,6 +72,24 @@ namespace PrankChat.Mobile.Core.Services.Network.Http.Competitions
         {
             var response = await _client.PostAsync<ResponseDto<CompetitionDto>>($"competitions/{id}/join", true);
             return response?.Data;
+        }
+
+        public async Task<CompetitionDto> CancelCompetitionAsync(int id)
+        {
+            var data = await _client.PostAsync<ResponseDto<CompetitionDto>>($"competitions/{id}/cancel", false);
+            return data?.Data;
+        }
+
+        public async Task<CompetitionStatisticsDto> GetCompetitionStatisticsAsync(int id)
+        {
+            var data = await _client.GetAsync<ResponseDto<CompetitionStatisticsDto>>($"competitions/{id}/statistics", false);
+            return data?.Data;
+        }
+
+        public async Task<CompetitionDto> CreateCompetitionAsync(CompetitionCreationFormDto competitionCreationFormDto)
+        {
+            var newCompetition = await _client.PostAsync<CompetitionCreationFormDto, ResponseDto<CompetitionDto>>("competitions", competitionCreationFormDto, true);
+            return newCompetition?.Data;
         }
     }
 }

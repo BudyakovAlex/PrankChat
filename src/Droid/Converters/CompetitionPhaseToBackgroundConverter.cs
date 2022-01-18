@@ -17,6 +17,8 @@ namespace PrankChat.Mobile.Droid.Converters
                     return Resource.Drawable.bg_competition_blue;
                 case CompetitionPhase.Finished:
                     return Resource.Drawable.bg_competition_gray;
+                case CompetitionPhase.Moderation:
+                    return Resource.Drawable.bg_competition_moderation;
                 default:
                     return 0;
             }

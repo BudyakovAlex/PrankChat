@@ -14,6 +14,7 @@ namespace PrankChat.Mobile.Droid.Converters
                 CompetitionPhase.Voting => Resource.Color.competition_vote_border,
                 CompetitionPhase.New => Resource.Color.competition_new_border,
                 CompetitionPhase.Finished => Resource.Color.competition_finished_border,
+                CompetitionPhase.Moderation => Resource.Drawable.competition_moderation_border,
                 _ => 0,
             };
         }

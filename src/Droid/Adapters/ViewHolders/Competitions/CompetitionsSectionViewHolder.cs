@@ -1,4 +1,7 @@
 ﻿using Android.App;
+using Android.Content.Res;
+using Android.Graphics;
+using Android.OS;
 using Android.Views;
 using Android.Widget;
 using AndroidX.RecyclerView.Widget;
@@ -6,15 +9,15 @@ using MvvmCross.Binding.BindingContext;
 using MvvmCross.DroidX.RecyclerView;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
 using PrankChat.Mobile.Core.Converters;
-using PrankChat.Mobile.Core.ViewModels.Competition;
-using PrankChat.Mobile.Core.ViewModels.Competition.Items;
+using PrankChat.Mobile.Core.Models.Enums;
+using PrankChat.Mobile.Core.ViewModels.Competitions;
+using PrankChat.Mobile.Core.ViewModels.Competitions.Items;
+using PrankChat.Mobile.Droid.Adapters.TemplateSelectors;
+using PrankChat.Mobile.Droid.Adapters.ViewHolders.Abstract;
+using PrankChat.Mobile.Droid.Converters;
 using PrankChat.Mobile.Droid.Decorators;
 using PrankChat.Mobile.Droid.Extensions;
 using PrankChat.Mobile.Droid.LayoutManagers;
-using PrankChat.Mobile.Droid.Adapters.TemplateSelectors;
-using PrankChat.Mobile.Droid.Adapters.ViewHolders.Abstract;
-using PrankChat.Mobile.Droid.Bindings;
-using PrankChat.Mobile.Droid.Converters;
 using PrankChat.Mobile.Droid.Listeners;
 
 namespace PrankChat.Mobile.Droid.Adapters.ViewHolders.Competitions
@@ -30,12 +33,17 @@ namespace PrankChat.Mobile.Droid.Adapters.ViewHolders.Competitions
         private View _leftDivider;
         private View _rightDivider;
 
+        public CompetitionsSectionViewHolder(View view, IMvxAndroidBindingContext context) : base(view, context)
+        {
+        }
+
         public int RecycledViewsVisibleCount => 5;
 
         public RecyclerView NestedRecyclerView => _sectionRecyclerView;
 
-        public CompetitionsSectionViewHolder(View view, IMvxAndroidBindingContext context) : base(view, context)
+        public CompetitionPhase Phase
         {
+            set => SetArrowsStyle(value);
         }
 
         public override void BindData()
@@ -44,6 +52,7 @@ namespace PrankChat.Mobile.Droid.Adapters.ViewHolders.Competitions
 
             using var bindingSet = this.CreateBindingSet<CompetitionsSectionViewHolder, CompetitionsSectionViewModel>();
 
+            bindingSet.Bind(this).For(nameof(Phase)).To(vm => vm.Phase);
             bindingSet.Bind(_sectionRecyclerView).For(v => v.ItemsSource).To(vm => vm.Items);
             bindingSet.Bind(_titleTextView).For(v => v.Text).To(vm => vm.Phase)
                       .WithConversion<CompetitionPhaseToSectionTitleConverter>();
@@ -120,6 +129,26 @@ namespace PrankChat.Mobile.Droid.Adapters.ViewHolders.Competitions
             _sectionRecyclerView.AddItemDecoration(new PagerDecorator(Application.Context));
             var snapHelper = new PagerSnapHelper();
             snapHelper.AttachToRecyclerView(_sectionRecyclerView);
+        }
+
+        private void SetArrowsStyle(CompetitionPhase phase)
+        {
+            var colorArgb = phase.GetPhaseTintColor(Context);
+            _rightImageView.ImageTintList = ColorStateList.ValueOf(new Color(colorArgb));
+            _leftImageView.ImageTintList = ColorStateList.ValueOf(new Color(colorArgb));
+
+            if (Build.VERSION.SdkInt < BuildVersionCodes.P)
+            {
+                return;
+            }
+
+            var shadowColor = new Color(colorArgb);
+
+            _leftImageView.SetOutlineAmbientShadowColor(shadowColor);
+            _leftImageView.SetOutlineSpotShadowColor(shadowColor);
+
+            _rightImageView.SetOutlineAmbientShadowColor(shadowColor);
+            _rightImageView.SetOutlineSpotShadowColor(shadowColor);
         }
     }
 }

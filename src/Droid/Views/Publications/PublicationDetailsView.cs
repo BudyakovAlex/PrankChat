@@ -16,8 +16,6 @@ namespace PrankChat.Mobile.Droid.Views.Publications
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle, Resource.Layout.activity_publication_details);
-
-            Window.SetBackgroundDrawableResource(Resource.Drawable.gradient_action_bar_background);
         }
     }
 }

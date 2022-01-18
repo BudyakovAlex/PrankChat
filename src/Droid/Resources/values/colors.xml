@@ -24,12 +24,14 @@
     <color name="my_order_gradient_start">#F9C642</color>
     <color name="my_order_gradient_end">#FF7F09</color>
     <color name="my_order_accent">#FF810B</color>
+    <color name="orange">#F0864E</color>
     <color name="competition_border">#FCBE1D</color>
     <color name="not_moderated_order_gradient_start">#F9F9F9</color>
     <color name="not_moderated_order_gradient_end">#9A9A9A</color>
     <color name="description">#9E9E9E</color>
     <color name="border">#C3C3C3</color>
     <color name="gray">#D1D1D1</color>
+    <color name="title_gray">#939393</color>
     <color name="dark_placeholder">#878787</color>
     <color name="ic_launcher_background">#2C3E50</color>
     <color name="primary_button_border">#602E9B</color>

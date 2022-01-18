@@ -29,6 +29,11 @@ namespace PrankChat.Mobile.iOS.Views.Base
         {
             SetupControls();
             Bind();
+            Subscribe();
+        }
+
+        protected virtual void Subscribe()
+        {
         }
     }
 

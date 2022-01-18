@@ -1,4 +1,6 @@
-﻿using PrankChat.Mobile.Core.Mappers;
+﻿using PrankChat.Mobile.Core.Data.Models;
+using PrankChat.Mobile.Core.Data.Models.Competitions;
+using PrankChat.Mobile.Core.Mappers;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.Shared;
 using PrankChat.Mobile.Core.Services.Network.Http.Competitions;
@@ -44,6 +46,25 @@ namespace PrankChat.Mobile.Core.Managers.Competitions
         public async Task<Competition> CompetitionJoinAsync(int id)
         {
             var response = await _competitionsService.CompetitionJoinAsync(id);
+            return response.Map();
+        }
+
+        public async Task<Competition> CancelCompetitionAsync(int id)
+        {
+            var response = await _competitionsService.CancelCompetitionAsync(id);
+            return response.Map();
+        }
+
+        public async Task<CompetitionStatistics> GetCompetitionStatisticsAsync(int id)
+        {
+            var response = await _competitionsService.GetCompetitionStatisticsAsync(id);
+            return response.Map();
+        }
+
+        public async Task<Competition> CreateCompetitionAsync(CompetitionCreationForm competition)
+        {
+            var dto = competition.Map();
+            var response = await _competitionsService.CreateCompetitionAsync(dto);
             return response.Map();
         }
     }

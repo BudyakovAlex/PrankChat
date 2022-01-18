@@ -9,8 +9,8 @@ using MvvmCross.DroidX;
 using MvvmCross.Platforms.Android.Binding;
 using MvvmCross.Platforms.Android.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
-using PrankChat.Mobile.Core.ViewModels.Competition;
-using PrankChat.Mobile.Core.ViewModels.Competition.Items;
+using PrankChat.Mobile.Core.ViewModels.Competitions;
+using PrankChat.Mobile.Core.ViewModels.Competitions.Items;
 using PrankChat.Mobile.Droid.Controls;
 using PrankChat.Mobile.Droid.Extensions;
 using PrankChat.Mobile.Droid.LayoutManagers;
@@ -39,14 +39,18 @@ namespace PrankChat.Mobile.Droid.Views.Competitions
         private CircleProgressBar _uploadingProgressBar;
         private View _uploadingInfoContainer;
         private TextView _uploadedTextView;
+        private IMenuItem _shareMenuItem;
 
         protected override bool HasBackButton => true;
+
+        public bool IsModerationCompleted
+        {
+            set => _shareMenuItem.SetVisible(value);
+        }
 
         protected override void OnCreate(Android.OS.Bundle bundle)
         {
             base.OnCreate(bundle, Resource.Layout.activity_competition_details);
-
-            Window.SetBackgroundDrawableResource(Resource.Drawable.gradient_action_bar_background);
         }
 
         protected override void SetViewProperties()
@@ -97,6 +101,28 @@ namespace PrankChat.Mobile.Droid.Views.Competitions
             bindingSet.Bind(_uploadingProgressBar).For(v => v.Progress).To(vm => vm.UploadingProgress);
             bindingSet.Bind(_uploadedTextView).For(v => v.Text).To(vm => vm.UploadingProgressStringPresentation);
             bindingSet.Bind(_uploadingProgressBar).For(v => v.BindClick()).To(vm => vm.CancelUploadingCommand);
+            bindingSet.Bind(this).For(nameof(IsModerationCompleted)).To(vm => vm.IsModerationCompleted);
+        }
+
+        public override bool OnCreateOptionsMenu(IMenu menu)
+        {
+            MenuInflater.Inflate(Resource.Menu.competition_details_menu, menu);
+
+            _shareMenuItem = menu.GetItem(0);
+
+            return true;
+        }
+
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            switch (item.ItemId)
+            {
+                case Resource.Id.menu_share:
+                    ViewModel.ShareCommand.Execute(null);
+                    return true;
+            }
+
+            return base.OnOptionsItemSelected(item);
         }
     }
 }

@@ -13,8 +13,11 @@ namespace PrankChat.Mobile.Core.Models.Data
             string description,
             string htmlContent,
             OrderCategory? category,
-            string status,
+            CompetitionStatus status,
             bool canUploadVideo,
+            bool canDelete,
+            string shareUrl,
+            bool isCompetitionOwner,
             int prizePool,
             int? likesCount,
             int? videosCount,
@@ -25,7 +28,8 @@ namespace PrankChat.Mobile.Core.Models.Data
             DateTime? voteTo,
             DateTime? uploadVideoTo,
             DateTime? createdAt,
-            DateTime? activeTo)
+            DateTime? activeTo,
+            User? customer)
         {
             Id = id;
             Title = title;
@@ -35,6 +39,9 @@ namespace PrankChat.Mobile.Core.Models.Data
             Category = category;
             Status = status;
             CanUploadVideo = canUploadVideo;
+            CanDelete = canDelete;
+            ShareUrl = shareUrl;
+            IsCompetitionOwner = isCompetitionOwner;
             PrizePool = prizePool;
             LikesCount = likesCount;
             VideosCount = videosCount;
@@ -46,6 +53,7 @@ namespace PrankChat.Mobile.Core.Models.Data
             UploadVideoTo = uploadVideoTo;
             CreatedAt = createdAt;
             ActiveTo = activeTo;
+            Customer = customer;
         }
 
         public int Id { get; set; }
@@ -60,11 +68,17 @@ namespace PrankChat.Mobile.Core.Models.Data
 
         public OrderCategory? Category { get; set; }
 
-        public string Status { get; set; }
+        public CompetitionStatus Status { get; set; }
 
         public bool CanUploadVideo { get; set; }
 
+        public bool CanDelete { get; }
+
+        public string ShareUrl { get; }
+
         public bool IsPaidCompetitionMember { get; set; }
+
+        public bool IsCompetitionOwner { get; }
 
         public bool CanJoin { get; set; }
 
@@ -85,5 +99,7 @@ namespace PrankChat.Mobile.Core.Models.Data
         public DateTime? CreatedAt { get; set; }
 
         public DateTime? ActiveTo { get; set; }
+
+        public User? Customer { get; }
     }
 }

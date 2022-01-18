@@ -581,7 +581,7 @@
     <comment>Fuzzy</comment>
   </data>
   <data name="Results" xml:space="preserve">
-    <value>results</value>
+    <value>Results</value>
     <comment>Fuzzy</comment>
   </data>
   <data name="Contests" xml:space="preserve">
@@ -1045,8 +1045,9 @@ Taking such a task the user will have to complete it or lose the Deposit!</value
   <data name="LoginToAccount" xml:space="preserve">
     <value>Log in</value>
   </data>
-  <data name="ComVkSdkAppId" xml:space="preserve">
+  <data name="com_vk_sdk_AppId" xml:space="preserve">
     <value>7343996</value>
+    <comment>Fuzzy</comment>
   </data>
   <data name="SentToModerator" xml:space="preserve">
     <value>Sent to moderator</value>
@@ -1270,5 +1271,50 @@ Taking such a task the user will have to complete it or lose the Deposit!</value
   </data>
   <data name="VideoLimitOnUploading" xml:space="preserve">
     <value>Video must be lower than 150mb</value>
+  </data>
+  <data name="WantToCancelCompetition" xml:space="preserve">
+    <value>Are you sure you want to cancel the competition?</value>
+  </data>
+  <data name="Participants" xml:space="preserve">
+    <value>participants</value>
+  </data>
+  <data name="Fee" xml:space="preserve">
+    <value>fee</value>
+  </data>
+  <data name="OfTheInstallment" xml:space="preserve">
+    <value>of the installment</value>
+  </data>
+  <data name="Profit" xml:space="preserve">
+    <value>Profit</value>
+  </data>
+  <data name="Statistics" xml:space="preserve">
+    <value>Statistics</value>
+  </data>
+  <data name="PrizeForPlaceTemplate" xml:space="preserve">
+    <value>Prize for {0} place</value>
+  </data>
+  <data name="RemainsToDistribute" xml:space="preserve">
+    <value>Remains to distribute</value>
+  </data>
+  <data name="Apply" xml:space="preserve">
+    <value>Apply</value>
+  </data>
+  <data name="ConfiguringTheParticipantTable" xml:space="preserve">
+    <value>Configuring the Participant Table</value>
+  </data>
+  <data name="DistributePrizeFundWarningMessage" xml:space="preserve">
+    <value>necessary to distribute the entire prize fund</value>
+  </data>
+  <data name="AddPrizePlace" xml:space="preserve">
+    <value>Add a prize</value>
+  </data>
+  <data name="CompetitionName" xml:space="preserve">
+    <value>Competition name</value>
+  </data>
+  <data name="CreateCompetitionMessage" xml:space="preserve">
+    <value>Are you sure you want to create competition?</value>
+  </data>
+  <data name="OrderCreate" xml:space="preserve">
+    <value>Create order</value>
   </data>
 </root>

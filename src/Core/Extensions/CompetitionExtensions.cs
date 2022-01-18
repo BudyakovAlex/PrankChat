@@ -1,5 +1,4 @@
-﻿using PrankChat.Mobile.Core.Common;
-using PrankChat.Mobile.Core.Models.Data;
+﻿using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
 
 namespace PrankChat.Mobile.Core.Extensions
@@ -8,8 +7,9 @@ namespace PrankChat.Mobile.Core.Extensions
     {
         public static CompetitionPhase GetPhase(this Competition competition) => competition.Status switch
         {
-            Constants.CompetitionStatuses.Finished => CompetitionPhase.Finished,
-            Constants.CompetitionStatuses.Voting => CompetitionPhase.Voting,
+            CompetitionStatus.Finished => CompetitionPhase.Finished,
+            CompetitionStatus.Moderation => CompetitionPhase.Moderation,
+            CompetitionStatus.Voting => CompetitionPhase.Voting,
             _ => CompetitionPhase.New,
         };
     }

@@ -13,6 +13,7 @@ using MvvmCross.Platforms.Android.Binding;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
 using PrankChat.Mobile.Core.Converters;
 using PrankChat.Mobile.Core.ViewModels.Profile.Cashbox;
+using PrankChat.Mobile.Droid.Extensions;
 using PrankChat.Mobile.Droid.Spans;
 using PrankChat.Mobile.Droid.Views.Base;
 
@@ -87,6 +88,7 @@ namespace PrankChat.Mobile.Droid.Views.Profile.Cashbox
             _loadingOverlayView = view.FindViewById<View>(Resource.Id.loading_overlay);
             _yoomoneyDescriptionTextView = view.FindViewById<TextView>(Resource.Id.withdrawal_yoomoney_description_text_view);
 
+            _costEditText.SetTextChangeListener((sequence) => _costEditText.MoveCursorBeforeSymbol(Core.Localization.Resources.Currency, sequence));
             SetupYoomoneyDescriptionTextView();
         }
 
@@ -138,23 +140,12 @@ namespace PrankChat.Mobile.Droid.Views.Profile.Cashbox
 
         protected override void Subscription()
         {
-            _costEditText.TextChanged += PriceEditTextOnTextChanged;
             _cardEditText.TextChanged += CardEditTextOnTextChanged;
         }
 
         protected override void Unsubscription()
         {
-            _costEditText.TextChanged -= PriceEditTextOnTextChanged;
             _cardEditText.TextChanged -= CardEditTextOnTextChanged;
-        }
-
-        private void PriceEditTextOnTextChanged(object sender, TextChangedEventArgs e)
-        {
-            var text = e.Text.ToString();
-            if (text.EndsWith(Core.Localization.Resources.Currency))
-            {
-                _costEditText.SetSelection(text.Length - 2);
-            }
         }
 
         private void CardEditTextOnTextChanged(object sender, TextChangedEventArgs e)

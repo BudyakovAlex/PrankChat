@@ -1,7 +1,7 @@
 ﻿using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.Managers.Navigation;
-using PrankChat.Mobile.Core.ViewModels.Competition;
+using PrankChat.Mobile.Core.ViewModels.Competitions;
 using PrankChat.Mobile.Core.ViewModels.Order;
 using PrankChat.Mobile.Core.ViewModels.Parameters;
 using PrankChat.Mobile.Core.ViewModels.Profile;

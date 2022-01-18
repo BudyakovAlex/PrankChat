@@ -18,7 +18,6 @@ namespace PrankChat.Mobile.Droid.Views
 
         protected override void OnCreate(Bundle bundle)
         {
-            Window.SetBackgroundDrawableResource(Resource.Drawable.gradient_action_bar_background);
             base.OnCreate(bundle, Resource.Layout.activity_web_page);
         }
 

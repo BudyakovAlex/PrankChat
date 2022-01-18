@@ -27,8 +27,6 @@ namespace PrankChat.Mobile.Droid.Views.Profile.Cashbox
                 ViewModel.ShowContentCommand.Execute(null);
             }
 
-            Window.SetBackgroundDrawableResource(Resource.Drawable.gradient_action_bar_background);
-
             _tabLayout = FindViewById<TabLayout>(Resource.Id.cashbox_tab_layout);
             _tabLayout.GetTabAt(0).SetText(Core.Localization.Resources.Replenishment);
             _tabLayout.GetTabAt(1).SetText(Core.Localization.Resources.Withdrawal);

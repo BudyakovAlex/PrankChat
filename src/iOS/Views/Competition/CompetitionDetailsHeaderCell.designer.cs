@@ -19,7 +19,16 @@ namespace PrankChat.Mobile.iOS.Views.Competition
 		FFImageLoading.Cross.MvxCachedImageView backgroundImageView { get; set; }
 
 		[Outlet]
+		UIKit.UIButton CancelOrChangeButton { get; set; }
+
+		[Outlet]
+		PrankChat.Mobile.iOS.Controls.CircleCachedImageView CustomerImageView { get; set; }
+
+		[Outlet]
 		UIKit.UILabel daysLabel { get; set; }
+
+		[Outlet]
+		UIKit.UIButton DeleteButton { get; set; }
 
 		[Outlet]
 		UIKit.UILabel descriptionLabel { get; set; }
@@ -58,6 +67,9 @@ namespace PrankChat.Mobile.iOS.Views.Competition
 		UIKit.UILabel prizeTitleLabel { get; set; }
 
 		[Outlet]
+		UIKit.UIButton StatisticsButton { get; set; }
+
+		[Outlet]
 		UIKit.UILabel termLabel { get; set; }
 
 		[Outlet]
@@ -71,6 +83,11 @@ namespace PrankChat.Mobile.iOS.Views.Competition
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (actionButton != null) {
+				actionButton.Dispose ();
+				actionButton = null;
+			}
+
 			if (backgroundImageView != null) {
 				backgroundImageView.Dispose ();
 				backgroundImageView = null;
@@ -161,9 +178,24 @@ namespace PrankChat.Mobile.iOS.Views.Competition
 				titleLabel = null;
 			}
 
-			if (actionButton != null) {
-				actionButton.Dispose ();
-				actionButton = null;
+			if (CustomerImageView != null) {
+				CustomerImageView.Dispose ();
+				CustomerImageView = null;
+			}
+
+			if (StatisticsButton != null) {
+				StatisticsButton.Dispose ();
+				StatisticsButton = null;
+			}
+
+			if (DeleteButton != null) {
+				DeleteButton.Dispose ();
+				DeleteButton = null;
+			}
+
+			if (CancelOrChangeButton != null) {
+				CancelOrChangeButton.Dispose ();
+				CancelOrChangeButton = null;
 			}
 		}
 	}

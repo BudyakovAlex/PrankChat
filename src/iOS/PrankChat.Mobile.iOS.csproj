@@ -1,1267 +1,146 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-	<PropertyGroup>
-		<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-		<Platform Condition=" '$(Platform)' == '' ">iPhoneSimulator</Platform>
-		<ProjectGuid>{6181AA73-073D-4E05-AD36-622425821236}</ProjectGuid>
-		<ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-		<TemplateGuid>{440aa056-593a-4519-8708-27081dee632f}</TemplateGuid>
-		<OutputType>Exe</OutputType>
-		<RootNamespace>PrankChat.Mobile.iOS</RootNamespace>
-		<IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
-		<AssemblyName>PrankChat.Mobile.iOS</AssemblyName>
-		<MtouchEnableSGenConc>true</MtouchEnableSGenConc>
-		<MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
-		<RestoreProjectStyle>PackageReference</RestoreProjectStyle>
-	</PropertyGroup>
-	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
-		<DebugSymbols>true</DebugSymbols>
-		<DebugType>full</DebugType>
-		<Optimize>false</Optimize>
-		<OutputPath>bin\iPhoneSimulator\Debug</OutputPath>
-		<DefineConstants>DEBUG</DefineConstants>
-		<ErrorReport>prompt</ErrorReport>
-		<WarningLevel>4</WarningLevel>
-		<MtouchArch>x86_64</MtouchArch>
-		<MtouchLink>None</MtouchLink>
-		<MtouchDebug>true</MtouchDebug>
-		<CodesignKey>Apple Development: Anton Chepelev (BCDQ5WV3X7)</CodesignKey>
-		<LangVersion>8.0</LangVersion>
-		<CodesignProvision>iOS Team Provisioning Profile: com.capaalex.prankchat</CodesignProvision>
-		<CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
-	</PropertyGroup>
-	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
-		<DebugType>none</DebugType>
-		<Optimize>true</Optimize>
-		<OutputPath>bin\iPhoneSimulator\Release</OutputPath>
-		<ErrorReport>prompt</ErrorReport>
-		<WarningLevel>4</WarningLevel>
-		<MtouchLink>SdkOnly</MtouchLink>
-		<MtouchArch>x86_64</MtouchArch>
-		<CodesignKey>iPhone Developer</CodesignKey>
-		<LangVersion>8.0</LangVersion>
-	</PropertyGroup>
-	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
-		<DebugSymbols>true</DebugSymbols>
-		<DebugType>full</DebugType>
-		<Optimize>false</Optimize>
-		<OutputPath>bin\iPhone\Debug</OutputPath>
-		<DefineConstants>DEBUG</DefineConstants>
-		<ErrorReport>prompt</ErrorReport>
-		<WarningLevel>4</WarningLevel>
-		<MtouchArch>ARM64</MtouchArch>
-		<CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
-		<CodesignKey>iPhone Developer</CodesignKey>
-		<MtouchDebug>true</MtouchDebug>
-		<MtouchLink>None</MtouchLink>
-		<LangVersion>8.0</LangVersion>
-	</PropertyGroup>
-	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
-		<DebugType>none</DebugType>
-		<Optimize>true</Optimize>
-		<OutputPath>bin\iPhone\Release</OutputPath>
-		<ErrorReport>prompt</ErrorReport>
-		<WarningLevel>4</WarningLevel>
-		<MtouchArch>ARM64</MtouchArch>
-		<CodesignKey>Apple Development: Anton Chepelev (BCDQ5WV3X7)</CodesignKey>
-		<MtouchLink>SdkOnly</MtouchLink>
-		<LangVersion>8.0</LangVersion>
-		<CodesignProvision>iOS Team Provisioning Profile: com.capaalex.prankchat</CodesignProvision>
-		<CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
-		<BuildIpa>true</BuildIpa>
-		<DeviceSpecificBuild>false</DeviceSpecificBuild>
-		<MtouchUseLlvm>true</MtouchUseLlvm>
-	</PropertyGroup>
-	<ItemGroup>
-		<Compile Include="Main.cs" />
-		<Compile Include="AppDelegate.cs" />
-		<None Include="Info.plist" />
-		<Compile Include="Properties\AssemblyInfo.cs" />
-		<Content Include="Entitlements.plist" />
-		<InterfaceDefinition Include="LaunchScreen.storyboard" />
-		<Compile Include="Views\Base\BaseViewController.cs" />
-		<Compile Include="Views\Base\BaseTableCell.cs" />
-		<InterfaceDefinition Include="Views\MainView\MainView.xib" />
-		<Compile Include="Views\MainView\MainView.cs" />
-		<Compile Include="Views\MainView\MainView.designer.cs">
-			<DependentUpon>MainView.cs</DependentUpon>
-		</Compile>
-		<InterfaceDefinition Include="Views\LoginView\LoginView.xib" />
-		<Compile Include="Views\LoginView\LoginView.cs" />
-		<Compile Include="Views\LoginView\LoginView.designer.cs">
-			<DependentUpon>LoginView.cs</DependentUpon>
-		</Compile>
-		<InterfaceDefinition Include="Views\NotificationView\NotificationView.xib" />
-		<Compile Include="Views\NotificationView\NotificationView.cs" />
-		<Compile Include="Views\NotificationView\NotificationView.designer.cs">
-			<DependentUpon>NotificationView.cs</DependentUpon>
-		</Compile>
-		<InterfaceDefinition Include="Views\PasswordRecoveryView\PasswordRecoveryView.xib" />
-		<Compile Include="Views\PasswordRecoveryView\PasswordRecoveryView.cs" />
-		<Compile Include="Views\PasswordRecoveryView\PasswordRecoveryView.designer.cs">
-			<DependentUpon>PasswordRecoveryView.cs</DependentUpon>
-		</Compile>
-		<InterfaceDefinition Include="Views\Order\OrdersView.xib" />
-		<Compile Include="Views\Order\OrdersView.cs" />
-		<Compile Include="Views\Order\OrdersView.designer.cs">
-			<DependentUpon>OrdersView.cs</DependentUpon>
-		</Compile>
-		<InterfaceDefinition Include="Views\Order\CreateOrderView.xib" />
-		<Compile Include="Views\Order\CreateOrderView.cs" />
-		<Compile Include="Views\Order\CreateOrderView.designer.cs">
-			<DependentUpon>CreateOrderView.cs</DependentUpon>
-		</Compile>
-		<InterfaceDefinition Include="Views\Publication\PublicationsView.xib" />
-		<Compile Include="Views\Publication\PublicationsView.cs" />
-		<Compile Include="Views\Publication\PublicationsView.designer.cs">
-			<DependentUpon>PublicationsView.cs</DependentUpon>
-		</Compile>
-		<InterfaceDefinition Include="Views\Registration\RegistrationView.xib" />
-		<Compile Include="Views\Registration\RegistrationView.cs" />
-		<Compile Include="Views\Registration\RegistrationView.designer.cs">
-			<DependentUpon>RegistrationView.cs</DependentUpon>
-		</Compile>
-		<InterfaceDefinition Include="Views\Registration\RegistrationSecondStepView.xib" />
-		<Compile Include="Views\Registration\RegistrationSecondStepView.cs" />
-		<Compile Include="Views\Registration\RegistrationSecondStepView.designer.cs">
-			<DependentUpon>RegistrationSecondStepView.cs</DependentUpon>
-		</Compile>
-		<InterfaceDefinition Include="Views\Registration\RegistrationThirdStepView.xib" />
-		<Compile Include="Views\Registration\RegistrationThirdStepView.cs" />
-		<Compile Include="Views\Registration\RegistrationThirdStepView.designer.cs">
-			<DependentUpon>RegistrationThirdStepView.cs</DependentUpon>
-		</Compile>
-		<Compile Include="LinkerPleaseInclude.cs" />
-		<Compile Include="Common\ImageNames.cs" />
-		<Compile Include="Setup.cs" />
-		<Compile Include="AppTheme\Styles.cs" />
-		<Compile Include="AppTheme\Theme.cs" />
-		<Compile Include="Controls\CustomSegmentedControl.cs" />
-		<Compile Include="Extensions\UIImageExtensions.cs" />
-		<InterfaceDefinition Include="Views\Search\SearchView.xib" />
-		<Compile Include="Views\Search\SearchView.cs" />
-		<Compile Include="Views\Search\SearchView.designer.cs">
-			<DependentUpon>SearchView.cs</DependentUpon>
-		</Compile>
-		<Compile Include="Infrastructure\Helpers\NavigationItemHelper.cs" />
-		<InterfaceDefinition Include="Views\Search\ProfileSearchItemCell.xib" />
-		<Compile Include="Views\Search\ProfileSearchItemCell.cs" />
-		<Compile Include="Views\Search\ProfileSearchItemCell.designer.cs">
-			<DependentUpon>ProfileSearchItemCell.cs</DependentUpon>
-		</Compile>
-		<InterfaceDefinition Include="Views\Publication\PublicationItemCell.xib" />
-		<Compile Include="Views\Publication\PublicationItemCell.cs" />
-		<Compile Include="Views\Publication\PublicationItemCell.designer.cs">
-			<DependentUpon>PublicationItemCell.cs</DependentUpon>
-		</Compile>
-		<Compile Include="Views\Base\BaseTransparentBarViewController.cs" />
-		<InterfaceDefinition Include="Views\PasswordRecoveryView\FinishPasswordRecoveryView.xib" />
-		<Compile Include="Views\PasswordRecoveryView\FinishPasswordRecoveryView.cs" />
-		<Compile Include="Views\PasswordRecoveryView\FinishPasswordRecoveryView.designer.cs">
-			<DependentUpon>FinishPasswordRecoveryView.cs</DependentUpon>
-		</Compile>
-		<Compile Include="Views\Order\OrdersTableSource.cs" />
-		<InterfaceDefinition Include="Views\Order\OrderItemCell.xib" />
-		<Compile Include="Views\Order\OrderItemCell.cs" />
-		<Compile Include="Views\Order\OrderItemCell.designer.cs">
-			<DependentUpon>OrderItemCell.cs</DependentUpon>
-		</Compile>
-		<Compile Include="Views\Base\BaseTabbedViewController.cs" />
-		<InterfaceDefinition Include="Views\ArbitrationView\ArbitrationItemCell.xib" />
-		<Compile Include="Views\ArbitrationView\ArbitrationItemCell.cs" />
-		<Compile Include="Views\ArbitrationView\ArbitrationItemCell.designer.cs">
-			<DependentUpon>ArbitrationItemCell.cs</DependentUpon>
-		</Compile>
-		<InterfaceDefinition Include="Views\Order\OrderDetailsView.xib" />
-		<Compile Include="Views\Order\OrderDetailsView.cs" />
-		<Compile Include="Views\Order\OrderDetailsView.designer.cs">
-			<DependentUpon>OrderDetailsView.cs</DependentUpon>
-		</Compile>
-		<Compile Include="Controls\PlaceholderTextView.cs" />
-		<Compile Include="Views\NotificationView\NotificationTableSource.cs" />
-		<InterfaceDefinition Include="Views\NotificationView\NotificationItemCell.xib" />
-		<Compile Include="Views\NotificationView\NotificationItemCell.cs" />
-		<Compile Include="Views\NotificationView\NotificationItemCell.designer.cs">
-			<DependentUpon>NotificationItemCell.cs</DependentUpon>
-		</Compile>
-		<InterfaceDefinition Include="Views\Publication\PublicationDetailsView.xib" />
-		<Compile Include="Views\Publication\PublicationDetailsView.cs" />
-		<Compile Include="Views\Publication\PublicationDetailsView.designer.cs">
-			<DependentUpon>PublicationDetailsView.cs</DependentUpon>
-		</Compile>
-		<Compile Include="Views\Comment\CommentsView.cs" />
-		<Compile Include="Views\Comment\CommentsView.designer.cs">
-			<DependentUpon>CommentsView.cs</DependentUpon>
-		</Compile>
-		<InterfaceDefinition Include="Views\Comment\CommentsView.xib" />
-		<InterfaceDefinition Include="Views\Comment\CommentItemCell.xib" />
-		<Compile Include="Views\Comment\CommentItemCell.cs" />
-		<Compile Include="Views\Comment\CommentItemCell.designer.cs">
-			<DependentUpon>CommentItemCell.cs</DependentUpon>
-		</Compile>
-		<Compile Include="Views\ProfileView\Cashbox\CashboxView.cs" />
-		<Compile Include="Views\ProfileView\Cashbox\CashboxView.designer.cs">
-			<DependentUpon>CashboxView.cs</DependentUpon>
-		</Compile>
-		<InterfaceDefinition Include="Views\ProfileView\Cashbox\CashboxView.xib" />
-		<InterfaceDefinition Include="Views\ProfileView\Cashbox\RefillView.xib" />
-		<Compile Include="Views\ProfileView\Cashbox\RefillView.cs" />
-		<Compile Include="Views\ProfileView\Cashbox\RefillView.designer.cs">
-			<DependentUpon>RefillView.cs</DependentUpon>
-		</Compile>
-		<InterfaceDefinition Include="Views\ProfileView\Cashbox\WithdrawalView.xib" />
-		<Compile Include="Views\ProfileView\Cashbox\WithdrawalView.cs" />
-		<Compile Include="Views\ProfileView\Cashbox\WithdrawalView.designer.cs">
-			<DependentUpon>WithdrawalView.cs</DependentUpon>
-		</Compile>
-		<Compile Include="Views\ProfileView\Cashbox\PaymentMethodsCollectionViewSource.cs" />
-		<InterfaceDefinition Include="Views\ProfileView\Cashbox\PaymentMethodCell.xib" />
-		<Compile Include="Views\ProfileView\Cashbox\PaymentMethodCell.cs" />
-		<Compile Include="Views\ProfileView\Cashbox\PaymentMethodCell.designer.cs">
-			<DependentUpon>PaymentMethodCell.cs</DependentUpon>
-		</Compile>
-		<Compile Include="Views\Base\BaseCollectionCell.cs" />
-		<Compile Include="Converters\BoolToUIImageConverter.cs" />
-		<Compile Include="Converters\DateFormatConverter.cs" />
-		<Compile Include="Dialogs\Share\ShareController.cs" />
-		<Compile Include="Dialogs\Share\ShareController.designer.cs" />
-		<InterfaceDefinition Include="Dialogs\Share\ShareController.xib" />
-		<InterfaceDefinition Include="Dialogs\ArrayPicker\ArrayPickerController.xib" />
-		<Compile Include="Dialogs\ArrayPicker\ArrayPickerController.cs" />
-		<Compile Include="Dialogs\ArrayPicker\ArrayPickerController.designer.cs">
-			<DependentUpon>ArrayPickerController.cs</DependentUpon>
-		</Compile>
-		<Compile Include="Dialogs\BaseDialog.cs" />
-		<InterfaceDefinition Include="Views\ProfileView\ProfileUpdateView.xib" />
-		<Compile Include="Views\ProfileView\ProfileUpdateView.cs" />
-		<Compile Include="Views\ProfileView\ProfileUpdateView.designer.cs">
-			<DependentUpon>ProfileUpdateView.cs</DependentUpon>
-		</Compile>
-		<Compile Include="Binding\UIButtonSelectedTargetBinding.cs" />
-		<BundleResource Include="Resources\Animations\ripple_animation.json" />
-		<Compile Include="Controls\SelectableButton.cs" />
-		<InterfaceDefinition Include="Views\Web\WebPageView.xib" />
-		<Compile Include="Views\Web\WebPageView.cs" />
-		<Compile Include="Views\Web\WebPageView.designer.cs">
-			<DependentUpon>WebPageView.cs</DependentUpon>
-		</Compile>
-		<Compile Include="Controls\CustomWKWebView.cs" />
-		<InterfaceDefinition Include="Views\Video\FullScreenVideoView.xib" />
-		<Compile Include="Views\Video\FullScreenVideoView.cs" />
-		<Compile Include="Views\Video\FullScreenVideoView.designer.cs">
-			<DependentUpon>FullScreenVideoView.cs</DependentUpon>
-		</Compile>
-		<Compile Include="Controls\FloatPlaceholderTextField.cs" />
-		<Compile Include="Plugins\UserInteraction\UserInteraction.cs" />
-		<InterfaceDefinition Include="Controls\ToastView.xib" />
-		<Compile Include="Controls\ToastView.cs" />
-		<Compile Include="Controls\ToastView.designer.cs">
-			<DependentUpon>ToastView.cs</DependentUpon>
-		</Compile>
-		<Compile Include="Services\ExternalAuth\ExternalAuthService.cs" />
-		<Compile Include="Services\Callbacks\VkontakteDelegate.cs" />
-		<Compile Include="Binding\UIImageViewOrderTypeTargetBinding.cs" />
-		<Compile Include="Binding\UIButtonOrderTypeTargetBinding.cs" />
-		<Compile Include="Services\Callbacks\FacebookCallback.cs" />
-		<Compile Include="Utils\Helpers\DeviceHelper.cs" />
-		<InterfaceDefinition Include="Views\ProfileView\ProfileView.xib" />
-		<Compile Include="Views\ProfileView\ProfileView.cs" />
-		<Compile Include="Views\ProfileView\ProfileView.designer.cs">
-			<DependentUpon>ProfileView.cs</DependentUpon>
-		</Compile>
-		<Compile Include="Controls\CircleCachedImageView.cs" />
-		<Compile Include="Views\ProfileView\ImageCrop\ImageCropView.cs" />
-		<Compile Include="Views\ProfileView\ImageCrop\ImageCropView.designer.cs">
-			<DependentUpon>ImageCropView.cs</DependentUpon>
-		</Compile>
-		<InterfaceDefinition Include="Views\ProfileView\ImageCrop\ImageCropView.xib" />
-		<Compile Include="Views\ProfileView\ImageCrop\CropViewDelegate.cs" />
-		<Compile Include="SourcesAndDelegates\PagedTableViewSource.cs" />
-		<Compile Include="Delegates\PrankChatNotificationDelegate.cs" />
-		<InterfaceDefinition Include="Views\Competition\CompetitionsView.xib" />
-		<Compile Include="Views\Competition\CompetitionsView.cs" />
-		<Compile Include="Views\Competition\CompetitionsView.designer.cs">
-			<DependentUpon>CompetitionsView.cs</DependentUpon>
-		</Compile>
-		<InterfaceDefinition Include="Views\Competition\CompetitionsSectionCell.xib" />
-		<Compile Include="Views\Competition\CompetitionsSectionCell.cs" />
-		<Compile Include="Views\Competition\CompetitionsSectionCell.designer.cs">
-			<DependentUpon>CompetitionsSectionCell.cs</DependentUpon>
-		</Compile>
-		<Compile Include="SourcesAndDelegates\TableViewSource.cs" />
-		<InterfaceDefinition Include="Views\Competition\CompetitionItemCell.xib" />
-		<Compile Include="Views\Competition\CompetitionItemCell.cs" />
-		<Compile Include="Views\Competition\CompetitionItemCell.designer.cs">
-			<DependentUpon>CompetitionItemCell.cs</DependentUpon>
-		</Compile>
-		<Compile Include="Views\Competition\CompetitionItemCollectionViewSource.cs" />
-		<Compile Include="Converters\CompetitionPhaseToHiddenConverter.cs" />
-		<InterfaceDefinition Include="Dialogs\DatePicker\DatePickerController.xib" />
-		<Compile Include="Dialogs\DatePicker\DatePickerController.cs" />
-		<Compile Include="Dialogs\DatePicker\DatePickerController.designer.cs">
-			<DependentUpon>DatePickerController.cs</DependentUpon>
-		</Compile>
-		<InterfaceDefinition Include="Views\Competition\CompetitionRulesView.xib" />
-		<Compile Include="Views\Competition\CompetitionRulesView.cs" />
-		<Compile Include="Views\Competition\CompetitionRulesView.designer.cs">
-			<DependentUpon>CompetitionRulesView.cs</DependentUpon>
-		</Compile>
-		<Compile Include="Binding\WKWebViewHtmlStringTargetBinding.cs" />
-		<InterfaceDefinition Include="Views\Competition\CompetitionPrizePoolView.xib" />
-		<Compile Include="Views\Competition\CompetitionPrizePoolView.cs" />
-		<Compile Include="Views\Competition\CompetitionPrizePoolView.designer.cs">
-			<DependentUpon>CompetitionPrizePoolView.cs</DependentUpon>
-		</Compile>
-		<InterfaceDefinition Include="Views\Competition\CompetitionPrizePoolItemCell.xib" />
-		<Compile Include="Views\Competition\CompetitionPrizePoolItemCell.cs" />
-		<Compile Include="Views\Competition\CompetitionPrizePoolItemCell.designer.cs">
-			<DependentUpon>CompetitionPrizePoolItemCell.cs</DependentUpon>
-		</Compile>
-		<InterfaceDefinition Include="Views\Competition\CompetitionDetailsView.xib" />
-		<Compile Include="Views\Competition\CompetitionDetailsView.cs" />
-		<Compile Include="Views\Competition\CompetitionDetailsView.designer.cs">
-			<DependentUpon>CompetitionDetailsView.cs</DependentUpon>
-		</Compile>
-		<InterfaceDefinition Include="Views\Competition\CompetitionDetailsHeaderCell.xib" />
-		<Compile Include="Views\Competition\CompetitionDetailsHeaderCell.cs" />
-		<Compile Include="Views\Competition\CompetitionDetailsHeaderCell.designer.cs">
-			<DependentUpon>CompetitionDetailsHeaderCell.cs</DependentUpon>
-		</Compile>
-		<InterfaceDefinition Include="Views\Competition\CompetitionVideoCell.xib" />
-		<Compile Include="Views\Competition\CompetitionVideoCell.cs" />
-		<Compile Include="Views\Competition\CompetitionVideoCell.designer.cs">
-			<DependentUpon>CompetitionVideoCell.cs</DependentUpon>
-		</Compile>
-		<Compile Include="Views\Base\BaseVideoTableCell.cs" />
-		<Compile Include="SourcesAndDelegates\VideoTableSource.cs" />
-		<Compile Include="Infrastructure\Constants.cs" />
-		<Compile Include="PlatformBusinessServices\Notifications\NotificationWrapper.cs" />
-		<Compile Include="Binding\FloatPlaceholderTextFieldPaddingTargetBinding.cs" />
-		<InterfaceDefinition Include="Views\Onboarding\OnboardingView.xib" />
-		<Compile Include="Views\Onboarding\OnboardingView.cs" />
-		<Compile Include="Views\Onboarding\OnboardingView.designer.cs">
-			<DependentUpon>OnboardingView.cs</DependentUpon>
-		</Compile>
-		<InterfaceDefinition Include="Views\Onboarding\OnboardingItemCell.xib" />
-		<Compile Include="Views\Onboarding\OnboardingItemCell.cs" />
-		<Compile Include="Views\Onboarding\OnboardingItemCell.designer.cs">
-			<DependentUpon>OnboardingItemCell.cs</DependentUpon>
-		</Compile>
-		<Compile Include="Views\Onboarding\OnboardingCollectionViewSource.cs" />
-		<Compile Include="Converters\BoolToUIColorConverter.cs" />
-		<InterfaceDefinition Include="Views\Walthroughs\WalthroughView.xib" />
-		<Compile Include="Views\Walthroughs\WalthroughView.cs" />
-		<Compile Include="Views\Walthroughs\WalthroughView.designer.cs">
-			<DependentUpon>WalthroughView.cs</DependentUpon>
-		</Compile>
-		<BundleResource Include="Resources\en.lproj\InfoPlist.strings" />
-		<BundleResource Include="Resources\en.lproj\Localizalbe.strings" />
-		<BundleResource Include="Resources\ru-RU.lproj\InfoPlist.strings" />
-		<BundleResource Include="Resources\ru-RU.lproj\Localizalbe.strings" />
-		<BundleResource Include="Resources\Base.lproj\InfoPlist.strings" />
-		<Compile Include="SourcesAndDelegates\CommentsTableSource.cs" />
-		<Compile Include="Controls\CircleProgressBar.cs" />
-		<Compile Include="Converters\BoolToNotificationImageConverter.cs" />
-		<Compile Include="Controls\TabView.cs" />
-		<InterfaceDefinition Include="Views\Maintanance\MaintananceView.xib" />
-		<Compile Include="Views\Maintanance\MaintananceView.cs" />
-		<Compile Include="Views\Maintanance\MaintananceView.designer.cs">
-			<DependentUpon>MaintananceView.cs</DependentUpon>
-		</Compile>
-		<InterfaceDefinition Include="Views\Subscriptions\SubscriptionsView.xib" />
-		<Compile Include="Views\Subscriptions\SubscriptionsView.cs" />
-		<Compile Include="Views\Subscriptions\SubscriptionsView.designer.cs">
-			<DependentUpon>SubscriptionsView.cs</DependentUpon>
-		</Compile>
-		<InterfaceDefinition Include="Views\Subscriptions\Items\SubscriptionItemCell.xib" />
-		<Compile Include="Views\Subscriptions\Items\SubscriptionItemCell.cs" />
-		<Compile Include="Views\Subscriptions\Items\SubscriptionItemCell.designer.cs">
-			<DependentUpon>SubscriptionItemCell.cs</DependentUpon>
-		</Compile>
-		<Compile Include="Controls\TabItemView.cs" />
-		<InterfaceDefinition Include="Views\ProfileView\UserProfileView.xib" />
-		<Compile Include="Views\ProfileView\UserProfileView.cs" />
-		<Compile Include="Views\ProfileView\UserProfileView.designer.cs">
-			<DependentUpon>UserProfileView.cs</DependentUpon>
-		</Compile>
-		<Compile Include="Services\ExternalAuth\AppleSignIn\IAppleSignInService.cs" />
-		<Compile Include="Services\ExternalAuth\AppleSignIn\AppleSignInService.cs" />
-		<Compile Include="Views\Base\IScrollableView.cs" />
-		<Compile Include="SourcesAndDelegates\Search\SearchTableSource.cs" />
-		<Compile Include="SourcesAndDelegates\Search\OrdersSearchTableSource.cs" />
-		<Compile Include="Controls\CheckBox.cs" />
-		<Compile Include="Views\Base\IRefreshableView.cs" />
-		<Compile Include="Views\Base\BaseRefreshableTabbedViewController.cs" />
-		<Compile Include="Plugins\Video\VideoPlayer.cs" />
-		<Compile Include="Providers\PlatformPathsProvider.cs" />
-		<Compile Include="PlatformBusinessServices\FileSystem\FileSystemService.cs" />
-		<Compile Include="Extensions\UITapGestureExtensions.cs" />
-		<Compile Include="Extensions\CALayerExtensions.cs" />
-		<Compile Include="Extensions\BindingExtensions.cs" />
-		<Compile Include="Delegates\WKWebViewNavigationDelegate.cs" />
-		<BundleResource Include="GoogleService-Info.plist" />
-		<None Include="LinkerConfig.xml">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-		<Compile Include="Plugins\Logging\NativeConsoleLogger.cs" />
-		<Compile Include="Plugins\HttpClient\PlatformHttpClient.cs" />
-		<Compile Include="Controls\EmptyView .cs" />
-		<Compile Include="Plugins\HttpClient\Delegates\NSUrlSessionDataDelegate.cs" />
-		<Compile Include="Plugins\HttpClient\Builders\FormDataBuilder.cs" />
-		<Compile Include="Binding\UITabBarControllerIsEnabedTargetBinding.cs" />
-	</ItemGroup>
-	<ItemGroup>
-		<Reference Include="System" />
-		<Reference Include="System.Xml" />
-		<Reference Include="System.Core" />
-		<Reference Include="Xamarin.iOS" />
-		<Reference Include="System.Numerics" />
-		<Reference Include="System.Numerics.Vectors" />
-	</ItemGroup>
-	<ItemGroup>
-		<PackageReference Include="MvvmCross">
-			<Version>8.0.2</Version>
-		</PackageReference>
-		<PackageReference Include="Xam.Plugin.DeviceInfo">
-			<Version>4.1.1</Version>
-		</PackageReference>
-		<PackageReference Include="Xamarin.FFImageLoading">
-			<Version>2.4.11.982</Version>
-		</PackageReference>
-		<PackageReference Include="Xamarin.FFImageLoading.Transformations">
-			<Version>2.4.11.982</Version>
-		</PackageReference>
-		<PackageReference Include="System.Reflection.Emit">
-			<Version>4.7.0</Version>
-			<ExcludeAssets>all</ExcludeAssets>
-		</PackageReference>
-		<PackageReference Include="Xamarin.IQKeyboardManager">
-			<Version>1.4.1</Version>
-		</PackageReference>
-		<PackageReference Include="MvvmCross.Plugin.Visibility">
-			<Version>8.0.2</Version>
-		</PackageReference>
-		<PackageReference Include="Xam.Plugin.Media">
-			<Version>5.0.1</Version>
-		</PackageReference>
-		<PackageReference Include="Com.Airbnb.iOS.Lottie">
-			<Version>2.5.13</Version>
-		</PackageReference>
-		<PackageReference Include="Xamarin.Essentials">
-			<Version>1.7.0</Version>
-		</PackageReference>
-		<PackageReference Include="Xamarin.Facebook.iOS">
-			<Version>9.0.1.5</Version>
-		</PackageReference>
-		<PackageReference Include="Xamarin.VKontakte.iOS">
-			<Version>1.3.16</Version>
-		</PackageReference>
-		<PackageReference Include="Xam.Plugins.ImageCropper">
-			<Version>1.2.0</Version>
-		</PackageReference>
-		<PackageReference Include="Xamarin.Build.Download">
-			<Version>0.10.0</Version>
-		</PackageReference>
-		<PackageReference Include="Xamarin.Firebase.iOS.CloudMessaging">
-			<Version>4.7.1</Version>
-		</PackageReference>
-		<PackageReference Include="MvvmCross.Plugin.WebBrowser">
-			<Version>8.0.2</Version>
-		</PackageReference>
-		<PackageReference Include="Xam.Plugin.Badge">
-			<Version>1.0.0</Version>
-		</PackageReference>
-		<PackageReference Include="Microsoft.AppCenter.Analytics">
-			<Version>4.4.0</Version>
-		</PackageReference>
-		<PackageReference Include="Microsoft.AppCenter.Crashes">
-			<Version>4.4.0</Version>
-		</PackageReference>
-		<PackageReference Include="Microsoft.AppCenter">
-			<Version>4.4.0</Version>
-		</PackageReference>
-		<PackageReference Include="VideoLAN.LibVLC.iOS">
-			<Version>3.3.17</Version>
-		</PackageReference>
-		<PackageReference Include="LibVLCSharp">
-			<Version>3.6.3</Version>
-		</PackageReference>
-		<PackageReference Include="Serilog">
-			<Version>2.10.0</Version>
-		</PackageReference>
-		<PackageReference Include="Serilog.Extensions.Logging">
-			<Version>3.1.0</Version>
-		</PackageReference>
-		<PackageReference Include="Microsoft.Extensions.Logging">
-		  <Version>6.0.0</Version>
-		</PackageReference>
-	</ItemGroup>
-	<ItemGroup>
-		<ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_home.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_home.imageset\Vector.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_rate.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_rate.imageset\Vector %281%29.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_create_order.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_create_order.imageset\Group 54.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_orders.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_orders.imageset\Vector %282%29.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_profile.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_profile.imageset\Vector %283%29.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_filter_arrow.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_filter_arrow.imageset\Shape.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_search.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_notification.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_notification_new.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_notification_new.imageset\Group 128.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_logo.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_back.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_back.imageset\Shape.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_search_grey.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_search_grey.imageset\Shape %281%29.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_bookmark.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_bookmark.imageset\ic_bookmark.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_more.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_more.imageset\ic_more.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_share.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_share.imageset\ic_share.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_vk.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_vk.imageset\vk.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_ok.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_ok.imageset\odnoklassniki.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_facebook.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_facebook.imageset\facebook.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_gmail.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_gmail.imageset\gmail.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_radio_button_active.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_radio_button_inactive.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_radio_button_active.imageset\Group 176.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_radio_button_inactive.imageset\Radio_button.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_calendar.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_calendar.imageset\mdi_date_range.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_menu.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_menu.imageset\Vector.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\background_order.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\background_order.imageset\background_order.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_thumbs_up.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_thumbs_up.imageset\Vector %281%29.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_thumbs_down.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_thumbs_down.imageset\Vector %282%29.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_download.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_download.imageset\ic_download.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_calendar_accent.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_checkbox_checked.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_checkbox_unchecked.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_calendar_accent.imageset\Vector %283%29.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_checkbox_checked.imageset\Shape.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_checkbox_unchecked.imageset\Path.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_comment.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_comment.imageset\ic_comment.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_send.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_send.imageset\ic_send.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_mastercard_banner.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_visa_banner.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_3dsecure_banner.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_payment_cards.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_payment_qiwi.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_payment_yandexmoney.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_payment_phone.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_payment_sberbank.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_payment_alphabank.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_payment_yandexmoney.imageset\Group.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_payment_phone.imageset\Group 179.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_payment_sberbank.imageset\Sberbank 1.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_payment_alphabank.imageset\Alfa bank.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_question.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_question.imageset\Vector %284%29.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\bg_selected_payment.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\bg_payment.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\bg_selected_payment.imageset\Rectangle 35.6.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\bg_payment.imageset\Rectangle 35.11.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_payment_alphabank_selected.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_payment_cards_selected.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_payment_phone_selected.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_payment_qiwi_selected.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_payment_sberbank_selected.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_payment_yandexmoney_selected.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_payment_alphabank_selected.imageset\Group 181.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_payment_phone_selected.imageset\Group 179 %281%29.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_payment_qiwi_selected.imageset\Group %281%29.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_payment_sberbank_selected.imageset\Sberbank 1 %281%29.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_payment_yandexmoney_selected.imageset\Group %282%29.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_payment_qiwi.imageset\Group %281%29.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_payment_cards.imageset\Group 178.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_payment_cards_selected.imageset\Group 178 %281%29-1.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_3dsecure_banner.imageset\Group %282%29.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_visa_banner.imageset\Group %281%29.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_mastercard_banner.imageset\Group.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_share_copy.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_share_instagram.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_share_copy.imageset\Group 113.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_share_instagram.imageset\Group 114.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_sound_muted.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_sound_muted.imageset\Group 189-1.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_image_background.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_image_background.imageset\ic_image_background.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_sound_muted.imageset\Group 189-1.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_change_profile.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_change_profile.imageset\ic_change_profile.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_accent_thumbs_down.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_accent_thumbs_down.imageset\ic_accent_thumbs_down.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_accent_thumbs_up.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_accent_thumbs_up.imageset\ic_accent_thumbs_up.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_accent_thumbs_down.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_accent_thumbs_down.imageset\ic_accent_thumbs_down.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_accent_thumbs_up.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_accent_thumbs_up.imageset\ic_accent_thumbs_up.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_play.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_play.imageset\FullscreenVideoPlay.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\bg_order_type_my.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\bg_order_type_my.imageset\OrderTypeMyBackground.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\bg_order_type_my_in_moderation.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\bg_order_type_my_in_moderation.imageset\OrderTypeMyInModerationBackground.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\bg_order_type_not_my.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\bg_order_type_not_my.imageset\OrderTypeNotMyBackground.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_pause.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_pause.imageset\FullscreenVideoPause.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_mute.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_mute.imageset\FullscreenVideoMute.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_plus.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_three_dots.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_notification_user.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_notification_user.imageset\Userpic.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_have_notification.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_have_notification.imageset\Group 106.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_arrow_left_alt.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_arrow_left_alt.imageset\mdi_arrow_left_alt.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\bg_order_type_completed.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\bg_order_type_completed.imageset\bg_order_type_completed.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_arrow_right_alt.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_arrow_right_alt.imageset\mdi_arrow_right_alt.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_credit_card.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_credit_card.imageset\ic_credit_card.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_arrow_dropdown.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_arrow_dropdown.imageset\Polygon.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_three_dots.imageset\ThreeDots.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_arrow_left_alt.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_arrow_left_alt.imageset\mdi_arrow_left_alt.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\bg_order_type_completed.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\bg_order_type_completed.imageset\bg_order_type_completed.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_arrow_right_alt.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_arrow_right_alt.imageset\mdi_arrow_right_alt.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_competitions.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_competitions.imageset\ic_competitions-1.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_warning.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_warning.imageset\ic_warning.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\bg_onboarding_item.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\bg_onboarding_item.imageset\bg_onboarding_item.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\bg_onboarding_first_slide.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\bg_onboarding_first_slide.imageset\bg_onboarding_first_slide.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\bg_onboarding_second_slide.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\bg_onboarding_second_slide.imageset\bg_onboarding_second_slide.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\bg_onboarding_third_slide.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\bg_onboarding_third_slide.imageset\bg_onboarding_third_slide.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\bg_onboarding_fourth_slide.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\bg_onboarding_fourth_slide.imageset\bg_onboarding_fourth_slide.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\bg_onboarding_fifth_slide.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\bg_onboarding_fifth_slide.imageset\bg_onboarding_fifth_slide.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\bg_order_type_my_completed.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\bg_order_type_my_completed.imageset\bg_order_type_my_completed.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_fullscreen.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_fullscreen.imageset\ic_fullscreen.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\OrderTagTypeNewNotMine.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\OrderTagTypeNewNotMine.imageset\OrderTagTypeNewNotMine.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\OrderTagTypeInArbitration.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\OrderTagTypeInArbitration.imageset\OrderTagTypeInArbitration.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\OrderTagTypeInModeration.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\OrderTagTypeInModeration.imageset\OrderTagTypeInModeration.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\OrderTagTypeInWork.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\OrderTagTypeInWork.imageset\OrderTagTypeInWork.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\OrderTagTypeNew.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\OrderTagTypeNew.imageset\OrderTagTypeNew.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\OrderTagTypeFinished.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\OrderTagTypeFinished.imageset\OrderTagTypeFinished.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\OrderTagTypeWait.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\OrderTagTypeWait.imageset\OrderTagTypeWait.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_info.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_clear.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_clear.imageset\ic_clear.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_logout.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_logout.imageset\ic_logout.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_comments.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_comments.imageset\ic_comments.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_circle_clear.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_circle_clear.imageset\ic_circle_clear.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_notification_with_bage.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_maintanance.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_like.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_dislike.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_like.imageset\ic_like.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_like_hollow.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_dislike_hollow.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_like_hollow.imageset\ic_like_hollow.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_dislike_hollow.imageset\ic_dislike_hollow.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_check_mark.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_check_mark.imageset\ic_check_mark.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_plus.imageset\ic_plus.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_apple.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_apple.imageset\ic_apple-1.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_competition_cup.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_competition_cup.imageset\ic_competition_cup.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_dislike.imageset\ic_dislike-1.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_order_hidden.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_order_hidden.imageset\Group 2.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_order_paid.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_order_paid.imageset\ic_order_paid.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_yoomoney_account.imageset\Contents.json">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_yoomoney_account.imageset\ic_yoomoney_account.pdf">
-			<Visible>false</Visible>
-		</ImageAsset>
-		<ImageAsset Include="Assets.xcassets\ic_logo.imageset\Logo-v1 %281%29 %281%29-1.pdf" />
-		<ImageAsset Include="Assets.xcassets\ic_maintanance.imageset\Logo and text-ai %281%29.pdf" />
-		<ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-40-2.png" />
-		<ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-60.png" />
-		<ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-58-1.png" />
-		<ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-87.png" />
-		<ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-80-1.png" />
-		<ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-120-1.png" />
-		<ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-120-2.png" />
-		<ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-180.png" />
-		<ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-20.png" />
-		<ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-40-3.png" />
-		<ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-29.png" />
-		<ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-58-2.png" />
-		<ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-40.png" />
-		<ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-80-2.png" />
-		<ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-76.png" />
-		<ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-152.png" />
-		<ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon-167.png" />
-		<ImageAsset Include="Assets.xcassets\AppIcon.appiconset\1024x1024.png" />
-		<ImageAsset Include="Assets.xcassets\ic_onplay.imageset\Contents.json" />
-		<ImageAsset Include="Assets.xcassets\ic_onplay.imageset\Logo-and-text-ai.pdf" />
-		<ImageAsset Include="Assets.xcassets\ic_notification.imageset\ic_notification.pdf" />
-		<ImageAsset Include="Assets.xcassets\ic_notification_with_bage.imageset\ic_notification_with_bage.pdf" />
-		<ImageAsset Include="Assets.xcassets\ic_search.imageset\Shape.pdf" />
-		<ImageAsset Include="Assets.xcassets\ic_info.imageset\ic_info.pdf" />
-		<ImageAsset Include="Assets.xcassets\img_empty_state.imageset\Contents.json" />
-		<ImageAsset Include="Assets.xcassets\img_empty_state.imageset\img_empty_state.pdf" />
-	</ItemGroup>
-	<ItemGroup>
-		<Folder Include="Assets.xcassets\bg_onboarding_fifth_slide.imageset\" />
-		<Folder Include="Assets.xcassets\bg_onboarding_first_slide.imageset\" />
-		<Folder Include="Assets.xcassets\bg_onboarding_fourth_slide.imageset\" />
-		<Folder Include="Assets.xcassets\bg_onboarding_item.imageset\" />
-		<Folder Include="Assets.xcassets\bg_onboarding_second_slide.imageset\" />
-		<Folder Include="Assets.xcassets\bg_onboarding_third_slide.imageset\" />
-		<Folder Include="Assets.xcassets\bg_order_type_completed.imageset\" />
-		<Folder Include="Assets.xcassets\bg_order_type_my.imageset\" />
-		<Folder Include="Assets.xcassets\bg_order_type_my_completed.imageset\" />
-		<Folder Include="Assets.xcassets\bg_order_type_my_in_moderation.imageset\" />
-		<Folder Include="Assets.xcassets\bg_order_type_not_my.imageset\" />
-		<Folder Include="Assets.xcassets\dsadad.imageset\" />
-		<Folder Include="Assets.xcassets\ic_accent_thumbs_down.imageset\" />
-		<Folder Include="Assets.xcassets\ic_accent_thumbs_up.imageset\" />
-		<Folder Include="Assets.xcassets\ic_apple.imageset\" />
-		<Folder Include="Assets.xcassets\ic_arrow_dropdown.imageset\" />
-		<Folder Include="Assets.xcassets\ic_arrow_left_alt.imageset\" />
-		<Folder Include="Assets.xcassets\ic_arrow_right_alt.imageset\" />
-		<Folder Include="Assets.xcassets\ic_change_profile.imageset\" />
-		<Folder Include="Assets.xcassets\ic_check_mark.imageset\" />
-		<Folder Include="Assets.xcassets\ic_circle_clear.imageset\" />
-		<Folder Include="Assets.xcassets\ic_clear.imageset\" />
-		<Folder Include="Assets.xcassets\ic_comments.imageset\" />
-		<Folder Include="Assets.xcassets\ic_competitions.imageset\" />
-		<Folder Include="Assets.xcassets\ic_competition_cup.imageset\" />
-		<Folder Include="Assets.xcassets\ic_credit_card.imageset\" />
-		<Folder Include="Assets.xcassets\ic_dislike.imageset\" />
-		<Folder Include="Assets.xcassets\ic_dislike_hollow.imageset\" />
-		<Folder Include="Assets.xcassets\ic_fullscreen.imageset\" />
-		<Folder Include="Assets.xcassets\ic_have_notification.imageset\" />
-		<Folder Include="Assets.xcassets\ic_image_background.imageset\" />
-		<Folder Include="Assets.xcassets\ic_info.imageset\" />
-		<Folder Include="Assets.xcassets\ic_like.imageset\" />
-		<Folder Include="Assets.xcassets\ic_like_active.imageset\" />
-		<Folder Include="Assets.xcassets\ic_like_hollow.imageset\" />
-		<Folder Include="Assets.xcassets\ic_logout.imageset\" />
-		<Folder Include="Assets.xcassets\ic_maintanance.imageset\" />
-		<Folder Include="Assets.xcassets\ic_mute.imageset\" />
-		<Folder Include="Assets.xcassets\ic_notification_user.imageset\" />
-		<Folder Include="Assets.xcassets\ic_notification_with_bage.imageset\" />
-		<Folder Include="Assets.xcassets\ic_order_hidden.imageset\" />
-		<Folder Include="Assets.xcassets\ic_order_paid.imageset\" />
-		<Folder Include="Assets.xcassets\ic_pause.imageset\" />
-		<Folder Include="Assets.xcassets\ic_play.imageset\" />
-		<Folder Include="Assets.xcassets\ic_plus.imageset\" />
-		<Folder Include="Assets.xcassets\ic_onplay_icon.imageset\" />
-		<Folder Include="Assets.xcassets\ic_three_dots.imageset\" />
-		<Folder Include="Assets.xcassets\ic_warning.imageset\" />
-		<Folder Include="Assets.xcassets\ic_yoomoney_account.imageset\" />
-		<Folder Include="Assets.xcassets\OrderTagTypeDone.imageset\" />
-		<Folder Include="Assets.xcassets\OrderTagTypeFinished.imageset\" />
-		<Folder Include="Assets.xcassets\OrderTagTypeInArbitration.imageset\" />
-		<Folder Include="Assets.xcassets\OrderTagTypeInModeration.imageset\" />
-		<Folder Include="Assets.xcassets\OrderTagTypeInWork.imageset\" />
-		<Folder Include="Assets.xcassets\OrderTagTypeNew.imageset\" />
-		<Folder Include="Assets.xcassets\OrderTagTypeNewNotMine.imageset\" />
-		<Folder Include="Assets.xcassets\OrderTagTypeWait.imageset\" />
-		<Folder Include="Assets.xcassets\ic_onplay.imageset\" />
-		<Folder Include="Plugins\Logging\" />
-		<Folder Include="Plugins\HttpClient\" />
-		<Folder Include="Assets.xcassets\img_empty_state.imageset\" />
-		<Folder Include="Plugins\HttpClient\Delegates\" />
-		<Folder Include="Plugins\HttpClient\Builders\" />
-	</ItemGroup>
-	<Choose>
-		<When Condition="'$(MtouchLink)'=='Full' Or '$(MtouchLink)'=='SdkOnly'">
-			<ItemGroup>
-				<LinkDescription Include="LinkerConfig.xml" />
-			</ItemGroup>
-		</When>
-		<Otherwise>
-			<ItemGroup>
-				<None Include="LinkerConfig.xml" />
-			</ItemGroup>
-		</Otherwise>
-	</Choose>
-	<ItemGroup>
-		<ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj">
-			<Project>{F07949ED-5CCD-4808-9975-5993EA945447}</Project>
-			<Name>PrankChat.Mobile.Core</Name>
-		</ProjectReference>
-	</ItemGroup>
-	<Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
+    <PropertyGroup>
+        <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+        <Platform Condition=" '$(Platform)' == '' ">iPhoneSimulator</Platform>
+        <ProjectGuid>{6181AA73-073D-4E05-AD36-622425821236}</ProjectGuid>
+        <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+        <TemplateGuid>{440aa056-593a-4519-8708-27081dee632f}</TemplateGuid>
+        <OutputType>Exe</OutputType>
+        <RootNamespace>PrankChat.Mobile.iOS</RootNamespace>
+        <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
+        <AssemblyName>PrankChat.Mobile.iOS</AssemblyName>
+        <MtouchEnableSGenConc>true</MtouchEnableSGenConc>
+        <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
+        <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>full</DebugType>
+        <Optimize>false</Optimize>
+        <OutputPath>bin\iPhoneSimulator\Debug</OutputPath>
+        <DefineConstants>DEBUG</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+        <MtouchArch>x86_64</MtouchArch>
+        <MtouchLink>None</MtouchLink>
+        <MtouchDebug>true</MtouchDebug>
+        <CodesignKey>iPhone Developer</CodesignKey>
+        <LangVersion>8.0</LangVersion>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
+        <DebugType>none</DebugType>
+        <Optimize>true</Optimize>
+        <OutputPath>bin\iPhoneSimulator\Release</OutputPath>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+        <MtouchLink>SdkOnly</MtouchLink>
+        <MtouchArch>x86_64</MtouchArch>
+        <CodesignKey>iPhone Developer</CodesignKey>
+        <LangVersion>8.0</LangVersion>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>full</DebugType>
+        <Optimize>false</Optimize>
+        <OutputPath>bin\iPhone\Debug</OutputPath>
+        <DefineConstants>DEBUG</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+        <MtouchArch>ARM64</MtouchArch>
+        <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+        <CodesignKey>iPhone Developer</CodesignKey>
+        <MtouchDebug>true</MtouchDebug>
+        <MtouchLink>None</MtouchLink>
+        <LangVersion>8.0</LangVersion>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
+        <DebugType>none</DebugType>
+        <Optimize>true</Optimize>
+        <OutputPath>bin\iPhone\Release</OutputPath>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+        <MtouchArch>ARM64</MtouchArch>
+        <CodesignKey>Apple Development: Anton Chepelev (BCDQ5WV3X7)</CodesignKey>
+        <MtouchLink>SdkOnly</MtouchLink>
+        <LangVersion>8.0</LangVersion>
+        <CodesignProvision>iOS Team Provisioning Profile: com.capaalex.prankchat</CodesignProvision>
+        <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+        <BuildIpa>true</BuildIpa>
+        <DeviceSpecificBuild>false</DeviceSpecificBuild>
+        <MtouchUseLlvm>true</MtouchUseLlvm>
+    </PropertyGroup>
+    <ItemGroup>
+        <Reference Include="System" />
+        <Reference Include="System.Xml" />
+        <Reference Include="System.Core" />
+        <Reference Include="Xamarin.iOS" />
+        <Reference Include="System.Numerics" />
+        <Reference Include="System.Numerics.Vectors" />
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="MvvmCross" Version="8.0.2" />
+        <PackageReference Include="Xam.Plugin.DeviceInfo" Version="4.1.1" />
+        <PackageReference Include="Xamarin.FFImageLoading" Version="2.4.11.982" />
+        <PackageReference Include="Xamarin.FFImageLoading.Transformations" Version="2.4.11.982" />
+        <PackageReference Include="System.Reflection.Emit" Version="4.7.0" ExcludeAssets="all" />
+        <PackageReference Include="Xamarin.IQKeyboardManager" Version="1.4.1" />
+        <PackageReference Include="MvvmCross.Plugin.Visibility" Version="8.0.2" />
+        <PackageReference Include="Xam.Plugin.Media" Version="5.0.1" />
+        <PackageReference Include="Com.Airbnb.iOS.Lottie" Version="2.5.13" />
+        <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
+        <PackageReference Include="Xamarin.Facebook.iOS" Version="9.0.1.5" />
+        <PackageReference Include="Xamarin.VKontakte.iOS" Version="1.3.16" />
+        <PackageReference Include="Xam.Plugins.ImageCropper" Version="1.2.0" />
+        <PackageReference Include="Xamarin.Build.Download" Version="0.10.0" />
+        <PackageReference Include="Xamarin.Firebase.iOS.CloudMessaging" Version="4.7.1" />
+        <PackageReference Include="MvvmCross.Plugin.WebBrowser" Version="8.0.2" />
+        <PackageReference Include="Xam.Plugin.Badge" Version="1.0.0" />
+        <PackageReference Include="Microsoft.AppCenter.Analytics" Version="4.4.0" />
+        <PackageReference Include="Microsoft.AppCenter.Crashes" Version="4.4.0" />
+        <PackageReference Include="Microsoft.AppCenter" Version="4.4.0" />
+        <PackageReference Include="VideoLAN.LibVLC.iOS" Version="3.3.17" />
+        <PackageReference Include="LibVLCSharp" Version="3.6.1" />
+        <PackageReference Include="Serilog" Version="2.10.0" />
+        <PackageReference Include="Serilog.Extensions.Logging" Version="3.1.0" />
+        <PackageReference Include="Microsoft.Extensions.Logging" Version="6.0.0" />
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\Core\PrankChat.Mobile.Core.csproj" Name="PrankChat.Mobile.Core" />
+    </ItemGroup>
+    <ItemGroup>
+        <InterfaceDefinition Include="**\*.xib" Exclude="obj\**" />
+        <Compile Include="**\*.cs" Exclude="obj\**" />
+        <Compile Include="**\*.designer.cs" Exclude="obj\**">
+            <DependentUpon>$([System.String]::Copy(%(Filename)).Replace('.designer', '.cs'))</DependentUpon>
+        </Compile>
+
+        <None Include="Info.plist" />
+
+        <Content Include="Entitlements.plist" />
+
+        <ImageAsset Include="Assets.xcassets\**\*.json" Visible="false" />
+        <ImageAsset Include="Assets.xcassets\**\*.pdf" Visible="false" />
+        <ImageAsset Include="Assets.xcassets\**\*.png" Visible="false" />
+
+        <BundleResource Include="Resources\**\*.strings" />
+        <BundleResource Include="Resources\**\*.png" />
+        <BundleResource Include="Resources\**\*.strings" />
+
+        <InterfaceDefinition Include="LaunchScreen.storyboard" />
+        <BundleResource Include="GoogleService-Info.plist" />
+    </ItemGroup>
+    <Choose>
+        <When Condition="'$(MtouchLink)'=='Full' Or '$(MtouchLink)'=='SdkOnly'">
+            <ItemGroup>
+                <LinkDescription Include="LinkerConfig.xml" />
+            </ItemGroup>
+        </When>
+        <Otherwise>
+            <ItemGroup>
+                <None Include="LinkerConfig.xml" />
+            </ItemGroup>
+        </Otherwise>
+    </Choose>
+    <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

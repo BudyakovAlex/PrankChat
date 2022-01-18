@@ -56,6 +56,5 @@ namespace PrankChat.Mobile.Core.Models.Enums
 
         [EnumMember(Value = "competition_upload_videos")]
         competitionUploadVideos,
-
     }
 }
