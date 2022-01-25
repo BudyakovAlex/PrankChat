@@ -1,9 +1,9 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using MvvmCross.Commands;
 using PrankChat.Mobile.Core.Common;
 using PrankChat.Mobile.Core.Data.Enums;
 using PrankChat.Mobile.Core.Extensions;
+using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.Managers.Competitions;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.Shared;
@@ -45,18 +45,18 @@ namespace PrankChat.Mobile.Core.ViewModels.Competitions
             }
         }
 
-        private string _subscribersTitle;
-        public string SubscribersTitle
+        private string _orderesTitle;
+        public string OrderedTitle
         {
-            get => _subscribersTitle;
-            set => SetProperty(ref _subscribersTitle, value);
+            get => _orderesTitle;
+            set => SetProperty(ref _orderesTitle, value);
         }
 
-        private string _subscriptionsTitle;
-        public string SubscriptionsTitle
+        private string _executeTitle;
+        public string ExecuteTitle
         {
-            get => _subscriptionsTitle;
-            set => SetProperty(ref _subscriptionsTitle, value);
+            get => _executeTitle;
+            set => SetProperty(ref _executeTitle, value);
         }
 
         public override async Task InitializeAsync()
@@ -73,17 +73,17 @@ namespace PrankChat.Mobile.Core.ViewModels.Competitions
 
         protected virtual async Task<Pagination<Competition>> GetSubscriptionsAsync(int page, int pageSize)
         {
-            var getSubscriptionsTask = _competitionsManager.GetSubscriptionsAsync(_userId, page, pageSize);
-            var getSubscribersTask = _competitionsManager.GetSubscribersAsync(_userId, page, pageSize);
-            await Task.WhenAll(getSubscriptionsTask, getSubscribersTask);
+            var getOrderdCompetitionsTask = _competitionsManager.GetMyOrderedCompetitionsAsync(page, pageSize);
+            var getExecuteCompetitionsTask = _competitionsManager.GetMyExecuteCompetitionsAsync(page, pageSize);
+            await Task.WhenAll(getOrderdCompetitionsTask, getExecuteCompetitionsTask);
 
-            SubscribersTitle = string.Format(Resources.SubscribersTemplate, getSubscribersTask.Result.TotalCount.ToCountString());
-            SubscriptionsTitle = string.Format(Resources.SubscriptionTemplate, getSubscriptionsTask.Result.TotalCount.ToCountString());
+            OrderedTitle = string.Format(Resources.Ordered, getExecuteCompetitionsTask.Result.TotalCount.ToCountString());
+            ExecuteTitle = string.Format(Resources.Execute, getOrderdCompetitionsTask.Result.TotalCount.ToCountString());
 
             return SelectedTabType switch
             {
-                CompetitionsTabType.Ordered => getSubscribersTask.Result,
-                CompetitionsTabType.InExecution => getSubscriptionsTask.Result,
+                CompetitionsTabType.Ordered => getExecuteCompetitionsTask.Result,
+                CompetitionsTabType.InExecution => getOrderdCompetitionsTask.Result,
                 _ => new Pagination<User>(),
             };
         }
