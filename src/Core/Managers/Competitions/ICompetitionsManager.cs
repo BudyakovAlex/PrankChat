@@ -24,5 +24,9 @@ namespace PrankChat.Mobile.Core.Managers.Competitions
         Task<CompetitionStatistics> GetCompetitionStatisticsAsync(int id);
 
         Task<Competition> CreateCompetitionAsync(CompetitionCreationForm competition);
+
+        Task<Pagination<Competition>> GetMyOrderedCompetitionsAsync(int page, int pageSize);
+
+        Task<Pagination<Competition>> GetMyExecuteCompetitionsAsync(int page, int pageSize);
     }
 }

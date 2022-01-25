@@ -16,7 +16,6 @@ namespace PrankChat.Mobile.Core.ViewModels.Competitions
     {
         private readonly ICompetitionsManager _competitionsManager;
 
-        private int _userId;
         private bool _isUpdateNeeded;
 
         private Task _reloadTask;
@@ -52,11 +51,11 @@ namespace PrankChat.Mobile.Core.ViewModels.Competitions
             set => SetProperty(ref _orderesTitle, value);
         }
 
-        private string _executeTitle;
-        public string ExecuteTitle
+        private string _onExecutionTitle;
+        public string OnExecutionTitle
         {
-            get => _executeTitle;
-            set => SetProperty(ref _executeTitle, value);
+            get => _onExecutionTitle;
+            set => SetProperty(ref _onExecutionTitle, value);
         }
 
         public override async Task InitializeAsync()
@@ -74,17 +73,17 @@ namespace PrankChat.Mobile.Core.ViewModels.Competitions
         protected virtual async Task<Pagination<Competition>> GetSubscriptionsAsync(int page, int pageSize)
         {
             var getOrderdCompetitionsTask = _competitionsManager.GetMyOrderedCompetitionsAsync(page, pageSize);
-            var getExecuteCompetitionsTask = _competitionsManager.GetMyExecuteCompetitionsAsync(page, pageSize);
-            await Task.WhenAll(getOrderdCompetitionsTask, getExecuteCompetitionsTask);
+            var getOnExecutionCompetitionsTask = _competitionsManager.GetMyExecuteCompetitionsAsync(page, pageSize);
+            await Task.WhenAll(getOrderdCompetitionsTask, getOnExecutionCompetitionsTask);
 
-            OrderedTitle = string.Format(Resources.Ordered, getExecuteCompetitionsTask.Result.TotalCount.ToCountString());
-            ExecuteTitle = string.Format(Resources.Execute, getOrderdCompetitionsTask.Result.TotalCount.ToCountString());
+            OrderedTitle = string.Format(Resources.Ordered, getOnExecutionCompetitionsTask.Result.TotalCount.ToCountString());
+            OnExecutionTitle = string.Format(Resources.Execute, getOrderdCompetitionsTask.Result.TotalCount.ToCountString());
 
             return SelectedTabType switch
             {
-                CompetitionsTabType.Ordered => getExecuteCompetitionsTask.Result,
+                CompetitionsTabType.Ordered => getOnExecutionCompetitionsTask.Result,
                 CompetitionsTabType.InExecution => getOrderdCompetitionsTask.Result,
-                _ => new Pagination<User>(),
+                _ => new Pagination<Competition>(),
             };
         }
 

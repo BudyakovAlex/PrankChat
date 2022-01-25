@@ -23,5 +23,9 @@ namespace PrankChat.Mobile.Core.Services.Network.Http.Competitions
         Task<CompetitionStatisticsDto> GetCompetitionStatisticsAsync(int id);
 
         Task<CompetitionDto> CreateCompetitionAsync(CompetitionCreationFormDto competitionCreationFormDto);
+
+        Task<BaseBundleDto<CompetitionDto>> GetMyOrderedCompetitionsAsync(int page, int pageSize);
+
+        Task<BaseBundleDto<CompetitionDto>> GetMyExecuteCompetitionsAsync(int page, int pageSize);
     }
 }

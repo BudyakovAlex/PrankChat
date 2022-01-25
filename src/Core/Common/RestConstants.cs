@@ -20,6 +20,9 @@
         public const string NotificationsRead = "notifications/read";
         public const string NotificationsUnreaded = "notifications/undelivered";
 
+        public const string MyExecuteCompetitonsResource = "profile/competitions/execute";
+        public const string MyOrderedCompetitionsResource = "profile/competitions/own";
+
         public const string AuthorizationCookieKey = "Authorization";
         public const string AuthorizationCookieValueTemplate = "Bearer {0}";
         public const string AcceptLanguageCookieKey = "Accept-Language";

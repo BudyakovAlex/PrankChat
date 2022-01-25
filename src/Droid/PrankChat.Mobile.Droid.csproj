@@ -130,12 +130,17 @@
     </ItemGroup>
     <ItemGroup> 
         <Compile Include="**\*.cs" Exclude="obj\**" /> 
+        <Compile Include="Views\Competitions\MyCompetitionsView.cs" />
    </ItemGroup> 
     <ItemGroup>  
         <AndroidResource Include="Resources\**\*.xml" />
         <AndroidResource Include="Resources\**\*.axml" />
         <AndroidResource Include="Resources\**\*.png" />
         <None Include="**\*.txt" Exclude="obj\**" />
+        <AndroidResource Include="Resources\layout\activity_my_competitions.xml">
+          <SubType></SubType>
+          <Generator></Generator>
+        </AndroidResource>
     </ItemGroup>
     <ItemGroup>
         <GoogleServicesJson Include="google-services.json" />

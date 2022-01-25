@@ -129,6 +129,11 @@
 
         <InterfaceDefinition Include="LaunchScreen.storyboard" />
         <BundleResource Include="GoogleService-Info.plist" />
+        <InterfaceDefinition Include="Views\Competition\MyCompetitionsView.xib" />
+        <Compile Include="Views\Competition\MyCompetitionsView.cs" />
+        <Compile Include="Views\Competition\MyCompetitionsView.designer.cs">
+          <DependentUpon>MyCompetitionsView.cs</DependentUpon>
+        </Compile>
     </ItemGroup>
     <Choose>
         <When Condition="'$(MtouchLink)'=='Full' Or '$(MtouchLink)'=='SdkOnly'">
