@@ -3,6 +3,6 @@
     public enum CompetitionsTabType
     {
         Ordered,
-        InExecution
+        OnExecution
     }
 }

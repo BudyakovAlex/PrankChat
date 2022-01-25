@@ -82,7 +82,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Competitions
             return SelectedTabType switch
             {
                 CompetitionsTabType.Ordered => getOnExecutionCompetitionsTask.Result,
-                CompetitionsTabType.InExecution => getOrderdCompetitionsTask.Result,
+                CompetitionsTabType.OnExecution => getOrderdCompetitionsTask.Result,
                 _ => new Pagination<Competition>(),
             };
         }

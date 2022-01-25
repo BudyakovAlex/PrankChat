@@ -1,8 +1,25 @@
 ﻿using System;
 using Android.App;
 using Android.Content.PM;
+using Android.OS;
+using Android.Views;
+using Android.Widget;
+using AndroidX.RecyclerView.Widget;
+using Google.Android.Material.Tabs;
+using MvvmCross.Binding.Combiners;
+using MvvmCross.DroidX;
+using MvvmCross.Platforms.Android.Binding;
+using MvvmCross.Platforms.Android.Binding.BindingContext;
 using MvvmCross.Platforms.Android.Presenters.Attributes;
+using PrankChat.Mobile.Core.Data.Enums;
 using PrankChat.Mobile.Core.ViewModels.Competitions;
+using PrankChat.Mobile.Core.ViewModels.Competitions.Items;
+using PrankChat.Mobile.Droid.Adapters;
+using PrankChat.Mobile.Droid.Adapters.TemplateSelectors;
+using PrankChat.Mobile.Droid.Adapters.ViewHolders.Competitions;
+using PrankChat.Mobile.Droid.Controls;
+using PrankChat.Mobile.Droid.Extensions;
+using PrankChat.Mobile.Droid.LayoutManagers;
 using PrankChat.Mobile.Droid.Views.Base;
 
 namespace PrankChat.Mobile.Droid.Views.Competitions
@@ -11,21 +28,21 @@ namespace PrankChat.Mobile.Droid.Views.Competitions
     [Activity(ScreenOrientation = ScreenOrientation.Portrait)]
     public class MyCompetitionsView : BaseView<MyCompetitionsViewModel>, TabLayout.IOnTabSelectedListener
     {
-        private TabLayout.Tab _subscribersTab;
-        private TabLayout.Tab _subscriptionsTab;
+        private TabLayout.Tab _inExecutionTab;
+        private TabLayout.Tab _orderedTab;
         private EndlessRecyclerView _recyclerView;
         private TextView _titleTextView;
         private RecycleViewBindableAdapter _adapter;
-        private MvxSwipeRefreshLayout _subscriptionsSwipeRefreshLayout;
+        private MvxSwipeRefreshLayout _swipeRefreshLayout;
         private View _emptyView;
         private TextView _emptyViewTitleTextView;
 
-        protected override string TitleActionBar => Core.Localization.Resources.Subscriptions;
+        protected override string TitleActionBar => Core.Localization.Resources.Contests;
 
         protected override bool HasBackButton => true;
 
-        private SubscriptionTabType _selectedTabType;
-        public SubscriptionTabType SelectedTabType
+        private CompetitionsTabType _selectedTabType;
+        public CompetitionsTabType SelectedTabType
         {
             get => _selectedTabType;
             set
@@ -33,12 +50,12 @@ namespace PrankChat.Mobile.Droid.Views.Competitions
                 _selectedTabType = value;
                 switch (_selectedTabType)
                 {
-                    case SubscriptionTabType.Subscriptions:
-                        _subscriptionsTab.Select();
+                    case CompetitionsTabType.Ordered:
+                        _orderedTab.Select();
                         break;
 
-                    case SubscriptionTabType.Subscribers:
-                        _subscribersTab.Select();
+                    case CompetitionsTabType.OnExecution:
+                        _inExecutionTab.Select();
                         break;
                 }
             }
@@ -46,7 +63,7 @@ namespace PrankChat.Mobile.Droid.Views.Competitions
 
         protected override void OnCreate(Bundle bundle)
         {
-            base.OnCreate(bundle, Resource.Layout.activity_subscriptions);
+            base.OnCreate(bundle, Resource.Layout.activity_my_competitions);
         }
 
         protected override void SetViewProperties()
@@ -61,17 +78,17 @@ namespace PrankChat.Mobile.Droid.Views.Competitions
             _adapter = new RecycleViewBindableAdapter((IMvxAndroidBindingContext)BindingContext);
             _recyclerView.Adapter = _adapter;
             _recyclerView.ItemTemplateSelector = new TemplateSelector()
-                .AddElement<SubscriptionItemViewModel, SubscriptionItemViewHolder>(Resource.Layout.cell_subscription);
+                .AddElement<CompetitionItemViewModel, CompetitionItemViewHolder>(Resource.Layout.cell_competition);
 
             _titleTextView = FindViewById<TextView>(Resource.Id.toolbar_title);
-            _subscriptionsSwipeRefreshLayout = FindViewById<MvxSwipeRefreshLayout>(Resource.Id.subscriptions_swipe_refresh_layout);
+            _swipeRefreshLayout = FindViewById<MvxSwipeRefreshLayout>(Resource.Id.swipe_refresh_layout);
             var tabLayout = FindViewById<TabLayout>(Resource.Id.tab_layout);
 
-            _subscribersTab = tabLayout.NewTab();
-            _subscriptionsTab = tabLayout.NewTab();
+            _inExecutionTab = tabLayout.NewTab();
+            _orderedTab = tabLayout.NewTab();
 
-            tabLayout.AddTab(_subscribersTab);
-            tabLayout.AddTab(_subscriptionsTab);
+            tabLayout.AddTab(_inExecutionTab);
+            tabLayout.AddTab(_orderedTab);
 
             tabLayout.AddOnTabSelectedListener(this);
         }
@@ -80,16 +97,16 @@ namespace PrankChat.Mobile.Droid.Views.Competitions
         {
             base.Bind();
 
-            using var bindingSet = this.CreateBindingSet<SubscriptionsView, SubscriptionsViewModel>();
+            using var bindingSet = CreateBindingSet();
 
             bindingSet.Bind(this).For(v => v.SelectedTabType).To(vm => vm.SelectedTabType);
             bindingSet.Bind(_titleTextView).For(v => v.Text).To(vm => vm.Title);
-            bindingSet.Bind(_subscribersTab).For(v => v.BindTabText()).To(vm => vm.SubscribersTitle);
-            bindingSet.Bind(_subscriptionsTab).For(v => v.BindTabText()).To(vm => vm.SubscriptionsTitle);
+            bindingSet.Bind(_inExecutionTab).For(v => v.BindTabText()).To(vm => vm.OnExecutionTitle);
+            bindingSet.Bind(_orderedTab).For(v => v.BindTabText()).To(vm => vm.OrderedTitle);
             bindingSet.Bind(_adapter).For(v => v.ItemsSource).To(vm => vm.Items);
             bindingSet.Bind(_recyclerView).For(v => v.LoadMoreItemsCommand).To(vm => vm.LoadMoreItemsCommand);
-            bindingSet.Bind(_subscriptionsSwipeRefreshLayout).For(v => v.Refreshing).To(vm => vm.IsBusy);
-            bindingSet.Bind(_subscriptionsSwipeRefreshLayout).For(v => v.RefreshCommand).To(vm => vm.LoadDataCommand);
+            bindingSet.Bind(_swipeRefreshLayout).For(v => v.Refreshing).To(vm => vm.IsBusy);
+            bindingSet.Bind(_swipeRefreshLayout).For(v => v.RefreshCommand).To(vm => vm.LoadDataCommand);
             bindingSet.Bind(_emptyView)
                .For(v => v.BindVisible())
                .ByCombining(new MvxAndValueCombiner(),
@@ -104,14 +121,11 @@ namespace PrankChat.Mobile.Droid.Views.Competitions
 
         public void OnTabSelected(TabLayout.Tab tab)
         {
-            var tabType = tab == _subscribersTab
-                ? SubscriptionTabType.Subscribers
-                : SubscriptionTabType.Subscriptions;
+            var tabType = tab == _inExecutionTab
+                ? CompetitionsTabType.OnExecution
+                : CompetitionsTabType.Ordered;
 
             ViewModel.SelectedTabType = tabType;
-            _emptyViewTitleTextView.Text = tabType == SubscriptionTabType.Subscribers
-                ? Core.Localization.Resources.SubscribersListIsEmpty
-                : Core.Localization.Resources.SubscriptionsListIsEmpty;
         }
 
         public void OnTabUnselected(TabLayout.Tab tab)
@@ -122,7 +136,7 @@ namespace PrankChat.Mobile.Droid.Views.Competitions
         {
             _emptyView = FindViewById<View>(Resource.Id.empty_view);
             _emptyViewTitleTextView = _emptyView.FindViewById<TextView>(Resource.Id.title_text_view);
-            _emptyViewTitleTextView.Text = Core.Localization.Resources.SubscribersListIsEmpty;
+            _emptyViewTitleTextView.Text = Core.Localization.Resources.CompetitionsListIsEmpty;
         }
     }
 }
