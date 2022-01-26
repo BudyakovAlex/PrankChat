@@ -22,6 +22,7 @@ using PrankChat.Mobile.Core.Providers;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using PrankChat.Mobile.Core.ViewModels.Competitions;
 
 namespace PrankChat.Mobile.Core.ViewModels.Profile
 {
@@ -48,6 +49,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Profile
             ShowWalkthrouthCommand = this.CreateCommand(ShowWalkthrouthAsync);
             LoadProfileCommand = this.CreateCommand(LoadProfileAsync);
             ShowUpdateProfileCommand = this.CreateCommand(ShowUpdateProfileAsync);
+            ShowMyCompetitionsCommand = this.CreateCommand(ShowMyCompetitionsAsync);
 
             Messenger.SubscribeOnMainThread<OrderChangedMessage>(OnOrdersChanged).DisposeWith(Disposables);
             Messenger.SubscribeOnMainThread<SubscriptionChangedMessage>((msg) => LoadProfileCommand.Execute()).DisposeWith(Disposables);
@@ -95,6 +97,13 @@ namespace PrankChat.Mobile.Core.ViewModels.Profile
             set => SetProperty(ref _subscriptionsValue, value);
         }
 
+        private string _competitionsValue;
+        public string CompetitionsValue
+        {
+            get => _competitionsValue;
+            set => SetProperty(ref _competitionsValue, value);
+        }
+
         public IMvxAsyncCommand ShowWalkthrouthCommand { get; }
 
         public IMvxAsyncCommand ShowRefillCommand { get; }
@@ -108,6 +117,8 @@ namespace PrankChat.Mobile.Core.ViewModels.Profile
         public IMvxAsyncCommand LoadProfileCommand { get; }
 
         public IMvxAsyncCommand ShowUpdateProfileCommand { get; }
+
+        public IMvxAsyncCommand ShowMyCompetitionsCommand { get; }
 
         public override Task InitializeAsync()
         {
@@ -145,6 +156,17 @@ namespace PrankChat.Mobile.Core.ViewModels.Profile
         {
             var navigationParameters = new SubscriptionsNavigationParameter(SubscriptionTabType.Subscriptions, UserSessionProvider.User.Id, UserSessionProvider.User.Name);
             var shouldRefresh = await NavigationManager.NavigateAsync<SubscriptionsViewModel, SubscriptionsNavigationParameter, bool>(navigationParameters);
+            if (!shouldRefresh)
+            {
+                return;
+            }
+
+            await LoadProfileAsync();
+        }
+
+        private async Task ShowMyCompetitionsAsync()
+        {
+            var shouldRefresh = await NavigationManager.NavigateAsync<MyCompetitionsViewModel, bool>();
             if (!shouldRefresh)
             {
                 return;
@@ -240,6 +262,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Profile
             CompletedOrdersValue = user.OrdersExecuteFinishedCount.ToCountString();
             SubscribersValue = user.SubscribersCount.ToCountString();
             SubscriptionsValue = user.SubscriptionsCount.ToCountString();
+            CompetitionsValue = user.CompetitionsCount.ToCountString();
 
             LoadMoreItemsAsync().FireAndForget();
         }
