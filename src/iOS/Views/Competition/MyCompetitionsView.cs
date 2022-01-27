@@ -11,6 +11,7 @@ using PrankChat.Mobile.iOS.Common;
 using PrankChat.Mobile.iOS.Controls;
 using PrankChat.Mobile.iOS.SourcesAndDelegates;
 using PrankChat.Mobile.iOS.Views.Base;
+using PrankChat.Mobile.iOS.Views.Subscriptions.Items;
 using UIKit;
 
 namespace PrankChat.Mobile.iOS.Views.Competition
