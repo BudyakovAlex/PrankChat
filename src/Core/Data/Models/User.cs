@@ -24,7 +24,8 @@ namespace PrankChat.Mobile.Core.Models.Data
             int? ordersExecuteCount,
             int? ordersExecuteFinishedCount,
             int? subscribersCount,
-            int? subscriptionsCount)
+            int? subscriptionsCount,
+            int? competitionsCount)
         {
             Id = id;
             Avatar = avatar;
@@ -44,6 +45,7 @@ namespace PrankChat.Mobile.Core.Models.Data
             OrdersExecuteFinishedCount = ordersExecuteFinishedCount;
             SubscribersCount = subscribersCount;
             SubscriptionsCount = subscriptionsCount;
+            CompetitionsCount = competitionsCount;
         }
 
         public int Id { get; set; }
@@ -82,5 +84,7 @@ namespace PrankChat.Mobile.Core.Models.Data
         public int? SubscribersCount { get; set; }
 
         public int? SubscriptionsCount { get; set; }
+
+        public int? CompetitionsCount { get; set; }
     }
 }
