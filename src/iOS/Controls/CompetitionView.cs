@@ -53,7 +53,7 @@ namespace PrankChat.Mobile.iOS.Controls
         {
             base.LayoutSubviews();
 
-            _titleGradientSublayer.Frame = titleContainer.Bounds;
+            _titleGradientSublayer.Frame = new CGRect(1, 1, Bounds.Width - 2, titleContainer.Bounds.Height - 2);
             _defaultBorderLayer.Frame = Bounds;
             _dashedBorderLayer.Frame = Bounds;
             _dashedBorderLayer.Path = UIBezierPath.FromRoundedRect(new CGRect(1, 1, Bounds.Width - 2, Bounds.Height - 2), Layer.CornerRadius).CGPath;
@@ -63,7 +63,6 @@ namespace PrankChat.Mobile.iOS.Controls
         protected override void Bind()
         {
             base.Bind();
-
 
             using var bindingSet = this.CreateBindingSet<CompetitionView, CompetitionItemViewModel>();
 

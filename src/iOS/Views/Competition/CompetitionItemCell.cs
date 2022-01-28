@@ -24,9 +24,12 @@ namespace PrankChat.Mobile.iOS.Views.Competition
 
             _competitionView = CompetitionView.Create();
             _competitionView.TranslatesAutoresizingMaskIntoConstraints = false;
-            _competitionView.Layer.MasksToBounds = true;
+            _competitionView.Layer.MasksToBounds = false;
 
             ContentView.AddSubview(_competitionView);
+            ContentView.ClipsToBounds = false;
+            ContentView.Layer.MasksToBounds = false;
+            Layer.MasksToBounds = false;
 
             NSLayoutConstraint.ActivateConstraints(new[]
             {
