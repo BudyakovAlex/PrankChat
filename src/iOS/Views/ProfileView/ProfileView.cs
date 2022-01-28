@@ -120,6 +120,8 @@ namespace PrankChat.Mobile.iOS.Views.ProfileView
             withdrawalButton.SetBorderlessStyle(Resources.Withdraw);
             subscribersValueLabel.SetBoldTitleStyle();
             subscribersTitleLabel.SetSmallSubtitleStyle(Resources.Subscribers);
+            contestsValueLabel.SetBoldTitleStyle();
+            contestsTitleLabel.SetSmallSubtitleStyle(Resources.Contests.ToLower());
             subscriptionsValueLabel.SetBoldTitleStyle();
             subscriptionsTitleLabel.SetSmallSubtitleStyle(Resources.Subscriptions);
             descriptionLabel.SetTitleStyle();
