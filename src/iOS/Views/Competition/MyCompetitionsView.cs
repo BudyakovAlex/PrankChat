@@ -11,7 +11,7 @@ using PrankChat.Mobile.iOS.Common;
 using PrankChat.Mobile.iOS.Controls;
 using PrankChat.Mobile.iOS.SourcesAndDelegates;
 using PrankChat.Mobile.iOS.Views.Base;
-using PrankChat.Mobile.iOS.Views.Subscriptions.Items;
+using PrankChat.Mobile.iOS.Views.Competition.Items;
 using UIKit;
 
 namespace PrankChat.Mobile.iOS.Views.Competition
@@ -82,13 +82,13 @@ namespace PrankChat.Mobile.iOS.Views.Competition
         private void InitializeTableView()
         {
             _source = new TableViewSource(TableView)
-                .Register<CompetitionItemViewModel>(SubscriptionItemCell.Nib, SubscriptionItemCell.CellId);
+                .Register<CompetitionItemViewModel>(CompetitionItemTableViewCell.Nib, CompetitionItemTableViewCell.CellId);
 
             _refreshControl = new MvxUIRefreshControl();
             TableView.RefreshControl = _refreshControl;
 
             TableView.Source = _source;
-            TableView.RowHeight = SubscriptionItemCell.Height;
+            TableView.RowHeight = UIScreen.MainScreen.Bounds.Height - 20;
             TableView.ContentInset = new UIEdgeInsets(8f, 0f, 8f, 0f);
         }
 

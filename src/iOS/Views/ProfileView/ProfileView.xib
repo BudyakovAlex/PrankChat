@@ -13,6 +13,7 @@
             <connections>
                 <outlet property="contestsTitleLabel" destination="3em-M8-Xqn" id="stQ-3D-yzH"/>
                 <outlet property="contestsValueLabel" destination="o8e-mg-aak" id="UBm-EY-H6z"/>
+                <outlet property="contestsView" destination="MHE-fV-3Ih" id="qSz-rv-AA3"/>
                 <outlet property="descriptionLabel" destination="JL6-gs-E5b" id="gLW-kW-bgN"/>
                 <outlet property="descriptionTopConstraint" destination="nR1-dV-d0b" id="CsZ-bF-1Xz"/>
                 <outlet property="headerContainerTopConstraint" destination="Jhq-vm-Dyr" id="rjh-Bk-XJ2"/>

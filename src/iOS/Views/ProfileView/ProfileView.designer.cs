@@ -19,6 +19,9 @@ namespace PrankChat.Mobile.iOS.Views.ProfileView
 		UIKit.UILabel contestsValueLabel { get; set; }
 
 		[Outlet]
+		UIKit.UIView contestsView { get; set; }
+
+		[Outlet]
 		UIKit.UILabel descriptionLabel { get; set; }
 
 		[Outlet]
@@ -74,6 +77,16 @@ namespace PrankChat.Mobile.iOS.Views.ProfileView
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (contestsTitleLabel != null) {
+				contestsTitleLabel.Dispose ();
+				contestsTitleLabel = null;
+			}
+
+			if (contestsValueLabel != null) {
+				contestsValueLabel.Dispose ();
+				contestsValueLabel = null;
+			}
+
 			if (descriptionLabel != null) {
 				descriptionLabel.Dispose ();
 				descriptionLabel = null;
@@ -164,14 +177,9 @@ namespace PrankChat.Mobile.iOS.Views.ProfileView
 				withdrawalButton = null;
 			}
 
-			if (contestsValueLabel != null) {
-				contestsValueLabel.Dispose ();
-				contestsValueLabel = null;
-			}
-
-			if (contestsTitleLabel != null) {
-				contestsTitleLabel.Dispose ();
-				contestsTitleLabel = null;
+			if (contestsView != null) {
+				contestsView.Dispose ();
+				contestsView = null;
 			}
 		}
 	}
