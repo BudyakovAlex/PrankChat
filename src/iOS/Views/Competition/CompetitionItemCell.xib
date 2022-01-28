@@ -4,7 +4,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -16,30 +15,10 @@
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                 <rect key="frame" x="0.0" y="0.0" width="427" height="627"/>
                 <autoresizingMask key="autoresizingMask"/>
-                <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b3E-Nm-2Cx" customClass="CompetitionView">
-                        <rect key="frame" x="0.0" y="0.0" width="427" height="627"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                </subviews>
             </view>
-            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-            <constraints>
-                <constraint firstAttribute="bottom" secondItem="b3E-Nm-2Cx" secondAttribute="bottom" id="O5k-uc-36H"/>
-                <constraint firstItem="b3E-Nm-2Cx" firstAttribute="leading" secondItem="cZE-iV-UFb" secondAttribute="leading" id="TBW-V8-Eqy"/>
-                <constraint firstAttribute="trailing" secondItem="b3E-Nm-2Cx" secondAttribute="trailing" id="qaw-Uo-0qk"/>
-                <constraint firstItem="b3E-Nm-2Cx" firstAttribute="top" secondItem="cZE-iV-UFb" secondAttribute="top" id="tFn-67-AC7"/>
-            </constraints>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <size key="customSize" width="341" height="579"/>
-            <connections>
-                <outlet property="competitionView" destination="b3E-Nm-2Cx" id="VmZ-6N-Qd0"/>
-            </connections>
             <point key="canvasLocation" x="-36.956521739130437" y="202.56696428571428"/>
         </collectionViewCell>
     </objects>
-    <resources>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-    </resources>
 </document>

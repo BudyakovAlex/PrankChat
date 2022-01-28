@@ -9,6 +9,7 @@ using System.CodeDom.Compiler;
 
 namespace PrankChat.Mobile.iOS.Controls
 {
+	[Register ("CompetitionView")]
 	partial class CompetitionView
 	{
 		[Outlet]
@@ -88,24 +89,9 @@ namespace PrankChat.Mobile.iOS.Controls
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (titleContainer != null) {
-				titleContainer.Dispose ();
-				titleContainer = null;
-			}
-
-			if (titleLabel != null) {
-				titleLabel.Dispose ();
-				titleLabel = null;
-			}
-
-			if (imageView != null) {
-				imageView.Dispose ();
-				imageView = null;
-			}
-
-			if (descriptionLabel != null) {
-				descriptionLabel.Dispose ();
-				descriptionLabel = null;
+			if (button != null) {
+				button.Dispose ();
+				button = null;
 			}
 
 			if (customerAvatarImageView != null) {
@@ -113,29 +99,14 @@ namespace PrankChat.Mobile.iOS.Controls
 				customerAvatarImageView = null;
 			}
 
-			if (termLabel != null) {
-				termLabel.Dispose ();
-				termLabel = null;
-			}
-
-			if (timeContainer != null) {
-				timeContainer.Dispose ();
-				timeContainer = null;
-			}
-
-			if (termContainer != null) {
-				termContainer.Dispose ();
-				termContainer = null;
-			}
-
-			if (timeLabel != null) {
-				timeLabel.Dispose ();
-				timeLabel = null;
-			}
-
 			if (daysLabel != null) {
 				daysLabel.Dispose ();
 				daysLabel = null;
+			}
+
+			if (descriptionLabel != null) {
+				descriptionLabel.Dispose ();
+				descriptionLabel = null;
 			}
 
 			if (hoursLabel != null) {
@@ -143,24 +114,24 @@ namespace PrankChat.Mobile.iOS.Controls
 				hoursLabel = null;
 			}
 
+			if (idLabel != null) {
+				idLabel.Dispose ();
+				idLabel = null;
+			}
+
+			if (imageView != null) {
+				imageView.Dispose ();
+				imageView = null;
+			}
+
+			if (likeButton != null) {
+				likeButton.Dispose ();
+				likeButton = null;
+			}
+
 			if (minutesLabel != null) {
 				minutesLabel.Dispose ();
 				minutesLabel = null;
-			}
-
-			if (termFromLabel != null) {
-				termFromLabel.Dispose ();
-				termFromLabel = null;
-			}
-
-			if (termToLabel != null) {
-				termToLabel.Dispose ();
-				termToLabel = null;
-			}
-
-			if (onModerationView != null) {
-				onModerationView.Dispose ();
-				onModerationView = null;
 			}
 
 			if (onModerationLabel != null) {
@@ -168,34 +139,14 @@ namespace PrankChat.Mobile.iOS.Controls
 				onModerationLabel = null;
 			}
 
-			if (prizeTitleLabel != null) {
-				prizeTitleLabel.Dispose ();
-				prizeTitleLabel = null;
+			if (onModerationView != null) {
+				onModerationView.Dispose ();
+				onModerationView = null;
 			}
 
-			if (prizeLabel != null) {
-				prizeLabel.Dispose ();
-				prizeLabel = null;
-			}
-
-			if (prizeBottomSeparator != null) {
-				prizeBottomSeparator.Dispose ();
-				prizeBottomSeparator = null;
-			}
-
-			if (button != null) {
-				button.Dispose ();
-				button = null;
-			}
-
-			if (idLabel != null) {
-				idLabel.Dispose ();
-				idLabel = null;
-			}
-
-			if (likeButton != null) {
-				likeButton.Dispose ();
-				likeButton = null;
+			if (OverlayView != null) {
+				OverlayView.Dispose ();
+				OverlayView = null;
 			}
 
 			if (paidFlagImageView != null) {
@@ -208,9 +159,59 @@ namespace PrankChat.Mobile.iOS.Controls
 				PrivateFlagImageView = null;
 			}
 
-			if (OverlayView != null) {
-				OverlayView.Dispose ();
-				OverlayView = null;
+			if (prizeBottomSeparator != null) {
+				prizeBottomSeparator.Dispose ();
+				prizeBottomSeparator = null;
+			}
+
+			if (prizeLabel != null) {
+				prizeLabel.Dispose ();
+				prizeLabel = null;
+			}
+
+			if (prizeTitleLabel != null) {
+				prizeTitleLabel.Dispose ();
+				prizeTitleLabel = null;
+			}
+
+			if (termContainer != null) {
+				termContainer.Dispose ();
+				termContainer = null;
+			}
+
+			if (termFromLabel != null) {
+				termFromLabel.Dispose ();
+				termFromLabel = null;
+			}
+
+			if (termLabel != null) {
+				termLabel.Dispose ();
+				termLabel = null;
+			}
+
+			if (termToLabel != null) {
+				termToLabel.Dispose ();
+				termToLabel = null;
+			}
+
+			if (timeContainer != null) {
+				timeContainer.Dispose ();
+				timeContainer = null;
+			}
+
+			if (timeLabel != null) {
+				timeLabel.Dispose ();
+				timeLabel = null;
+			}
+
+			if (titleContainer != null) {
+				titleContainer.Dispose ();
+				titleContainer = null;
+			}
+
+			if (titleLabel != null) {
+				titleLabel.Dispose ();
+				titleLabel = null;
 			}
 		}
 	}

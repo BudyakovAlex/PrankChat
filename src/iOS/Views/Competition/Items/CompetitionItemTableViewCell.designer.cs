@@ -12,15 +12,9 @@ namespace PrankChat.Mobile.iOS.Views.Competition.Items
 	[Register ("CompetitionItemTableViewCell")]
 	partial class CompetitionItemTableViewCell
 	{
-		[Outlet]
-		PrankChat.Mobile.iOS.Controls.CompetitionView competitionView { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (competitionView != null) {
-				competitionView.Dispose ();
-				competitionView = null;
-			}
 		}
 	}
 }

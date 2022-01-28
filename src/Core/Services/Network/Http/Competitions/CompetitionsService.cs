@@ -95,14 +95,12 @@ namespace PrankChat.Mobile.Core.Services.Network.Http.Competitions
 
         public Task<BaseBundleDto<CompetitionDto>> GetMyOrderedCompetitionsAsync(int page, int pageSize)
         {
-            var data = _client.GetAsync<BaseBundleDto<CompetitionDto>>(RestConstants.MyOrderedCompetitionsResource, includes: new[] { IncludeType.Customer });
-            return data;
+            return _client.GetAsync<BaseBundleDto<CompetitionDto>>(RestConstants.MyOrderedCompetitionsResource, includes: new[] { IncludeType.Customer });
         }
 
         public Task<BaseBundleDto<CompetitionDto>> GetMyExecuteCompetitionsAsync(int page, int pageSize)
         {
-            var data = _client.GetAsync<BaseBundleDto<CompetitionDto>>(RestConstants.MyExecuteCompetitonsResource, includes: new[] { IncludeType.Customer });
-            return data;
+            return _client.GetAsync<BaseBundleDto<CompetitionDto>>(RestConstants.MyExecuteCompetitonsResource, includes: new[] { IncludeType.Customer });
         }
     }
 }

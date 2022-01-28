@@ -15,8 +15,7 @@ using PrankChat.Mobile.iOS.Converters;
 using UIKit;
 
 namespace PrankChat.Mobile.iOS.Controls
-{
-    [Register(nameof(CompetitionView))]
+{ 
     public partial class CompetitionView : MvxGenericView<CompetitionView>
     {   
         private CAGradientLayer _titleGradientSublayer;

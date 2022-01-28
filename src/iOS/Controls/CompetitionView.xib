@@ -233,7 +233,7 @@
                             </constraints>
                         </imageView>
                         <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ufO-jw-ITl">
-                            <rect key="frame" x="0.0" y="52" width="414" height="567"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="619"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </view>
                     </subviews>
@@ -257,7 +257,7 @@
                         <constraint firstItem="M9p-Hy-alu" firstAttribute="leading" secondItem="euJ-b1-wx9" secondAttribute="leading" constant="30" id="Nth-YP-vOr"/>
                         <constraint firstItem="DIg-hd-04a" firstAttribute="top" secondItem="bT3-Nh-Ocd" secondAttribute="bottom" constant="10" id="PMh-xq-JgX"/>
                         <constraint firstAttribute="trailing" secondItem="CCb-wR-gkO" secondAttribute="trailing" constant="12" id="PZO-3J-xFJ"/>
-                        <constraint firstItem="ufO-jw-ITl" firstAttribute="top" secondItem="9GB-I8-63f" secondAttribute="bottom" id="Q4j-pT-HSG"/>
+                        <constraint firstItem="ufO-jw-ITl" firstAttribute="top" secondItem="euJ-b1-wx9" secondAttribute="top" id="Q4j-pT-HSG"/>
                         <constraint firstItem="pkn-yy-0bk" firstAttribute="top" secondItem="cX0-lX-8Ju" secondAttribute="bottom" constant="7" id="RUL-FX-Kru"/>
                         <constraint firstItem="VLD-Lq-vhL" firstAttribute="leading" secondItem="903-xy-Ecn" secondAttribute="leading" constant="16" id="TQd-8a-FYD"/>
                         <constraint firstAttribute="trailing" secondItem="OoL-01-VVe" secondAttribute="trailing" constant="12" id="TSj-is-wU9"/>
