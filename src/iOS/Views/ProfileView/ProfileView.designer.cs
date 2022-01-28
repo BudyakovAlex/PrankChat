@@ -13,6 +13,15 @@ namespace PrankChat.Mobile.iOS.Views.ProfileView
 	partial class ProfileView
 	{
 		[Outlet]
+		UIKit.UILabel contestsTitleLabel { get; set; }
+
+		[Outlet]
+		UIKit.UILabel contestsValueLabel { get; set; }
+
+		[Outlet]
+		UIKit.UIView contestsView { get; set; }
+
+		[Outlet]
 		UIKit.UILabel descriptionLabel { get; set; }
 
 		[Outlet]
@@ -68,9 +77,14 @@ namespace PrankChat.Mobile.iOS.Views.ProfileView
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (headerContainerTopConstraint != null) {
-				headerContainerTopConstraint.Dispose ();
-				headerContainerTopConstraint = null;
+			if (contestsTitleLabel != null) {
+				contestsTitleLabel.Dispose ();
+				contestsTitleLabel = null;
+			}
+
+			if (contestsValueLabel != null) {
+				contestsValueLabel.Dispose ();
+				contestsValueLabel = null;
 			}
 
 			if (descriptionLabel != null) {
@@ -81,6 +95,11 @@ namespace PrankChat.Mobile.iOS.Views.ProfileView
 			if (descriptionTopConstraint != null) {
 				descriptionTopConstraint.Dispose ();
 				descriptionTopConstraint = null;
+			}
+
+			if (headerContainerTopConstraint != null) {
+				headerContainerTopConstraint.Dispose ();
+				headerContainerTopConstraint = null;
 			}
 
 			if (headerContainerView != null) {
@@ -156,6 +175,11 @@ namespace PrankChat.Mobile.iOS.Views.ProfileView
 			if (withdrawalButton != null) {
 				withdrawalButton.Dispose ();
 				withdrawalButton = null;
+			}
+
+			if (contestsView != null) {
+				contestsView.Dispose ();
+				contestsView = null;
 			}
 		}
 	}

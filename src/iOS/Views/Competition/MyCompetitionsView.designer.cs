@@ -9,12 +9,26 @@ using System.CodeDom.Compiler;
 
 namespace PrankChat.Mobile.iOS.Views.Competition
 {
-	[Register ("CompetitionItemCell")]
-	partial class CompetitionItemCell
+	[Register ("MyCompetitionsView")]
+	partial class MyCompetitionsView
 	{
+		[Outlet]
+		UIKit.UITableView TableView { get; set; }
+
+		[Outlet]
+		PrankChat.Mobile.iOS.Controls.TabView TabView { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (TabView != null) {
+				TabView.Dispose ();
+				TabView = null;
+			}
+
+			if (TableView != null) {
+				TableView.Dispose ();
+				TableView = null;
+			}
 		}
 	}
 }

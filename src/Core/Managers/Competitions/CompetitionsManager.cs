@@ -67,5 +67,17 @@ namespace PrankChat.Mobile.Core.Managers.Competitions
             var response = await _competitionsService.CreateCompetitionAsync(dto);
             return response.Map();
         }
+
+        public async Task<Pagination<Competition>> GetMyOrderedCompetitionsAsync(int page, int pageSize)
+        {
+            var response = await _competitionsService.GetMyOrderedCompetitionsAsync(page, pageSize);
+            return response.Map(item => item.Map());
+        }
+
+        public async Task<Pagination<Competition>> GetMyExecuteCompetitionsAsync(int page, int pageSize)
+        {
+            var response = await _competitionsService.GetMyExecuteCompetitionsAsync(page, pageSize);
+            return response.Map(item => item.Map());
+        }
     }
 }

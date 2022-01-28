@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using MvvmCross.Plugin.Messenger;
+using PrankChat.Mobile.Core.Common;
 using PrankChat.Mobile.Core.Data.Dtos;
 using PrankChat.Mobile.Core.Data.Dtos.Base;
 using PrankChat.Mobile.Core.Data.Dtos.Competitions;
@@ -90,6 +91,16 @@ namespace PrankChat.Mobile.Core.Services.Network.Http.Competitions
         {
             var newCompetition = await _client.PostAsync<CompetitionCreationFormDto, ResponseDto<CompetitionDto>>("competitions", competitionCreationFormDto, true);
             return newCompetition?.Data;
+        }
+
+        public Task<BaseBundleDto<CompetitionDto>> GetMyOrderedCompetitionsAsync(int page, int pageSize)
+        {
+            return _client.GetAsync<BaseBundleDto<CompetitionDto>>(RestConstants.MyOrderedCompetitionsResource, includes: new[] { IncludeType.Customer });
+        }
+
+        public Task<BaseBundleDto<CompetitionDto>> GetMyExecuteCompetitionsAsync(int page, int pageSize)
+        {
+            return _client.GetAsync<BaseBundleDto<CompetitionDto>>(RestConstants.MyExecuteCompetitonsResource, includes: new[] { IncludeType.Customer });
         }
     }
 }

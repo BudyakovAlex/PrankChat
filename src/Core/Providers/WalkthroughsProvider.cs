@@ -19,7 +19,8 @@ namespace PrankChat.Mobile.Core.Providers
             [typeof(CompetitionsViewModel)] = Resources.Contests,
             [typeof(CreateOrderViewModel)] = Resources.CreateOrders,
             [typeof(OrdersViewModel)] = Resources.OrderFeed,
-            [typeof(ProfileViewModel)] = Resources.Profile
+            [typeof(ProfileViewModel)] = Resources.Profile,
+            [typeof(CreateCompetitionViewModel)] = Resources.CreateContest,
         };
 
         private readonly Dictionary<Type, string> _descriptions = new Dictionary<Type, string>
@@ -27,7 +28,8 @@ namespace PrankChat.Mobile.Core.Providers
             [typeof(CompetitionsViewModel)] = Resources.WalkthrouthCompetitionsDescription,
             [typeof(CreateOrderViewModel)] = Resources.WalkthrouthCreateOrderDescription,
             [typeof(OrdersViewModel)] = Resources.WalkthrouthOrdersDescription,
-            [typeof(ProfileViewModel)] = Resources.WalkthrouthProfileDescription
+            [typeof(ProfileViewModel)] = Resources.WalkthrouthProfileDescription,
+            [typeof(CreateCompetitionViewModel)] = Resources.WalkthrouthCompetitionsDescription
         };
 
         private readonly INavigationManager _navigationManager;

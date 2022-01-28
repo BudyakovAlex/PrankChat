@@ -36,8 +36,10 @@ namespace PrankChat.Mobile.Droid.Views.Profile
         private TextView _profilePriceTextView;
         private TextView _profileSubscribersValueTextView;
         private TextView _profileSubscriptionsValueTextView;
+        private TextView _profileCompetitionsValueTextView;
         private TextView _descriptionTextView;
         private ConstraintLayout _subscriptionsViewConstraintLayout;
+        private ConstraintLayout _competitionsConstraintLayout;
         private ConstraintLayout _subscribersViewConstraintLayout;
         private MaterialButton _profileRefillButton;
         private MaterialButton _profileWithdrawalButton;
@@ -85,9 +87,12 @@ namespace PrankChat.Mobile.Droid.Views.Profile
             bindingSet.Bind(_subscriptionsViewConstraintLayout).For(v => v.BindClick()).To(vm => vm.ShowSubscriptionsCommand);
             bindingSet.Bind(_profileSubscriptionsValueTextView).For(v => v.BindClick()).To(vm => vm.ShowSubscriptionsCommand);
             bindingSet.Bind(_profileSubscriptionsValueTextView).For(v => v.Text).To(vm => vm.SubscriptionsValue);
+            bindingSet.Bind(_profileCompetitionsValueTextView).For(v => v.Text).To(vm => vm.CompetitionsValue);
             bindingSet.Bind(_profileRefillButton).For(v => v.BindClick()).To(vm => vm.ShowRefillCommand);
             bindingSet.Bind(_profileWithdrawalButton).For(v => v.BindClick()).To(vm => vm.ShowWithdrawalCommand);
             bindingSet.Bind(_subscribersViewConstraintLayout).For(v => v.BindClick()).To(vm => vm.ShowSubscribersCommand);
+            bindingSet.Bind(_competitionsConstraintLayout).For(v => v.BindClick()).To(vm => vm.ShowMyCompetitionsCommand);
+            bindingSet.Bind(_profileCompetitionsValueTextView).For(v => v.BindClick()).To(vm => vm.ShowMyCompetitionsCommand);
             bindingSet.Bind(_descriptionTextView).For(v => v.BindClick()).To(vm => vm.Description);
             bindingSet.Bind(_descriptionTextView)
                 .For(v => v.Visibility)
@@ -113,9 +118,11 @@ namespace PrankChat.Mobile.Droid.Views.Profile
             _profileCircleCachedImageView = view.FindViewById<CircleCachedImageView>(Resource.Id.profile_photo);
             _profileNameTextView = view.FindViewById<TextView>(Resource.Id.profile_name);
             _profilePriceTextView = view.FindViewById<TextView>(Resource.Id.profile_price);
-            _profileSubscribersValueTextView = view.FindViewById<TextView>(Resource.Id.profile_subscribers_value);
+            _profileSubscribersValueTextView = view.FindViewById<TextView>(Resource.Id.profile_subscribers_count_text_view);
             _subscriptionsViewConstraintLayout = view.FindViewById<ConstraintLayout>(Resource.Id.subscriptions_view);
-            _profileSubscriptionsValueTextView = view.FindViewById<TextView>(Resource.Id.profile_subscriptions_value);
+            _competitionsConstraintLayout = view.FindViewById<ConstraintLayout>(Resource.Id.competitions_view);
+            _profileSubscriptionsValueTextView = view.FindViewById<TextView>(Resource.Id.profile_subscriptions_count_text_view);
+            _profileCompetitionsValueTextView = view.FindViewById<TextView>(Resource.Id.profile_competitions_count_text_view);
             _profileRefillButton = view.FindViewById<MaterialButton>(Resource.Id.profile_refill_button);
             _profileWithdrawalButton = view.FindViewById<MaterialButton>(Resource.Id.profile_withdrawal_button);
             _subscribersViewConstraintLayout = view.FindViewById<ConstraintLayout>(Resource.Id.subscribers_view);

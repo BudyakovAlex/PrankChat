@@ -52,5 +52,8 @@ namespace PrankChat.Mobile.Core.Data.Dtos
 
         [JsonProperty("subscriptions_count")]
         public int? SubscriptionsCount { get; set; }
+
+        [JsonProperty("competitions_count")]
+        public int? CompetitionsCount { get; set; }
     }
 }

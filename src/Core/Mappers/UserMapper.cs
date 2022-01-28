@@ -30,7 +30,8 @@ namespace PrankChat.Mobile.Core.Mappers
                 dto.OrdersExecuteCount,
                 dto.OrdersExecuteFinishedCount,
                 dto.SubscribersCount,
-                dto.SubscriptionsCount);
+                dto.SubscriptionsCount,
+                dto.CompetitionsCount);
         }
 
         public static User Map(this ResponseDto<UserDto> dto)
@@ -58,7 +59,8 @@ namespace PrankChat.Mobile.Core.Mappers
                 dto.Data.OrdersExecuteCount,
                 dto.Data.OrdersExecuteFinishedCount,
                 dto.Data.SubscribersCount,
-                dto.Data.SubscriptionsCount);
+                dto.Data.SubscriptionsCount,
+                dto.Data.CompetitionsCount);
         }
     }
 }

@@ -7,10 +7,10 @@
 using Foundation;
 using System.CodeDom.Compiler;
 
-namespace PrankChat.Mobile.iOS.Views.Competition
+namespace PrankChat.Mobile.iOS.Views.Competition.Items
 {
-	[Register ("CompetitionItemCell")]
-	partial class CompetitionItemCell
+	[Register ("CompetitionItemTableViewCell")]
+	partial class CompetitionItemTableViewCell
 	{
 		
 		void ReleaseDesignerOutlets ()

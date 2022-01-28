@@ -6,7 +6,6 @@ using MvvmCross.Platforms.Ios.Binding;
 using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using MvvmCross.Platforms.Ios.Views;
-using PrankChat.Mobile.Core.Extensions.MvvmCross;
 using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.ViewModels.Profile;
@@ -85,11 +84,12 @@ namespace PrankChat.Mobile.iOS.Views.ProfileView
             bindingSet.Bind(priceLabel).To(vm => vm.Price);
             bindingSet.Bind(subscribersValueLabel).To(vm => vm.SubscribersValue);
             bindingSet.Bind(subscribersView).For(v => v.BindTap()).To(vm => vm.ShowSubscribersCommand);
+            bindingSet.Bind(contestsView).For(v => v.BindTap()).To(vm => vm.ShowMyCompetitionsCommand);
+            bindingSet.Bind(contestsValueLabel).For(v => v.Text).To(vm => vm.CompetitionsValue);
             bindingSet.Bind(subscriptionsValueLabel).To(vm => vm.SubscriptionsValue);
             bindingSet.Bind(subscriptionsView).For(v => v.BindTap()).To(vm => vm.ShowSubscriptionsCommand);
             bindingSet.Bind(_notificationBarItem).For(v => v.Image).To(vm => vm.NotificationBadgeViewModel.HasUnreadNotifications)
                 .WithConversion<BoolToNotificationImageConverter>();
-
             bindingSet.Bind(_emptyView)
                 .For(v => v.BindVisible())
                 .ByCombining(new MvxAndValueCombiner(),
@@ -120,6 +120,8 @@ namespace PrankChat.Mobile.iOS.Views.ProfileView
             withdrawalButton.SetBorderlessStyle(Resources.Withdraw);
             subscribersValueLabel.SetBoldTitleStyle();
             subscribersTitleLabel.SetSmallSubtitleStyle(Resources.Subscribers);
+            contestsValueLabel.SetBoldTitleStyle();
+            contestsTitleLabel.SetSmallSubtitleStyle(Resources.Contests.ToLower());
             subscriptionsValueLabel.SetBoldTitleStyle();
             subscriptionsTitleLabel.SetSmallSubtitleStyle(Resources.Subscriptions);
             descriptionLabel.SetTitleStyle();
