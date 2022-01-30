@@ -6,6 +6,7 @@
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
     android:translationZ="10dp"
+    android:elevation="10dp"
 	tools:background="@color/competition_new_border"
 	android:id="@+id/border_frame">
 

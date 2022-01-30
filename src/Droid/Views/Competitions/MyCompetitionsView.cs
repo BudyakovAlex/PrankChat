@@ -18,8 +18,10 @@ using PrankChat.Mobile.Droid.Adapters;
 using PrankChat.Mobile.Droid.Adapters.TemplateSelectors;
 using PrankChat.Mobile.Droid.Adapters.ViewHolders.Competitions;
 using PrankChat.Mobile.Droid.Controls;
+using PrankChat.Mobile.Droid.Decorators;
 using PrankChat.Mobile.Droid.Extensions;
 using PrankChat.Mobile.Droid.LayoutManagers;
+using PrankChat.Mobile.Droid.Utils.Helpers;
 using PrankChat.Mobile.Droid.Views.Base;
 
 namespace PrankChat.Mobile.Droid.Views.Competitions
@@ -77,6 +79,7 @@ namespace PrankChat.Mobile.Droid.Views.Competitions
 
             _adapter = new RecycleViewBindableAdapter((IMvxAndroidBindingContext)BindingContext);
             _recyclerView.Adapter = _adapter;
+            _recyclerView.AddItemDecoration(new BottomSpaceDecorator(this, DisplayUtils.DpToPx(6)));
             _recyclerView.ItemTemplateSelector = new TemplateSelector()
                 .AddElement<CompetitionItemViewModel, CompetitionItemViewHolder>(Resource.Layout.cell_competition);
 
@@ -87,8 +90,8 @@ namespace PrankChat.Mobile.Droid.Views.Competitions
             _inExecutionTab = tabLayout.NewTab();
             _orderedTab = tabLayout.NewTab();
 
-            tabLayout.AddTab(_inExecutionTab);
             tabLayout.AddTab(_orderedTab);
+            tabLayout.AddTab(_inExecutionTab);
 
             tabLayout.AddOnTabSelectedListener(this);
         }

@@ -55,15 +55,15 @@ namespace PrankChat.Mobile.Droid.Decorators
 
         private void Init(Context context)
         {
-            DoInit(context);
+            Initialize(context);
         }
 
-        protected virtual void DoInit(Context context)
+        protected virtual void Initialize(Context context)
         {
-            DoInit(context.Resources);
+            Initialize(context.Resources);
         }
 
-        protected virtual void DoInit(Android.Content.Res.Resources resources)
+        protected virtual void Initialize(Android.Content.Res.Resources resources)
         {
         }
 

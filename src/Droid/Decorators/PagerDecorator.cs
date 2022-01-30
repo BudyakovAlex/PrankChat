@@ -16,9 +16,9 @@ namespace PrankChat.Mobile.Droid.Decorators
 
         protected int CardLastRight { get; set; } 
 
-        protected override void DoInit(Android.Content.Res.Resources resources)
+        protected override void Initialize(Android.Content.Res.Resources resources)
         {
-            base.DoInit(resources);
+            base.Initialize(resources);
 
             CardFirstLeft = resources.GetDimensionPixelSize(Resource.Dimension.card_decoration_horizontal_left_first);
             CardLastRight = resources.GetDimensionPixelSize(Resource.Dimension.card_decoration_horizontal_right_last);
