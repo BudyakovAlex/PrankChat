@@ -204,7 +204,8 @@
                         android:layout_marginBottom="2dp"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        android:text="@string/Contests"
+                        android:textAllCaps="false"
+                        tools:text="@string/Contests"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent" />

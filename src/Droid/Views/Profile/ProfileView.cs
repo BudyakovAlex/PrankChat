@@ -128,6 +128,7 @@ namespace PrankChat.Mobile.Droid.Views.Profile
             _subscribersViewConstraintLayout = view.FindViewById<ConstraintLayout>(Resource.Id.subscribers_view);
             _descriptionTextView = view.FindViewById<TextView>(Resource.Id.description_text_view);
             _mvxSwipeRefreshLayout = view.FindViewById<MvxSwipeRefreshLayout>(Resource.Id.swipe_refresh_layout);
+            view.FindViewById<TextView>(Resource.Id.profile_competitions_title_text_view).Text = Core.Localization.Resources.Contests.ToLower();
 
             _layoutManager = new LinearLayoutManager(Context, LinearLayoutManager.Vertical, false);
             _endlessRecyclerView.SetLayoutManager(_layoutManager);

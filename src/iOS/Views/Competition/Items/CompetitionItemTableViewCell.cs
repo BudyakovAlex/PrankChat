@@ -9,6 +9,8 @@ namespace PrankChat.Mobile.iOS.Views.Competition.Items
 {
     public partial class CompetitionItemTableViewCell : BaseTableCell<CompetitionItemTableViewCell, CompetitionItemViewModel>
     {
+        public const float CellHeight = 509f;
+
         private CompetitionView _competitionView;
 
         protected CompetitionItemTableViewCell(IntPtr handle) : base(handle)
@@ -20,17 +22,23 @@ namespace PrankChat.Mobile.iOS.Views.Competition.Items
             base.SetupControls();
 
             BackgroundColor = UIColor.Clear;
+            ContentView.BackgroundColor = UIColor.Clear;
+
             _competitionView = CompetitionView.Create();
             _competitionView.TranslatesAutoresizingMaskIntoConstraints = false;
+            _competitionView.Layer.MasksToBounds = false;
 
-            AddSubview(_competitionView);
+            ContentView.AddSubview(_competitionView);
+            ContentView.ClipsToBounds = false;
+            ContentView.Layer.MasksToBounds = false;
+            Layer.MasksToBounds = false;
 
             NSLayoutConstraint.ActivateConstraints(new[]
             {
-                _competitionView.TopAnchor.ConstraintEqualTo(TopAnchor),
-                _competitionView.BottomAnchor.ConstraintEqualTo(BottomAnchor),
-                _competitionView.LeadingAnchor.ConstraintEqualTo(LeadingAnchor),
-                _competitionView.TrailingAnchor.ConstraintEqualTo(TrailingAnchor)
+                _competitionView.TopAnchor.ConstraintEqualTo(TopAnchor, 5),
+                _competitionView.BottomAnchor.ConstraintEqualTo(BottomAnchor, -5f),
+                _competitionView.LeadingAnchor.ConstraintEqualTo(LeadingAnchor, 20f),
+                _competitionView.TrailingAnchor.ConstraintEqualTo(TrailingAnchor, -20f)
             });
         }
 

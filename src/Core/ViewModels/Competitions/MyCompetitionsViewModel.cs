@@ -31,7 +31,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Competitions
 
         public IMvxAsyncCommand LoadDataCommand { get; }
 
-        public string Title { get; private set; }
+        public string Title => Resources.Contests;
 
         private CompetitionsTabType _selectedTabType;
         public CompetitionsTabType SelectedTabType

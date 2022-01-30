@@ -152,31 +152,32 @@ namespace PrankChat.Mobile.iOS.Controls
         private void PhaseChanged(CompetitionPhase phase)
         {
             var color = GetPrimaryColor(phase);
-            idLabel.TextColor = color;
-
-            _defaultBorderLayer.BorderColor = color.CGColor;
+           
             Layer.ShadowColor = color.CGColor;
+            Layer.ShadowOffset = CGSize.Empty;
+            Layer.ShadowOpacity = 1f;
+            Layer.ShadowRadius = 5f;
 
             _titleGradientSublayer.Colors = GetGradient(_phase);
 
-            if (phase == CompetitionPhase.Moderation)
+            if (phase != CompetitionPhase.Moderation)
             {
-                if (_dashedBorderLayer.SuperLayer == null)
-                {
-                    Layer.AddSublayer(_dashedBorderLayer);
-                }
+                idLabel.TextColor = color;
+                _defaultBorderLayer.BorderColor = color.CGColor;
 
-                Layer.ShadowOpacity = 0f;
-            }
-            else
-            {
                 _dashedBorderLayer.RemoveFromSuperLayer();
-                Layer.ShadowOffset = CGSize.Empty;
-                Layer.ShadowOpacity = 1f;
-                Layer.ShadowRadius = 5f;
+
                 Layer.MasksToBounds = false;
                 Layer.RasterizationScale = UIScreen.MainScreen.Scale;
                 Layer.ShouldRasterize = true;
+                return;
+            }
+
+            if (_dashedBorderLayer.SuperLayer == null)
+            {
+                idLabel.TextColor = UIColor.White;
+                _defaultBorderLayer.BorderColor = UIColor.Clear.CGColor;
+                Layer.AddSublayer(_dashedBorderLayer);
             }
         }
 
@@ -185,7 +186,7 @@ namespace PrankChat.Mobile.iOS.Controls
             CompetitionPhase.New => Theme.Color.CompetitionPhaseNewPrimary,
             CompetitionPhase.Voting => Theme.Color.CompetitionPhaseVotingPrimary,
             CompetitionPhase.Finished => Theme.Color.CompetitionPhaseFinishedPrimary,
-            CompetitionPhase.Moderation => UIColor.White,
+            CompetitionPhase.Moderation => Theme.Color.CompetitionPhaseFinishedPrimary,
             _ => throw new ArgumentOutOfRangeException(),
         };
 

@@ -88,8 +88,8 @@ namespace PrankChat.Mobile.iOS.Views.Competition
             TableView.RefreshControl = _refreshControl;
 
             TableView.Source = _source;
-            TableView.RowHeight = UIScreen.MainScreen.Bounds.Height - 20;
-            TableView.ContentInset = new UIEdgeInsets(8f, 0f, 8f, 0f);
+            TableView.RowHeight = CompetitionItemTableViewCell.CellHeight;
+            TableView.ContentInset = new UIEdgeInsets(15f, 0f, 15f, 0f);
         }
 
         private void CreateEmptyView()
