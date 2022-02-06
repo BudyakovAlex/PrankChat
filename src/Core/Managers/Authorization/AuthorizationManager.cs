@@ -1,19 +1,23 @@
-﻿using PrankChat.Mobile.Core.Mappers;
-using PrankChat.Mobile.Core.Data.Dtos;
+﻿using PrankChat.Mobile.Core.Data.Dtos;
+using PrankChat.Mobile.Core.Data.Enums;
+using PrankChat.Mobile.Core.Mappers;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Enums;
-using System.Threading.Tasks;
+using PrankChat.Mobile.Core.Services.Analytics;
 using PrankChat.Mobile.Core.Services.Network.Http.Authorization;
+using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.Managers.Authorization
 {
     public class AuthorizationManager : IAuthorizationManager
     {
         private readonly IAuthorizationService _authorizationService;
+        private readonly IAnalyticsService _analyticsService;
 
-        public AuthorizationManager(IAuthorizationService authorizationService)
+        public AuthorizationManager(IAuthorizationService authorizationService, IAnalyticsService analyticsService)
         {
             _authorizationService = authorizationService;
+            _analyticsService = analyticsService;
         }
 
         public Task AuthorizeAsync(string email, string password)
@@ -26,9 +30,9 @@ namespace PrankChat.Mobile.Core.Managers.Authorization
             return _authorizationService.AuthorizeExternalAsync(authToken, loginType);
         }
 
-        public Task RegisterAsync(UserRegistration userRegistration)
+        public async Task RegisterAsync(UserRegistration userRegistration)
         {
-            var apiModel = new UserRegistrationDto()
+            var dto = new UserRegistrationDto()
             {
                 Email = userRegistration.Email,
                 Name = userRegistration.Name,
@@ -39,7 +43,11 @@ namespace PrankChat.Mobile.Core.Managers.Authorization
                 PasswordConfirmation = userRegistration.PasswordConfirmation
             };
 
-            return _authorizationService.RegisterAsync(apiModel);
+            var isRegistered = await _authorizationService.RegisterAsync(dto);
+            if (isRegistered)
+            {
+                _analyticsService.Track(AnalyticsEvent.RegistrationManual);
+            }
         }
 
         public Task LogoutAsync()
