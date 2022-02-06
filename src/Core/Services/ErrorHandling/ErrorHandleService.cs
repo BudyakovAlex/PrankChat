@@ -1,20 +1,19 @@
-﻿using Microsoft.AppCenter.Analytics;
-using Microsoft.AppCenter.Crashes;
+﻿using Microsoft.AppCenter.Crashes;
 using MvvmCross.Plugin.Messenger;
 using PrankChat.Mobile.Core.Exceptions;
 using PrankChat.Mobile.Core.Exceptions.Network;
 using PrankChat.Mobile.Core.Exceptions.UserVisible;
 using PrankChat.Mobile.Core.Exceptions.UserVisible.Validation;
-using PrankChat.Mobile.Core.Models.Enums;
+using PrankChat.Mobile.Core.Extensions;
+using PrankChat.Mobile.Core.Ioc;
 using PrankChat.Mobile.Core.Localization;
+using PrankChat.Mobile.Core.Models.Enums;
+using PrankChat.Mobile.Core.Plugins.UserInteraction;
+using PrankChat.Mobile.Core.Services.ErrorHandling.Messages;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
-using PrankChat.Mobile.Core.Services.ErrorHandling.Messages;
-using PrankChat.Mobile.Core.Plugins.UserInteraction;
-using PrankChat.Mobile.Core.Ioc;
-using PrankChat.Mobile.Core.Extensions;
 
 namespace PrankChat.Mobile.Core.Services.ErrorHandling
 {
@@ -61,10 +60,9 @@ namespace PrankChat.Mobile.Core.Services.ErrorHandling
 
         public void LogError(object sender, string message, Exception exception = null)
         {
-            var senderType = sender.GetType();
             var logger = sender.Logger();
             logger.Write(Serilog.Events.LogEventLevel.Error, exception, message);
-            Analytics.TrackEvent(message);
+            Microsoft.AppCenter.Analytics.Analytics.TrackEvent(message);
 
             if (exception != null)
             {

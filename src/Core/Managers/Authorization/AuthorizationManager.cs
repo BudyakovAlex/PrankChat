@@ -32,7 +32,7 @@ namespace PrankChat.Mobile.Core.Managers.Authorization
 
         public async Task RegisterAsync(UserRegistration userRegistration)
         {
-            var apiModel = new UserRegistrationDto()
+            var dto = new UserRegistrationDto()
             {
                 Email = userRegistration.Email,
                 Name = userRegistration.Name,
@@ -43,7 +43,7 @@ namespace PrankChat.Mobile.Core.Managers.Authorization
                 PasswordConfirmation = userRegistration.PasswordConfirmation
             };
 
-            var isRegistered = await _authorizationService.RegisterAsync(apiModel);
+            var isRegistered = await _authorizationService.RegisterAsync(dto);
             if (isRegistered)
             {
                 _analyticsService.Track(AnalyticsEvent.RegistrationManual);

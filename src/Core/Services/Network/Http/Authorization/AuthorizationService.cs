@@ -59,10 +59,11 @@ namespace PrankChat.Mobile.Core.Services.Network.Http.Authorization
 
         public async Task<bool> RegisterAsync(UserRegistrationDto userRegistrationApiModel)
         {
-            var authTokenModel = await _client.UnauthorizedPostAsync<UserRegistrationDto, ResponseDto<AccessTokenDto>>("auth/register", userRegistrationApiModel, true);
-            await _userSessionProvider.SetAccessTokenAsync(authTokenModel?.Data?.AccessToken);
+            var response = await _client.UnauthorizedPostAsync<UserRegistrationDto, ResponseDto<AccessTokenDto>>("auth/register", userRegistrationApiModel, true);
+            var accessToken = response?.Data?.AccessToken;
+            await _userSessionProvider.SetAccessTokenAsync(accessToken);
 
-            return authTokenModel?.Data?.AccessToken != null;
+            return accessToken != null;
         }
 
         public Task LogoutAsync()
