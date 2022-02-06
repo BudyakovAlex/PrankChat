@@ -57,9 +57,9 @@ namespace PrankChat.Mobile.Core.Services.Network.Http.Authorization
             return authTokenModel?.Data?.AccessToken != null;
         }
 
-        public async Task<bool> RegisterAsync(UserRegistrationDto userRegistrationApiModel)
+        public async Task<bool> RegisterAsync(UserRegistrationDto dto)
         {
-            var response = await _client.UnauthorizedPostAsync<UserRegistrationDto, ResponseDto<AccessTokenDto>>("auth/register", userRegistrationApiModel, true);
+            var response = await _client.UnauthorizedPostAsync<UserRegistrationDto, ResponseDto<AccessTokenDto>>("auth/register", dto, true);
             var accessToken = response?.Data?.AccessToken;
             await _userSessionProvider.SetAccessTokenAsync(accessToken);
 
@@ -108,14 +108,14 @@ namespace PrankChat.Mobile.Core.Services.Network.Http.Authorization
             return _client.UnauthorizedPostAsync<RecoverPasswordDto, RecoverPasswordResultDto>("auth/password/email", recoverPasswordModel, false);
         }
 
-        public async Task<bool> AuthorizeWithAppleAsync(AppleAuthDto appleAuthApiModel)
+        public async Task<bool> AuthorizeWithAppleAsync(AppleAuthDto dto)
         {
-            var authTokenModel = await _client.UnauthorizedPostAsync<AppleAuthDto, ResponseDto<AccessTokenDto>>($"/auth/apple", appleAuthApiModel, true);
+            var authTokenModel = await _client.UnauthorizedPostAsync<AppleAuthDto, ResponseDto<AccessTokenDto>>($"/auth/apple", dto, true);
             await _userSessionProvider.SetAccessTokenAsync(authTokenModel?.Data?.AccessToken);
             return authTokenModel?.Data?.AccessToken != null;
         }
 
-        private void OnUnauthorizedUser(UnauthorizedMessage obj)
+        private void OnUnauthorizedUser(UnauthorizedMessage _)
         {
             if (_userSessionProvider.User == null)
             {
