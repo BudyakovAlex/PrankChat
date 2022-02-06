@@ -46,7 +46,7 @@ namespace PrankChat.Mobile.Core.Managers.Authorization
             var isRegistered = await _authorizationService.RegisterAsync(apiModel);
             if (isRegistered)
             {
-                _analyticsService.Track(AnalyticsEvent.Registration);
+                _analyticsService.Track(AnalyticsEvent.RegistrationManual);
             }
         }
 

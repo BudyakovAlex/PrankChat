@@ -28,7 +28,7 @@ namespace PrankChat.Mobile.Core.Managers.Payment
             var payment = response.Map();
             if (payment != null)
             {
-                _analyticsService.Track(AnalyticsEvent.Refill);
+                _analyticsService.Track(AnalyticsEvent.PaymentRefill);
             }
 
             return payment;
