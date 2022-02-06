@@ -1,11 +1,11 @@
 ﻿using MvvmCross.Plugin.Messenger;
 using Newtonsoft.Json;
-using PrankChat.Mobile.Core.Services.ErrorHandling.Messages;
 using PrankChat.Mobile.Core.Data.Dtos;
 using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.Providers.Configuration;
 using PrankChat.Mobile.Core.Providers.UserSession;
+using PrankChat.Mobile.Core.Services.ErrorHandling.Messages;
 using RestSharp;
 using System;
 using System.Net;
@@ -57,10 +57,12 @@ namespace PrankChat.Mobile.Core.Services.Network.Http.Authorization
             return authTokenModel?.Data?.AccessToken != null;
         }
 
-        public async Task RegisterAsync(UserRegistrationDto userRegistrationApiModel)
+        public async Task<bool> RegisterAsync(UserRegistrationDto userRegistrationApiModel)
         {
             var authTokenModel = await _client.UnauthorizedPostAsync<UserRegistrationDto, ResponseDto<AccessTokenDto>>("auth/register", userRegistrationApiModel, true);
             await _userSessionProvider.SetAccessTokenAsync(authTokenModel?.Data?.AccessToken);
+
+            return authTokenModel?.Data?.AccessToken != null;
         }
 
         public Task LogoutAsync()

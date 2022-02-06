@@ -12,7 +12,7 @@ namespace PrankChat.Mobile.Core.Services.Network.Http.Authorization
 
         Task<bool> AuthorizeWithAppleAsync(AppleAuthDto appleAuthDataModel);
 
-        Task RegisterAsync(UserRegistrationDto userInfo);
+        Task<bool> RegisterAsync(UserRegistrationDto userInfo);
 
         Task LogoutAsync();
 

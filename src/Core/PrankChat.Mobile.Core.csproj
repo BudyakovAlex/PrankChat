@@ -74,6 +74,7 @@
     <Folder Include="Managers\Navigation\Arguments\" />
     <Folder Include="Managers\Navigation\Arguments\NavigationParameters\" />
     <Folder Include="Managers\Navigation\Arguments\NavigationResults\" />
+    <Folder Include="Services\Analytics\" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="AppConfig.json" />
@@ -83,5 +84,6 @@
     <None Remove="Managers\Navigation\Arguments\Parameters\" />
     <None Remove="Managers\Navigation\Arguments\NavigationResults\" />
     <None Remove="Serilog" />
+    <None Remove="Services\Analytics\" />
   </ItemGroup>
 </Project>
