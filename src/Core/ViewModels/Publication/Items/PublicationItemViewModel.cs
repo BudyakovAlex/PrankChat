@@ -165,21 +165,22 @@ namespace PrankChat.Mobile.Core.ViewModels.Publication.Items
             return Task.CompletedTask;
         }
 
-        private async Task OpenSettingAsync()
+        private IEnumerable<string> GetSettingsStrings()
         {
             var isOwner = Video.User.Id == UserSessionProvider.User?.Id;
-            var dialogStrings = new List<string>
-            {
-                Resources.CopyLink,
-                Resources.Download,
-            };
-
             if (!isOwner)
             {
-                dialogStrings.InsertRange(0, new string[] { Resources.Complain, Resources.BlockUser });
+                yield return Resources.Complain;
+                yield return Resources.BlockUser;
             }
 
-            var result = await UserInteraction.ShowMenuDialogAsync(dialogStrings.ToArray());
+            yield return Resources.CopyLink;
+            yield return Resources.Download;
+        }
+
+        private async Task OpenSettingAsync()
+        {
+            var result = await UserInteraction.ShowMenuDialogAsync(GetSettingsStrings().ToArray());
 
             if (string.IsNullOrWhiteSpace(result))
             {
