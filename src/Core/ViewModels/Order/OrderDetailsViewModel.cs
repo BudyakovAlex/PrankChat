@@ -23,6 +23,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
+using PrankChat.Mobile.Core.Providers.UserSession;
 
 namespace PrankChat.Mobile.Core.ViewModels.Order
 {
@@ -30,7 +31,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Order
     {
         private readonly IOrdersManager _ordersManager;
         private readonly IUsersManager _usersManager;
-
+        private readonly IUserSessionProvider _userSession;
         private readonly BaseOrderDetailsSectionViewModel[] _sections;
 
         private int _orderId;
@@ -38,10 +39,11 @@ namespace PrankChat.Mobile.Core.ViewModels.Order
 
         private bool _hasChanges;
 
-        public OrderDetailsViewModel(IOrdersManager ordersManager, IUsersManager usersManager)
+        public OrderDetailsViewModel(IOrdersManager ordersManager, IUsersManager usersManager, IUserSessionProvider userSession)
         {
             _ordersManager = ordersManager;
             _usersManager = usersManager;
+            _userSession = userSession;
 
             TakeOrderCommand = this.CreateCommand(TakeOrderAsync);
             SubscribeOrderCommand = this.CreateCommand(SubscribeOrderAsync);
@@ -461,6 +463,12 @@ namespace PrankChat.Mobile.Core.ViewModels.Order
 
         private async Task OpenSettingsAsync()
         {
+            var isOwner = CustomerSectionViewModel.Order.Customer.Id == UserSessionProvider.User?.Id;
+            if (isOwner)
+            {
+                return;
+            }
+
             var result = await UserInteraction.ShowMenuDialogAsync(new[]
             {
                 Resources.Complain,
