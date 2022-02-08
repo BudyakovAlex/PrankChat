@@ -31,7 +31,6 @@ namespace PrankChat.Mobile.Core.ViewModels.Order
     {
         private readonly IOrdersManager _ordersManager;
         private readonly IUsersManager _usersManager;
-        private readonly IUserSessionProvider _userSession;
         private readonly BaseOrderDetailsSectionViewModel[] _sections;
 
         private int _orderId;
@@ -39,11 +38,10 @@ namespace PrankChat.Mobile.Core.ViewModels.Order
 
         private bool _hasChanges;
 
-        public OrderDetailsViewModel(IOrdersManager ordersManager, IUsersManager usersManager, IUserSessionProvider userSession)
+        public OrderDetailsViewModel(IOrdersManager ordersManager, IUsersManager usersManager)
         {
             _ordersManager = ordersManager;
             _usersManager = usersManager;
-            _userSession = userSession;
 
             TakeOrderCommand = this.CreateCommand(TakeOrderAsync);
             SubscribeOrderCommand = this.CreateCommand(SubscribeOrderAsync);
