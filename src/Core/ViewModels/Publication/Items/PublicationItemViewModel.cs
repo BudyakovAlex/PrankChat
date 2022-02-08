@@ -167,13 +167,19 @@ namespace PrankChat.Mobile.Core.ViewModels.Publication.Items
 
         private async Task OpenSettingAsync()
         {
-            var result = await UserInteraction.ShowMenuDialogAsync(new string[]
+            var isOwner = Video.User.Id == UserSessionProvider.User?.Id;
+            var dialogStrings = new List<string>
             {
-                Resources.Complain,
-                Resources.BlockUser,
                 Resources.CopyLink,
                 Resources.Download,
-            });
+            };
+
+            if (!isOwner)
+            {
+                dialogStrings.InsertRange(0, new string[] { Resources.Complain, Resources.BlockUser });
+            }
+
+            var result = await UserInteraction.ShowMenuDialogAsync(dialogStrings.ToArray());
 
             if (string.IsNullOrWhiteSpace(result))
             {
