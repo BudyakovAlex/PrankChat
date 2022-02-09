@@ -248,7 +248,7 @@ namespace PrankChat.Mobile.iOS.Views.Order
             {
                 Title = string.Empty,
                 Image = UIImage.FromBundle(ImageNames.IconThreeDots).ImageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate),
-                TintColor = Theme.Color.White
+                TintColor = Theme.Color.Gray
             };
 
             NavigationItem.RightBarButtonItem = _rightBarButtonItem;
