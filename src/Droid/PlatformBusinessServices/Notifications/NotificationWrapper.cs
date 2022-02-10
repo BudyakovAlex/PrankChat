@@ -66,7 +66,7 @@ namespace PrankChat.Mobile.Droid.PlatformBusinessServices.Notifications
                 _notificationBuilder = new NotificationCompat.Builder(Application.Context, CreateNotificationChannel());
             }
 
-            _notificationBuilder.SetSmallIcon(Resource.Mipmap.ic_launcher);
+            _notificationBuilder.SetSmallIcon(Resource.Mipmap.ic_notification_launcher);
             _notificationBuilder.SetContentTitle(pushNotificationData.Title);
             _notificationBuilder.SetContentText(pushNotificationData.Body);
             _notificationBuilder.SetAutoCancel(true);
