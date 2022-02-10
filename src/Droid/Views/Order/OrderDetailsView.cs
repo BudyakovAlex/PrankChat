@@ -65,7 +65,7 @@ namespace PrankChat.Mobile.Droid.Views.Order
         private TextView _timeMinutesTextView;
         private IMenuItem _menuItem;
 
-        public bool IsVisibleMenuItem
+        public bool ShouldShowMenu
         {
             get => _menuItem.IsVisible;
             set => _menuItem.SetVisible(value);
@@ -194,7 +194,7 @@ namespace PrankChat.Mobile.Droid.Views.Order
             bindingSet.Bind(_timeDaysTextView).For(v => v.Text).To(vm => vm.TimeDaysValue);
             bindingSet.Bind(_timeHoursTextView).For(v => v.Text).To(vm => vm.TimeHourValue);
             bindingSet.Bind(_timeMinutesTextView).For(v => v.Text).To(vm => vm.TimeMinutesValue);
-            bindingSet.Bind(this).For(v => v.IsVisibleMenuItem).To(vm => vm.CustomerSectionViewModel.IsUserCustomer)
+            bindingSet.Bind(this).For(v => v.ShouldShowMenu).To(vm => vm.CustomerSectionViewModel.IsUserCustomer)
                 .WithConversion<MvxInvertedBooleanConverter>();
         }
 
