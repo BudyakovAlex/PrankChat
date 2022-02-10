@@ -63,6 +63,13 @@ namespace PrankChat.Mobile.Droid.Views.Order
         private TextView _timeDaysTextView;
         private TextView _timeHoursTextView;
         private TextView _timeMinutesTextView;
+        private IMenuItem _menuItem;
+
+        public bool ShouldShowMenu
+        {
+            get => _menuItem.IsVisible;
+            set => _menuItem.SetVisible(value);
+        }
 
         protected override bool HasBackButton => true;
 
@@ -187,11 +194,14 @@ namespace PrankChat.Mobile.Droid.Views.Order
             bindingSet.Bind(_timeDaysTextView).For(v => v.Text).To(vm => vm.TimeDaysValue);
             bindingSet.Bind(_timeHoursTextView).For(v => v.Text).To(vm => vm.TimeHourValue);
             bindingSet.Bind(_timeMinutesTextView).For(v => v.Text).To(vm => vm.TimeMinutesValue);
+            bindingSet.Bind(this).For(v => v.ShouldShowMenu).To(vm => vm.CustomerSectionViewModel.IsUserCustomer)
+                .WithConversion<MvxInvertedBooleanConverter>();
         }
 
         public override bool OnPrepareOptionsMenu(IMenu menu)
         {
             MenuInflater.Inflate(Resource.Menu.order_details_menu, menu);
+            _menuItem = menu.FindItem(Resource.Id.settings_menu_item);
             return true;
         }
 
