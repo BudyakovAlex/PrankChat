@@ -37,6 +37,12 @@ namespace PrankChat.Mobile.iOS.Views.Order
             }
         }
 
+        public UIBarButtonItem RightBarButtonItem
+        {
+            get => NavigationItem.RightBarButtonItem;
+            set => NavigationItem.SetRightBarButtonItem(value, false);
+        }
+
         protected override void Bind()
         {
             using var bindingSet = this.CreateBindingSet<OrderDetailsView, OrderDetailsViewModel>();
@@ -168,6 +174,8 @@ namespace PrankChat.Mobile.iOS.Views.Order
             bindingSet.Bind(uploadingProgressBar).For(v => v.BindTap()).To(vm => vm.VideoSectionViewModel.CancelUploadingCommand);
             bindingSet.Bind(uploadingLabel).For(v => v.Text).To(vm => vm.VideoSectionViewModel.UploadingProgressStringPresentation);
             bindingSet.Bind(NavigationItem.LeftBarButtonItem).For(v => v.Enabled).To(vm => vm.VideoSectionViewModel.IsNotBusy);
+            bindingSet.Bind(this).For(v => v.RightBarButtonItem).To(vm => vm.CustomerSectionViewModel.IsUserCustomer)
+                .WithConversion((bool isUserCustomer) => isUserCustomer ? null : _rightBarButtonItem);
         }
 
         protected override void SetupControls()
@@ -249,9 +257,7 @@ namespace PrankChat.Mobile.iOS.Views.Order
                 Title = string.Empty,
                 Image = UIImage.FromBundle(ImageNames.IconThreeDots).ImageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate),
                 TintColor = Theme.Color.Gray
-            };
-
-            NavigationItem.RightBarButtonItem = _rightBarButtonItem;
+            };            
         }
         
         private void SetStyleForButton(UIButton button, string type)
