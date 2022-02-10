@@ -175,7 +175,7 @@ namespace PrankChat.Mobile.iOS.Views.Order
             bindingSet.Bind(uploadingLabel).For(v => v.Text).To(vm => vm.VideoSectionViewModel.UploadingProgressStringPresentation);
             bindingSet.Bind(NavigationItem.LeftBarButtonItem).For(v => v.Enabled).To(vm => vm.VideoSectionViewModel.IsNotBusy);
             bindingSet.Bind(this).For(v => v.RightBarButtonItem).To(vm => vm.CustomerSectionViewModel.IsUserCustomer)
-                .WithConversion((bool isUserCustomer) => { return isUserCustomer ? null : _rightBarButtonItem; });
+                .WithConversion((bool isUserCustomer) => isUserCustomer ? null : _rightBarButtonItem);
         }
 
         protected override void SetupControls()
