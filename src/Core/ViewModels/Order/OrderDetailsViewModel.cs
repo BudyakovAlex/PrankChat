@@ -23,7 +23,6 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
-using PrankChat.Mobile.Core.Providers.UserSession;
 
 namespace PrankChat.Mobile.Core.ViewModels.Order
 {
@@ -461,12 +460,6 @@ namespace PrankChat.Mobile.Core.ViewModels.Order
 
         private async Task OpenSettingsAsync()
         {
-            var isOwner = CustomerSectionViewModel.Order.Customer.Id == UserSessionProvider.User?.Id;
-            if (isOwner)
-            {
-                return;
-            }
-
             var result = await UserInteraction.ShowMenuDialogAsync(new[]
             {
                 Resources.Complain,
