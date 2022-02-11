@@ -82,7 +82,7 @@ namespace PrankChat.Mobile.Core.ViewModels
             base.ViewAppeared();
 
             CheckActualAppVersionCommand.Execute();
-            InviteFriendItemViewModel.UpdateHasInviteFriendBadgeIfNeeded();
+            InviteFriendItemViewModel.RefreshHasInviteFriendBadge();
         }
 
         public override void ViewCreated()

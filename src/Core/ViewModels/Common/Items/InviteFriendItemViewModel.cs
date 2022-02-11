@@ -25,7 +25,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Common.Items
             private set => SetProperty(ref _hasInviteFriendBadge, value);
         }
 
-        public void UpdateHasInviteFriendBadgeIfNeeded()
+        public void RefreshHasInviteFriendBadge()
         {
             if (HasInviteFriendBadge)
             {
