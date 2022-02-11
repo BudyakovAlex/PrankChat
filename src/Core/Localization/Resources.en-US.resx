@@ -680,7 +680,7 @@
     <comment>Fuzzy</comment>
   </data>
   <data name="UsesSomeoneElseName" xml:space="preserve">
-    <value>Uses someone else&apos;s name</value>
+    <value>Uses someone else's name</value>
     <comment>Fuzzy</comment>
   </data>
   <data name="InappropriateContent" xml:space="preserve">
@@ -737,7 +737,7 @@ Apple Inc. is not a sponsor of the competitions.</value>
   <data name="WalkthrouthOrdersDescription" xml:space="preserve">
     <value>You can take any order from the “New” category and upload the finished video according to the assignment. To accept the order, pay 20% of its value as a guarantee that you will not abandon its execution. When the customer checks your video and approves it, wait for payment to your account. If the customer forgot to approve the order, the money will be sent to you automatically after 24 hours. 20 % of the order value is the commission OnPlay.
 
-If the customer did not like your video, he can send the task to the &quot;dispute&quot;. Independent users will decide within 24 hours whether the completed video matches the order. If the number of positive votes exceeds the number of negative, then wait for your well-deserved bonus. In the opposite situation, the reward will be returned to the customer.</value>
+If the customer did not like your video, he can send the task to the "dispute". Independent users will decide within 24 hours whether the completed video matches the order. If the number of positive votes exceeds the number of negative, then wait for your well-deserved bonus. In the opposite situation, the reward will be returned to the customer.</value>
     <comment>Fuzzy</comment>
   </data>
   <data name="WalkthrouthProfileDescription" xml:space="preserve">
@@ -872,7 +872,7 @@ Taking such a task the user will have to complete it or lose the Deposit!</value
     <comment>Fuzzy</comment>
   </data>
   <data name="CreateNewOneAccount" xml:space="preserve">
-    <value>Don&apos;t have an account? Create a new one.</value>
+    <value>Don't have an account? Create a new one.</value>
   </data>
   <data name="EnterSocialNetworks" xml:space="preserve">
     <value>Enter social networks:</value>
@@ -1316,5 +1316,8 @@ Taking such a task the user will have to complete it or lose the Deposit!</value
   </data>
   <data name="OrderCreate" xml:space="preserve">
     <value>Create order</value>
+  </data>
+  <data name="HourSingular" xml:space="preserve">
+    <value>Hour</value>
   </data>
 </root>

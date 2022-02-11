@@ -1077,7 +1077,7 @@ Apple Inc. не является спонсором проведения кон�
     <value>Сумма</value>
   </data>
   <data name="PendingWithdrawal" xml:space="preserve">
-    <value>В данный момент идет обработка Вашего запроса на вывод средств.&quot;</value>
+    <value>В данный момент идет обработка Вашего запроса на вывод средств."</value>
   </data>
   <data name="DateOfCreation" xml:space="preserve">
     <value>Дата создания</value>
@@ -1318,5 +1318,8 @@ Apple Inc. не является спонсором проведения кон�
   </data>
   <data name="OrderCreate" xml:space="preserve">
     <value>Создать заказ</value>
+  </data>
+  <data name="HourSingular" xml:space="preserve">
+    <value>Час</value>
   </data>
 </root>
