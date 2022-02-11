@@ -287,14 +287,14 @@ namespace PrankChat.Mobile.Core.ViewModels.Competitions
                 CollectionBidsTo.HasValue &&
                 CollectionBidsFrom > CollectionBidsTo)
             {
-                CollectionBidsTo = CollectionBidsFrom?.Add(TimeSpan.FromMinutes(5));
+                CollectionBidsTo = CollectionBidsFrom?.Add(TimeSpan.FromMinutes(15));
             }
 
             if (CollectionBidsTo.HasValue &&
                 VotingTo.HasValue &&
                 CollectionBidsTo > VotingTo)
             {
-                VotingTo = CollectionBidsTo?.Add(TimeSpan.FromMinutes(5));
+                VotingTo = CollectionBidsTo?.Add(TimeSpan.FromMinutes(15));
             }
         }
 
