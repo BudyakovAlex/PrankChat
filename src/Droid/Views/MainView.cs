@@ -44,6 +44,17 @@ namespace PrankChat.Mobile.Droid.Views
             _tabViewOnTouchListener = new ViewOnTouchListener(OnTabItemTouched);
         }
 
+        public bool HasInviteFriendBadge
+        {
+            set
+            {
+                var id = value
+                    ? Resource.Drawable.ic_invite_friend_with_badge
+                    : Resource.Drawable.ic_invite_friend;
+                _inviteFriendMenuItem?.SetIcon(id);
+            }
+        }
+
         private bool _hasUnreadNotifications;
         public bool HasUnreadNotifications
         {
@@ -56,14 +67,14 @@ namespace PrankChat.Mobile.Droid.Views
             }
         }
 
-        public bool HasInviteFriendBadge
+        private bool _canInviteFriend;
+        public bool CanInviteFriend
         {
+            get => _canInviteFriend;
             set
             {
-                var id = value
-                    ? Resource.Drawable.ic_invite_friend_with_badge
-                    : Resource.Drawable.ic_invite_friend;
-                _inviteFriendMenuItem?.SetIcon(id);
+                _canInviteFriend = value;
+                UpdateMenuItemsVisibility();
             }
         }
 
@@ -135,7 +146,8 @@ namespace PrankChat.Mobile.Droid.Views
             using var bindingSet = this.CreateBindingSet<MainView, MainViewModel>();
 
             bindingSet.Bind(this).For(v => v.HasUnreadNotifications).To(vm => vm.NotificationBadgeViewModel.HasUnreadNotifications);
-            bindingSet.Bind(this).For(nameof(HasInviteFriendBadge)).To(vm => vm.InviteFriendItemViewModel.HasInviteFriendBadge);
+            bindingSet.Bind(this).For(v => v.CanInviteFriend).To(vm => vm.InviteFriendItemViewModel.CanInviteFriend);
+            bindingSet.Bind(this).For(nameof(HasInviteFriendBadge)).To(vm => vm.InviteFriendItemViewModel.HasBadge);
         }
 
         protected override void Subscription()
@@ -270,7 +282,7 @@ namespace PrankChat.Mobile.Droid.Views
 
             _searchMenuItem?.SetVisible(selectedTabPosition == 0);
             _infoMenuItem?.SetVisible(selectedTabPosition != 0);
-            _inviteFriendMenuItem?.SetVisible(selectedTabPosition == 0);
+            _inviteFriendMenuItem?.SetVisible(CanInviteFriend && selectedTabPosition == 0);
         }
 
         protected override void OnResume()

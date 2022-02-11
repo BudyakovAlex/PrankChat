@@ -1,4 +1,4 @@
-﻿using PrankChat.Mobile.Core.Data.Dtos;
+﻿using PrankChat.Mobile.Core.Data.Models;
 using PrankChat.Mobile.Core.Data.Models.User;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.Shared;
@@ -39,6 +39,6 @@ namespace PrankChat.Mobile.Core.Managers.Users
 
         Task DeleteCardAsync(int id);
 
-        Task<object> InviteFriendAsync(string email);
+        Task<InviteFriendResponse> InviteFriendAsync(string email);
     }
 }

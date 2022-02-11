@@ -1,9 +1,11 @@
 ﻿using PrankChat.Mobile.Core.Data.Dtos;
+using PrankChat.Mobile.Core.Data.Models;
 using PrankChat.Mobile.Core.Data.Models.User;
 using PrankChat.Mobile.Core.Mappers;
 using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.Shared;
 using PrankChat.Mobile.Core.Services.Network.Http.Users;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -114,9 +116,15 @@ namespace PrankChat.Mobile.Core.Managers.Users
             return _usersService.SavePasportDataAsync(dto);
         }
 
-        public Task<object> InviteFriendAsync(string email)
+        public async Task<InviteFriendResponse> InviteFriendAsync(string email)
         {
-            return _usersService.InviteFriendAsync(email);
+            var dto = await _usersService.InviteFriendAsync(email);
+            if (dto?.Result?.Equals("ok", StringComparison.OrdinalIgnoreCase) == true)
+            {
+                return InviteFriendResponse.Successful();
+            }
+
+            return InviteFriendResponse.Unsuccessful(dto?.Message);
         }
     }
 }

@@ -1286,4 +1286,7 @@ Taking such a task the user will have to complete it or lose the Deposit!</value
   <data name="EnterFriendsEmail" xml:space="preserve">
     <value>Enter friend's email</value>
   </data>
+  <data name="InviteFriendSuccessfulMessage" xml:space="preserve">
+    <value>You've sent an invitation to</value>
+  </data>
 </root>

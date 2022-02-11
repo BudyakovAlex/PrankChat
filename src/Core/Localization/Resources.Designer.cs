@@ -1912,5 +1912,11 @@ namespace PrankChat.Mobile.Core.Localization {
                 return ResourceManager.GetString("EnterFriendsEmail", resourceCulture);
             }
         }
+        
+        public static string InviteFriendSuccessfulMessage {
+            get {
+                return ResourceManager.GetString("InviteFriendSuccessfulMessage", resourceCulture);
+            }
+        }
     }
 }

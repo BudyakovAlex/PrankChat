@@ -38,6 +38,6 @@ namespace PrankChat.Mobile.Core.Services.Network.Http.Users
 
         Task DeleteCardAsync(int id);
 
-        Task<object> InviteFriendAsync(string email);
+        Task<InviteFriendDto> InviteFriendAsync(string email);
     }
 }

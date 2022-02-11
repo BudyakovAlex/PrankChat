@@ -18,6 +18,8 @@ using PrankChat.Mobile.iOS.Infrastructure;
 using PrankChat.Mobile.iOS.Infrastructure.Helpers;
 using PrankChat.Mobile.iOS.SourcesAndDelegates;
 using PrankChat.Mobile.iOS.Views.Base;
+using System.Collections.Generic;
+using System.Linq;
 using UIKit;
 using Xamarin.Essentials;
 
@@ -52,7 +54,7 @@ namespace PrankChat.Mobile.iOS.Views.Publication
 
             bindingSet.Bind(_inviteFriendBarItem)
                 .For(v => v.Image)
-                .To(vm => vm.InviteFriendItemViewModel.HasInviteFriendBadge)
+                .To(vm => vm.InviteFriendItemViewModel.HasBadge)
                 .WithConversion((bool hasInviteFriendBadge) => CreateInviteFriendImage(hasInviteFriendBadge));
 
             bindingSet.Bind(_notificationBarItem)
@@ -112,18 +114,10 @@ namespace PrankChat.Mobile.iOS.Views.Publication
 		{
 			NavigationController.NavigationBar.SetNavigationBarStyle();
 
-            NavigationItem?.SetRightBarButtonItems(new UIBarButtonItem[]
-            {
-                _inviteFriendBarItem = NavigationItemHelper.CreateBarButton(
-                    ImageNames.IconInviteFriend,
-                    ViewModel.InviteFriendItemViewModel.InviteFriendCommand),
+            InitializeBarButtonItems(ViewModel.InviteFriendItemViewModel.CanInviteFriend);
 
-                _notificationBarItem = NavigationItemHelper.CreateBarButton(
-                    ImageNames.IconNotification,
-                    ViewModel.ShowNotificationCommand),
-
-                NavigationItemHelper.CreateBarButton(ImageNames.IconSearch, ViewModel.ShowSearchCommand)
-            }, true);
+            var barButtonItems = GetBarButtonItems().ToArray();
+            NavigationItem?.SetRightBarButtonItems(barButtonItems, true);
 
             NavigationItem.LeftBarButtonItem = NavigationItemHelper.CreateBarLogoButton();
         }
@@ -138,6 +132,31 @@ namespace PrankChat.Mobile.iOS.Views.Publication
 
             _refreshControl = new MvxUIRefreshControl();
             tableView.RefreshControl = _refreshControl;
+        }
+
+        private void InitializeBarButtonItems(bool canInviteFriend)
+        {
+            if (canInviteFriend)
+            {
+                _inviteFriendBarItem = NavigationItemHelper.CreateBarButton(
+                    ImageNames.IconInviteFriend,
+                    ViewModel.InviteFriendItemViewModel.InviteFriendCommand);
+            }
+
+            _notificationBarItem = NavigationItemHelper.CreateBarButton(
+                ImageNames.IconNotification,
+                ViewModel.ShowNotificationCommand);
+        }
+
+        private IEnumerable<UIBarButtonItem> GetBarButtonItems()
+        {
+            if (_inviteFriendBarItem != null)
+            {
+                yield return _inviteFriendBarItem;
+            }
+
+            yield return _notificationBarItem;
+            yield return NavigationItemHelper.CreateBarButton(ImageNames.IconSearch, ViewModel.ShowSearchCommand);
         }
 
         private void CreateEmptyView()

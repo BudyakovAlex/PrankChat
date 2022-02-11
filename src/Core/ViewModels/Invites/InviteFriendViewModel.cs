@@ -3,6 +3,7 @@ using PrankChat.Mobile.Core.Common;
 using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.Managers.Users;
+using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.ViewModels.Abstract;
 using System.Threading.Tasks;
 
@@ -51,7 +52,17 @@ namespace PrankChat.Mobile.Core.ViewModels.Invites
 
         private async Task SendAsync()
         {
-            await _usersManager.InviteFriendAsync(Email);
+            var response = await _usersManager.InviteFriendAsync(Email);
+            if (!response.IsSuccessful)
+            {
+                ErrorMessage = response.Message;
+                return;
+            }
+
+            var message = $"{Resources.InviteFriendSuccessfulMessage} {Email}";
+            UserInteraction.ShowToast(message, ToastType.Positive);
+
+            Email = null;
         }
 
         private static AttributedText[] CreateDescription()
