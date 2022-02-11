@@ -167,5 +167,10 @@ namespace PrankChat.Mobile.Core.Services.Network.Http.Users
 
             return dataApiModel?.Data != null;
         }
+
+        public async Task<object> InviteFriendAsync(string email)
+        {
+            return await _client.PostAsync<string, object>(RestConstants.ProfileInvite, email);
+        }
     }
 }

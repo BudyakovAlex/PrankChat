@@ -1,24 +1,24 @@
 ﻿using MvvmCross.Commands;
 using MvvmCross.Plugin.Messenger;
-using PrankChat.Mobile.Core.Services.ErrorHandling.Messages;
 using PrankChat.Mobile.Core.Extensions;
+using PrankChat.Mobile.Core.Ioc;
+using PrankChat.Mobile.Core.Managers.Authorization;
 using PrankChat.Mobile.Core.Managers.Common;
+using PrankChat.Mobile.Core.Providers;
+using PrankChat.Mobile.Core.Services.ErrorHandling.Messages;
+using PrankChat.Mobile.Core.Services.Notifications;
 using PrankChat.Mobile.Core.ViewModels.Abstract;
 using PrankChat.Mobile.Core.ViewModels.Common;
+using PrankChat.Mobile.Core.ViewModels.Common.Items;
 using PrankChat.Mobile.Core.ViewModels.Competition;
 using PrankChat.Mobile.Core.ViewModels.Order;
 using PrankChat.Mobile.Core.ViewModels.Profile;
 using PrankChat.Mobile.Core.ViewModels.Publication;
 using PrankChat.Mobile.Core.ViewModels.Registration;
-using PrankChat.Mobile.Core.Providers;
-using PrankChat.Mobile.Core.Services.Notifications;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using PrankChat.Mobile.Core.Managers.Authorization;
-using PrankChat.Mobile.Core.Ioc;
-using PrankChat.Mobile.Core.Plugins.Timer;
 
 namespace PrankChat.Mobile.Core.ViewModels
 {
@@ -34,7 +34,8 @@ namespace PrankChat.Mobile.Core.ViewModels
         public MainViewModel(
             IVersionManager versionManager,
             IPushNotificationProvider notificationService,
-            IWalkthroughsProvider walkthroughsProvider)
+            IWalkthroughsProvider walkthroughsProvider,
+            InviteFriendItemViewModel inviteFriendItemViewModel)
         {
             //NOTE: workaround for instantiate correctly IAuthorizationManager
             CompositionRoot.Container.CallbackWhenRegistered<IAuthorizationManager>((_) => { });
@@ -42,6 +43,8 @@ namespace PrankChat.Mobile.Core.ViewModels
             _versionManager = versionManager;
             _notificationService = notificationService;
             _walkthroughsProvider = walkthroughsProvider;
+            InviteFriendItemViewModel = inviteFriendItemViewModel;
+
             _refreshTokenExpiredMessageSubscription = Messenger.Subscribe<RefreshTokenExpiredMessage>(RefreshTokenExpired, MvxReference.Strong).DisposeWith(Disposables);
 
             LoadContentCommand = this.CreateCommand(LoadContentAsync);
@@ -62,6 +65,8 @@ namespace PrankChat.Mobile.Core.ViewModels
         public IMvxAsyncCommand<int> ShowWalkthrouthIfNeedCommand { get; set; }
         public IMvxAsyncCommand CheckActualAppVersionCommand { get; }
 
+        public InviteFriendItemViewModel InviteFriendItemViewModel { get; }
+
         private async Task CheckActualAppVersionAsync()
         {
             var newActualVersion = await _versionManager.CheckAppVersionAsync();
@@ -75,7 +80,9 @@ namespace PrankChat.Mobile.Core.ViewModels
         public override void ViewAppeared()
         {
             base.ViewAppeared();
+
             CheckActualAppVersionCommand.Execute();
+            InviteFriendItemViewModel.UpdateHasInviteFriendBadgeIfNeeded();
         }
 
         public override void ViewCreated()

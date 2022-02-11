@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using FFImageLoading;
+﻿using FFImageLoading;
 using MvvmCross.Commands;
 using MvvmCross.ViewModels;
 using PrankChat.Mobile.Core.Common;
@@ -18,10 +13,16 @@ using PrankChat.Mobile.Core.Models.Data;
 using PrankChat.Mobile.Core.Models.Data.Shared;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.ViewModels.Common;
+using PrankChat.Mobile.Core.ViewModels.Common.Items;
 using PrankChat.Mobile.Core.ViewModels.Publication.Items;
 using PrankChat.Mobile.Core.ViewModels.Registration;
 using PrankChat.Mobile.Core.ViewModels.Results;
 using PrankChat.Mobile.Core.Wrappers;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.ViewModels.Publication
 {
@@ -35,12 +36,15 @@ namespace PrankChat.Mobile.Core.ViewModels.Publication
 
         public PublicationsViewModel(
             IPublicationsManager publicationsManager,
-            IVideoManager videoManager, IUsersManager usersManager)
+            IVideoManager videoManager,
+            IUsersManager usersManager,
+            InviteFriendItemViewModel inviteFriendItemViewModel)
             : base(Constants.Pagination.DefaultPaginationSize)
         {
             _publicationsManager = publicationsManager;
             _videoManager = videoManager;
             _usersManager = usersManager;
+            InviteFriendItemViewModel = inviteFriendItemViewModel;
 
             _refreshDataExecutionStateWrapper = new ExecutionStateWrapper();
 
@@ -54,6 +58,10 @@ namespace PrankChat.Mobile.Core.ViewModels.Publication
 
             Messenger.SubscribeOnMainThread<ReloadPublicationsMessage>(OnReloadPublications).DisposeWith(Disposables);
         }
+
+        public IMvxAsyncCommand OpenFilterCommand { get; }
+
+        public InviteFriendItemViewModel InviteFriendItemViewModel { get; }
 
         private PublicationType _selectedPublicationType;
         public PublicationType SelectedPublicationType
@@ -87,8 +95,6 @@ namespace PrankChat.Mobile.Core.ViewModels.Publication
             get => _currentlyPlayingItem;
             set => SetProperty(ref _currentlyPlayingItem, value);
         }
-
-        public IMvxAsyncCommand OpenFilterCommand { get; }
 
         public override async Task InitializeAsync()
         {

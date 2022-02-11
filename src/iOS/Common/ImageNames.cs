@@ -1,5 +1,4 @@
-﻿
-namespace PrankChat.Mobile.iOS.Common
+﻿namespace PrankChat.Mobile.iOS.Common
 {
     public class ImageNames
     {
@@ -60,6 +59,9 @@ namespace PrankChat.Mobile.iOS.Common
         public const string IconPlus = "ic_plus";
         public const string IconUnselected = "unselected";
         public const string IconSelected = "selected";
+        public const string IconInviteFriend = "ic_invite_friend";
+        public const string IconInviteFriendWithBadge = "ic_invite_friend_with_badge";
+
         public const string BackgroundPayment = "bg_payment";
         public const string BackgroundSelectedPayment = "bg_selected_payment";
         public const string BackgroundOnboardingFirstSlide = "bg_onboarding_first_slide";
@@ -71,6 +73,7 @@ namespace PrankChat.Mobile.iOS.Common
         public const string BackgroundOrderTypeMyInModeration = "bg_order_type_my_in_moderation";
         public const string BackgroundOrderTypeNotMy = "bg_order_type_not_my";
         public const string BackgroundOrderTypeMyCompleted = "bg_order_type_my_completed";
+
         public const string ImageEmptyState = "img_empty_state";
     }
 }

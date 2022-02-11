@@ -1273,4 +1273,19 @@ Apple Inc. не является спонсором проведения кон�
   <data name="VideoLimitOnUploading" xml:space="preserve">
     <value>Видео должно быть меньше 150мб</value>
   </data>
+  <data name="InviteFriend" xml:space="preserve">
+    <value>Пригласи друга</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Отправить</value>
+  </data>
+  <data name="InviteFriendDescriptionPart1" xml:space="preserve">
+    <value>Пригласи своего друга и получи</value>
+  </data>
+  <data name="InviteFriendDescriptionPart2" xml:space="preserve">
+    <value>от его заработка!</value>
+  </data>
+  <data name="EnterFriendsEmail" xml:space="preserve">
+    <value>Введите email друга</value>
+  </data>
 </root>

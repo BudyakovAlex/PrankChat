@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="InviteFriendView">
+            <connections>
+                <outlet property="DescriptionLabel" destination="anF-PB-Wrm" id="mYK-ll-0o6"/>
+                <outlet property="EmailTextField" destination="qD2-Cb-468" id="Bux-pv-FG7"/>
+                <outlet property="ErrorLabel" destination="t0n-hf-rOb" id="iR8-OL-gi5"/>
+                <outlet property="LoadingView" destination="AXV-Pm-O5N" id="GxR-Pm-K4s"/>
+                <outlet property="ScrollView" destination="SMn-uh-sex" id="HfU-O0-pxX"/>
+                <outlet property="SendButton" destination="yzQ-Kp-Gey" id="obw-cF-d0D"/>
+                <outlet property="view" destination="2" id="RRd-Eg-VrN"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="2">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" keyboardDismissMode="onDrag" translatesAutoresizingMaskIntoConstraints="NO" id="SMn-uh-sex">
+                    <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yBu-r2-8SF">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="774"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Пригласи своего друга и получи 10% от его заработка!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="anF-PB-Wrm">
+                                    <rect key="frame" x="16" y="163.5" width="382" height="14.5"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                    <color key="textColor" red="0.20000000000000001" green="0.24705882352941178" blue="0.28235294117647058" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_invite_friend" translatesAutoresizingMaskIntoConstraints="NO" id="p5J-h9-Nun">
+                                    <rect key="frame" x="75" y="202" width="264" height="190"/>
+                                </imageView>
+                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Введите email друга" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qD2-Cb-468">
+                                    <rect key="frame" x="16" y="420" width="382" height="36"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="36" id="fZC-1c-xas"/>
+                                    </constraints>
+                                    <color key="textColor" red="0.54117647058823526" green="0.5607843137254902" blue="0.5725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <textInputTraits key="textInputTraits" returnKeyType="send" textContentType="email"/>
+                                </textField>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Данный email уже используется в системе" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t0n-hf-rOb">
+                                    <rect key="frame" x="28" y="460" width="370" height="12"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                    <color key="textColor" red="0.54117647058823526" green="0.5607843137254902" blue="0.5725490196078431" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yzQ-Kp-Gey">
+                                    <rect key="frame" x="103.5" y="496" width="207" height="31"/>
+                                    <state key="normal" title="Button"/>
+                                    <buttonConfiguration key="configuration" style="plain" title="Отправвить"/>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="anF-PB-Wrm" secondAttribute="trailing" constant="16" id="0S4-k8-J8e"/>
+                                <constraint firstItem="yzQ-Kp-Gey" firstAttribute="width" secondItem="yBu-r2-8SF" secondAttribute="width" multiplier="1:2" id="33T-rk-5TH"/>
+                                <constraint firstItem="p5J-h9-Nun" firstAttribute="centerX" secondItem="yBu-r2-8SF" secondAttribute="centerX" id="6A2-Uu-Rv0"/>
+                                <constraint firstItem="p5J-h9-Nun" firstAttribute="top" secondItem="anF-PB-Wrm" secondAttribute="bottom" constant="24" id="CYi-jK-QXd"/>
+                                <constraint firstItem="p5J-h9-Nun" firstAttribute="width" secondItem="yBu-r2-8SF" secondAttribute="width" multiplier="204:320" id="Ih7-vM-YfM"/>
+                                <constraint firstItem="t0n-hf-rOb" firstAttribute="top" secondItem="qD2-Cb-468" secondAttribute="bottom" constant="4" id="MEG-Hc-gbt"/>
+                                <constraint firstItem="yzQ-Kp-Gey" firstAttribute="centerX" secondItem="yBu-r2-8SF" secondAttribute="centerX" id="OS7-UC-IjA"/>
+                                <constraint firstItem="qD2-Cb-468" firstAttribute="leading" secondItem="yBu-r2-8SF" secondAttribute="leading" constant="16" id="RGQ-qo-usp"/>
+                                <constraint firstAttribute="trailing" secondItem="qD2-Cb-468" secondAttribute="trailing" constant="16" id="TLn-aU-3oe"/>
+                                <constraint firstItem="t0n-hf-rOb" firstAttribute="trailing" secondItem="qD2-Cb-468" secondAttribute="trailing" id="WpI-ZA-eaH"/>
+                                <constraint firstItem="p5J-h9-Nun" firstAttribute="centerY" secondItem="yBu-r2-8SF" secondAttribute="centerY" constant="-90" id="nG0-wM-n7K"/>
+                                <constraint firstItem="t0n-hf-rOb" firstAttribute="leading" secondItem="qD2-Cb-468" secondAttribute="leading" constant="12" id="pbn-VJ-C5j"/>
+                                <constraint firstItem="yzQ-Kp-Gey" firstAttribute="top" secondItem="qD2-Cb-468" secondAttribute="bottom" constant="40" id="u1J-Lc-ULZ"/>
+                                <constraint firstItem="qD2-Cb-468" firstAttribute="top" secondItem="p5J-h9-Nun" secondAttribute="bottom" constant="28" id="uXo-Ev-7Dm"/>
+                                <constraint firstItem="anF-PB-Wrm" firstAttribute="leading" secondItem="yBu-r2-8SF" secondAttribute="leading" constant="16" id="ztQ-KV-2zk"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="yBu-r2-8SF" firstAttribute="centerX" secondItem="SMn-uh-sex" secondAttribute="centerX" id="3ps-zQ-Ldq"/>
+                        <constraint firstItem="yBu-r2-8SF" firstAttribute="centerY" secondItem="SMn-uh-sex" secondAttribute="centerY" id="7vE-y6-jQn"/>
+                        <constraint firstAttribute="bottom" secondItem="yBu-r2-8SF" secondAttribute="bottom" id="FSi-nt-9Dr"/>
+                        <constraint firstItem="yBu-r2-8SF" firstAttribute="top" secondItem="SMn-uh-sex" secondAttribute="top" id="Xr2-hy-sJG"/>
+                        <constraint firstItem="yBu-r2-8SF" firstAttribute="leading" secondItem="SMn-uh-sex" secondAttribute="leading" id="dXN-Qh-du3"/>
+                        <constraint firstAttribute="trailing" secondItem="yBu-r2-8SF" secondAttribute="trailing" id="e3G-x2-Icm"/>
+                    </constraints>
+                </scrollView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AXV-Pm-O5N">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                    <subviews>
+                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="5gB-rh-4OY">
+                            <rect key="frame" x="197" y="438" width="20" height="20"/>
+                        </activityIndicatorView>
+                    </subviews>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="displayP3"/>
+                    <constraints>
+                        <constraint firstItem="5gB-rh-4OY" firstAttribute="centerX" secondItem="AXV-Pm-O5N" secondAttribute="centerX" id="VmR-Bw-wV5"/>
+                        <constraint firstItem="5gB-rh-4OY" firstAttribute="centerY" secondItem="AXV-Pm-O5N" secondAttribute="centerY" id="lOF-lc-cfI"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="W0A-RC-p6x"/>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="AXV-Pm-O5N" firstAttribute="leading" secondItem="2" secondAttribute="leading" id="8QY-Xd-d2Y"/>
+                <constraint firstItem="SMn-uh-sex" firstAttribute="top" secondItem="W0A-RC-p6x" secondAttribute="top" id="MXL-Uw-8e5"/>
+                <constraint firstItem="SMn-uh-sex" firstAttribute="leading" secondItem="W0A-RC-p6x" secondAttribute="leading" id="Vql-Ji-46v"/>
+                <constraint firstAttribute="bottom" secondItem="AXV-Pm-O5N" secondAttribute="bottom" id="gzJ-dh-OTC"/>
+                <constraint firstItem="W0A-RC-p6x" firstAttribute="bottom" secondItem="SMn-uh-sex" secondAttribute="bottom" id="nXS-7Q-MBv"/>
+                <constraint firstAttribute="trailing" secondItem="AXV-Pm-O5N" secondAttribute="trailing" id="rQU-Xt-wS9"/>
+                <constraint firstItem="AXV-Pm-O5N" firstAttribute="top" secondItem="2" secondAttribute="top" id="tXh-bJ-oUB"/>
+                <constraint firstItem="W0A-RC-p6x" firstAttribute="trailing" secondItem="SMn-uh-sex" secondAttribute="trailing" id="uZf-em-O88"/>
+            </constraints>
+            <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+            <point key="canvasLocation" x="92" y="17"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="bg_invite_friend" width="204" height="190"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

@@ -1,7 +1,7 @@
 ﻿using PrankChat.Mobile.iOS.Binding;
+using PrankChat.Mobile.iOS.Controls;
 using UIKit;
 using WebKit;
-using PrankChat.Mobile.iOS.Controls;
 
 namespace PrankChat.Mobile.iOS.Extensions
 {
@@ -18,6 +18,9 @@ namespace PrankChat.Mobile.iOS.Extensions
 
         public static string BindOrderImageStyle(this UIImageView _)
             => nameof(UIImageViewOrderTypeTargetBinding);
+
+        public static string BindAttributedText(this UILabel _)
+            => nameof(UILabelAttributedTextTargetBinding);
 
         public static string BindStartPadding(this FloatPlaceholderTextField _)
             => FloatPlaceholderTextFieldPaddingTargetBinding.StartPadding;

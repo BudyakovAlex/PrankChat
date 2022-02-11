@@ -12,7 +12,9 @@ using static Android.App.Application;
 
 namespace PrankChat.Mobile.Droid
 {
-    [Application(UsesCleartextTraffic = true)]
+    [Application(
+        Theme = "@style/Theme.PrankChat.Base",
+        UsesCleartextTraffic = true)]
     public class MainApplication : Application, IActivityLifecycleCallbacks
     {     
         protected MainApplication(IntPtr javaReference, JniHandleOwnership transfer) : base(javaReference, transfer)

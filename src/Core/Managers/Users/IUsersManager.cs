@@ -38,5 +38,7 @@ namespace PrankChat.Mobile.Core.Managers.Users
         Task<bool> SavePasportDataAsync(UserPasportData userPasportData);
 
         Task DeleteCardAsync(int id);
+
+        Task<object> InviteFriendAsync(string email);
     }
 }

@@ -4,13 +4,14 @@ using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.Managers.Competitions;
 using PrankChat.Mobile.Core.Messages;
 using PrankChat.Mobile.Core.Models.Enums;
-using PrankChat.Mobile.Core.ViewModels.Abstract.Items;
 using PrankChat.Mobile.Core.Providers;
+using PrankChat.Mobile.Core.ViewModels.Abstract.Items;
+using PrankChat.Mobile.Core.ViewModels.Common.Items;
 using PrankChat.Mobile.Core.Wrappers;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
-using System;
 
 namespace PrankChat.Mobile.Core.ViewModels.Competition
 {
@@ -23,12 +24,15 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
         private readonly ICompetitionsManager _competitionsManager;
         private readonly IWalkthroughsProvider _walkthroughsProvider;
 
-        private ExecutionStateWrapper _loadDataStateWrapper;
+        private readonly ExecutionStateWrapper _loadDataStateWrapper;
 
-        public CompetitionsViewModel(ICompetitionsManager competitionsManager, IWalkthroughsProvider walkthroughsProvider)
+        public CompetitionsViewModel(ICompetitionsManager competitionsManager,
+                                     IWalkthroughsProvider walkthroughsProvider,
+                                     InviteFriendItemViewModel inviteFriendItemViewModel)
         {
             _competitionsManager = competitionsManager;
             _walkthroughsProvider = walkthroughsProvider;
+            InviteFriendItemViewModel = inviteFriendItemViewModel;
 
             _loadDataStateWrapper = new ExecutionStateWrapper();
             _loadDataStateWrapper.SubscribeToEvent<ExecutionStateWrapper, bool>(
@@ -50,6 +54,8 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
         public IMvxAsyncCommand LoadDataCommand { get; }
 
         public IMvxAsyncCommand ShowWalkthrouthCommand { get; }
+
+        public InviteFriendItemViewModel InviteFriendItemViewModel { get; }
 
         public override bool IsBusy => base.IsBusy || _loadDataStateWrapper.IsBusy;
 
