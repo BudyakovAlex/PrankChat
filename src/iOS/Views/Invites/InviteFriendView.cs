@@ -87,6 +87,11 @@ namespace PrankChat.Mobile.iOS.Views.Invites
 
         private bool OnEmailTextFieldShouldReturn(UITextField _)
         {
+            if (!ViewModel.SendCommand.CanExecute())
+            {
+                return false;
+            }
+
             EmailTextField.EndEditing(true);
             ViewModel.SendCommand.Execute();
 
