@@ -51,19 +51,19 @@ namespace PrankChat.Mobile.Core.Providers.Configuration
         {
             Periods = new List<Period>()
             {
-                new Period(1, $"1 {Resources.Hour}"),
-                new Period(2, $"2 {Resources.Hours}"),
-                new Period(4, $"4 {Resources.Hours}"),
+                new Period(1, $"1 {Resources.HourSingular}"),
+                new Period(2, $"2 {Resources.Hour}"),
+                new Period(4, $"4 {Resources.Hour}"),
                 new Period(6, $"6 {Resources.Hours}"),
                 new Period(8, $"8 {Resources.Hours}"),
                 new Period(12, $"12 {Resources.Hours}"),
                 new Period(16, $"16 {Resources.Hours}"),
                 new Period(20, $"20 {Resources.Hours}"),
-                new Period(24, $"24 {Resources.Hours}"),
-                new Period(32, $"32 {Resources.Hours}"),
+                new Period(24, $"24 {Resources.Hour}"),
+                new Period(32, $"32 {Resources.Hour}"),
                 new Period(36, $"36 {Resources.Hours}"),
                 new Period(40, $"40 {Resources.Hours}"),
-                new Period(44, $"44 {Resources.Hours}"),
+                new Period(44, $"44 {Resources.Hour}"),
                 new Period(48, $"48 {Resources.Hours}"),
             };
         }
