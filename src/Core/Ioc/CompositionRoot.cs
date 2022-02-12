@@ -31,6 +31,7 @@ using PrankChat.Mobile.Core.Services.Network.Http.Users;
 using PrankChat.Mobile.Core.Services.Network.Http.Video;
 using PrankChat.Mobile.Core.Services.Notifications;
 using PrankChat.Mobile.Core.ViewModels.Abstract;
+using PrankChat.Mobile.Core.ViewModels.Common.Items;
 using PrankChat.Mobile.Managers.Common;
 
 namespace PrankChat.Mobile.Core.Ioc
@@ -100,6 +101,7 @@ namespace PrankChat.Mobile.Core.Ioc
         {
             Container.RegisterSingleton<ISystemTimer, SystemTimer>();
             Container.RegisterSingleton(Container.IocConstruct<NotificationBadgeViewModel>());
+            Container.RegisterSingleton(Container.IocConstruct<InviteFriendItemViewModel>());
         }
 
         private void RegisterProviders()

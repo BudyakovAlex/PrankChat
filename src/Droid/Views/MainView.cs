@@ -11,13 +11,13 @@ using Google.Android.Material.Tabs;
 using MvvmCross.Binding.BindingContext;
 using PrankChat.Mobile.Core.ViewModels;
 using PrankChat.Mobile.Droid.Controls;
+using PrankChat.Mobile.Droid.Extensions;
 using PrankChat.Mobile.Droid.Listeners;
-using PrankChat.Mobile.Droid.Views.Base;
 using PrankChat.Mobile.Droid.Presenters.Attributes;
 using PrankChat.Mobile.Droid.Utils.Helpers;
+using PrankChat.Mobile.Droid.Views.Base;
 using System.Linq;
 using Localization = PrankChat.Mobile.Core.Localization.Resources;
-using PrankChat.Mobile.Droid.Extensions;
 
 namespace PrankChat.Mobile.Droid.Views
 {
@@ -37,10 +37,22 @@ namespace PrankChat.Mobile.Droid.Views
         private IMenuItem _searchMenuItem;
         private IMenuItem _infoMenuItem;
         private IMenuItem _notificationsMenuItem;
+        private IMenuItem _inviteFriendMenuItem;
 
         public MainView()
         {
             _tabViewOnTouchListener = new ViewOnTouchListener(OnTabItemTouched);
+        }
+
+        public bool HasInviteFriendBadge
+        {
+            set
+            {
+                var id = value
+                    ? Resource.Drawable.ic_invite_friend_with_badge
+                    : Resource.Drawable.ic_invite_friend;
+                _inviteFriendMenuItem?.SetIcon(id);
+            }
         }
 
         private bool _hasUnreadNotifications;
@@ -52,6 +64,17 @@ namespace PrankChat.Mobile.Droid.Views
                 _hasUnreadNotifications = value;
                 var iconId = _hasUnreadNotifications ? Resource.Drawable.ic_notification_with_bage : Resource.Drawable.ic_notification;
                 _notificationsMenuItem?.SetIcon(iconId);
+            }
+        }
+
+        private bool _canInviteFriend;
+        public bool CanInviteFriend
+        {
+            get => _canInviteFriend;
+            set
+            {
+                _canInviteFriend = value;
+                UpdateMenuItemsVisibility();
             }
         }
 
@@ -81,9 +104,9 @@ namespace PrankChat.Mobile.Droid.Views
             _searchMenuItem = menu.GetItem(0);
             _infoMenuItem = menu.GetItem(1);
             _notificationsMenuItem = menu.GetItem(2);
+            _inviteFriendMenuItem = menu.GetItem(3);
 
-            _searchMenuItem?.SetVisible(_tabLayout?.SelectedTabPosition == 0);
-            _infoMenuItem?.SetVisible(_tabLayout?.SelectedTabPosition != 0);
+            UpdateMenuItemsVisibility();
 
             var iconId = _hasUnreadNotifications ? Resource.Drawable.ic_notification_with_bage : Resource.Drawable.ic_notification;
             _notificationsMenuItem.SetIcon(iconId);
@@ -98,14 +121,22 @@ namespace PrankChat.Mobile.Droid.Views
                 case Resource.Id.notification_button:
                     ViewModel.ShowNotificationCommand.Execute(null);
                     return true;
+
                 case Resource.Id.info_button:
-                    ViewModel.ShowWalkthrouthCommand?.Execute(_tabLayout.SelectedTabPosition);
+                    ViewModel.ShowWalkthrouthCommand.Execute(_tabLayout.SelectedTabPosition);
                     return true;
+
                 case Resource.Id.search_button:
                     ViewModel.ShowSearchCommand.Execute(null);
                     return true;
+
+                case Resource.Id.invite_friend_button:
+                    ViewModel.InviteFriendItemViewModel.InviteFriendCommand.Execute();
+                    return true;
+
+                default:
+                    return base.OnOptionsItemSelected(item);
             }
-            return base.OnOptionsItemSelected(item);
         }
 
         protected override void Bind()
@@ -115,6 +146,8 @@ namespace PrankChat.Mobile.Droid.Views
             using var bindingSet = this.CreateBindingSet<MainView, MainViewModel>();
 
             bindingSet.Bind(this).For(v => v.HasUnreadNotifications).To(vm => vm.NotificationBadgeViewModel.HasUnreadNotifications);
+            bindingSet.Bind(this).For(v => v.CanInviteFriend).To(vm => vm.InviteFriendItemViewModel.CanInviteFriend);
+            bindingSet.Bind(this).For(nameof(HasInviteFriendBadge)).To(vm => vm.InviteFriendItemViewModel.HasBadge);
         }
 
         protected override void Subscription()
@@ -174,8 +207,7 @@ namespace PrankChat.Mobile.Droid.Views
             _toolbarTitle.Visibility = e.Tab.Position == 2 ? ViewStates.Visible : ViewStates.Invisible;
             _toolbarTitle.Text = e.Tab.Position == 2 ? Localization.CreateOrder : string.Empty;
 
-            _infoMenuItem?.SetVisible(e.Tab.Position != 0);
-            _searchMenuItem?.SetVisible(e.Tab.Position == 0);
+            UpdateMenuItemsVisibility();
 
             var iconView = e.Tab.View.FindViewById<ImageView>(Resource.Id.tab_icon);
             var textView = e.Tab.View.FindViewById<TextView>(Resource.Id.tab_title);
@@ -242,6 +274,15 @@ namespace PrankChat.Mobile.Droid.Views
             }
 
             tab.SetCustomView(tabView);
+        }
+
+        private void UpdateMenuItemsVisibility()
+        {
+            var selectedTabPosition = _tabLayout?.SelectedTabPosition;
+
+            _searchMenuItem?.SetVisible(selectedTabPosition == 0);
+            _infoMenuItem?.SetVisible(selectedTabPosition != 0);
+            _inviteFriendMenuItem?.SetVisible(CanInviteFriend && selectedTabPosition == 0);
         }
 
         protected override void OnResume()

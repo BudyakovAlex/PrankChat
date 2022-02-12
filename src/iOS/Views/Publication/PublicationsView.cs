@@ -1,32 +1,36 @@
 ﻿using CoreGraphics;
 using MvvmCross.Binding.BindingContext;
+using MvvmCross.Binding.Combiners;
 using MvvmCross.Platforms.Ios.Binding;
 using MvvmCross.Platforms.Ios.Binding.Views.Gestures;
 using MvvmCross.Platforms.Ios.Presenters.Attributes;
 using MvvmCross.Platforms.Ios.Views;
+using PrankChat.Mobile.Core.Extensions.MvvmCross;
 using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.Models.Enums;
 using PrankChat.Mobile.Core.ViewModels.Publication;
 using PrankChat.Mobile.Core.ViewModels.Publication.Items;
 using PrankChat.Mobile.iOS.AppTheme;
-using PrankChat.Mobile.iOS.Infrastructure;
-using PrankChat.Mobile.iOS.Infrastructure.Helpers;
-using PrankChat.Mobile.iOS.Converters;
-using PrankChat.Mobile.iOS.SourcesAndDelegates;
-using PrankChat.Mobile.iOS.Views.Base;
-using UIKit;
-using Xamarin.Essentials;
 using PrankChat.Mobile.iOS.Common;
 using PrankChat.Mobile.iOS.Controls;
-using MvvmCross.Binding.Combiners;
+using PrankChat.Mobile.iOS.Converters;
+using PrankChat.Mobile.iOS.Infrastructure;
+using PrankChat.Mobile.iOS.Infrastructure.Helpers;
+using PrankChat.Mobile.iOS.SourcesAndDelegates;
+using PrankChat.Mobile.iOS.Views.Base;
+using System.Collections.Generic;
+using System.Linq;
+using UIKit;
+using Xamarin.Essentials;
 
 namespace PrankChat.Mobile.iOS.Views.Publication
 {
     [MvxTabPresentation(TabName = "Publications", TabIconName = ImageNames.IconUnselected, TabSelectedIconName = ImageNames.IconSelected)]
     public partial class PublicationsView : BaseRefreshableTabbedViewController<PublicationsViewModel>, IScrollableView
     {
-        private MvxUIRefreshControl _refreshControl;
+        private UIBarButtonItem _inviteFriendBarItem;
         private UIBarButtonItem _notificationBarItem;
+        private MvxUIRefreshControl _refreshControl;
         private EmptyView _emptyView;
 
         public VideoTableSource PublicationTableSource { get; private set; }
@@ -47,6 +51,11 @@ namespace PrankChat.Mobile.iOS.Views.Publication
             bindingSet.Bind(loadingOverlayView).For(v => v.BindVisible()).To(vm => vm.IsRefreshingData);
             bindingSet.Bind(_refreshControl).For(v => v.IsRefreshing).To(vm => vm.IsBusy);
             bindingSet.Bind(_refreshControl).For(v => v.RefreshCommand).To(vm => vm.ReloadItemsCommand);
+
+            bindingSet.Bind(_inviteFriendBarItem)
+                .For(v => v.Image)
+                .To(vm => vm.InviteFriendItemViewModel.HasBadge)
+                .WithConversion((bool hasInviteFriendBadge) => CreateInviteFriendImage(hasInviteFriendBadge));
 
             bindingSet.Bind(_notificationBarItem)
                 .For(v => v.Image)
@@ -105,12 +114,10 @@ namespace PrankChat.Mobile.iOS.Views.Publication
 		{
 			NavigationController.NavigationBar.SetNavigationBarStyle();
 
-            _notificationBarItem = NavigationItemHelper.CreateBarButton(ImageNames.IconNotification, ViewModel.ShowNotificationCommand);
-            NavigationItem?.SetRightBarButtonItems(new UIBarButtonItem[]
-            {
-                _notificationBarItem,
-                NavigationItemHelper.CreateBarButton(ImageNames.IconSearch, ViewModel.ShowSearchCommand)
-            }, true);
+            InitializeBarButtonItems(ViewModel.InviteFriendItemViewModel.CanInviteFriend);
+
+            var barButtonItems = GetBarButtonItems().ToArray();
+            NavigationItem?.SetRightBarButtonItems(barButtonItems, true);
 
             NavigationItem.LeftBarButtonItem = NavigationItemHelper.CreateBarLogoButton();
         }
@@ -127,11 +134,47 @@ namespace PrankChat.Mobile.iOS.Views.Publication
             tableView.RefreshControl = _refreshControl;
         }
 
+        private void InitializeBarButtonItems(bool canInviteFriend)
+        {
+            if (canInviteFriend)
+            {
+                _inviteFriendBarItem = NavigationItemHelper.CreateBarButton(
+                    ImageNames.IconInviteFriend,
+                    ViewModel.InviteFriendItemViewModel.InviteFriendCommand);
+            }
+
+            _notificationBarItem = NavigationItemHelper.CreateBarButton(
+                ImageNames.IconNotification,
+                ViewModel.ShowNotificationCommand);
+        }
+
+        private IEnumerable<UIBarButtonItem> GetBarButtonItems()
+        {
+            if (_inviteFriendBarItem != null)
+            {
+                yield return _inviteFriendBarItem;
+            }
+
+            yield return _notificationBarItem;
+            yield return NavigationItemHelper.CreateBarButton(ImageNames.IconSearch, ViewModel.ShowSearchCommand);
+        }
+
         private void CreateEmptyView()
         {
             _emptyView = EmptyView
                 .Create(Resources.PublicationListIsEmpty, ImageNames.ImageEmptyState)
                 .AttachToTableViewAsBackgroundView(tableView);
+        }
+
+        private UIImage CreateInviteFriendImage(bool hasInviteFriendBadge)
+        {
+            var imageName = hasInviteFriendBadge
+                ? ImageNames.IconInviteFriendWithBadge
+                : ImageNames.IconInviteFriend;
+
+            return UIImage
+                .FromBundle(imageName)
+                .ImageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal);
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using Android.Views;
-using PrankChat.Mobile.Droid.Bindings;
 using Android.Widget;
 using AndroidX.AppCompat.Widget;
+using PrankChat.Mobile.Droid.Bindings;
 using static Google.Android.Material.Tabs.TabLayout;
 
 namespace PrankChat.Mobile.Droid.Extensions
@@ -34,6 +34,9 @@ namespace PrankChat.Mobile.Droid.Extensions
 
         public static string BindTabText(this Tab _)
             => nameof(TabLayoutTabTextBinding);
+
+        public static string BindAttributedText(this TextView _)
+            => nameof(TextViewAttributedTextTargetBinding);
 
         public static string BindPaddingStart(this View _)
             => PaddingTargetBinding.StartPadding;

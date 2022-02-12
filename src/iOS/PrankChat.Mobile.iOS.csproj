@@ -409,6 +409,13 @@
 		<Compile Include="Plugins\HttpClient\Delegates\NSUrlSessionDataDelegate.cs" />
 		<Compile Include="Plugins\HttpClient\Builders\FormDataBuilder.cs" />
 		<Compile Include="Binding\UITabBarControllerIsEnabedTargetBinding.cs" />
+		<InterfaceDefinition Include="Views\Invites\InviteFriendView.xib" />
+		<Compile Include="Views\Invites\InviteFriendView.cs" />
+		<Compile Include="Views\Invites\InviteFriendView.designer.cs">
+		  <DependentUpon>InviteFriendView.cs</DependentUpon>
+		</Compile>
+		<Compile Include="Extensions\ColorExtensions.cs" />
+		<Compile Include="Binding\UILabelAttributedTextTargetBinding.cs" />
 	</ItemGroup>
 	<ItemGroup>
 		<Reference Include="System" />
@@ -1179,6 +1186,12 @@
 		<ImageAsset Include="Assets.xcassets\ic_info.imageset\ic_info.pdf" />
 		<ImageAsset Include="Assets.xcassets\img_empty_state.imageset\Contents.json" />
 		<ImageAsset Include="Assets.xcassets\img_empty_state.imageset\img_empty_state.pdf" />
+		<ImageAsset Include="Assets.xcassets\bg_invite_friend.imageset\Contents.json" />
+		<ImageAsset Include="Assets.xcassets\bg_invite_friend.imageset\bg_invite_friend.pdf" />
+		<ImageAsset Include="Assets.xcassets\ic_invite_friend.imageset\Contents.json" />
+		<ImageAsset Include="Assets.xcassets\ic_invite_friend_with_badge.imageset\Contents.json" />
+		<ImageAsset Include="Assets.xcassets\ic_invite_friend_with_badge.imageset\ic_invite_friend_with_badge.pdf" />
+		<ImageAsset Include="Assets.xcassets\ic_invite_friend.imageset\ic_invite_friend.pdf" />
 	</ItemGroup>
 	<ItemGroup>
 		<Folder Include="Assets.xcassets\bg_onboarding_fifth_slide.imageset\" />
@@ -1244,6 +1257,10 @@
 		<Folder Include="Assets.xcassets\img_empty_state.imageset\" />
 		<Folder Include="Plugins\HttpClient\Delegates\" />
 		<Folder Include="Plugins\HttpClient\Builders\" />
+		<Folder Include="Views\Invites\" />
+		<Folder Include="Assets.xcassets\bg_invite_friend.imageset\" />
+		<Folder Include="Assets.xcassets\ic_invite_friend.imageset\" />
+		<Folder Include="Assets.xcassets\ic_invite_friend_with_badge.imageset\" />
 	</ItemGroup>
 	<Choose>
 		<When Condition="'$(MtouchLink)'=='Full' Or '$(MtouchLink)'=='SdkOnly'">

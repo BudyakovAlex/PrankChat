@@ -1882,5 +1882,41 @@ namespace PrankChat.Mobile.Core.Localization {
                 return ResourceManager.GetString("VideoLimitOnUploading", resourceCulture);
             }
         }
+        
+        public static string InviteFriend {
+            get {
+                return ResourceManager.GetString("InviteFriend", resourceCulture);
+            }
+        }
+        
+        public static string Send {
+            get {
+                return ResourceManager.GetString("Send", resourceCulture);
+            }
+        }
+        
+        public static string InviteFriendDescriptionPart1 {
+            get {
+                return ResourceManager.GetString("InviteFriendDescriptionPart1", resourceCulture);
+            }
+        }
+        
+        public static string InviteFriendDescriptionPart2 {
+            get {
+                return ResourceManager.GetString("InviteFriendDescriptionPart2", resourceCulture);
+            }
+        }
+        
+        public static string EnterFriendsEmail {
+            get {
+                return ResourceManager.GetString("EnterFriendsEmail", resourceCulture);
+            }
+        }
+        
+        public static string InviteFriendSuccessfulMessage {
+            get {
+                return ResourceManager.GetString("InviteFriendSuccessfulMessage", resourceCulture);
+            }
+        }
     }
 }

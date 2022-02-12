@@ -2,6 +2,7 @@
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
+using Microsoft.Extensions.Logging;
 using MvvmCross;
 using MvvmCross.Binding.Bindings.Target.Construction;
 using MvvmCross.IoC;
@@ -9,29 +10,28 @@ using MvvmCross.Platforms.Ios.Core;
 using PrankChat.Mobile.Core;
 using PrankChat.Mobile.Core.BusinessServices;
 using PrankChat.Mobile.Core.Ioc;
+using PrankChat.Mobile.Core.Plugins.UserInteraction;
 using PrankChat.Mobile.Core.Providers.Configuration;
 using PrankChat.Mobile.Core.Providers.Platform;
 using PrankChat.Mobile.Core.Providers.UserSession;
 using PrankChat.Mobile.Core.Services.ExternalAuth;
 using PrankChat.Mobile.Core.Services.FileSystem;
-using PrankChat.Mobile.iOS.Services.ExternalAuth;
-using PrankChat.Mobile.iOS.Services.ExternalAuth.AppleSignIn;
+using PrankChat.Mobile.Core.Services.Network;
+using PrankChat.Mobile.iOS.Binding;
+using PrankChat.Mobile.iOS.Common;
 using PrankChat.Mobile.iOS.Controls;
 using PrankChat.Mobile.iOS.PlatformBusinessServices.FileSystem;
-using PrankChat.Mobile.iOS.Plugins.Video;
-using PrankChat.Mobile.iOS.Binding;
-using UIKit;
-using WebKit;
-using PrankChat.Mobile.Core.Plugins.UserInteraction;
+using PrankChat.Mobile.iOS.Plugins.HttpClient;
+using PrankChat.Mobile.iOS.Plugins.Logging;
 using PrankChat.Mobile.iOS.Plugins.UserInteraction;
-using PrankChat.Mobile.iOS.Common;
-using Microsoft.Extensions.Logging;
+using PrankChat.Mobile.iOS.Plugins.Video;
+using PrankChat.Mobile.iOS.Services.ExternalAuth;
+using PrankChat.Mobile.iOS.Services.ExternalAuth.AppleSignIn;
 using Serilog;
 using Serilog.Extensions.Logging;
 using System;
-using PrankChat.Mobile.iOS.Plugins.Logging;
-using PrankChat.Mobile.iOS.Plugins.HttpClient;
-using PrankChat.Mobile.Core.Services.Network;
+using UIKit;
+using WebKit;
 
 namespace PrankChat.Mobile.iOS
 {
@@ -99,6 +99,7 @@ namespace PrankChat.Mobile.iOS
             registry.RegisterCustomBindingFactory<UIButton>(nameof(UIButtonOrderTypeTargetBinding), v => new UIButtonOrderTypeTargetBinding(v));
             registry.RegisterCustomBindingFactory<WKWebView>(nameof(WKWebViewHtmlStringTargetBinding), v => new WKWebViewHtmlStringTargetBinding(v));
             registry.RegisterCustomBindingFactory<UITabBarController>(nameof(UITabBarControllerIsEnabedTargetBinding), v => new UITabBarControllerIsEnabedTargetBinding(v));
+            registry.RegisterCustomBindingFactory<UILabel>(nameof(UILabelAttributedTextTargetBinding), v => new UILabelAttributedTextTargetBinding(v));
 
             registry.RegisterCustomBindingFactory<FloatPlaceholderTextField>(FloatPlaceholderTextFieldPaddingTargetBinding.StartPadding, view => new FloatPlaceholderTextFieldPaddingTargetBinding(view, FloatPlaceholderTextFieldPaddingTargetBinding.StartPadding));
             registry.RegisterCustomBindingFactory<FloatPlaceholderTextField>(FloatPlaceholderTextFieldPaddingTargetBinding.EndPadding, view => new FloatPlaceholderTextFieldPaddingTargetBinding(view, FloatPlaceholderTextFieldPaddingTargetBinding.EndPadding));

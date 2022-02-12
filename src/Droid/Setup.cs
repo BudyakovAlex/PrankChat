@@ -66,6 +66,7 @@ namespace PrankChat.Mobile.Droid
             registry.RegisterCustomBindingFactory<View>(PaddingTargetBinding.TopPadding, view => new PaddingTargetBinding(view, PaddingTargetBinding.TopPadding));
             registry.RegisterCustomBindingFactory<View>(PaddingTargetBinding.BottomPadding, view => new PaddingTargetBinding(view, PaddingTargetBinding.BottomPadding));
             registry.RegisterCustomBindingFactory<TabLayout.Tab>(nameof(TabLayoutTabTextBinding), view => new TabLayoutTabTextBinding(view));
+            registry.RegisterCustomBindingFactory<TextView>(nameof(TextViewAttributedTextTargetBinding), view => new TextViewAttributedTextTargetBinding(view));
         }
 
         protected override ILoggerProvider CreateLogProvider()

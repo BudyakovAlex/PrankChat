@@ -62,6 +62,7 @@ namespace PrankChat.Mobile.Core.Common
             public const string MuteStateKey = nameof(MuteStateKey);
             public const string IsOnBoardingShown = nameof(IsOnBoardingShown);
             public const string User = nameof(User);
+            public const string InviteFriendLastNavigationTicks = nameof(InviteFriendLastNavigationTicks);
         }
 
         public static class Notification

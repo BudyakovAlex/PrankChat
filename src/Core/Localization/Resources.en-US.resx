@@ -1271,4 +1271,22 @@ Taking such a task the user will have to complete it or lose the Deposit!</value
   <data name="VideoLimitOnUploading" xml:space="preserve">
     <value>Video must be lower than 150mb</value>
   </data>
+  <data name="InviteFriend" xml:space="preserve">
+    <value>Invite a friend</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Send</value>
+  </data>
+  <data name="InviteFriendDescriptionPart1" xml:space="preserve">
+    <value>Invite your friend and get</value>
+  </data>
+  <data name="InviteFriendDescriptionPart2" xml:space="preserve">
+    <value>of this earnings!</value>
+  </data>
+  <data name="EnterFriendsEmail" xml:space="preserve">
+    <value>Enter friend's email</value>
+  </data>
+  <data name="InviteFriendSuccessfulMessage" xml:space="preserve">
+    <value>You've sent an invitation to</value>
+  </data>
 </root>
