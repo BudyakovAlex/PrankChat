@@ -4,10 +4,11 @@ namespace PrankChat.Mobile.Core.Common
 {
     public sealed class AttributedText
     {
-        public AttributedText(string text,
-                              int? textSize = null,
-                              Color? textColor = null,
-                              Color? backgroundColor = null)
+        public AttributedText(
+            string text,
+            int? textSize = null,
+            Color? textColor = null,
+            Color? backgroundColor = null)
         {
             Text = text;
             TextSize = textSize;

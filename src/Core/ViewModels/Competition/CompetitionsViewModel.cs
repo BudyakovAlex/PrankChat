@@ -26,9 +26,10 @@ namespace PrankChat.Mobile.Core.ViewModels.Competition
 
         private readonly ExecutionStateWrapper _loadDataStateWrapper;
 
-        public CompetitionsViewModel(ICompetitionsManager competitionsManager,
-                                     IWalkthroughsProvider walkthroughsProvider,
-                                     InviteFriendItemViewModel inviteFriendItemViewModel)
+        public CompetitionsViewModel(
+            ICompetitionsManager competitionsManager,
+            IWalkthroughsProvider walkthroughsProvider,
+            InviteFriendItemViewModel inviteFriendItemViewModel)
         {
             _competitionsManager = competitionsManager;
             _walkthroughsProvider = walkthroughsProvider;
