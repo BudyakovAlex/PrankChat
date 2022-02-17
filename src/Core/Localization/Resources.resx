@@ -210,6 +210,9 @@
     <value>Часа</value>
     <comment>Fuzzy</comment>
   </data>
+  <data name="HourSingular" xml:space="preserve">
+    <value>Час</value>
+  </data>
   <data name="Minute" xml:space="preserve">
     <value>Минут</value>
     <comment>Fuzzy</comment>
@@ -1289,6 +1292,13 @@ Apple Inc. не является спонсором проведения кон�
     <value>Введите email друга</value>
   </data>
   <data name="InviteFriendSuccessfulMessage" xml:space="preserve">
-    <value>Вы отправили приглашение</value>
+    <value>может приносить Вам дополнительный доход, если вы не смогли отправить приглашение попробуйте еще раз!</value>
+  </data>
+  <data name="InviteEmailSubject" xml:space="preserve">
+    <value>Приглашение в OnPlay!</value>
+  </data>
+  <data name="InviteEmailBodyTemplate" xml:space="preserve">
+    <value>Привет. Смотри что я нашёл!!! Срочно скачивай - можно быстро заработать денег или купить себе эксклюзивных видосов в соцсети.</value>
+    {0}
   </data>
 </root>

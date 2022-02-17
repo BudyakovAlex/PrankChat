@@ -1,10 +1,15 @@
 ﻿using MvvmCross.Commands;
+using Newtonsoft.Json;
 using PrankChat.Mobile.Core.Common;
 using PrankChat.Mobile.Core.Extensions;
 using PrankChat.Mobile.Core.Localization;
 using PrankChat.Mobile.Core.Managers.Users;
 using PrankChat.Mobile.Core.Models.Enums;
+using PrankChat.Mobile.Core.Providers.Configuration;
 using PrankChat.Mobile.Core.ViewModels.Abstract;
+using System;
+using System.Buffers.Text;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace PrankChat.Mobile.Core.ViewModels.Invites
@@ -14,11 +19,12 @@ namespace PrankChat.Mobile.Core.ViewModels.Invites
         private const int EarningsPercent = 10;
 
         private readonly IUsersManager _usersManager;
+        private readonly IEnvironmentConfigurationProvider _environmentConfigurationProvider;
 
-        public InviteFriendViewModel(IUsersManager usersManager)
+        public InviteFriendViewModel(IUsersManager usersManager, IEnvironmentConfigurationProvider environmentConfigurationProvider)
         {
             _usersManager = usersManager;
-
+            _environmentConfigurationProvider = environmentConfigurationProvider;
             SendCommand = this.CreateCommand(SendAsync, () => !HasError && Email.IsNotNullNorEmpty());
         }
 
@@ -59,7 +65,21 @@ namespace PrankChat.Mobile.Core.ViewModels.Invites
                 return;
             }
 
-            var message = $"{Resources.InviteFriendSuccessfulMessage} {Email}";
+            var urlBody = JsonConvert.SerializeObject(new
+            {
+                login = UserSessionProvider.User.Login,
+                email = Email
+            });
+
+            var url = Path.Combine(
+                _environmentConfigurationProvider.Environment.SiteUrl,
+                RestConstants.ProfileInvite,
+                urlBody.ToBase64());
+
+            var body = string.Format(Resources.InviteEmailBodyTemplate, url);
+            await Xamarin.Essentials.Email.ComposeAsync(Resources.InviteEmailSubject, body, Email);
+
+            var message = $"{Email} {Resources.InviteFriendSuccessfulMessage}";
             UserInteraction.ShowToast(message, ToastType.Positive);
 
             Email = null;

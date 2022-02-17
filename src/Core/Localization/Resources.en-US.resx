@@ -210,6 +210,9 @@
     <value>Hours</value>
     <comment>Fuzzy</comment>
   </data>
+   <data name="HourSingular" xml:space="preserve">
+    <value>Hour</value>
+  </data>
   <data name="Minute" xml:space="preserve">
     <value>Minutes</value>
     <comment>Fuzzy</comment>
@@ -1287,6 +1290,13 @@ Taking such a task the user will have to complete it or lose the Deposit!</value
     <value>Enter friend's email</value>
   </data>
   <data name="InviteFriendSuccessfulMessage" xml:space="preserve">
-    <value>You've sent an invitation to</value>
+    <value>can bring you additional income, if you could not send an invitation, try again!</value>
+  </data>
+  <data name="InviteEmailSubject" xml:space="preserve">
+    <value>Invite to OnPlay!</value>
+  </data>
+  <data name="InviteEmailBodyTemplate" xml:space="preserve">
+    <value>Hello. Look what I've found!!! Urgent download - you can quickly earn money or buy yourself exclusive videos on the social network.
+{0}</value>
   </data>
 </root>

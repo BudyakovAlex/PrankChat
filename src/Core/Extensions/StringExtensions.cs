@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using System;
+using System.Buffers.Text;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace PrankChat.Mobile.Core.Extensions
@@ -90,6 +92,12 @@ namespace PrankChat.Mobile.Core.Extensions
         {
             var stringBytes = Encoding.UTF8.GetBytes(source);
             return Encoding.Unicode.GetString(stringBytes);
+        }
+
+        public static string ToBase64(this string source)
+        {
+            var textBytes = Encoding.UTF8.GetBytes(source);
+            return Convert.ToBase64String(textBytes);
         }
     }
 }

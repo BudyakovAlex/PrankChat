@@ -191,6 +191,12 @@ namespace PrankChat.Mobile.Core.Localization {
             }
         }
         
+        public static string HourSingular {
+            get {
+                return ResourceManager.GetString("HourSingular", resourceCulture);
+            }
+        }
+        
         public static string Minute {
             get {
                 return ResourceManager.GetString("Minute", resourceCulture);
@@ -1916,6 +1922,18 @@ namespace PrankChat.Mobile.Core.Localization {
         public static string InviteFriendSuccessfulMessage {
             get {
                 return ResourceManager.GetString("InviteFriendSuccessfulMessage", resourceCulture);
+            }
+        }
+        
+        public static string InviteEmailSubject {
+            get {
+                return ResourceManager.GetString("InviteEmailSubject", resourceCulture);
+            }
+        }
+        
+        public static string InviteEmailBodyTemplate {
+            get {
+                return ResourceManager.GetString("InviteEmailBodyTemplate", resourceCulture);
             }
         }
     }
