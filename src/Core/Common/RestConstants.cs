@@ -10,6 +10,7 @@
         public const string ProfileOwnOrders = "profile/orders/own";
         public const string ProfileOwnOrdersInExecute = "profile/orders/execute";
         public const string ProfileInvite = "profile/invite";
+        public const string InviteConfirm = "invite/confirm/?request=";
         public const string PolicyEndpoint = "https://onplaysite.com/policy";
         public const string StorePassportDataResource = "me/requisites";
 

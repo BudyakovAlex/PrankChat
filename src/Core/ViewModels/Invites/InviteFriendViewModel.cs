@@ -73,8 +73,7 @@ namespace PrankChat.Mobile.Core.ViewModels.Invites
 
             var url = Path.Combine(
                 _environmentConfigurationProvider.Environment.SiteUrl,
-                RestConstants.ProfileInvite,
-                urlBody.ToBase64());
+                $"{RestConstants.InviteConfirm}{urlBody.ToBase64()}");
 
             var body = string.Format(Resources.InviteEmailBodyTemplate, url);
             await Xamarin.Essentials.Email.ComposeAsync(Resources.InviteEmailSubject, body, Email);
