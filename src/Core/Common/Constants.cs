@@ -4,6 +4,11 @@ namespace PrankChat.Mobile.Core.Common
 {
     public static class Constants
     {
+        public static class Common
+        {
+            public const string DefaultCultureInfoIsoCode = "ru";
+        }
+
         public static class Configuration
         {
             public const string AppConfigFileName = "AppConfig.json";

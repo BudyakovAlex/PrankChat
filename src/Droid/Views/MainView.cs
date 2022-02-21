@@ -44,14 +44,17 @@ namespace PrankChat.Mobile.Droid.Views
             _tabViewOnTouchListener = new ViewOnTouchListener(OnTabItemTouched);
         }
 
+        private bool _hasInviteFriendBadge;
         public bool HasInviteFriendBadge
         {
+            get => _hasInviteFriendBadge;
             set
             {
                 var id = value
                     ? Resource.Drawable.ic_invite_friend_with_badge
                     : Resource.Drawable.ic_invite_friend;
                 _inviteFriendMenuItem?.SetIcon(id);
+                _hasInviteFriendBadge = value;
             }
         }
 
@@ -108,8 +111,17 @@ namespace PrankChat.Mobile.Droid.Views
 
             UpdateMenuItemsVisibility();
 
-            var iconId = _hasUnreadNotifications ? Resource.Drawable.ic_notification_with_bage : Resource.Drawable.ic_notification;
-            _notificationsMenuItem.SetIcon(iconId);
+            var notificationIconId = _hasUnreadNotifications
+                ? Resource.Drawable.ic_notification_with_bage
+                : Resource.Drawable.ic_notification;
+
+            _notificationsMenuItem.SetIcon(notificationIconId);
+
+            var inviteIconId = _hasInviteFriendBadge
+                ? Resource.Drawable.ic_invite_friend_with_badge
+                : Resource.Drawable.ic_invite_friend;
+
+            _inviteFriendMenuItem?.SetIcon(inviteIconId);
 
             return true;
         }
